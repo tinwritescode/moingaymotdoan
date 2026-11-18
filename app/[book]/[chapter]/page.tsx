@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChapterKeys } from "@/components/chapter-keys";
 import { ChapterReader } from "@/components/chapter-reader";
 import { SiteHeader } from "@/components/site-header";
 import { getContent, MODE, type ChapterLink, type ChapterView } from "@/lib/content";
@@ -73,6 +74,7 @@ export default async function ChapterPage(props: PageProps<"/[book]/[chapter]">)
           )}
         </nav>
       </SiteHeader>
+      <ChapterKeys prev={ch.prev && hrefOf(ch.prev)} next={ch.next && hrefOf(ch.next)} />
       <ChapterReader view={ch} />
     </>
   );
