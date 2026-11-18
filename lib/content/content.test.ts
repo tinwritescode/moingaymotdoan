@@ -75,7 +75,8 @@ describe("đường dẫn", () => {
 
   it("slug lạ hoặc đoạn chưa có ghi chú thì không tìm thấy", () => {
     expect(real.chapter({ slug: "khong-co", number: 1, mode: "nhap" })).toBeNull();
-    expect(real.chapter({ slug: "sang-the-ky", number: 50, mode: "nhap" })).toBeNull();
+    const onlyFirst = contentWith({ "sang-the-ky/1.md": note() });
+    expect(onlyFirst.chapter({ slug: "sang-the-ky", number: 2, mode: "nhap" })).toBeNull();
   });
 });
 
@@ -104,6 +105,11 @@ describe("chỗ dẫn", () => {
     expect(() => contentWith({ "sang-the-ky/1.md": note({ story: "X (Sáng-thế 9:6)." }) })).toThrow(
       /sang-the-ky\/1\.md: Tên sách lạ "Sáng-thế"/,
     );
+  });
+
+  it("nhiều file hỏng thì báo lỗi của tất cả cùng lúc", () => {
+    const bad = { "sang-the-ky/1.md": note({ story: "X (Sáng-thế 9:6)." }), "sang-the-ky/2.md": "rỗng" };
+    expect(() => contentWith(bad)).toThrow(/sang-the-ky\/1\.md:[\s\S]*sang-the-ky\/2\.md:/);
   });
 
   it("dẫn tới câu không tồn tại làm việc nạp báo lỗi", () => {
@@ -151,10 +157,29 @@ describe("nháp và công bố", () => {
   });
 
   it("đoạn trước và sau chỉ trỏ tới đoạn hiện được", () => {
+    const at = (ch: { book: { slug: string }; number: number } | null | undefined) =>
+      ch ? `${ch.book.slug}/${ch.number}` : null;
     const pub = c.chapter({ slug: "sang-the-ky", number: 1, mode: "cong-bo" });
-    expect([pub?.prev, pub?.next]).toEqual([null, 3]);
+    expect([at(pub?.prev), at(pub?.next)]).toEqual([null, "sang-the-ky/3"]);
     const draft = c.chapter({ slug: "sang-the-ky", number: 3, mode: "nhap" });
-    expect([draft?.prev, draft?.next]).toEqual([2, null]);
+    expect([at(draft?.prev), at(draft?.next)]).toEqual(["sang-the-ky/2", null]);
+  });
+});
+
+describe("đi qua sách kế", () => {
+  const at = (ch: { book: { slug: string }; number: number } | null | undefined) =>
+    ch ? `${ch.book.slug}/${ch.number}` : null;
+
+  it("hết sách thì đoạn sau là đoạn đầu của sách kế có ghi chú, bỏ qua sách chưa viết", () => {
+    const last = real.chapter({ slug: "xuat-e-dip-to-ky", number: 39, mode: "nhap" });
+    expect(at(last?.next)).toBe("ma-thi-o/1");
+    const first = real.chapter({ slug: "ma-thi-o", number: 1, mode: "nhap" });
+    expect(at(first?.prev)).toBe("xuat-e-dip-to-ky/39");
+  });
+
+  it("đầu sách đầu và cuối sách cuối thì không có đoạn trước/sau", () => {
+    expect(real.chapter({ slug: "sang-the-ky", number: 1, mode: "nhap" })?.prev).toBeNull();
+    expect(real.chapter({ slug: "cong-vu-cac-su-do", number: 28, mode: "nhap" })?.next).toBeNull();
   });
 });
 
@@ -169,6 +194,14 @@ describe("kiểm tra ghi chú khi nạp", () => {
     expect(() => contentWith({ "sang-the-ky/1.md": note({ opinions: ["**Calvin** nói."] }) })).toThrow(
       /thiếu dấu mức tin cậy/,
     );
+  });
+
+  it("ghi chú mới viết Câu chuyện, các phần khác để trống, vẫn nạp được", () => {
+    const rest = ["Ý chính", "Ý nghĩa sâu xa", "Lưu ý", "Các nhà giải kinh nói gì"];
+    const source = note().replace(/## Ý chính[\s\S]*/, rest.map((h) => `## ${h}`).join("\n\n"));
+    const ch = contentWith({ "sang-the-ky/1.md": source }).chapter({ slug: "sang-the-ky", number: 1, mode: "nhap" });
+    expect(ch?.sections.map((s) => s.paragraphs.length)).toEqual([1, 0, 0, 0]);
+    expect(ch?.opinions).toEqual([]);
   });
 
   it("thiếu phần hoặc sai thứ tự thì báo lỗi", () => {

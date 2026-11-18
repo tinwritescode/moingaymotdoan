@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { InlineText } from "@/components/inline";
-import { Reveal } from "@/components/reveal";
-import { SummaryLine } from "@/components/summary-line";
-import { getContent, MODE, type ChapterView, type Opinion } from "@/lib/content";
+import { ChapterReader } from "@/components/chapter-reader";
+import { SiteHeader } from "@/components/site-header";
+import { getContent, MODE, type ChapterLink, type ChapterView } from "@/lib/content";
 
 /** Only chapters with a ghi chú (and, in Công bố, only approved ones) exist; anything else is 404. */
 export const dynamicParams = false;
@@ -27,116 +26,54 @@ export async function generateMetadata(props: PageProps<"/[book]/[chapter]">): P
   return { title: `${ch.book.name} ${ch.number} — ${ch.title}` };
 }
 
-const LEVEL_LABEL = { cao: "Cao", vua: "Vừa", thap: "Thấp" } as const;
-const LEVEL_CLASS = { cao: "text-cao border-cao/50", vua: "text-vua border-vua/50", thap: "text-thap border-thap/50" } as const;
+const PAGER = "inline-flex min-h-11 items-center rounded-lg border border-rule px-3.5 text-sm";
 
-function DraftOpinion(props: { opinion: Opinion }) {
-  const o = props.opinion;
-  return (
-    <div>
-      <p>
-        <InlineText nodes={o.body} />
-      </p>
-      <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
-        <span className={`rounded border px-1.5 py-0.5 font-semibold ${LEVEL_CLASS[o.level]}`}>
-          Tin cậy: {LEVEL_LABEL[o.level]}
-        </span>
-        <span>{o.verified ? "Đã đối chiếu" : "Chưa đối chiếu"}</span>
-        <span>· {o.reason}</span>
-      </p>
-    </div>
-  );
-}
+const hrefOf = (l: ChapterLink) => `/${l.book.slug}/${l.number}`;
+/** Names the book only when the link leaves the current one. */
+const labelOf = (l: ChapterLink, here: ChapterView) =>
+  l.book.code === here.book.code ? `Đoạn ${l.number}` : `${l.book.name} ${l.number}`;
 
 export default async function ChapterPage(props: PageProps<"/[book]/[chapter]">) {
   const ch = await load(props.params);
-  const base = `/${ch.book.slug}`;
   return (
-    <article>
-      <Reveal>
-        <p className="text-sm text-muted">
+    <>
+      <SiteHeader book={ch.book.slug}>
+        <nav aria-label="Vị trí" className="flex gap-2 text-sm text-muted">
           <Link href="/" className="hover:text-accent">
             Mục lục
-          </Link>{" "}
-          · {ch.book.name}
-        </p>
-        <h1 className="mt-1 text-3xl font-semibold">
-          {ch.book.name} {ch.number}
-        </h1>
-        <p className="mt-1 text-xl text-muted">{ch.title}</p>
-
+          </Link>
+          <span aria-hidden="true">/</span>
+          <Link href={`/#${ch.book.slug}`} className="hover:text-accent">
+            {ch.book.name}
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-ink">Đoạn {ch.number}</span>
+        </nav>
+        <div className="flex-1" />
         {ch.mode === "nhap" && (
-          <div className="mt-4 rounded border border-vua/40 bg-card px-3 py-2 text-sm">
-            <strong>Nháp</strong> · {ch.approved ? "Đã duyệt" : "Chưa duyệt"} ·{" "}
-            <SummaryLine summary={ch.summary} />
-          </div>
+          <span className="rounded-full bg-vua/15 px-2.5 py-1 text-xs font-semibold text-vua">
+            Nháp · {ch.approved ? "Đã duyệt" : "Chưa duyệt"} · Cao {ch.summary.cao} · Vừa {ch.summary.vua} · Thấp{" "}
+            {ch.summary.thap} · Đã đối chiếu {ch.summary.verified}/{ch.summary.total}
+          </span>
         )}
-
-        <a href="#ghi-chu" className="mt-5 inline-block text-sm text-accent underline underline-offset-4">
-          Đến phần ghi chú ↓
-        </a>
-
-        <section aria-label="Lời Kinh Thánh" className="mt-6">
-          <p className="text-[1.15rem] leading-loose">
-            {ch.verses.map((v) => (
-              <span key={v.number} id={`c${v.number}`}>
-                <sup className="mr-0.5 text-xs text-muted">{v.number}</sup>
-                {v.text}{" "}
-              </span>
-            ))}
-          </p>
-          <p className="mt-3 text-right text-xs text-muted">Bản Truyền Thống</p>
-        </section>
-      </Reveal>
-
-      <section id="ghi-chu" className="mt-12 scroll-mt-6 border-t border-rule pt-8">
-        <p className="text-sm uppercase tracking-widest text-muted">Ghi chú</p>
-        {ch.sections.map((s) => (
-          <Reveal key={s.heading} onView className="mt-8">
-            <h2 className="text-2xl font-semibold">{s.heading}</h2>
-            <div className="mt-3 space-y-4">
-              {s.paragraphs.map((p, i) => (
-                <p key={i}>
-                  <InlineText nodes={p} />
-                </p>
-              ))}
-            </div>
-          </Reveal>
-        ))}
-
-        <Reveal onView className="mt-8">
-          <h2 className="text-2xl font-semibold">Các nhà giải kinh nói gì</h2>
-          <div className="mt-3 space-y-5">
-            {ch.mode === "nhap"
-              ? ch.opinions.map((o, i) => <DraftOpinion key={i} opinion={o} />)
-              : ch.opinions.map((body, i) => (
-                  <p key={i}>
-                    <InlineText nodes={body} />
-                  </p>
-                ))}
-          </div>
-          <p className="mt-6 text-sm italic text-muted">
-            Ghi chú do AI soạn, đã được duyệt; ý kiến các nhà giải kinh đã đối chiếu với nguồn.
-          </p>
-        </Reveal>
-      </section>
-
-      <nav className="mt-12 flex justify-between border-t border-rule pt-4 text-sm">
-        {ch.prev === null ? (
-          <span />
-        ) : (
-          <Link href={`${base}/${ch.prev}`} className="text-accent hover:underline">
-            ← Đoạn {ch.prev}
-          </Link>
-        )}
-        {ch.next === null ? (
-          <span />
-        ) : (
-          <Link href={`${base}/${ch.next}`} className="text-accent hover:underline">
-            Đoạn {ch.next} →
-          </Link>
-        )}
-      </nav>
-    </article>
+        <nav aria-label="Đoạn trước và sau" className="flex gap-2">
+          {ch.prev === null ? (
+            <span className={`${PAGER} text-muted/60`}>← Đoạn trước</span>
+          ) : (
+            <Link href={hrefOf(ch.prev)} title={ch.prev.title} className={`${PAGER} bg-card hover:border-accent`}>
+              ← {labelOf(ch.prev, ch)}
+            </Link>
+          )}
+          {ch.next === null ? (
+            <span className={`${PAGER} text-muted/60`}>Đoạn sau →</span>
+          ) : (
+            <Link href={hrefOf(ch.next)} title={ch.next.title} className={`${PAGER} bg-card hover:border-accent`}>
+              {labelOf(ch.next, ch)} →
+            </Link>
+          )}
+        </nav>
+      </SiteHeader>
+      <ChapterReader view={ch} />
+    </>
   );
 }

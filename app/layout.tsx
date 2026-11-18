@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Literata } from "next/font/google";
-import Link from "next/link";
+import { Inter, Literata, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const literata = Literata({
-  variable: "--font-literata",
+/** Literata for reading, Inter for navigation and numbers, Playfair Display for the big headings. */
+const literata = Literata({ variable: "--font-literata", subsets: ["latin", "vietnamese"] });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin", "vietnamese"] });
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin", "vietnamese"],
+  weight: ["600", "800"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -15,30 +19,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="vi" className={`${literata.variable} antialiased`}>
+    <html lang="vi" className={`${literata.variable} ${inter.variable} ${playfair.variable} antialiased`}>
       <head>
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body className="min-h-dvh flex flex-col font-serif text-[1.075rem] leading-relaxed">
-        <header className="border-b border-rule">
-          <div className="mx-auto max-w-2xl px-4 py-3">
-            <Link href="/" className="text-sm tracking-wide text-muted hover:text-accent">
-              Kinh Thánh · ghi chú từng đoạn
-            </Link>
-          </div>
-        </header>
-        <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">{children}</main>
-        <footer className="border-t border-rule">
-          <p className="mx-auto max-w-2xl px-4 py-4 text-sm text-muted">
-            Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn{" "}
-            <a href="https://ebible.org/find/details.php?id=vie1934" className="underline hover:text-accent">
-              eBible.org
-            </a>
-            .
-          </p>
-        </footer>
+      <body className="flex min-h-dvh flex-col font-serif text-[1.075rem] leading-relaxed">
+        {/* isolate: Base UI portals its popups to <body>; this keeps them above the whole app. */}
+        <div className="isolate flex flex-1 flex-col">
+          <div className="flex flex-1 flex-col">{children}</div>
+          <footer className="border-t border-rule">
+            <p className="px-6 py-4 font-sans text-sm text-muted">
+              Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn{" "}
+              <a href="https://ebible.org/find/details.php?id=vie1934" className="underline hover:text-accent">
+                eBible.org
+              </a>
+              .
+            </p>
+          </footer>
+        </div>
       </body>
     </html>
   );

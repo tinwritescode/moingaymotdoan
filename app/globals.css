@@ -8,6 +8,7 @@
   --accent: #8a3b2b;
   --rule: #e6dcc8;
   --card: #fffdf8;
+  --side: #f7f1e3;
   --mark: #f6e3a8;
   --cao: #2f6b3a;
   --vua: #8a6a12;
@@ -22,6 +23,7 @@
     --accent: #e09a7f;
     --rule: #38332c;
     --card: #24211d;
+    --side: #201d1a;
     --mark: #5a4a1c;
     --cao: #8fcf99;
     --vua: #e3c46a;
@@ -36,21 +38,17 @@
   --color-accent: var(--accent);
   --color-rule: var(--rule);
   --color-card: var(--card);
+  --color-side: var(--side);
   --color-mark: var(--mark);
   --color-cao: var(--cao);
   --color-vua: var(--vua);
   --color-thap: var(--thap);
   --font-serif: var(--font-literata), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
 }
 
 body {
   background: var(--paper);
   color: var(--ink);
-}
-
-[popover] {
-  color: inherit;
-}
-[popover]::backdrop {
-  background: rgb(0 0 0 / 0.25);
 }

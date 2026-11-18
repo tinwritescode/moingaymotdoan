@@ -11,7 +11,9 @@ export type { Ref, Verse } from "./refs";
 
 /** Nháp: what the owner sees while writing and reviewing. Công bố: what readers see. */
 export type Mode = "nhap" | "cong-bo";
-export const MODE: Mode = process.env.NODE_ENV === "production" ? "cong-bo" : "nhap";
+// CONTENT_MODE=nhap lets a production deploy show unapproved chapters too.
+export const MODE: Mode =
+  process.env.NODE_ENV === "production" && process.env.CONTENT_MODE !== "nhap" ? "cong-bo" : "nhap";
 
 export type Summary = { cao: number; vua: number; thap: number; verified: number; total: number };
 
@@ -28,9 +30,11 @@ type ChapterBase = {
   title: string;
   verses: Verse[];
   sections: Section[];
-  prev: number | null;
-  next: number | null;
+  /** May sit in another book: the reading order runs on across books. */
+  prev: ChapterLink | null;
+  next: ChapterLink | null;
 };
+export type ChapterLink = { book: Book; number: number; title: string };
 export type ChapterView =
   | (ChapterBase & { mode: "cong-bo"; opinions: Inline[][] })
   | (ChapterBase & { mode: "nhap"; approved: boolean; summary: Summary; opinions: Opinion[] });
@@ -56,6 +60,7 @@ function summarize(opinions: Opinion[]): Summary {
 export function createContent(args: { contentDir: string; bibleDir: string }): Content {
   const bible = loadBible(args.bibleDir);
   const notes = new Map<string, Map<number, Note>>();
+  const errors: string[] = [];
 
   for (const slug of readdirSync(args.contentDir)) {
     const book = bookBySlug(slug);
@@ -71,11 +76,13 @@ export function createContent(args: { contentDir: string; bibleDir: string }): C
       try {
         byNumber.set(number, parseNote({ source: readFileSync(path, "utf8"), book, chapter: number, bible }));
       } catch (e) {
-        throw new Error(`${path}: ${e instanceof Error ? e.message : String(e)}`);
+        errors.push(`${path}: ${e instanceof Error ? e.message : String(e)}`);
       }
     }
     notes.set(book.code, byNumber);
   }
+  // Every broken ghi chú at once, so several writers can each find their own file's errors.
+  if (errors.length > 0) throw new Error(errors.join("\n"));
 
   const visible = (book: Book, mode: Mode) =>
     [...(notes.get(book.code) ?? new Map<number, Note>())]
@@ -97,18 +104,20 @@ export function createContent(args: { contentDir: string; bibleDir: string }): C
     chapter({ slug, number, mode }) {
       const book = bookBySlug(slug);
       if (!book) return null;
-      const list = visible(book, mode);
-      const at = list.findIndex(([n]) => n === number);
-      if (at < 0) return null;
-      const note = list[at][1];
+      const note = visible(book, mode).find(([n]) => n === number)?.[1];
+      if (!note) return null;
+      const order: ChapterLink[] = BOOKS.flatMap((b) =>
+        visible(b, mode).map(([n, nt]) => ({ book: b, number: n, title: nt.title })),
+      );
+      const at = order.findIndex((l) => l.book.code === book.code && l.number === number);
       const base: ChapterBase = {
         book,
         number,
         title: note.title,
         verses: chaptersOf(bible, book)[number - 1].map((text, i) => ({ number: i + 1, text })),
         sections: note.sections,
-        prev: list[at - 1]?.[0] ?? null,
-        next: list[at + 1]?.[0] ?? null,
+        prev: order[at - 1] ?? null,
+        next: order[at + 1] ?? null,
       };
       return mode === "nhap"
         ? { ...base, mode, approved: note.approved, summary: summarize(note.opinions), opinions: note.opinions }
@@ -123,11 +132,17 @@ export function createContent(args: { contentDir: string; bibleDir: string }): C
 
 let cached: Content | undefined;
 
-/** The repo's own content: content/ and data/bible/. */
+/**
+ * The repo's own content: content/ and data/bible/. Cached in production only; in dev it is
+ * re-read on every request so an edited ghi chú shows on reload, without restarting the server.
+ */
 export function getContent(): Content {
-  cached ??= createContent({
-    contentDir: join(process.cwd(), "content"),
-    bibleDir: join(process.cwd(), "data", "bible"),
-  });
+  const load = () =>
+    createContent({
+      contentDir: join(process.cwd(), "content"),
+      bibleDir: join(process.cwd(), "data", "bible"),
+    });
+  if (process.env.NODE_ENV !== "production") return load();
+  cached ??= load();
   return cached;
 }

@@ -162,7 +162,8 @@ export function parseNote(args: { source: string; book: Book; chapter: number; b
   if (headings.join("|") !== expected.join("|")) {
     throw new Error(`Các phần phải đúng thứ tự: ${expected.join(", ")}. Đang có: ${headings.join(", ")}`);
   }
-  const blocks = rest.map((r) => paragraphs(r.slice(r.indexOf("\n") + 1)));
+  // Body after the heading line; a heading on the last line has none.
+  const blocks = rest.map((r) => paragraphs(r.slice(r.split("\n", 1)[0].length + 1)));
 
   const sections = PROSE_HEADINGS.map((heading, i) => ({
     heading,

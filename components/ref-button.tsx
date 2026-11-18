@@ -1,47 +1,50 @@
 "use client";
 
-import { useId } from "react";
+import { Popover } from "@base-ui/react/popover";
+import { useContext } from "react";
 import type { Ref } from "@/lib/content";
+import { InlineVersesContext } from "./inline-verses";
+import { verseLabel, VerseText } from "./verse-text";
 
-/** A chỗ dẫn the reader can tap to read the verses, via the native Popover API (works without JS too). */
+const LINK = "cursor-pointer text-accent underline decoration-dotted underline-offset-4 hover:decoration-solid";
+
+/**
+ * A chỗ dẫn the reader can tap. Into the chapter being read: opens those verses under the paragraph.
+ * Elsewhere: shows the verses in a Base UI popover anchored under the words.
+ */
 export function RefButton(props: { reference: Ref }) {
-  const id = useId();
+  const inline = useContext(InlineVersesContext);
   const { reference: ref } = props;
-  return (
-    <>
-      <button
-        type="button"
-        popoverTarget={id}
-        className="cursor-pointer text-accent underline decoration-dotted underline-offset-4 hover:decoration-solid"
-      >
+  const from = ref.verses[0].number;
+  const to = ref.verses[ref.verses.length - 1].number;
+
+  if (inline && inline.bookCode === ref.book.code && inline.chapter === ref.chapter) {
+    const open = inline.shown?.from === from && inline.shown.to === to;
+    return (
+      <button type="button" aria-expanded={open} className={LINK} onClick={() => inline.toggle({ from, to })}>
         {ref.label}
       </button>
-      <div
-        id={id}
-        popover="auto"
-        className="m-auto w-[min(32rem,calc(100vw-2rem))] rounded-lg border border-rule bg-card p-5 shadow-xl"
-      >
-        <p className="mb-2 text-sm font-semibold text-muted">
-          {ref.book.name} {ref.chapter}:{ref.verses[0].number}
-          {ref.verses.length > 1 ? `–${ref.verses[ref.verses.length - 1].number}` : ""}
-        </p>
-        <p>
-          {ref.verses.map((v) => (
-            <span key={v.number}>
-              <sup className="mr-0.5 text-xs text-muted">{v.number}</sup>
-              {v.text}{" "}
-            </span>
-          ))}
-        </p>
-        <button
-          type="button"
-          popoverTarget={id}
-          popoverTargetAction="hide"
-          className="mt-3 cursor-pointer text-sm text-muted underline hover:text-accent"
-        >
-          Đóng
-        </button>
-      </div>
-    </>
+    );
+  }
+
+  return (
+    <Popover.Root>
+      <Popover.Trigger className={LINK}>{ref.label}</Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Positioner side="bottom" align="start" sideOffset={6} collisionPadding={16} className="z-50">
+          <Popover.Popup className="w-[min(32rem,var(--available-width))] origin-(--transform-origin) rounded-lg border border-rule bg-card p-5 font-serif text-[1.075rem] leading-relaxed text-ink shadow-xl outline-none transition-[opacity,scale] duration-150 data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0 motion-reduce:transition-none">
+            <Popover.Title className="mb-2 font-sans text-sm font-semibold text-muted">
+              {ref.book.name} {verseLabel(ref)}
+            </Popover.Title>
+            <p>
+              <VerseText verses={ref.verses} />
+            </p>
+            <Popover.Close className="mt-3 cursor-pointer font-sans text-sm text-muted underline hover:text-accent">
+              Đóng
+            </Popover.Close>
+          </Popover.Popup>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover.Root>
   );
 }

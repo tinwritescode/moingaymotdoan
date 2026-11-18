@@ -92,3 +92,6 @@ const bySlug = new Map(BOOKS.map((b) => [b.slug, b]));
 
 export const bookByName = (name: string): Book | undefined => byName.get(name);
 export const bookBySlug = (slug: string): Book | undefined => bySlug.get(slug);
+
+/** The 39 books up to Ma-la-chi are the Old Testament. */
+export const testamentOf = (book: Book): "cu-uoc" | "tan-uoc" => (book.order <= 39 ? "cu-uoc" : "tan-uoc");
