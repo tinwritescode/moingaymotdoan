@@ -13,6 +13,7 @@ const GEN = bookByName("Sáng-thế Ký");
 
 /** A minimal valid ghi chú; `parts` overrides pieces of it. */
 function note(parts: {
+  book?: string;
   approved?: boolean;
   chapter?: number;
   story?: string;
@@ -20,6 +21,7 @@ function note(parts: {
   headings?: string[];
 } = {}): string {
   const {
+    book = "Sáng-thế Ký",
     approved = false,
     chapter = 1,
     story = "Chúa dựng nên trời đất (Giăng 1:1).",
@@ -29,7 +31,7 @@ function note(parts: {
   const bodies = [story, "Ý.", "Sâu.", "Lưu ý.", opinions.join("\n\n")];
   return [
     `---\nduyet: ${approved}\n---`,
-    `# Sáng-thế Ký ${chapter} — Thử`,
+    `# ${book} ${chapter} — Thử`,
     ...headings.map((h, i) => `## ${h}\n\n${bodies[i] ?? ""}`),
   ].join("\n\n");
 }
@@ -169,17 +171,21 @@ describe("nháp và công bố", () => {
 describe("đi qua sách kế", () => {
   const at = (ch: { book: { slug: string }; number: number } | null | undefined) =>
     ch ? `${ch.book.slug}/${ch.number}` : null;
+  // Xuất Ê-díp-tô Ký sits between these two books and has no ghi chú here.
+  const c = contentWith({
+    "sang-the-ky/1.md": note(),
+    "sang-the-ky/2.md": note({ chapter: 2 }),
+    "ma-thi-o/1.md": note({ book: "Ma-thi-ơ" }),
+  });
 
   it("hết sách thì đoạn sau là đoạn đầu của sách kế có ghi chú, bỏ qua sách chưa viết", () => {
-    const last = real.chapter({ slug: "xuat-e-dip-to-ky", number: 39, mode: "nhap" });
-    expect(at(last?.next)).toBe("ma-thi-o/1");
-    const first = real.chapter({ slug: "ma-thi-o", number: 1, mode: "nhap" });
-    expect(at(first?.prev)).toBe("xuat-e-dip-to-ky/39");
+    expect(at(c.chapter({ slug: "sang-the-ky", number: 2, mode: "nhap" })?.next)).toBe("ma-thi-o/1");
+    expect(at(c.chapter({ slug: "ma-thi-o", number: 1, mode: "nhap" })?.prev)).toBe("sang-the-ky/2");
   });
 
   it("đầu sách đầu và cuối sách cuối thì không có đoạn trước/sau", () => {
-    expect(real.chapter({ slug: "sang-the-ky", number: 1, mode: "nhap" })?.prev).toBeNull();
-    expect(real.chapter({ slug: "cong-vu-cac-su-do", number: 28, mode: "nhap" })?.next).toBeNull();
+    expect(c.chapter({ slug: "sang-the-ky", number: 1, mode: "nhap" })?.prev).toBeNull();
+    expect(c.chapter({ slug: "ma-thi-o", number: 1, mode: "nhap" })?.next).toBeNull();
   });
 });
 
