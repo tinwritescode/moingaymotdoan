@@ -1,0 +1,1379 @@
+/*
+ * 13-so-tay — Sổ tay học Kinh Thánh cá nhân
+ * Ruled & dot-grid notebook paper, chisel-tip highlighter marks,
+ * translucent washi-tape tabs, sticky-note margin card, and neat ink annotations.
+ */
+
+:root[data-variant="13-so-tay"] {
+  /* Core palette — warm cream Midori paper & fountain-pen blue-black ink */
+  --paper: #fbf8ef;
+  --ink: #1e2433;
+  --muted: #525b6d;
+  --accent: #b43428;
+  --rule: #d5dce6;
+  --card: #fffdf7;
+  --side: #f3ecda;
+  --mark: #fce588;
+  --cao: #1d6942;
+  --vua: #875406;
+  --thap: #ad2828;
+
+  /* Notebook-specific tokens */
+  --st-pen: #224680;
+  --st-margin: rgba(180, 52, 40, 0.34);
+  --st-dot: rgba(65, 92, 130, 0.22);
+  --st-line: rgba(112, 144, 184, 0.23);
+  --st-hl-yellow: rgba(252, 224, 96, 0.56);
+  --st-hl-mint: rgba(164, 228, 190, 0.52);
+  --st-hl-peach: rgba(249, 194, 166, 0.52);
+  --st-tape-ochre: rgba(232, 192, 114, 0.72);
+  --st-tape-sage: rgba(145, 194, 171, 0.72);
+  --st-tape-rose: rgba(224, 158, 148, 0.7);
+  --st-tape-blue: rgba(142, 176, 214, 0.68);
+  --st-tape-stripe: rgba(255, 255, 255, 0.28);
+  --st-sticky: #fef7cd;
+  --st-sticky-border: #dfd086;
+  --st-sticky-line: rgba(168, 146, 68, 0.2);
+  --st-punch: #eae2ce;
+  --st-punch-ring: rgba(120, 108, 86, 0.26);
+  --st-shadow: rgba(30, 36, 51, 0.08);
+  --st-shadow-md: rgba(30, 36, 51, 0.14);
+  --st-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="13-so-tay"] {
+    /* Blackout study notebook — slate charcoal paper & chalk/gel-pen inks */
+    --paper: #171a21;
+    --ink: #ede7da;
+    --muted: #a6afc2;
+    --accent: #f08a76;
+    --rule: #313847;
+    --card: #1f242e;
+    --side: #252b37;
+    --mark: #634f17;
+    --cao: #7ed4a0;
+    --vua: #edc66c;
+    --thap: #f38c82;
+
+    --st-pen: #8ebaf5;
+    --st-margin: rgba(240, 138, 118, 0.3);
+    --st-dot: rgba(166, 175, 194, 0.16);
+    --st-line: rgba(132, 152, 188, 0.16);
+    --st-hl-yellow: rgba(196, 156, 44, 0.36);
+    --st-hl-mint: rgba(66, 146, 104, 0.34);
+    --st-hl-peach: rgba(196, 104, 86, 0.34);
+    --st-tape-ochre: rgba(194, 152, 74, 0.44);
+    --st-tape-sage: rgba(88, 148, 122, 0.44);
+    --st-tape-rose: rgba(186, 108, 98, 0.44);
+    --st-tape-blue: rgba(96, 136, 184, 0.44);
+    --st-tape-stripe: rgba(255, 255, 255, 0.08);
+    --st-sticky: #2a271c;
+    --st-sticky-border: #594f2d;
+    --st-sticky-line: rgba(220, 196, 112, 0.14);
+    --st-punch: #13161c;
+    --st-punch-ring: rgba(166, 175, 194, 0.18);
+    --st-shadow: rgba(0, 0, 0, 0.34);
+    --st-shadow-md: rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* ==========================================================================
+   Base canvas: dot-grid bullet-journal background & crisp focus outlines
+   ========================================================================== */
+
+:root[data-variant="13-so-tay"] body {
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--st-dot) 1.25px, transparent 1.25px);
+  background-size: 20px 20px;
+  background-position: 8px 8px;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  overflow-x: clip;
+}
+
+:root[data-variant="13-so-tay"] :is(a, button, summary, select, input):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+:root[data-variant="13-so-tay"] mark {
+  background: linear-gradient(
+    102deg,
+    transparent 0.5%,
+    var(--mark) 2.2%,
+    var(--mark) 96.5%,
+    transparent 99.5%
+  );
+  color: var(--ink);
+  padding: 0.05em 0.3em;
+  border-radius: 2px 5px 2px 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ==========================================================================
+   Top Bar: notebook top-edge bookmark & tabbed controls
+   ========================================================================== */
+
+:root[data-variant="13-so-tay"] .kt-header {
+  background-color: var(--card);
+  background-image: linear-gradient(to bottom, transparent calc(100% - 3px), var(--st-hl-yellow) calc(100% - 3px));
+  border-bottom: 1.5px dashed var(--rule);
+  box-shadow: 0 2px 8px var(--st-shadow);
+  padding: 0.7rem 1rem;
+  gap: 0.65rem 1rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-header {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-brand {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  padding: 0.15rem 0.45rem 0.15rem 0.55rem;
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(to right, var(--st-hl-yellow), transparent 85%);
+  border-radius: 0 4px 4px 0;
+}
+
+:root[data-variant="13-so-tay"] .kt-brand span {
+  font-family: var(--st-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+:root[data-variant="13-so-tay"] .kt-header > button[popovertarget],
+:root[data-variant="13-so-tay"] .kt-pager {
+  background-color: var(--paper);
+  border: 1.5px solid var(--rule);
+  border-radius: 4px 7px 4px 6px / 6px 4px 7px 4px;
+  font-family: var(--st-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--rule);
+  padding-inline: 0.85rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-header > button[popovertarget]:hover,
+:root[data-variant="13-so-tay"] a.kt-pager:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--card);
+  box-shadow: 2px 2px 0 var(--st-tape-ochre);
+}
+
+:root[data-variant="13-so-tay"] span.kt-pager {
+  border-style: dashed;
+  box-shadow: none;
+  background-color: transparent;
+  color: var(--muted);
+}
+
+:root[data-variant="13-so-tay"] .kt-crumbs {
+  font-family: var(--st-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  align-items: center;
+}
+
+:root[data-variant="13-so-tay"] .kt-crumbs a {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="13-so-tay"] .kt-crumbs a:hover {
+  color: var(--accent);
+  text-decoration-style: solid;
+}
+
+/* Book picker popover: tabbed index binder */
+:root[data-variant="13-so-tay"] .kt-picker {
+  background-color: var(--card);
+  background-image: radial-gradient(var(--st-dot) 1px, transparent 1px);
+  background-size: 16px 16px;
+  border: 1.5px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  box-shadow: 0 12px 28px var(--st-shadow-md), 4px 4px 0 var(--side);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker nav {
+  background-color: var(--side);
+  border-color: var(--rule);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker nav p {
+  font-family: var(--st-mono);
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker nav button[aria-pressed="true"] {
+  background-color: var(--card);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  color: var(--accent);
+  box-shadow: 0 1px 3px var(--st-shadow);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker ol a {
+  background-color: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--st-mono);
+  font-weight: 600;
+}
+
+:root[data-variant="13-so-tay"] .kt-picker ol a:hover {
+  background-color: var(--st-sticky);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Home Page: notebook cover label, taped feature card & index spreads
+   ========================================================================== */
+
+:root[data-variant="13-so-tay"] .kt-home {
+  max-width: 66rem;
+  padding-inline: 1rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-home {
+    padding-inline: 1.75rem;
+  }
+}
+
+/* Notebook cover nameplate */
+:root[data-variant="13-so-tay"] .kt-hero {
+  position: relative;
+  margin: 2rem auto 2.25rem;
+  max-width: 44rem;
+  padding: 2.25rem 1.5rem 2rem;
+  background-color: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: 3px 8px 4px 7px / 7px 4px 8px 3px;
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px var(--rule),
+    6px 6px 0 var(--side),
+    6px 6px 0 1px var(--rule);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-hero {
+    margin-top: 2.75rem;
+    padding: 2.75rem 3rem 2.25rem;
+  }
+}
+
+/* Washi tape taping the cover label at the top */
+:root[data-variant="13-so-tay"] .kt-hero::before {
+  content: "SỔ TAY GHI CHÚ";
+  position: absolute;
+  top: -0.9rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.3deg);
+  padding: 0.25rem 1.15rem;
+  background-color: var(--st-tape-ochre);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    var(--st-tape-stripe) 6px 10px
+  );
+  border-inline: 1px dashed var(--st-sticky-border);
+  color: var(--ink);
+  font-family: var(--st-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px var(--st-shadow);
+}
+
+:root[data-variant="13-so-tay"] .kt-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+:root[data-variant="13-so-tay"] .kt-hero-sub {
+  display: inline-block;
+  margin-top: 0.65rem;
+  padding: 0.08em 0.65em 0.14em;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 3.6vw, 1.65rem);
+  color: var(--ink);
+  background: linear-gradient(
+    104deg,
+    transparent 1%,
+    var(--st-hl-yellow) 3%,
+    var(--st-hl-yellow) 96%,
+    transparent 99%
+  );
+  border-radius: 3px;
+}
+
+:root[data-variant="13-so-tay"] .kt-hero > p:not(.kt-hero-sub) {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+:root[data-variant="13-so-tay"] .kt-hero a {
+  font-family: var(--st-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--st-pen);
+  background: linear-gradient(to top, var(--st-hl-mint) 40%, transparent 40%);
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+}
+
+:root[data-variant="13-so-tay"] .kt-hero > div[aria-hidden="true"] {
+  margin-top: 1.5rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-hero > div[aria-hidden="true"] span.h-px {
+  background: none;
+  border-top: 1.5px dashed var(--rule);
+  height: 0;
+}
+
+/* Home: Start Here — ruled sheet pinned with sage washi tape */
+:root[data-variant="13-so-tay"] .kt-start {
+  position: relative;
+  margin-top: 2rem;
+  padding: 2rem 1.25rem 2rem 1.75rem;
+  background-color: var(--card);
+  background-image:
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 1rem,
+      var(--st-margin) 1rem,
+      var(--st-margin) calc(1rem + 1.5px),
+      transparent calc(1rem + 1.5px)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.95rem - 1px),
+      var(--st-line) calc(1.95rem - 1px),
+      var(--st-line) 1.95rem
+    );
+  background-position: 0 0, 0 0.7rem;
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: 0 3px 12px var(--st-shadow), 5px 5px 0 var(--side), 5px 5px 0 1px var(--rule);
+  gap: 1.25rem 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-start {
+    padding: 2.5rem 2.5rem 2.5rem 4rem;
+    background-image:
+      linear-gradient(
+        to right,
+        transparent 0,
+        transparent 2.75rem,
+        var(--st-margin) 2.75rem,
+        var(--st-margin) calc(2.75rem + 1.5px),
+        transparent calc(2.75rem + 1.5px)
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(2rem - 1px),
+        var(--st-line) calc(2rem - 1px),
+        var(--st-line) 2rem
+      );
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-start::before {
+  content: "";
+  position: absolute;
+  top: -0.65rem;
+  right: 1.75rem;
+  width: 5.5rem;
+  height: 1.35rem;
+  background-color: var(--st-tape-sage);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 5px,
+    var(--st-tape-stripe) 5px 9px
+  );
+  transform: rotate(2.4deg);
+  box-shadow: 0 1px 2px var(--st-shadow);
+  pointer-events: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-start #bat-dau {
+  display: inline-block;
+  font-family: var(--st-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  background: var(--st-tape-rose);
+  padding: 0.2rem 0.65rem;
+  border-radius: 2px;
+}
+
+:root[data-variant="13-so-tay"] .kt-start-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+:root[data-variant="13-so-tay"] .kt-start p:not(#bat-dau):not(.kt-start-number) {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+:root[data-variant="13-so-tay"] .kt-start-cta {
+  background-color: var(--st-sticky);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 4px 8px 4px 7px / 7px 4px 8px 4px;
+  font-family: var(--st-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  box-shadow: 3px 3px 0 var(--ink);
+  padding-inline: 1.35rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-start-cta:hover {
+  background-color: var(--mark);
+  color: var(--ink);
+  border-color: var(--accent);
+  box-shadow: 3px 3px 0 var(--accent);
+}
+
+/* Stamp-circled chapter number */
+:root[data-variant="13-so-tay"] .kt-start-number {
+  flex: 0 0 auto;
+  width: 6.5rem;
+  height: 6.5rem;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 3.75rem;
+  line-height: 1;
+  color: var(--accent);
+  border: 2.5px dashed var(--st-margin);
+  border-radius: 53% 47% 51% 49% / 48% 52% 48% 52%;
+  background: radial-gradient(circle, var(--st-hl-peach) 0%, transparent 72%);
+  transform: rotate(-6deg);
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-start-number {
+    width: 8.5rem;
+    height: 8.5rem;
+    font-size: 4.8rem;
+  }
+}
+
+/* Home: Book Index — compact front-cover TOC table */
+:root[data-variant="13-so-tay"] .kt-books {
+  margin-top: 2.5rem;
+  padding: 1.5rem 1.25rem;
+  background-color: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px var(--st-shadow);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-books {
+    padding: 1.75rem 2rem;
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-books #cac-sach {
+  display: inline-block;
+  font-family: var(--st-mono);
+  color: var(--ink);
+  background: linear-gradient(to top, var(--st-hl-yellow) 55%, transparent 55%);
+  padding: 0 0.45rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-books ol {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem 2rem;
+}
+
+@media (min-width: 768px) {
+  :root[data-variant="13-so-tay"] .kt-books ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-books li {
+  border-bottom: 1px dashed var(--rule);
+}
+
+:root[data-variant="13-so-tay"] .kt-books li:last-child {
+  border-bottom: 1px dashed var(--rule);
+}
+
+:root[data-variant="13-so-tay"] .kt-books-link {
+  min-height: 3.25rem;
+  padding: 0.65rem 0.5rem;
+  gap: 0.25rem 0.75rem;
+  align-items: baseline;
+  border-radius: 4px;
+}
+
+:root[data-variant="13-so-tay"] .kt-books-link:hover {
+  background-color: var(--side);
+}
+
+:root[data-variant="13-so-tay"] .kt-books-link > span:first-child {
+  flex: 1 1 auto;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+:root[data-variant="13-so-tay"] .kt-books-link > span:nth-child(2) {
+  font-family: var(--st-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+:root[data-variant="13-so-tay"] .kt-books-link > span:last-child {
+  min-width: auto;
+  font-family: var(--st-mono);
+  font-size: 0.8rem;
+  color: var(--st-pen);
+  background: var(--side);
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+}
+
+/* Home: Book Sections — tabbed notebook divider sheets */
+:root[data-variant="13-so-tay"] .kt-book {
+  margin-top: 2.5rem;
+  padding: 1.5rem 1.25rem 1.75rem;
+  background-color: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: 0 8px 8px 8px;
+  box-shadow: 0 2px 10px var(--st-shadow);
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-book {
+    padding: 1.75rem 2rem 2rem;
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-book > div:first-child {
+  border-bottom: 1.5px dashed var(--rule);
+  padding-bottom: 0.75rem;
+  align-items: center;
+}
+
+:root[data-variant="13-so-tay"] .kt-book-name {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  color: var(--ink);
+  padding: 0.1rem 0.6rem 0.1rem 0.7rem;
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(100deg, var(--st-hl-yellow) 0%, var(--st-hl-yellow) 88%, transparent 100%);
+  border-radius: 0 4px 4px 0;
+}
+
+:root[data-variant="13-so-tay"] .kt-book:nth-of-type(3n + 2) .kt-book-name {
+  border-left-color: var(--cao);
+  background: linear-gradient(100deg, var(--st-hl-mint) 0%, var(--st-hl-mint) 88%, transparent 100%);
+}
+
+:root[data-variant="13-so-tay"] .kt-book:nth-of-type(3n) .kt-book-name {
+  border-left-color: var(--st-pen);
+  background: linear-gradient(100deg, var(--st-hl-peach) 0%, var(--st-hl-peach) 88%, transparent 100%);
+}
+
+:root[data-variant="13-so-tay"] .kt-book > div:first-child a {
+  font-family: var(--st-mono);
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+}
+
+/* Chapter list: clean grid instead of CSS columns so hover/underline stay crisp */
+:root[data-variant="13-so-tay"] .kt-chapter-list {
+  columns: unset;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem 1.75rem;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-chapter-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="13-so-tay"] .kt-chapter-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  padding: 0.4rem 0.45rem;
+  border-bottom: 1px solid var(--st-line);
+  border-radius: 3px;
+}
+
+:root[data-variant="13-so-tay"] .kt-chapter-list > li:hover {
+  background-color: var(--side);
+}
+
+:root[data-variant="13-so-tay"] .kt-chapter-link {
+  align-items: baseline;
+  gap: 0.65rem;
+  font-size: 1rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-chapter-link > span:first-child {
+  width: 2rem;
+  height: 1.55rem;
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--st-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  background-color: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+:root[data-variant="13-so-tay"] .kt-chapter-link:hover > span:first-child {
+  border-color: var(--accent);
+  background-color: var(--st-sticky);
+}
+
+:root[data-variant="13-so-tay"] .kt-chapter-link > span:last-child {
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Chapter Page: 3-column open study desk (index tabs | ruled page | sticky note)
+   ========================================================================== */
+
+:root[data-variant="13-so-tay"] .kt-reader {
+  max-width: 88rem;
+  padding: 1.5rem 0.85rem 4.5rem;
+  gap: 2rem 1.75rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-reader {
+    padding: 2rem 1.5rem 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="13-so-tay"] .kt-reader {
+    grid-template-columns: 12.5rem minmax(0, 44rem) 19rem;
+    gap: 2rem 2rem;
+    padding-top: 2.5rem;
+  }
+}
+
+/* Left TOC: protruding colored notebook page tabs */
+:root[data-variant="13-so-tay"] .kt-toc {
+  background-color: transparent;
+  padding-top: 1.25rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-toc > p {
+  font-family: var(--st-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  padding-left: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-toc ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-toc a {
+  position: relative;
+  background-color: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--st-tape-ochre);
+  border-radius: 3px 8px 8px 3px;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--ink);
+  box-shadow: 0 1px 3px var(--st-shadow);
+}
+
+:root[data-variant="13-so-tay"] .kt-toc li:nth-child(2) a {
+  border-left-color: var(--st-tape-sage);
+}
+
+:root[data-variant="13-so-tay"] .kt-toc li:nth-child(3) a {
+  border-left-color: var(--st-tape-rose);
+}
+
+:root[data-variant="13-so-tay"] .kt-toc li:nth-child(4) a {
+  border-left-color: var(--st-tape-blue);
+}
+
+:root[data-variant="13-so-tay"] .kt-toc li:nth-child(5) a {
+  border-left-color: var(--accent);
+}
+
+:root[data-variant="13-so-tay"] .kt-toc a:hover {
+  background-color: var(--st-sticky);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+/* Main Column: ruled notebook page with red margin line & binder punches */
+:root[data-variant="13-so-tay"] .kt-chapter {
+  position: relative;
+  background-color: var(--card);
+  background-image:
+    linear-gradient(
+      to right,
+      transparent 0,
+      transparent 0.9rem,
+      var(--st-margin) 0.9rem,
+      var(--st-margin) calc(0.9rem + 1.5px),
+      transparent calc(0.9rem + 1.5px)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.95rem - 1px),
+      var(--st-line) calc(1.95rem - 1px),
+      var(--st-line) 1.95rem
+    );
+  background-position: 0 0, 0 0.85rem;
+  border: 1.5px solid var(--rule);
+  border-radius: 4px 8px 8px 4px;
+  padding: 1.75rem 1.15rem 2.25rem 1.65rem;
+  box-shadow:
+    0 3px 14px var(--st-shadow),
+    5px 5px 0 -1px var(--side),
+    5px 5px 0 var(--rule);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-chapter {
+    padding: 2.5rem 2.5rem 3rem 4.35rem;
+    background-image:
+      /* Left binder punch holes */
+      radial-gradient(
+        circle at 1.25rem 4.5rem,
+        var(--st-punch) 0 0.42rem,
+        var(--st-punch-ring) 0.42rem 0.5rem,
+        transparent 0.52rem
+      ),
+      radial-gradient(
+        circle at 1.25rem 50%,
+        var(--st-punch) 0 0.42rem,
+        var(--st-punch-ring) 0.42rem 0.5rem,
+        transparent 0.52rem
+      ),
+      radial-gradient(
+        circle at 1.25rem calc(100% - 4.5rem),
+        var(--st-punch) 0 0.42rem,
+        var(--st-punch-ring) 0.42rem 0.5rem,
+        transparent 0.52rem
+      ),
+      /* Classic double red margin line */
+      linear-gradient(
+        to right,
+        transparent 0,
+        transparent 2.85rem,
+        var(--st-margin) 2.85rem,
+        var(--st-margin) calc(2.85rem + 1px),
+        transparent calc(2.85rem + 1px),
+        transparent calc(2.85rem + 4px),
+        var(--st-margin) calc(2.85rem + 4px),
+        var(--st-margin) calc(2.85rem + 5px),
+        transparent calc(2.85rem + 5px)
+      ),
+      /* Horizontal ruled notebook lines */
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(2.15rem - 1px),
+        var(--st-line) calc(2.15rem - 1px),
+        var(--st-line) 2.15rem
+      );
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 1rem;
+  }
+}
+
+/* Kicker: hand-cut washi tape label */
+:root[data-variant="13-so-tay"] .kt-kicker {
+  display: inline-block;
+  font-family: var(--st-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--ink);
+  background-color: var(--st-tape-ochre);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 5px,
+    var(--st-tape-stripe) 5px 9px
+  );
+  padding: 0.22rem 0.85rem;
+  border-radius: 2px;
+  transform: rotate(-0.8deg);
+  box-shadow: 0 1px 2px var(--st-shadow);
+}
+
+/* Chapter title: ink-penned display heading with subtle double-rule */
+:root[data-variant="13-so-tay"] .kt-title {
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.95rem, 6.2vw, 3rem);
+  line-height: 1.16;
+  color: var(--ink);
+  padding-bottom: 0.65rem;
+  border-bottom: 2px solid var(--ink);
+  box-shadow: 0 3px 0 0 var(--card), 0 4.5px 0 0 var(--st-margin);
+}
+
+/* Lead line: neat pencil marginalia */
+:root[data-variant="13-so-tay"] .kt-lead {
+  margin-top: 1rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+  padding-left: 0.85rem;
+  border-left: 2.5px dashed var(--st-tape-sage);
+}
+
+/* Scripture / Câu chuyện body aligned to notebook line rhythm */
+:root[data-variant="13-so-tay"] .kt-scripture {
+  margin-top: 1.95rem;
+  font-size: 1.075rem;
+  line-height: 1.95rem;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-scripture {
+    margin-top: 2.15rem;
+    font-size: 1.1875rem;
+    line-height: 2.15rem;
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-scripture > div + div {
+  margin-top: 1.45rem;
+}
+
+/* Drop cap: framed red-ink highlighter stamp */
+:root[data-variant="13-so-tay"] .kt-scripture > div:first-child > p:first-child::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.35rem;
+  line-height: 0.88;
+  font-weight: 800;
+  color: var(--accent);
+  background: var(--st-hl-yellow);
+  border: 1.5px solid var(--st-margin);
+  border-radius: 4px;
+  padding: 0.25rem 0.45rem 0.2rem;
+  margin-top: 0.2rem;
+  margin-right: 0.6rem;
+}
+
+/* Clickable scripture refs: blue pen + mint highlighter swipe */
+:root[data-variant="13-so-tay"] .kt-ref {
+  font-family: var(--st-mono);
+  font-size: 0.84em;
+  font-weight: 600;
+  color: var(--st-pen);
+  background: linear-gradient(to top, var(--st-hl-mint) 44%, transparent 44%);
+  padding: 0.05em 0.28em;
+  border-radius: 3px;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--st-pen);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="13-so-tay"] .kt-ref:hover {
+  background: linear-gradient(to top, var(--st-hl-yellow) 65%, transparent 65%);
+  color: var(--ink);
+  text-decoration-style: solid;
+}
+
+:root[data-variant="13-so-tay"] .kt-ref[aria-expanded="true"] {
+  background: var(--mark);
+  color: var(--ink);
+  text-decoration-style: solid;
+}
+
+/* Inline expanded scripture clipping */
+:root[data-variant="13-so-tay"] .kt-inline-verses {
+  position: relative;
+  margin-top: 1rem;
+  background-color: var(--side);
+  background-image: radial-gradient(var(--st-dot) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border: 1.5px dashed var(--accent);
+  border-radius: 4px;
+  padding: 1rem 1.15rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  box-shadow: 2px 3px 0 var(--st-shadow);
+}
+
+:root[data-variant="13-so-tay"] .kt-inline-verses::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  left: 1.25rem;
+  width: 3.5rem;
+  height: 0.9rem;
+  background-color: var(--st-tape-ochre);
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-inline-verses > p:first-child {
+  font-family: var(--st-mono);
+  color: var(--accent);
+  letter-spacing: 0.09em;
+}
+
+:root[data-variant="13-so-tay"] .kt-verse-number {
+  font-family: var(--st-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 0.25em;
+}
+
+/* Divider between story and study notes: hand-drawn ink flourish */
+:root[data-variant="13-so-tay"] .kt-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--st-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.45em;
+  color: var(--accent);
+}
+
+:root[data-variant="13-so-tay"] .kt-divider::before,
+:root[data-variant="13-so-tay"] .kt-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1.5px dashed var(--rule);
+}
+
+/* Folded study notes: tabbed index-card accordion */
+:root[data-variant="13-so-tay"] .kt-notes {
+  margin-top: 1.75rem;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-note {
+  background-color: var(--paper);
+  border: 1.5px solid var(--rule);
+  border-left: 5px solid var(--st-tape-ochre);
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: 0 2px 6px var(--st-shadow);
+  overflow: hidden;
+}
+
+:root[data-variant="13-so-tay"] .kt-note:nth-child(2) {
+  border-left-color: var(--st-tape-rose);
+}
+
+:root[data-variant="13-so-tay"] .kt-note:nth-child(3) {
+  border-left-color: var(--st-tape-blue);
+}
+
+:root[data-variant="13-so-tay"] .kt-note:nth-child(4) {
+  border-left-color: var(--st-tape-sage);
+}
+
+:root[data-variant="13-so-tay"] .kt-note[open] {
+  background-color: var(--card);
+  border-color: var(--rule);
+  box-shadow: 0 4px 12px var(--st-shadow);
+}
+
+:root[data-variant="13-so-tay"] .kt-note-heading {
+  min-height: 3.35rem;
+  padding: 0.7rem 1rem 0.7rem 1.1rem;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--ink);
+  list-style: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-note-heading:hover {
+  background-color: var(--side);
+}
+
+:root[data-variant="13-so-tay"] .kt-note-heading > span {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1.5px dashed var(--rule);
+  border-radius: 50%;
+  font-family: var(--st-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  background-color: var(--card);
+}
+
+:root[data-variant="13-so-tay"] .kt-note-body {
+  padding: 0.9rem 1.1rem 1.25rem;
+  border-top: 1px dashed var(--rule);
+  font-size: 1.04rem;
+  line-height: 1.78;
+  color: var(--ink);
+}
+
+/* Commentator opinions: 3x5 Zettelkasten index cards */
+:root[data-variant="13-so-tay"] .kt-opinion {
+  position: relative;
+  background-color: var(--card);
+  background-image:
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 0.45rem,
+      var(--st-margin) 0.45rem,
+      var(--st-margin) calc(0.45rem + 1.5px),
+      transparent calc(0.45rem + 1.5px)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.75rem - 1px),
+      var(--st-line) calc(1.75rem - 1px),
+      var(--st-line) 1.75rem
+    );
+  border: 1.5px solid var(--rule);
+  border-radius: 5px;
+  padding: 1.15rem 1.1rem 1rem;
+  box-shadow: 2px 3px 0 var(--side), 2px 3px 0 1px var(--rule);
+}
+
+:root[data-variant="13-so-tay"] .kt-opinion > p:first-child {
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+:root[data-variant="13-so-tay"] .kt-opinion > p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--rule);
+  font-family: var(--st-mono);
+}
+
+/* Byline: pencil-ink footnote */
+:root[data-variant="13-so-tay"] .kt-byline {
+  margin-top: 1.75rem;
+  padding: 0.75rem 0.95rem;
+  background-color: var(--side);
+  border-left: 3px solid var(--rule);
+  border-radius: 0 4px 4px 0;
+  font-family: var(--st-mono);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Right Column: "Điều cần nhớ" — sticky note taped onto the study desk */
+:root[data-variant="13-so-tay"] .kt-aside {
+  position: relative;
+  background-color: var(--st-sticky);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(1.75rem - 1px),
+    var(--st-sticky-line) calc(1.75rem - 1px),
+    var(--st-sticky-line) 1.75rem
+  );
+  border: 1.5px solid var(--st-sticky-border);
+  border-radius: 3px 3px 14px 3px;
+  padding: 1.6rem 1.35rem 1.4rem;
+  box-shadow:
+    0 5px 14px var(--st-shadow),
+    0 1px 0 var(--st-sticky-border);
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="13-so-tay"] .kt-aside {
+    position: sticky;
+    top: 2rem;
+    transform: rotate(0.65deg);
+  }
+
+  :root[data-variant="13-so-tay"] .kt-aside:hover,
+  :root[data-variant="13-so-tay"] .kt-aside:focus-within {
+    transform: rotate(0deg);
+  }
+}
+
+/* Translucent sage washi tape holding the sticky note */
+:root[data-variant="13-so-tay"] .kt-aside::before {
+  content: "";
+  position: absolute;
+  top: -0.65rem;
+  left: 50%;
+  width: 5.2rem;
+  height: 1.35rem;
+  transform: translateX(-50%) rotate(-2deg);
+  background-color: var(--st-tape-sage);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 5px,
+    var(--st-tape-stripe) 5px 9px
+  );
+  box-shadow: 0 1px 3px var(--st-shadow);
+  pointer-events: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-aside h2 {
+  display: inline-block;
+  font-family: var(--st-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border-bottom: 1.5px dashed var(--st-margin);
+  padding-bottom: 0.2rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-aside > div {
+  margin-top: 0.85rem;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Reference Popover: floating 3x5 scripture index card
+   ========================================================================== */
+
+:root[data-variant="13-so-tay"] .kt-ref-popover {
+  background-color: var(--card);
+  background-image:
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2.65rem,
+      var(--st-margin) 2.65rem,
+      var(--st-margin) calc(2.65rem + 1.5px),
+      transparent calc(2.65rem + 1.5px)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.85rem - 1px),
+      var(--st-line) calc(1.85rem - 1px),
+      var(--st-line) 1.85rem
+    );
+  border: 1.5px solid var(--ink);
+  border-radius: 5px;
+  padding: 0.95rem 1.25rem 1.15rem;
+  box-shadow:
+    0 14px 32px var(--st-shadow-md),
+    4px 4px 0 var(--st-sticky-border);
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+
+:root[data-variant="13-so-tay"] .kt-ref-popover > p:first-child {
+  font-family: var(--st-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-ref-popover button {
+  margin-top: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background-color: var(--paper);
+  font-family: var(--st-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-ref-popover button:hover {
+  border-color: var(--accent);
+  background-color: var(--st-sticky);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Footer & Variant Switcher
+   ========================================================================== */
+
+:root[data-variant="13-so-tay"] .kt-footer {
+  background-color: var(--card);
+  border-top: 1.5px dashed var(--rule);
+  margin-top: 2rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-footer p {
+  font-family: var(--st-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding-bottom: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="13-so-tay"] .kt-footer p {
+    padding-bottom: 1.25rem;
+  }
+}
+
+:root[data-variant="13-so-tay"] .kt-footer a {
+  color: var(--st-pen);
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="13-so-tay"] .kt-footer a:hover {
+  color: var(--accent);
+  text-decoration-style: solid;
+}
+
+:root[data-variant="13-so-tay"] .kt-switcher {
+  background-color: var(--st-sticky);
+  border: 1.5px solid var(--st-sticky-border);
+  border-radius: 4px 8px 4px 7px / 7px 4px 8px 4px;
+  color: var(--ink);
+  font-family: var(--st-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  box-shadow: 2px 3px 0 var(--st-shadow-md);
+}
+
+:root[data-variant="13-so-tay"] .kt-switcher select {
+  background-color: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.1rem 0.3rem;
+  font-family: var(--st-mono);
+  font-size: 0.76rem;
+}
+
+/* ==========================================================================
+   Subtle tactile motion (only when reduced-motion is not requested)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes kt-13-so-tay-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  :root[data-variant="13-so-tay"] .kt-toc a,
+  :root[data-variant="13-so-tay"] .kt-start-cta,
+  :root[data-variant="13-so-tay"] .kt-header > button[popovertarget],
+  :root[data-variant="13-so-tay"] a.kt-pager,
+  :root[data-variant="13-so-tay"] .kt-aside,
+  :root[data-variant="13-so-tay"] .kt-ref,
+  :root[data-variant="13-so-tay"] .kt-note-heading > span,
+  :root[data-variant="13-so-tay"] .kt-chapter-list > li {
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      color 160ms ease;
+  }
+
+  :root[data-variant="13-so-tay"] .kt-toc a:hover {
+    transform: translateX(4px);
+  }
+
+  :root[data-variant="13-so-tay"] .kt-start-cta:hover {
+    transform: translate(-1px, -1px);
+  }
+
+  :root[data-variant="13-so-tay"] .kt-inline-verses {
+    animation: kt-13-so-tay-card-in 180ms ease-out both;
+  }
+}
