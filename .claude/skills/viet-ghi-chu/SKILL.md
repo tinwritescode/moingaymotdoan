@@ -64,5 +64,3 @@ pnpm test
 - Đọc lại cả bài một lượt: mỗi ý mở đầu bằng câu in đậm; không có danh sách, link hay HTML; chỗ dẫn ghi đủ tên sách.
 
 Xong khi: mọi dòng `KHÔNG` đều là chữ của bạn, `pnpm test` không còn lỗi nào ở file của bạn, và lượt đọc lại không còn gì phải sửa.
-
-Đừng chạy `pnpm build` khi `pnpm dev` đang chạy. Cả hai cùng ghi vào `.next` và làm hỏng nhau.

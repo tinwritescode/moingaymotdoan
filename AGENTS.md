@@ -1,9 +1,7 @@
-<!-- BEGIN:nextjs-agent-rules -->
+## Solid 2.0
 
-## This is NOT the Next.js you know
+This site is Solid 2.0 (solid-js, @solidjs/web, @solidjs/router 2) with file routes in `src/routes`. Solid 2 drops much of Solid 1 and shares little with React: before writing or changing a component, route or data read, read `node_modules/solid-js/skills/solid-2.0/SKILL.md`. A diagnostic code printed by `pnpm dev` or a test (`STRICT_READ_UNTRACKED`, `SSR_BOUNDARY_WATERFALL`, …) maps to its repair in `node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md`.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+## Static build
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+`pnpm build` renders the site to `dist/client` by crawling links from `/` (`scripts/prerender.mjs`). A page or file reaches the deploy only when a prerendered page links to it, or when the script lists it (as it does the `/data/*.json` the browser fetches).
