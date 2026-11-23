@@ -103,8 +103,14 @@
   box-shadow:
     inset 0 -1px 0 var(--sm-gold-soft),
     0 6px 22px -10px var(--sm-shadow-deep);
-  padding-top: 0.85rem;
-  padding-bottom: 0.85rem;
+  padding: 0.85rem 1rem;
+  gap: 0.6rem 1.1rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="20-son-mai"] .kt-header {
+    padding: 0.85rem 1.5rem;
+  }
 }
 
 :root[data-variant="20-son-mai"] .kt-header::after {
@@ -187,7 +193,10 @@
 }
 
 :root[data-variant="20-son-mai"] span.kt-pager {
-  opacity: 0.65;
+  color: var(--muted);
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--rule);
   box-shadow: none;
 }
 
@@ -391,11 +400,11 @@
 
 :root[data-variant="20-son-mai"] .kt-start-number {
   color: transparent;
-  background: linear-gradient(180deg, rgba(242, 204, 120, 0.58) 0%, rgba(242, 204, 120, 0.14) 100%);
+  background: linear-gradient(180deg, rgba(242, 204, 120, 0.62) 0%, rgba(242, 204, 120, 0.16) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  font-size: clamp(6rem, 15vw, 11.5rem);
-  line-height: 0.88;
+  font-size: clamp(5rem, 15vw, 11.5rem);
+  line-height: 0.86;
   user-select: none;
 }
 
@@ -438,12 +447,14 @@
 
 :root[data-variant="20-son-mai"] .kt-books li {
   border: none;
+  display: flex;
 }
 
 :root[data-variant="20-son-mai"] .kt-books-link {
   position: relative;
+  width: 100%;
   min-height: 5.25rem;
-  padding: 1.15rem 1.35rem 1.15rem 1.5rem;
+  padding: 1.05rem 1.2rem 1.05rem 1.35rem;
   border: 1px solid var(--sm-gold-soft);
   border-left: 4px solid var(--sm-cinnabar);
   border-radius: 3px;
@@ -454,6 +465,14 @@
     inset 0 1px 0 var(--sm-sheen-edge),
     0 6px 18px -12px var(--sm-shadow-deep);
   align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.9rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="20-son-mai"] .kt-books-link {
+    padding: 1.15rem 1.35rem 1.15rem 1.5rem;
+  }
 }
 
 :root[data-variant="20-son-mai"] .kt-books-link:hover {
@@ -465,10 +484,16 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-books-link > span:first-child {
-  flex: 1 1 11rem;
+  flex: 1 1 100%;
   font-family: var(--font-display);
-  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
   line-height: 1.2;
+}
+
+@media (min-width: 480px) {
+  :root[data-variant="20-son-mai"] .kt-books-link > span:first-child {
+    flex: 1 1 11rem;
+  }
 }
 
 :root[data-variant="20-son-mai"] .kt-books-link > span:last-child {
@@ -712,18 +737,26 @@
 
 :root[data-variant="20-son-mai"] .kt-scripture > div:first-child > p:first-of-type::first-letter {
   font-family: var(--font-display);
-  font-size: 3.35rem;
+  font-size: 2.9rem;
   font-weight: 800;
-  line-height: 0.95;
-  padding: 0.35rem 0.65rem 0.45rem;
-  margin-top: 0.25rem;
-  margin-right: 0.75rem;
-  margin-bottom: 0.1rem;
+  line-height: 0.94;
+  padding: 0.24rem 0.48rem 0.32rem;
+  margin-top: 0.22rem;
+  margin-right: 0.48rem;
+  margin-bottom: 0.08rem;
   background: linear-gradient(145deg, var(--sm-cinnabar) 0%, var(--sm-cinnabar-deep) 100%);
   color: var(--sm-plaque-gold);
   border: 1px solid var(--sm-gold);
   border-radius: 2px;
   box-shadow: 0 4px 12px -4px var(--sm-shadow-deep);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="20-son-mai"] .kt-scripture > div:first-child > p:first-of-type::first-letter {
+    font-size: 3.35rem;
+    padding: 0.28rem 0.56rem 0.38rem;
+    margin-right: 0.55rem;
+  }
 }
 
 :root[data-variant="20-son-mai"] .kt-verse-number {
@@ -890,17 +923,16 @@
   background:
     radial-gradient(ellipse 90% 45% at 50% 0%, var(--sm-sheen) 0%, transparent 75%),
     var(--card);
-  padding: 1.5rem 1.5rem 1.65rem;
+  padding: 1.35rem 1.2rem 1.5rem;
   box-shadow:
     inset 0 0 0 3px var(--card),
     inset 0 0 0 4px var(--sm-gold-soft),
     0 18px 36px -22px var(--sm-shadow-deep);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 640px) {
   :root[data-variant="20-son-mai"] .kt-aside {
-    position: sticky;
-    top: 1.5rem;
+    padding: 1.5rem 1.5rem 1.65rem;
   }
 }
 
@@ -949,7 +981,9 @@
   background: var(--sm-cinnabar);
   color: var(--sm-plaque-ink);
   text-decoration: none;
-  padding-inline: 0.3rem;
+  line-height: 1.3;
+  padding: 0.06rem 0.34rem;
+  box-shadow: inset 0 0 0 1px var(--sm-gold-soft);
 }
 
 :root[data-variant="20-son-mai"] .kt-ref-popover {
