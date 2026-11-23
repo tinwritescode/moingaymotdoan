@@ -1,0 +1,1252 @@
+/*
+ * 01-thu-ban-co — Thủ Bản Cổ (Illuminated Medieval Manuscript)
+ * Vellum parchment, cinnabar rubrication, burnished gold filigree,
+ * historiated drop caps, and Glossa Ordinaria marginalia.
+ */
+
+:root[data-variant="01-thu-ban-co"] {
+  --paper: #efe4ca;
+  --ink: #22170d;
+  --muted: #5a4631;
+  --accent: #8f1d14;
+  --rule: #c6ae82;
+  --card: #f8f0dc;
+  --side: #e6d7b7;
+  --mark: #ecd080;
+  --cao: #1d5731;
+  --vua: #7a5207;
+  --thap: #961d15;
+
+  --tbc-gold: #ad7f28;
+  --tbc-gold-bright: #cfa144;
+  --tbc-gold-soft: rgba(173, 127, 40, 0.24);
+  --tbc-rubric-deep: #6a110a;
+  --tbc-rubric-wash: rgba(143, 29, 20, 0.08);
+  --tbc-lapis: #243b6b;
+  --tbc-vellum-edge: #dccaa4;
+  --tbc-folio-shadow: rgba(46, 29, 12, 0.14);
+  --tbc-cap-bg-1: #9a2016;
+  --tbc-cap-bg-2: #661009;
+  --tbc-cap-ink: #fdf3d7;
+  --tbc-cta-bg: #7e170f;
+  --tbc-cta-hover: #5e100a;
+  --tbc-cta-ink: #fdf4df;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="01-thu-ban-co"] {
+    --paper: #16110d;
+    --ink: #ece0c9;
+    --muted: #b8a589;
+    --accent: #ea7b62;
+    --rule: #4e3d2b;
+    --card: #1f1812;
+    --side: #281f17;
+    --mark: #5b4316;
+    --cao: #86ca94;
+    --vua: #e5be64;
+    --thap: #f08876;
+
+    --tbc-gold: #cfa349;
+    --tbc-gold-bright: #e5be68;
+    --tbc-gold-soft: rgba(207, 163, 73, 0.22);
+    --tbc-rubric-deep: #5a140d;
+    --tbc-rubric-wash: rgba(234, 123, 98, 0.12);
+    --tbc-lapis: #86a6de;
+    --tbc-vellum-edge: #0d0906;
+    --tbc-folio-shadow: rgba(0, 0, 0, 0.5);
+    --tbc-cap-bg-1: #8d2016;
+    --tbc-cap-bg-2: #540f09;
+    --tbc-cap-ink: #fef2d2;
+    --tbc-cta-bg: #9b261b;
+    --tbc-cta-hover: #b33224;
+    --tbc-cta-ink: #fef4df;
+  }
+}
+
+/* ==========================================================================
+   Vellum Canvas & Accessibility
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] body {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255, 248, 226, 0.22), transparent 65%),
+    radial-gradient(ellipse 110% 100% at 50% 50%, transparent 58%, var(--tbc-vellum-edge) 100%);
+  background-attachment: fixed;
+  font-variant-numeric: oldstyle-nums;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="01-thu-ban-co"] body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(217, 168, 72, 0.08), transparent 65%),
+      radial-gradient(ellipse 110% 100% at 50% 50%, transparent 55%, var(--tbc-vellum-edge) 100%);
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] a:focus-visible,
+:root[data-variant="01-thu-ban-co"] button:focus-visible,
+:root[data-variant="01-thu-ban-co"] summary:focus-visible,
+:root[data-variant="01-thu-ban-co"] select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   Running Manuscript Header, Breadcrumbs, Pagers & Book Picker
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-header {
+  font-family: var(--font-serif);
+  background: linear-gradient(180deg, var(--card) 0%, color-mix(in srgb, var(--card) 82%, var(--side)) 100%);
+  border-bottom: 3px double var(--tbc-gold);
+  box-shadow: 0 2px 12px var(--tbc-folio-shadow);
+  padding: 0.75rem 1rem;
+  gap: 0.65rem 1.15rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-header {
+    padding: 0.85rem 1.75rem;
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.015em;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-brand::before {
+  content: "❧";
+  color: var(--accent);
+  font-weight: 400;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-brand span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-crumbs {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-crumbs span[aria-hidden="true"] {
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-header > button[popovertarget],
+:root[data-variant="01-thu-ban-co"] .kt-pager {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  border-radius: 2px;
+  border: 1px solid var(--tbc-gold);
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--card), inset 0 0 0 3px var(--tbc-gold-soft);
+  padding-inline: 0.9rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-header > button[popovertarget]:hover,
+:root[data-variant="01-thu-ban-co"] a.kt-pager:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--paper);
+}
+
+:root[data-variant="01-thu-ban-co"] span.kt-pager {
+  background: transparent;
+  border-color: var(--rule);
+  box-shadow: none;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+/* Draft summary pill in header */
+:root[data-variant="01-thu-ban-co"] .kt-header > span {
+  font-family: var(--font-serif);
+  border-radius: 2px;
+  border: 1px solid var(--tbc-gold);
+  background: var(--side);
+  color: var(--vua);
+  white-space: normal;
+  line-height: 1.4;
+}
+
+/* Book Picker Popover */
+:root[data-variant="01-thu-ban-co"] .kt-picker {
+  font-family: var(--font-serif);
+  border-radius: 3px;
+  border: 1px solid var(--tbc-gold);
+  background: var(--card);
+  color: var(--ink);
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px var(--rule),
+    0 18px 42px var(--tbc-folio-shadow);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker nav {
+  background: color-mix(in srgb, var(--side) 55%, var(--card));
+  border-color: var(--rule);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker nav p {
+  font-family: var(--font-serif);
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker nav button {
+  border-radius: 2px;
+  font-family: var(--font-serif);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker nav button[aria-pressed="true"] {
+  background: var(--tbc-rubric-wash);
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker > div > p {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--accent);
+  border-bottom: 2px double var(--tbc-gold);
+  padding-bottom: 0.45rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker ol a {
+  border-radius: 2px;
+  border-color: var(--rule);
+  background: var(--paper);
+  font-variant-numeric: lining-nums;
+  font-weight: 600;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker ol a:hover {
+  border-color: var(--accent);
+  background: var(--tbc-rubric-wash);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Colophon Footer & Parchment Switcher Tab
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-footer {
+  border-top: 3px double var(--tbc-gold);
+  background: color-mix(in srgb, var(--side) 60%, var(--paper));
+  text-align: center;
+  padding-bottom: 3.25rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-footer {
+    padding-bottom: 0.75rem;
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-footer p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 1.15rem 1.25rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-footer p::before {
+  content: "❦  ";
+  font-style: normal;
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-footer p::after {
+  content: "  ❦";
+  font-style: normal;
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-footer a {
+  color: var(--accent);
+  text-decoration-color: var(--tbc-gold);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-switcher {
+  font-family: var(--font-serif);
+  border-radius: 2px;
+  border: 1px solid var(--tbc-gold);
+  background: var(--card);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  box-shadow:
+    inset 0 0 0 2px var(--card),
+    inset 0 0 0 3px var(--tbc-gold-soft),
+    0 6px 20px var(--tbc-folio-shadow);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-switcher select {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--card);
+}
+
+/* ==========================================================================
+   HOME PAGE — Illuminated Frontispiece & Tabula Librorum
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-home {
+  max-width: 64rem;
+  margin-block: 0.85rem 2.25rem;
+  padding: 0 0.85rem 2.5rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-home {
+    margin-block: 2rem 3rem;
+    padding: 0.75rem 2.5rem 3.5rem;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    box-shadow:
+      inset 0 0 0 6px var(--card),
+      inset 0 0 0 7px var(--tbc-gold),
+      0 14px 40px var(--tbc-folio-shadow);
+    border-radius: 2px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="01-thu-ban-co"] .kt-home {
+    padding: 1.25rem 3.75rem 4rem;
+  }
+}
+
+/* Illuminated Title Cartouche */
+:root[data-variant="01-thu-ban-co"] .kt-hero {
+  position: relative;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-hero {
+    padding-top: 2.75rem;
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero::before {
+  content: "✦  ✠  ✦";
+  display: block;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.65rem, 11vw, 5.5rem);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-shadow: 0 1px 0 var(--card), 0 2px 0 var(--tbc-gold-soft);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero-sub {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero-sub::before,
+:root[data-variant="01-thu-ban-co"] .kt-hero-sub::after {
+  content: "";
+  display: inline-block;
+  width: clamp(1.5rem, 6vw, 4rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--tbc-gold), transparent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero > p:not(.kt-hero-sub) {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero > p a {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--accent);
+  border-bottom: 1px dotted var(--tbc-gold);
+  padding-bottom: 0.1rem;
+  text-decoration: none;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero > p a:hover {
+  border-bottom-style: solid;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero > div[aria-hidden="true"] {
+  margin-top: 2rem;
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-hero > div[aria-hidden="true"] > span:first-child,
+:root[data-variant="01-thu-ban-co"] .kt-hero > div[aria-hidden="true"] > span:last-child {
+  height: 3px;
+  background: transparent;
+  border-top: 1px solid var(--tbc-gold);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Home Draft Notice */
+:root[data-variant="01-thu-ban-co"] .kt-home > p.rounded {
+  font-family: var(--font-serif);
+  font-style: italic;
+  border-radius: 2px;
+  border: 1px solid var(--tbc-gold);
+  border-left: 4px solid var(--vua);
+  background: var(--side);
+  color: var(--ink);
+}
+
+/* Start Here — Illuminated Incipit Panel */
+:root[data-variant="01-thu-ban-co"] .kt-start {
+  position: relative;
+  margin-top: 2rem;
+  padding: 1.5rem 1.25rem;
+  background: linear-gradient(160deg, var(--paper) 0%, color-mix(in srgb, var(--side) 78%, var(--paper)) 100%);
+  border: 1px solid var(--tbc-gold);
+  box-shadow:
+    inset 0 0 0 4px var(--paper),
+    inset 0 0 0 5px var(--rule);
+  border-radius: 2px;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-start {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start > div {
+  flex: 1 1 20rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start #bat-dau {
+  font-family: var(--font-serif);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start #bat-dau::before {
+  content: "¶ ";
+  font-size: 1.1em;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 3.65rem);
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 0.65rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start > div > p:not(#bat-dau) {
+  font-size: 1.075rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-top: 1rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start-cta {
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--tbc-cta-bg);
+  color: var(--tbc-cta-ink);
+  border: 1px solid var(--tbc-gold-bright);
+  box-shadow:
+    inset 0 0 0 2px var(--tbc-cta-bg),
+    inset 0 0 0 3px rgba(245, 214, 134, 0.55),
+    0 3px 10px var(--tbc-folio-shadow);
+  border-radius: 2px;
+  padding: 0.7rem 1.5rem;
+  margin-top: 1.35rem;
+  gap: 0.55rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start-cta::after {
+  content: "❧";
+  font-size: 1.1em;
+  color: var(--tbc-gold-bright);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start-cta:hover {
+  background: var(--tbc-cta-hover);
+  border-color: var(--tbc-gold-bright);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-start-number {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(5.25rem, 22vw, 8.75rem);
+  height: clamp(5.25rem, 22vw, 8.75rem);
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11vw, 5.25rem);
+  line-height: 1;
+  font-weight: 800;
+  font-variant-numeric: lining-nums;
+  color: var(--tbc-cap-ink);
+  text-align: center;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 226, 150, 0.24), transparent 60%),
+    linear-gradient(145deg, var(--tbc-cap-bg-1) 0%, var(--tbc-cap-bg-2) 100%);
+  border: 2px solid var(--tbc-gold-bright);
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 0 4px rgba(245, 212, 130, 0.25),
+    0 8px 22px var(--tbc-folio-shadow);
+}
+
+/* Book Index — Tabula Librorum */
+:root[data-variant="01-thu-ban-co"] .kt-books {
+  padding-block: 2.25rem;
+  border-bottom: 3px double var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books h2 {
+  font-family: var(--font-serif);
+  font-size: 0.8125rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-align: center;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books h2::before {
+  content: "❖  ";
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books h2::after {
+  content: "  ❖";
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books ol {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 2.5rem;
+}
+
+@media (min-width: 768px) {
+  :root[data-variant="01-thu-ban-co"] .kt-books ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books li {
+  border-bottom: 1px dotted var(--rule);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link {
+  min-height: 3.75rem;
+  padding-block: 0.75rem;
+  gap: 0.25rem 0.85rem;
+  align-items: baseline;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link > span:first-child {
+  flex: 1 1 10rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link > span:first-child::before {
+  content: "❧ ";
+  color: var(--tbc-gold);
+  font-size: 0.78em;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link:hover > span:first-child {
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link > span:nth-child(2) {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link > span:last-child {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+  min-width: 4.75rem;
+}
+
+/* Individual Book Sections & Chapter Folio Lists */
+:root[data-variant="01-thu-ban-co"] .kt-book {
+  padding-top: 2.75rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-book > div {
+  border-bottom: 3px double var(--tbc-gold);
+  padding-bottom: 0.65rem;
+  align-items: baseline;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-book-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 4.5vw, 2.25rem);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-book-name::before {
+  content: "✠ ";
+  color: var(--accent);
+  font-size: 0.72em;
+  vertical-align: 0.08em;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-book > div > a {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-book > div > a:hover {
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-list {
+  margin-top: 1.25rem;
+  columns: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem 2rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-chapter-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="01-thu-ban-co"] .kt-chapter-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 2.75rem;
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  padding-block: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, transparent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-link {
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-link > span:first-child {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+  width: 2rem;
+  height: 1.7rem;
+  line-height: 1.6rem;
+  text-align: center;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  border-radius: 2px;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-link:hover > span:first-child {
+  border-color: var(--accent);
+  background: var(--tbc-rubric-wash);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-link:hover > span:last-child {
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-list > li > div {
+  margin-left: 2.75rem;
+  margin-top: 0.25rem;
+  font-family: var(--font-serif);
+}
+
+/* ==========================================================================
+   CHAPTER PAGE — Glossa Ordinaria Illuminated Folio Spread
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-reader {
+  max-width: 92rem;
+  padding: 1.25rem 0.75rem 3rem;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-reader {
+    padding: 2rem 1.5rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="01-thu-ban-co"] .kt-reader {
+    grid-template-columns: 12rem minmax(0, 44rem) 19rem;
+    gap: 2.5rem 2.75rem;
+    padding: 2.75rem 2rem 4.5rem;
+    align-items: start;
+  }
+}
+
+/* Left Marginal Index (kt-toc) */
+:root[data-variant="01-thu-ban-co"] .kt-toc {
+  font-family: var(--font-serif);
+  padding-right: 1.25rem;
+  border-right: 1px solid var(--rule);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-toc > p {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  border-bottom: 2px double var(--tbc-gold);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-toc > p::before {
+  content: "§ ";
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-toc ol {
+  gap: 0.2rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-toc a {
+  border-radius: 2px;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.925rem;
+  line-height: 1.45;
+  color: var(--muted);
+  border-left: 2px solid transparent;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-toc a:hover {
+  background: var(--tbc-rubric-wash);
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+/* Center Illuminated Vellum Folio (kt-chapter) */
+:root[data-variant="01-thu-ban-co"] .kt-chapter {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 1.65rem 1.15rem 2rem;
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px var(--tbc-gold-soft),
+    0 10px 30px var(--tbc-folio-shadow);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-chapter {
+    padding: 2.5rem 2.5rem 2.75rem;
+    box-shadow:
+      inset 0 0 0 6px var(--card),
+      inset 0 0 0 7px var(--tbc-gold),
+      0 14px 38px var(--tbc-folio-shadow);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="01-thu-ban-co"] .kt-chapter {
+    padding: 3rem 3.5rem 3.25rem;
+  }
+}
+
+/* Rubricated Chapter Header */
+:root[data-variant="01-thu-ban-co"] .kt-kicker {
+  font-family: var(--font-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-align: center;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-kicker::before {
+  content: "✦  ";
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-kicker::after {
+  content: "  ✦";
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  line-height: 1.18;
+  font-weight: 800;
+  text-align: center;
+  color: var(--ink);
+  margin-top: 0.65rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 3px double var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-lead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.65;
+  text-align: center;
+  color: var(--muted);
+  max-width: 34rem;
+  margin-inline: auto;
+  margin-top: 1rem;
+}
+
+/* Scripture / Story Column & Historiated Drop Cap */
+:root[data-variant="01-thu-ban-co"] .kt-scripture {
+  margin-top: 2rem;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.88;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-scripture {
+    margin-top: 2.35rem;
+    font-size: 1.225rem;
+    line-height: 1.9;
+  }
+}
+
+/* Illuminated Historiated Initial (Drop Cap) */
+:root[data-variant="01-thu-ban-co"] .kt-scripture > div:first-child > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 3.15rem;
+  line-height: 1;
+  color: var(--tbc-cap-ink);
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 226, 150, 0.28), transparent 58%),
+    linear-gradient(145deg, var(--tbc-cap-bg-1) 0%, var(--tbc-cap-bg-2) 100%);
+  border: 2px solid var(--tbc-gold-bright);
+  border-radius: 2px;
+  padding: 0.2em 0.3em 0.18em;
+  margin: 0.22rem 0.85rem 0.2rem 0;
+  box-shadow:
+    inset 0 0 0 2px rgba(248, 218, 138, 0.32),
+    2px 3px 0 var(--tbc-folio-shadow);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-scripture > div:first-child > p:first-of-type::first-letter {
+    font-size: 3.85rem;
+    padding: 0.22em 0.32em 0.2em;
+    margin: 0.25rem 1rem 0.25rem 0;
+  }
+}
+
+/* Rubricated Pilcrow (¶) at start of subsequent story paragraphs */
+:root[data-variant="01-thu-ban-co"] .kt-scripture > div:not(:first-child) > p:first-of-type::before {
+  content: "¶ ";
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 0.12em;
+}
+
+/* Rubricated Raised Verse Numbers */
+:root[data-variant="01-thu-ban-co"] .kt-verse-number {
+  font-family: var(--font-serif);
+  font-size: 0.72em;
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+  margin-right: 0.22em;
+  vertical-align: 0.32em;
+}
+
+/* Clickable Cross-References (kt-ref) */
+:root[data-variant="01-thu-ban-co"] .kt-ref {
+  color: var(--accent);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--tbc-gold);
+  text-underline-offset: 3px;
+  padding-inline: 0.12em;
+  border-radius: 2px;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-ref:hover,
+:root[data-variant="01-thu-ban-co"] .kt-ref[aria-expanded="true"] {
+  background: var(--tbc-rubric-wash);
+  text-decoration-style: solid;
+  text-decoration-color: var(--accent);
+}
+
+/* Inline Verses Box (Expanded Quotation Cartouche) */
+:root[data-variant="01-thu-ban-co"] .kt-inline-verses {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: 2px;
+  padding: 1rem 1.15rem;
+  font-size: 1.05rem;
+  line-height: 1.82;
+  box-shadow: inset 3px 0 0 var(--paper), inset 4px 0 0 var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-inline-verses > p:first-child {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+
+/* Manuscript Tailpiece Divider */
+:root[data-variant="01-thu-ban-co"] .kt-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 2.75rem;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.45em;
+  text-indent: 0.45em;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-divider::before,
+:root[data-variant="01-thu-ban-co"] .kt-divider::after {
+  content: "";
+  flex: 1;
+  height: 3px;
+  border-top: 1px solid var(--tbc-gold);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ==========================================================================
+   Scholia & Commentary Folded Notes (kt-notes, kt-note, kt-opinion)
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-notes {
+  margin-top: 1.75rem;
+  border-bottom: 2px double var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note {
+  border-top: 1px solid var(--rule);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note[open] {
+  background: color-mix(in srgb, var(--paper) 45%, var(--card));
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3.6vw, 1.5rem);
+  font-weight: 600;
+  color: var(--ink);
+  padding: 0.85rem 0.5rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note-heading::before {
+  content: "❖";
+  color: var(--accent);
+  font-size: 0.72em;
+  margin-right: 0.55rem;
+  flex-shrink: 0;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note-heading:hover {
+  color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note-heading > span[aria-hidden="true"] {
+  margin-left: auto;
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note-body {
+  font-size: 1.0625rem;
+  line-height: 1.82;
+  padding: 0.35rem 0.65rem 1.5rem 1.1rem;
+  margin-left: 0.5rem;
+  border-left: 2px solid var(--tbc-gold);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="01-thu-ban-co"] .kt-note-body {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem 1.65rem 1.35rem;
+  }
+}
+
+/* Commentator Opinions (Patristic / Scholia Cards) */
+:root[data-variant="01-thu-ban-co"] .kt-opinion {
+  position: relative;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  background: var(--paper);
+  padding: 1rem 1.15rem;
+  box-shadow: inset 0 1px 0 var(--tbc-gold-soft);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-opinion::after {
+  content: "❧";
+  position: absolute;
+  top: 0.55rem;
+  right: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--tbc-gold);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-opinion > p:first-child {
+  padding-right: 1.25rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-opinion p.font-sans {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  padding-top: 0.55rem;
+  margin-top: 0.65rem;
+  border-top: 1px dotted var(--rule);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-opinion p.font-sans span.rounded-md {
+  border-radius: 2px;
+  border: 1px solid currentColor;
+  padding: 0.1rem 0.5rem;
+  font-weight: 600;
+}
+
+/* Scribe Byline */
+:root[data-variant="01-thu-ban-co"] .kt-byline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   Right Marginalia — Glossa Marginalis (kt-aside)
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-aside {
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  border-top: 3px double var(--tbc-gold);
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--side) 65%, var(--paper));
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 6px 18px var(--tbc-folio-shadow);
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="01-thu-ban-co"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    background: color-mix(in srgb, var(--side) 45%, transparent);
+    border: 0;
+    border-top: 3px double var(--tbc-gold);
+    border-bottom: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    box-shadow: none;
+    padding: 1.15rem 1rem 1.35rem 1.25rem;
+  }
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-aside h2 {
+  font-family: var(--font-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  border-bottom: 1px dotted var(--tbc-gold);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-aside h2::before {
+  content: "☞ ";
+  font-size: 1.2em;
+  vertical-align: -0.05em;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-aside > div {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Reference Popover — Illuminated Gloss Schedula (kt-ref-popover)
+   ========================================================================== */
+
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover {
+  border-radius: 3px;
+  border: 1px solid var(--tbc-gold);
+  background: var(--card);
+  color: var(--ink);
+  padding: 1.35rem 1.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px var(--rule),
+    0 16px 38px var(--tbc-folio-shadow);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover > p:first-child {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  border-bottom: 2px double var(--tbc-gold);
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover > p:first-child::before {
+  content: "✦ ";
+  color: var(--tbc-gold);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover > button {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  border-radius: 2px;
+  padding: 0.35rem 0.85rem;
+  margin-top: 0.9rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover > button:hover {
+  border-color: var(--accent);
+  background: var(--tbc-rubric-wash);
+}
+
+/* ==========================================================================
+   Gentle Manuscript Transitions (Motion-Safe Only)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="01-thu-ban-co"] .kt-pager,
+  :root[data-variant="01-thu-ban-co"] .kt-header > button[popovertarget],
+  :root[data-variant="01-thu-ban-co"] .kt-start-cta,
+  :root[data-variant="01-thu-ban-co"] .kt-books-link > span:first-child,
+  :root[data-variant="01-thu-ban-co"] .kt-chapter-link > span,
+  :root[data-variant="01-thu-ban-co"] .kt-toc a,
+  :root[data-variant="01-thu-ban-co"] .kt-ref,
+  :root[data-variant="01-thu-ban-co"] .kt-note-heading,
+  :root[data-variant="01-thu-ban-co"] .kt-note-heading > span[aria-hidden="true"],
+  :root[data-variant="01-thu-ban-co"] .kt-ref-popover > button {
+    transition:
+      color 180ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease,
+      transform 200ms ease;
+  }
+}

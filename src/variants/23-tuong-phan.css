@@ -1,0 +1,1216 @@
+/*
+ * 23-tuong-phan — Tương phản cao (WCAG AAA 7:1+)
+ *
+ * Pure black/white surfaces, deep hyper-legible link contrast, yellow focus
+ * with thick double rings, always-underlined links, crisp rectilinear framing,
+ * Inter sans-serif throughout (zero thin hairlines, zero decorative noise).
+ */
+
+/* ==========================================================================
+   1. Tokens — Light (pure white paper, pure black ink, WCAG AAA >= 7:1)
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] {
+  --paper: #ffffff;
+  --ink: #000000;
+  --muted: #262626;
+  --accent: #002b8a;
+  --rule: #000000;
+  --card: #ffffff;
+  --side: #f2f2f2;
+  --mark: #ffdd00;
+  --cao: #005221;
+  --vua: #663d00;
+  --thap: #990000;
+
+  --tp-focus-bg: #ffdd00;
+  --tp-focus-ink: #000000;
+  --tp-focus-outer: #000000;
+  --tp-shadow: #000000;
+  --tp-font: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="23-tuong-phan"] {
+    --paper: #000000;
+    --ink: #ffffff;
+    --muted: #e0e0e0;
+    --accent: #7ce8ff;
+    --rule: #ffffff;
+    --card: #000000;
+    --side: #141414;
+    --mark: #524400;
+    --cao: #5cff8a;
+    --vua: #ffe047;
+    --thap: #ff8a8a;
+
+    --tp-focus-bg: #ffdd00;
+    --tp-focus-ink: #000000;
+    --tp-focus-outer: #ffdd00;
+    --tp-shadow: #ffffff;
+  }
+}
+
+/* ==========================================================================
+   2. Base Typography, Reading Rhythm, Selection & Zero Decorative Motion
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--tp-font);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  word-spacing: 0.03em;
+  overflow-x: clip;
+}
+
+:root[data-variant="23-tuong-phan"] * {
+  animation: none;
+  transition: none;
+}
+
+:root[data-variant="23-tuong-phan"] ::selection {
+  background-color: var(--tp-focus-bg);
+  color: var(--tp-focus-ink);
+}
+
+:root[data-variant="23-tuong-phan"] h1,
+:root[data-variant="23-tuong-phan"] h2,
+:root[data-variant="23-tuong-phan"] h3,
+:root[data-variant="23-tuong-phan"] .kt-hero-title,
+:root[data-variant="23-tuong-phan"] .kt-hero-sub,
+:root[data-variant="23-tuong-phan"] .kt-start-title,
+:root[data-variant="23-tuong-phan"] .kt-book-name,
+:root[data-variant="23-tuong-phan"] .kt-brand {
+  font-family: var(--tp-font);
+}
+
+:root[data-variant="23-tuong-phan"] em,
+:root[data-variant="23-tuong-phan"] i {
+  font-style: normal;
+  font-weight: 700;
+}
+
+:root[data-variant="23-tuong-phan"] mark {
+  background-color: var(--tp-focus-bg);
+  color: var(--tp-focus-ink);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  padding: 0.05em 0.25em;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   3. Global Links & Thick High-Visibility Yellow Focus Rings
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  text-decoration-skip-ink: auto;
+}
+
+:root[data-variant="23-tuong-phan"] a:hover {
+  text-decoration-thickness: 4px;
+}
+
+:root[data-variant="23-tuong-phan"] a:focus-visible,
+:root[data-variant="23-tuong-phan"] button:focus-visible,
+:root[data-variant="23-tuong-phan"] summary:focus-visible,
+:root[data-variant="23-tuong-phan"] select:focus-visible,
+:root[data-variant="23-tuong-phan"] input:focus-visible,
+:root[data-variant="23-tuong-phan"] [tabindex]:focus-visible {
+  background-color: var(--tp-focus-bg);
+  color: var(--tp-focus-ink);
+  outline: 4px solid var(--tp-focus-bg);
+  outline-offset: 0;
+  box-shadow: 0 0 0 7px var(--tp-focus-outer);
+  border-color: var(--tp-focus-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  position: relative;
+  z-index: 20;
+}
+
+:root[data-variant="23-tuong-phan"] a:focus-visible *,
+:root[data-variant="23-tuong-phan"] button:focus-visible *,
+:root[data-variant="23-tuong-phan"] summary:focus-visible * {
+  color: var(--tp-focus-ink);
+  border-color: var(--tp-focus-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="23-tuong-phan"] a:focus-visible,
+  :root[data-variant="23-tuong-phan"] button:focus-visible,
+  :root[data-variant="23-tuong-phan"] summary:focus-visible,
+  :root[data-variant="23-tuong-phan"] select:focus-visible,
+  :root[data-variant="23-tuong-phan"] input:focus-visible,
+  :root[data-variant="23-tuong-phan"] [tabindex]:focus-visible {
+    background-color: var(--tp-focus-bg);
+    color: var(--tp-focus-ink);
+    outline: 4px solid var(--tp-focus-bg);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px #000000;
+    border-color: var(--tp-focus-ink);
+  }
+}
+
+/* ==========================================================================
+   4. Header, Breadcrumbs, Pager & Book Picker
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] .kt-header {
+  background-color: var(--paper);
+  border-bottom: 4px solid var(--ink);
+  padding: 0.9rem 1.25rem;
+  gap: 0.75rem 1.25rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-brand {
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 900;
+  line-height: 1.3;
+  padding: 0.25rem 0;
+  min-height: 2.75rem;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-brand:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+  padding-inline: 0.4rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-brand span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-brand:hover span {
+  color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-header > button[popovertarget] {
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.45rem 0.95rem;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-header > button[popovertarget]:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-crumbs a {
+  color: var(--accent);
+  font-weight: 700;
+  padding: 0.2rem 0.15rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-crumbs a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-crumbs > span:last-child {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-pager {
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] a.kt-pager {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="23-tuong-phan"] a.kt-pager:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] span.kt-pager {
+  border-style: dashed;
+  border-color: var(--muted);
+  background-color: var(--side);
+  color: var(--muted);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* Book picker dialog */
+:root[data-variant="23-tuong-phan"] .kt-picker {
+  border: 4px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 var(--tp-shadow);
+  outline: none;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav {
+  border-color: var(--ink);
+  border-width: 0 0 3px 0;
+  background-color: var(--side);
+  padding: 0.5rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="23-tuong-phan"] .kt-picker nav {
+    border-width: 0 3px 0 0;
+  }
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav p {
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 900;
+  border-bottom: 2px solid var(--ink);
+  margin: 0.5rem 0.25rem 0.35rem;
+  padding: 0.35rem 0.4rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav button {
+  min-height: 2.75rem;
+  border-radius: 0;
+  border: 2px solid transparent;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.45rem 0.65rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav button:not(:disabled):hover {
+  background-color: var(--paper);
+  border-color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav button[aria-pressed="true"] {
+  background-color: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  font-weight: 900;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav button[aria-pressed="true"] span {
+  color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker nav button:disabled {
+  color: var(--muted);
+  opacity: 1;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker ol a {
+  min-height: 2.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker ol a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* ==========================================================================
+   5. Home Page — Structured Accessible Index (No Decorative Noise)
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] .kt-home {
+  max-width: 68rem;
+  padding: 1.5rem 1.25rem 4.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero {
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 4px solid var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero-title {
+  font-size: clamp(2.35rem, 6.5vw, 4.25rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero-sub {
+  margin-top: 0.75rem;
+  display: inline-block;
+  font-style: normal;
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 800;
+  color: var(--paper);
+  background-color: var(--ink);
+  padding: 0.2rem 0.75rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero > p:not(.kt-hero-sub) {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 42rem;
+  color: var(--ink);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.35rem 0.9rem;
+  margin-top: 0.35rem;
+  border: 2px solid var(--ink);
+  background-color: var(--side);
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+/* Flatten decorative star ornament into a clean zero-noise hairline space */
+:root[data-variant="23-tuong-phan"] .kt-hero > div[aria-hidden="true"] {
+  margin-top: 1.25rem;
+  gap: 0;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero > div[aria-hidden="true"] span:nth-child(2) {
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-hero > div[aria-hidden="true"] span:first-child,
+:root[data-variant="23-tuong-phan"] .kt-hero > div[aria-hidden="true"] span:last-child {
+  height: 2px;
+  background-color: var(--ink);
+}
+
+/* Primary Start Here Callout */
+:root[data-variant="23-tuong-phan"] .kt-start {
+  margin-top: 2rem;
+  padding: 1.5rem 1.25rem;
+  border: 3px solid var(--ink);
+  border-left: 10px solid var(--ink);
+  background-color: var(--side);
+  align-items: flex-start;
+  gap: 1.25rem 2rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="23-tuong-phan"] .kt-start {
+    padding: 2rem 2.25rem;
+  }
+}
+
+:root[data-variant="23-tuong-phan"] .kt-start #bat-dau {
+  display: inline-block;
+  background-color: var(--ink);
+  color: var(--paper);
+  padding: 0.25rem 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-start-title {
+  margin-top: 0.85rem;
+  font-size: clamp(1.75rem, 4.5vw, 2.85rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-start p:not(#bat-dau):not(.kt-start-number) {
+  font-size: 1.1875rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-start-cta {
+  min-height: 3.25rem;
+  padding: 0.65rem 1.5rem;
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-size: 1.125rem;
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-start-cta:hover {
+  background-color: var(--accent);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="23-tuong-phan"] .kt-start-cta:hover {
+    background-color: var(--accent);
+    color: #000000;
+    border-color: var(--accent);
+  }
+}
+
+/* Turn oversized decorative chapter numeral into a crisp structural index stamp */
+:root[data-variant="23-tuong-phan"] .kt-start-number {
+  flex: 0 0 auto;
+  font-family: var(--tp-font);
+  font-size: 2.75rem;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  background-color: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 0.65rem 1.1rem;
+  text-align: center;
+}
+
+/* Book Index List */
+:root[data-variant="23-tuong-phan"] .kt-books {
+  padding: 2.25rem 0;
+  border-bottom: 4px solid var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books #cac-sach {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books ol {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books li {
+  border: none;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books-link {
+  min-height: 3.75rem;
+  padding: 0.85rem 1.15rem;
+  border: 2px solid var(--ink);
+  border-left: 8px solid var(--ink);
+  background-color: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books-link:hover {
+  background-color: var(--side);
+  border-left-color: var(--accent);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books-link > span:first-child {
+  font-family: var(--tp-font);
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 900;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books-link:hover > span:first-child {
+  text-decoration-thickness: 4px;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books-link > span:nth-child(2) {
+  border: 2px solid var(--ink);
+  padding: 0.15rem 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+  background-color: var(--side);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books-link > span:last-child {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Individual Book Sections & Linear Row-by-Row Chapter Grid */
+:root[data-variant="23-tuong-phan"] .kt-book {
+  padding-top: 2.75rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-book > div {
+  border-bottom: 4px solid var(--ink);
+  padding-bottom: 0.65rem;
+  align-items: center;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-book-name {
+  font-size: clamp(1.65rem, 4vw, 2.25rem);
+  font-weight: 900;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-book > div a {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.8rem;
+  border: 2px solid var(--ink);
+  background-color: var(--paper);
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-book > div a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+/* Replace zigzag multi-column flow with accessible left-to-right grid */
+:root[data-variant="23-tuong-phan"] .kt-chapter-list {
+  columns: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 52rem) {
+  :root[data-variant="23-tuong-phan"] .kt-chapter-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  border: 2px solid var(--ink);
+  background-color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-link {
+  min-height: 3.25rem;
+  padding: 0.75rem 0.95rem;
+  align-items: flex-start;
+  gap: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-link:hover {
+  background-color: var(--side);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-link > span:first-child {
+  width: auto;
+  min-width: 2.35rem;
+  padding: 0.15rem 0.45rem;
+  text-align: center;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-size: 0.95rem;
+  font-weight: 900;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-link > span:last-child {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-link:hover > span:last-child {
+  text-decoration-thickness: 4px;
+}
+
+/* Draft summary metadata under chapter links */
+:root[data-variant="23-tuong-phan"] .kt-chapter-list > li > div {
+  margin-left: 0;
+  padding: 0.45rem 0.95rem 0.65rem;
+  border-top: 2px solid var(--ink);
+  background-color: var(--side);
+  font-size: 0.875rem;
+  color: var(--ink);
+  gap: 0.35rem 0.75rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-chapter-list > li > div span {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   6. Chapter Reader Layout — Clear Hierarchy, Accessible Jump Nav & Wide Measure
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] .kt-reader {
+  max-width: 86rem;
+  padding: 1.75rem 1.25rem 4.5rem;
+  gap: 2rem 2.5rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 64rem) {
+  :root[data-variant="23-tuong-phan"] .kt-reader {
+    padding: 2.5rem 2rem 5rem;
+    grid-template-columns: 15.5rem minmax(0, 44rem);
+    justify-content: center;
+  }
+
+  :root[data-variant="23-tuong-phan"] .kt-toc {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: 1.25rem;
+  }
+
+  :root[data-variant="23-tuong-phan"] .kt-chapter {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  :root[data-variant="23-tuong-phan"] .kt-aside {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@media (min-width: 84rem) {
+  :root[data-variant="23-tuong-phan"] .kt-reader {
+    grid-template-columns: 15rem minmax(0, 42rem) 20rem;
+  }
+
+  :root[data-variant="23-tuong-phan"] .kt-toc {
+    grid-row: 1;
+  }
+
+  :root[data-variant="23-tuong-phan"] .kt-aside {
+    grid-column: 3;
+    grid-row: 1;
+    position: sticky;
+    top: 1.25rem;
+  }
+}
+
+/* On-page Table of Contents — visible on phones too as a compact skip-nav box */
+:root[data-variant="23-tuong-phan"] .kt-toc {
+  display: block;
+  border: 3px solid var(--ink);
+  background-color: var(--side);
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-toc > p {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--ink);
+  font-size: 0.875rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-toc ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-toc ol > li {
+  margin: 0;
+}
+
+@media (min-width: 64rem) {
+  :root[data-variant="23-tuong-phan"] .kt-toc ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+}
+
+:root[data-variant="23-tuong-phan"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-toc a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+/* Chapter Heading Block */
+:root[data-variant="23-tuong-phan"] .kt-kicker {
+  display: inline-block;
+  background-color: var(--ink);
+  color: var(--paper);
+  padding: 0.3rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-title {
+  margin-top: 0.85rem;
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-lead {
+  margin-top: 1.15rem;
+  font-style: normal;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-weight: 600;
+  color: var(--ink);
+  background-color: var(--side);
+  border: 2px solid var(--ink);
+  border-left: 8px solid var(--accent);
+  padding: 0.9rem 1.15rem;
+}
+
+/* Scripture Prose — High Legibility, No Drop Cap */
+:root[data-variant="23-tuong-phan"] .kt-scripture {
+  margin-top: 2rem;
+  font-family: var(--tp-font);
+  font-size: 1.25rem;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+@media (min-width: 48rem) {
+  :root[data-variant="23-tuong-phan"] .kt-scripture {
+    font-size: 1.3125rem;
+    line-height: 1.9;
+  }
+}
+
+:root[data-variant="23-tuong-phan"] .kt-scripture > div + div {
+  margin-top: 1.65rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-scripture p::first-letter {
+  float: none;
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+/* Clickable Reference Links */
+:root[data-variant="23-tuong-phan"] .kt-ref {
+  display: inline;
+  padding: 0.08em 0.25em;
+  border: 0;
+  border-bottom: 3px solid var(--accent);
+  border-radius: 0;
+  background-color: var(--side);
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+  border-bottom-color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref[aria-expanded="true"] {
+  background-color: var(--ink);
+  color: var(--paper);
+  border-bottom-color: var(--tp-focus-bg);
+}
+
+/* Inline Expanded Verses */
+:root[data-variant="23-tuong-phan"] .kt-inline-verses {
+  margin-top: 1.15rem;
+  border: 3px solid var(--ink);
+  border-left: 10px solid var(--accent);
+  border-radius: 0;
+  background-color: var(--side);
+  padding: 1.15rem 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-inline-verses > p:first-child {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--ink);
+  font-size: 0.875rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+}
+
+/* Raised Verse Numbers — Crisp High-Contrast Chips */
+:root[data-variant="23-tuong-phan"] .kt-verse-number {
+  display: inline-block;
+  vertical-align: 0.15em;
+  margin-right: 0.35em;
+  padding: 0.05em 0.35em;
+  border: 1.5px solid var(--ink);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--tp-font);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reference Popover */
+:root[data-variant="23-tuong-phan"] .kt-ref-popover {
+  border: 4px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 var(--tp-shadow);
+  padding: 1.35rem;
+  font-family: var(--tp-font);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref-popover > p:first-child {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--ink);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref-popover button {
+  margin-top: 1.15rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--side);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref-popover button:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+/* Section Divider */
+:root[data-variant="23-tuong-phan"] .kt-divider {
+  margin-top: 3rem;
+  padding-top: 0.85rem;
+  border-top: 4px solid var(--ink);
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 900;
+  letter-spacing: 0.7em;
+}
+
+/* ==========================================================================
+   7. Note Accordions, Opinions & Key Takeaways Aside
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] .kt-notes {
+  margin-top: 1.5rem;
+  border-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note {
+  border: 3px solid var(--ink);
+  background-color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note-heading {
+  min-height: 3.75rem;
+  padding: 0.85rem 1.15rem;
+  background-color: var(--side);
+  color: var(--ink);
+  font-family: var(--tp-font);
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note-heading:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note-heading > span[aria-hidden="true"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid var(--ink);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note[open] > .kt-note-heading {
+  background-color: var(--ink);
+  color: var(--paper);
+  border-bottom: 3px solid var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
+  background-color: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note[open] > .kt-note-heading:focus-visible {
+  background-color: var(--tp-focus-bg);
+  color: var(--tp-focus-ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note-body {
+  padding: 1.35rem 1.15rem 1.65rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-note-body > p + p {
+  margin-top: 1.25rem;
+}
+
+/* Commentator Opinions */
+:root[data-variant="23-tuong-phan"] .kt-opinion {
+  border: 2px solid var(--ink);
+  border-left: 8px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  padding: 1.15rem 1.25rem;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-opinion > p:nth-child(2) {
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--ink);
+  font-size: 0.875rem;
+  gap: 0.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-opinion > p:nth-child(2) > span {
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-opinion > p:nth-child(2) > span:first-child {
+  border: 2px solid currentColor;
+  background-color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-opinion > p:nth-child(2) > span:nth-child(2) {
+  border: 2px solid var(--ink);
+  background-color: var(--side);
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-opinion > p:nth-child(2) > span:nth-child(3) {
+  padding: 0;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Byline */
+:root[data-variant="23-tuong-phan"] .kt-byline {
+  margin-top: 1.75rem;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--ink);
+  background-color: var(--side);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* Key Takeaways Aside */
+:root[data-variant="23-tuong-phan"] .kt-aside {
+  border: 3px solid var(--ink);
+  border-top: 10px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--side);
+  padding: 1.35rem 1.25rem;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-aside h2 {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-aside > div {
+  margin-top: 1rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   8. Footer & Variant Switcher
+   ========================================================================== */
+
+:root[data-variant="23-tuong-phan"] .kt-footer {
+  border-top: 4px solid var(--ink);
+  background-color: var(--side);
+  padding-bottom: 4.75rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-footer p {
+  padding: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-footer a {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-footer a:hover {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-switcher {
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 800;
+  padding: 0.4rem 0.65rem;
+  box-shadow: 4px 4px 0 var(--tp-shadow);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-switcher select {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 800;
+  min-height: 2.25rem;
+  padding: 0.2rem 0.45rem;
+}

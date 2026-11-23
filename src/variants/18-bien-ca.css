@@ -1,0 +1,1057 @@
+/*
+ * 18-bien-ca — Biển Cả (Sea of Galilee)
+ * Deep pelagic blues, sunlit sea-glass greens, pure-CSS sinusoidal wave dividers, airy and fluid reading rhythm.
+ */
+
+:root[data-variant="18-bien-ca"] {
+  --paper: #f1f7f8;
+  --ink: #0d2436;
+  --muted: #3d5d70;
+  --accent: #0b6e6d;
+  --rule: #bad6d8;
+  --card: #ffffff;
+  --side: #e1f0ef;
+  --mark: #c2eae4;
+  --cao: #136b55;
+  --vua: #7c5b10;
+  --thap: #a1343a;
+
+  /* Variant-scoped marine palette */
+  --bc-deep: #0b3556;
+  --bc-mid: #165980;
+  --bc-glass: #3f9d99;
+  --bc-wave-line: rgba(11, 110, 109, 0.42);
+  --bc-wave-soft: rgba(22, 89, 128, 0.22);
+  --bc-wave-wash: rgba(63, 157, 153, 0.16);
+  --bc-wave-band: #ddeeed;
+  --bc-glow: rgba(11, 110, 109, 0.14);
+  --bc-shadow: rgba(11, 53, 86, 0.08);
+  --bc-shadow-lg: rgba(11, 53, 86, 0.14);
+  --bc-cta-bg: #0b3556;
+  --bc-cta-fg: #f1f7f8;
+  --bc-cta-hover: #0b6e6d;
+  --bc-header-bg: rgba(246, 251, 252, 0.86);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="18-bien-ca"] {
+    --paper: #071521;
+    --ink: #e4f1f3;
+    --muted: #8fb6c6;
+    --accent: #63d2c6;
+    --rule: #1c3f54;
+    --card: #0e2233;
+    --side: #112d3c;
+    --mark: #14494c;
+    --cao: #6ee0b8;
+    --vua: #e9c872;
+    --thap: #f28f94;
+
+    --bc-deep: #8ad6e8;
+    --bc-mid: #4ba9c4;
+    --bc-glass: #52c4b8;
+    --bc-wave-line: rgba(99, 210, 198, 0.48);
+    --bc-wave-soft: rgba(110, 190, 224, 0.24);
+    --bc-wave-wash: rgba(82, 196, 184, 0.16);
+    --bc-wave-band: #0c2233;
+    --bc-glow: rgba(99, 210, 198, 0.2);
+    --bc-shadow: rgba(2, 9, 16, 0.42);
+    --bc-shadow-lg: rgba(2, 9, 16, 0.62);
+    --bc-cta-bg: #63d2c6;
+    --bc-cta-fg: #061520;
+    --bc-cta-hover: #8be6dc;
+    --bc-header-bg: rgba(10, 27, 42, 0.84);
+  }
+}
+
+/* ── Global canvas, airy breathing room, and accessible focus ── */
+
+:root[data-variant="18-bien-ca"] body {
+  overflow-x: clip;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse 90% 34rem at 15% -6rem, var(--bc-wave-wash), transparent 70%),
+    radial-gradient(ellipse 75% 28rem at 88% 4rem, var(--bc-wave-soft), transparent 68%);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+:root[data-variant="18-bien-ca"] :is(a, button, summary, select):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--bc-glow);
+}
+
+:root[data-variant="18-bien-ca"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
+/* ── Header: floating coastal bar with a CSS sinusoidal wave shoreline ── */
+
+:root[data-variant="18-bien-ca"] .kt-header {
+  position: relative;
+  z-index: 20;
+  border-bottom: 0;
+  background: var(--bc-header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-inline: clamp(1rem, 3vw, 2.25rem);
+  padding-block: 0.9rem 1.15rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -6px;
+  height: 16px;
+  pointer-events: none;
+  /* Pure-CSS 5-12-13 Pythagorean sine wave (period 80px, R=52px, c=48px, a=4px) */
+  background-image:
+    radial-gradient(circle at 40px 56px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px),
+    radial-gradient(circle at 40px -48px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px);
+  background-size: 80px 8px, 80px 8px;
+  background-position: 0 0, 40px 8px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-brand::before {
+  content: "";
+  display: inline-block;
+  align-self: center;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 62% 38% 58% 42% / 44% 58% 42% 56%;
+  background: linear-gradient(135deg, var(--bc-mid), var(--accent));
+  box-shadow: 0 0 0 3px var(--bc-glow);
+  flex-shrink: 0;
+}
+
+:root[data-variant="18-bien-ca"] .kt-brand span {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+:root[data-variant="18-bien-ca"] .kt-header > button[popovertarget],
+:root[data-variant="18-bien-ca"] .kt-pager {
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--ink);
+  padding-inline: 1rem;
+  box-shadow: 0 2px 8px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-header > button[popovertarget]:hover,
+:root[data-variant="18-bien-ca"] a.kt-pager:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] span.kt-pager {
+  background: transparent;
+  box-shadow: none;
+  border-style: dashed;
+}
+
+:root[data-variant="18-bien-ca"] .kt-crumbs {
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-crumbs > span:last-child {
+  border-radius: 9999px;
+  background: var(--side);
+  padding: 0.15rem 0.65rem;
+  font-weight: 500;
+  color: var(--bc-deep);
+}
+
+/* Book picker popover: sea-glass shell with curved top wave bar */
+
+:root[data-variant="18-bien-ca"] .kt-picker {
+  border-radius: 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  box-shadow: 0 20px 50px var(--bc-shadow-lg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker::before {
+  content: "";
+  grid-column: 1 / -1;
+  display: block;
+  height: 12px;
+  background-color: var(--side);
+  background-image:
+    radial-gradient(circle at 40px 56px, var(--card) 51.5px, transparent 52.5px),
+    radial-gradient(circle at 40px -48px, transparent 51.5px, var(--card) 52.5px);
+  background-size: 80px 6px, 80px 6px;
+  background-position: 0 0, 40px 6px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker nav {
+  background: color-mix(in srgb, var(--side) 36%, var(--card));
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker button[aria-pressed="true"] {
+  border-radius: 9999px;
+  background: var(--side);
+  color: var(--accent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker ol a {
+  border-radius: 9999px;
+  border-color: var(--rule);
+  background: var(--paper);
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker ol a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--bc-deep);
+}
+
+/* ── Home page: open water horizon, curved cove hero & fluid card grids ── */
+
+:root[data-variant="18-bien-ca"] .kt-home {
+  max-width: 72rem;
+  padding-inline: clamp(1rem, 3.5vw, 2.5rem);
+  padding-bottom: 5.5rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero {
+  position: relative;
+  padding-top: clamp(2.5rem, 6vw, 4.75rem);
+  padding-bottom: 1.25rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero-sub {
+  margin-top: 0.9rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero > p:not(.kt-hero-sub) {
+  line-height: 1.75;
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 0.4rem 1.05rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  box-shadow: 0 2px 8px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--bc-deep);
+}
+
+/* Hero bottom wave divider: replace flat straight rules with CSS sinusoidal waves */
+
+:root[data-variant="18-bien-ca"] .kt-hero > div[aria-hidden="true"] {
+  margin-top: 2.5rem;
+  gap: 1.15rem;
+  color: var(--accent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-hero > div[aria-hidden="true"] > span:first-child,
+:root[data-variant="18-bien-ca"] .kt-hero > div[aria-hidden="true"] > span:last-child {
+  height: 16px;
+  background-color: transparent;
+  background-image:
+    radial-gradient(circle at 40px 56px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px),
+    radial-gradient(circle at 40px -48px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px);
+  background-size: 80px 8px, 80px 8px;
+  background-position: 0 0, 40px 8px;
+  background-repeat: repeat-x;
+}
+
+/* Home "Bắt đầu đọc": sunlit cove card with layered CSS wave swell along the base */
+
+:root[data-variant="18-bien-ca"] .kt-start {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+  border: 1px solid var(--rule);
+  border-radius: 2rem;
+  background: linear-gradient(140deg, var(--card) 0%, color-mix(in srgb, var(--side) 78%, var(--card)) 100%);
+  padding: clamp(1.75rem, 4vw, 3.25rem) clamp(1.5rem, 4vw, 3.25rem) clamp(3.5rem, 6vw, 4.75rem);
+  box-shadow: 0 18px 44px var(--bc-shadow);
+  align-items: center;
+  gap: 1.75rem 3rem;
+}
+
+/* Layered rising water wave along the bottom edge of .kt-start */
+
+:root[data-variant="18-bien-ca"] .kt-start::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 8px;
+  height: 24px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 80px 108px, var(--bc-wave-wash) 103.5px, transparent 104.5px),
+    radial-gradient(circle at 80px -96px, transparent 103.5px, var(--bc-wave-wash) 104.5px);
+  background-size: 160px 12px, 160px 12px;
+  background-position: 54px 0, 134px 12px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-start::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 24px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 80px 108px, var(--bc-wave-band) 103.5px, transparent 104.5px),
+    radial-gradient(circle at 80px -96px, transparent 103.5px, var(--bc-wave-band) 104.5px);
+  background-size: 160px 12px, 160px 12px;
+  background-position: 0 0, 80px 12px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-start > div {
+  position: relative;
+  z-index: 1;
+}
+
+:root[data-variant="18-bien-ca"] .kt-start-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-start-cta {
+  border-radius: 9999px;
+  background: var(--bc-cta-bg);
+  color: var(--bc-cta-fg);
+  padding-inline: 1.75rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 20px var(--bc-shadow-lg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-start-cta:hover {
+  background: var(--bc-cta-hover);
+}
+
+:root[data-variant="18-bien-ca"] .kt-start-number {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(5.5rem, 13vw, 9.5rem);
+  height: clamp(5.5rem, 13vw, 9.5rem);
+  border-radius: 58% 42% 48% 52% / 46% 54% 46% 54%;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--card) 72%, var(--side));
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  color: var(--accent);
+  box-shadow: inset 0 2px 12px var(--bc-wave-wash), 0 8px 24px var(--bc-shadow);
+}
+
+/* Home book index: airy sea-glass cards instead of stacked rules, followed by a CSS wave divider */
+
+:root[data-variant="18-bien-ca"] .kt-books {
+  position: relative;
+  border-bottom: 0;
+  padding-top: 3.5rem;
+  padding-bottom: 4.5rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-books::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0.75rem;
+  height: 22px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 60px 83px, transparent 76.4px, var(--bc-wave-line) 77px, var(--bc-wave-line) 79px, transparent 79.6px),
+    radial-gradient(circle at 60px -72px, transparent 76.4px, var(--bc-wave-line) 77px, var(--bc-wave-line) 79px, transparent 79.6px),
+    radial-gradient(circle at 60px 83px, transparent 76.7px, var(--bc-wave-soft) 77.3px, var(--bc-wave-soft) 78.7px, transparent 79.3px),
+    radial-gradient(circle at 60px -72px, transparent 76.7px, var(--bc-wave-soft) 77.3px, var(--bc-wave-soft) 78.7px, transparent 79.3px);
+  background-size: 120px 11px, 120px 11px, 120px 11px, 120px 11px;
+  background-position: 0 0, 60px 11px, 38px 0, 98px 11px;
+  background-repeat: repeat-x;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-books ol {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19.5rem), 1fr));
+  gap: 1rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-books li {
+  border-bottom: 0;
+}
+
+:root[data-variant="18-bien-ca"] .kt-books-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 7.25rem;
+  height: 100%;
+  border-radius: 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 6px 18px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-books-link:hover {
+  border-color: var(--accent);
+  background: linear-gradient(155deg, var(--card) 0%, var(--side) 100%);
+  box-shadow: 0 12px 26px var(--bc-shadow-lg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-books-link > span:first-child {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-books-link > span:nth-child(2) {
+  border-radius: 9999px;
+  background: var(--side);
+  padding: 0.18rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+:root[data-variant="18-bien-ca"] .kt-books-link > span:nth-child(3) {
+  min-width: 0;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+/* Home book sections: wave-underlined headings and fluid chapter pebble grid */
+
+:root[data-variant="18-bien-ca"] .kt-book {
+  padding-top: 3.25rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-book > div {
+  position: relative;
+  border-bottom: 0;
+  padding-bottom: 1.35rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-book > div::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 14px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 40px 55px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px),
+    radial-gradient(circle at 40px -48px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px);
+  background-size: 80px 7px, 80px 7px;
+  background-position: 0 0, 40px 7px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-book-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 2.35rem);
+  font-weight: 600;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-list {
+  margin-top: 1.5rem;
+  columns: unset;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
+  gap: 0.75rem 1rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  border-radius: 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--rule) 75%, transparent);
+  background: color-mix(in srgb, var(--card) 82%, transparent);
+  padding: 0.75rem 0.9rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-list > li:hover {
+  border-color: var(--accent);
+  background: var(--card);
+  box-shadow: 0 6px 16px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-link {
+  align-items: center;
+  gap: 0.85rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-link > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 9999px;
+  background: var(--side);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  color: var(--accent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-link:hover > span:first-child {
+  background: var(--accent);
+  color: var(--bc-cta-fg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-chapter-list > li > div {
+  margin-top: 0.45rem;
+  margin-left: 3rem;
+}
+
+/* ── Chapter page: airy pelagic reading column, sea-glass TOC & tide-pool aside ── */
+
+:root[data-variant="18-bien-ca"] .kt-reader {
+  max-width: 92rem;
+  padding-inline: clamp(1rem, 3.5vw, 2.5rem);
+  padding-top: clamp(2rem, 4.5vw, 3.75rem);
+  padding-bottom: 5.5rem;
+  gap: 2.75rem clamp(2rem, 3.5vw, 3.75rem);
+}
+
+/* Left navigation rail */
+
+:root[data-variant="18-bien-ca"] .kt-toc {
+  border-left: 2px solid var(--rule);
+  padding-left: 0.85rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-toc ol a {
+  border-radius: 9999px;
+  padding: 0.45rem 0.9rem;
+  color: var(--muted);
+}
+
+:root[data-variant="18-bien-ca"] .kt-toc ol a:hover {
+  background: var(--side);
+  color: var(--bc-deep);
+}
+
+/* Main reading article */
+
+:root[data-variant="18-bien-ca"] .kt-chapter {
+  position: relative;
+}
+
+:root[data-variant="18-bien-ca"] .kt-kicker {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--side);
+  padding: 0.3rem 0.95rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-title {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.15rem, 4.4vw, 3.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-lead {
+  position: relative;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+  font-size: clamp(1.02rem, 1.4vw, 1.14rem);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* Wave rule separating chapter intro from scripture */
+
+:root[data-variant="18-bien-ca"] .kt-lead::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 16px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 40px 56px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px),
+    radial-gradient(circle at 40px -48px, transparent 50.6px, var(--bc-wave-line) 51.2px, var(--bc-wave-line) 52.8px, transparent 53.4px);
+  background-size: 80px 8px, 80px 8px;
+  background-position: 0 0, 40px 8px;
+  background-repeat: repeat-x;
+  mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
+}
+
+/* Scripture narrative */
+
+:root[data-variant="18-bien-ca"] .kt-scripture {
+  margin-top: 2.25rem;
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.26rem);
+  line-height: 1.92;
+  color: var(--ink);
+}
+
+:root[data-variant="18-bien-ca"] .kt-scripture > div > p:first-child::first-letter {
+  font-family: var(--font-display);
+  color: var(--accent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-verse-number {
+  margin-right: 0.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Inline quoted verses: serene tide-pool panel */
+
+:root[data-variant="18-bien-ca"] .kt-inline-verses {
+  position: relative;
+  margin-top: 1.15rem;
+  border-radius: 1.4rem;
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(135deg, var(--side) 0%, color-mix(in srgb, var(--card) 75%, var(--side)) 100%);
+  padding: 1.15rem 1.4rem;
+  font-size: 1.04rem;
+  line-height: 1.82;
+  box-shadow: 0 8px 22px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-inline-verses > p:first-child {
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+/* Signature double-crest CSS wave section divider between story and notes */
+
+:root[data-variant="18-bien-ca"] .kt-divider {
+  margin-top: 3.5rem;
+  margin-bottom: 0.5rem;
+  height: 26px;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  user-select: none;
+  background-image:
+    radial-gradient(circle at 60px 83px, transparent 76.3px, var(--bc-wave-line) 77px, var(--bc-wave-line) 79px, transparent 79.7px),
+    radial-gradient(circle at 60px -72px, transparent 76.3px, var(--bc-wave-line) 77px, var(--bc-wave-line) 79px, transparent 79.7px),
+    radial-gradient(circle at 60px 83px, transparent 76.7px, var(--bc-wave-soft) 77.3px, var(--bc-wave-soft) 78.7px, transparent 79.3px),
+    radial-gradient(circle at 60px -72px, transparent 76.7px, var(--bc-wave-soft) 77.3px, var(--bc-wave-soft) 78.7px, transparent 79.3px);
+  background-size: 120px 11px, 120px 11px, 120px 11px, 120px 11px;
+  background-position: 0 2px, 60px 13px, 42px 2px, 102px 13px;
+  background-repeat: repeat-x;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Note sections: buoyant sea-glass shells with curved divider when open */
+
+:root[data-variant="18-bien-ca"] .kt-notes {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  border-bottom: 0;
+}
+
+:root[data-variant="18-bien-ca"] .kt-note {
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 1.45rem;
+  background: var(--card);
+  box-shadow: 0 4px 14px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-note[open] {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--rule));
+  box-shadow: 0 12px 28px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-note-heading {
+  min-height: 3.75rem;
+  padding: 0.95rem 1.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.1vw, 1.5rem);
+  font-weight: 600;
+  color: var(--bc-deep);
+}
+
+:root[data-variant="18-bien-ca"] .kt-note-heading:hover {
+  background: color-mix(in srgb, var(--side) 55%, transparent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-note-heading > span[aria-hidden="true"] {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--side);
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-note-body {
+  position: relative;
+  padding: 1.5rem 1.35rem 1.5rem;
+  font-size: 1.075rem;
+  line-height: 1.82;
+}
+
+:root[data-variant="18-bien-ca"] .kt-note-body::before {
+  content: "";
+  position: absolute;
+  inset-inline: 1.35rem;
+  top: 0;
+  height: 12px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 40px 54px, transparent 50.8px, var(--bc-wave-line) 51.3px, var(--bc-wave-line) 52.5px, transparent 53px),
+    radial-gradient(circle at 40px -48px, transparent 50.8px, var(--bc-wave-line) 51.3px, var(--bc-wave-line) 52.5px, transparent 53px);
+  background-size: 80px 6px, 80px 6px;
+  background-position: 0 0, 40px 6px;
+  background-repeat: repeat-x;
+}
+
+/* Commentator opinions: sea-glass cards */
+
+:root[data-variant="18-bien-ca"] .kt-opinion {
+  border-radius: 1.2rem;
+  border: 1px solid var(--rule);
+  border-left: 3.5px solid var(--bc-glass);
+  background: color-mix(in srgb, var(--side) 48%, var(--card));
+  padding: 1.15rem 1.25rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-byline {
+  margin-top: 2rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--side) 52%, transparent);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Right aside ("Điều cần nhớ"): floating sea-glass tide-pool card with curved wave crest */
+
+:root[data-variant="18-bien-ca"] .kt-aside {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid var(--rule);
+  background: linear-gradient(165deg, var(--card) 0%, var(--side) 100%);
+  padding: 2.35rem 1.5rem 1.6rem;
+  box-shadow: 0 14px 34px var(--bc-shadow);
+}
+
+:root[data-variant="18-bien-ca"] .kt-aside::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 20px;
+  background-color: var(--bc-wave-band);
+  background-image:
+    radial-gradient(circle at 60px 82px, var(--card) 77.4px, transparent 78.4px),
+    radial-gradient(circle at 60px -72px, transparent 77.4px, var(--card) 78.4px);
+  background-size: 120px 10px, 120px 10px;
+  background-position: 0 0, 60px 10px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-aside h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+}
+
+:root[data-variant="18-bien-ca"] .kt-aside h2::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="18-bien-ca"] .kt-reader {
+    grid-template-columns: 13rem minmax(0, 44rem) 19.5rem;
+  }
+
+  :root[data-variant="18-bien-ca"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+
+/* ── Clickable references & verse popover ── */
+
+:root[data-variant="18-bien-ca"] .kt-ref {
+  border-radius: 0.4rem;
+  padding-inline: 0.14em;
+  color: var(--accent);
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: color-mix(in srgb, var(--bc-glass) 75%, transparent);
+  text-underline-offset: 0.28em;
+  text-decoration-thickness: 1.25px;
+}
+
+:root[data-variant="18-bien-ca"] .kt-ref:hover,
+:root[data-variant="18-bien-ca"] .kt-ref[aria-expanded="true"] {
+  background: var(--side);
+  color: var(--bc-deep);
+  text-decoration-color: var(--accent);
+}
+
+:root[data-variant="18-bien-ca"] .kt-ref-popover {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 2rem 1.5rem 1.35rem;
+  box-shadow: 0 22px 54px var(--bc-shadow-lg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-ref-popover::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 16px;
+  background-color: var(--side);
+  background-image:
+    radial-gradient(circle at 40px 56px, var(--card) 51.5px, transparent 52.5px),
+    radial-gradient(circle at 40px -48px, transparent 51.5px, var(--card) 52.5px);
+  background-size: 80px 8px, 80px 8px;
+  background-position: 0 0, 40px 8px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-ref-popover > p:first-child {
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+:root[data-variant="18-bien-ca"] .kt-ref-popover > button {
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--side);
+  padding: 0.3rem 0.95rem;
+  font-weight: 500;
+  color: var(--bc-deep);
+  text-decoration: none;
+}
+
+:root[data-variant="18-bien-ca"] .kt-ref-popover > button:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bc-cta-fg);
+}
+
+/* ── Footer: rising coastal tide wave transitioning from paper into sea-glass ── */
+
+:root[data-variant="18-bien-ca"] .kt-footer {
+  position: relative;
+  margin-top: 2.5rem;
+  border-top: 0;
+  background: var(--bc-wave-band);
+  padding-top: 0.5rem;
+  padding-bottom: 3.5rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-footer::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: -24px;
+  height: 24px;
+  pointer-events: none;
+  /* Pure-CSS double-layer rising sea swell */
+  background-image:
+    radial-gradient(circle at 80px 108px, var(--bc-wave-band) 103.5px, transparent 104.5px),
+    radial-gradient(circle at 80px -96px, transparent 103.5px, var(--bc-wave-band) 104.5px),
+    radial-gradient(circle at 80px 108px, var(--bc-wave-wash) 103.5px, transparent 104.5px),
+    radial-gradient(circle at 80px -96px, transparent 103.5px, var(--bc-wave-wash) 104.5px);
+  background-size: 160px 12px, 160px 12px, 160px 12px, 160px 12px;
+  background-position: 0 0, 80px 12px, 56px -4px, 136px 8px;
+  background-repeat: repeat-x;
+}
+
+:root[data-variant="18-bien-ca"] .kt-footer p {
+  max-width: 92rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3.5vw, 2.5rem);
+  padding-block: 1.15rem;
+  color: var(--muted);
+}
+
+:root[data-variant="18-bien-ca"] .kt-footer a {
+  color: var(--accent);
+  text-underline-offset: 0.25em;
+}
+
+/* Variant switcher: frosted sea-glass pebble */
+
+:root[data-variant="18-bien-ca"] .kt-switcher {
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--bc-header-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.4rem 0.9rem;
+  color: var(--muted);
+  box-shadow: 0 8px 24px var(--bc-shadow-lg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-switcher select {
+  border-radius: 9999px;
+  background: transparent;
+  font-weight: 600;
+  color: var(--bc-deep);
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="18-bien-ca"] .kt-footer {
+    padding-bottom: 1.25rem;
+  }
+}
+
+/* ── Subtle, serene water motion (strictly under prefers-reduced-motion: no-preference) ── */
+
+@keyframes kt-18-bien-ca-wave-drift {
+  from {
+    background-position-x: 0, 60px, 42px, 102px;
+  }
+  to {
+    background-position-x: 120px, 180px, -78px, -18px;
+  }
+}
+
+@keyframes kt-18-bien-ca-tide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="18-bien-ca"] .kt-divider {
+    animation: kt-18-bien-ca-wave-drift 22s linear infinite;
+  }
+
+  :root[data-variant="18-bien-ca"] .kt-inline-verses {
+    animation: kt-18-bien-ca-tide-in 0.28s ease-out both;
+  }
+
+  :root[data-variant="18-bien-ca"] .kt-books-link,
+  :root[data-variant="18-bien-ca"] .kt-chapter-list > li,
+  :root[data-variant="18-bien-ca"] .kt-start-cta,
+  :root[data-variant="18-bien-ca"] .kt-pager,
+  :root[data-variant="18-bien-ca"] .kt-header > button[popovertarget],
+  :root[data-variant="18-bien-ca"] .kt-hero a,
+  :root[data-variant="18-bien-ca"] .kt-toc ol a,
+  :root[data-variant="18-bien-ca"] .kt-note,
+  :root[data-variant="18-bien-ca"] .kt-note-heading,
+  :root[data-variant="18-bien-ca"] .kt-note-heading > span[aria-hidden="true"],
+  :root[data-variant="18-bien-ca"] .kt-ref,
+  :root[data-variant="18-bien-ca"] .kt-ref-popover > button,
+  :root[data-variant="18-bien-ca"] .kt-chapter-link > span:first-child {
+    transition:
+      background-color 0.22s ease,
+      border-color 0.22s ease,
+      color 0.22s ease,
+      box-shadow 0.25s ease,
+      transform 0.22s ease;
+  }
+
+  :root[data-variant="18-bien-ca"] .kt-books-link:hover,
+  :root[data-variant="18-bien-ca"] .kt-start-cta:hover {
+    transform: translateY(-2px);
+  }
+}

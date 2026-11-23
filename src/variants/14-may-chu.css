@@ -1,0 +1,1008 @@
+/* 14-may-chu — Bản thảo máy chữ (Typewriter Manuscript)
+ * Monospace everything (ui-monospace), carbon-copy ink, red ribbon accents,
+ * underlines instead of bold, double-spaced typescript draft feel.
+ */
+
+:root[data-variant="14-may-chu"] {
+  --kt-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Light: 70gsm bond paper, deep blue-charcoal carbon ink, red typewriter ribbon */
+  --paper: #f2ede1;
+  --ink: #1d212b;
+  --muted: #4b5262;
+  --accent: #a62626;
+  --rule: #bfb6a2;
+  --card: #faf7ef;
+  --side: #e9e2d2;
+  --mark: #efe09e;
+  --cao: #1d5c34;
+  --vua: #785308;
+  --thap: #a62626;
+
+  --kt-shadow: color-mix(in srgb, var(--ink) 14%, transparent);
+  --kt-shadow-strong: color-mix(in srgb, var(--ink) 24%, transparent);
+  --kt-margin-line: color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="14-may-chu"] {
+    /* Dark: carbon-copy sheet & lamp-lit darkroom typescript */
+    --paper: #16181d;
+    --ink: #e4dfd3;
+    --muted: #9fa7b5;
+    --accent: #f27e78;
+    --rule: #3a404c;
+    --card: #1d2027;
+    --side: #252933;
+    --mark: #5a4a1c;
+    --cao: #83d49b;
+    --vua: #e8c668;
+    --thap: #f27e78;
+
+    --kt-shadow: color-mix(in srgb, #000000 45%, transparent);
+    --kt-shadow-strong: color-mix(in srgb, #000000 65%, transparent);
+    --kt-margin-line: color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+}
+
+/* --- Global typewriter mechanics: monospace only, single weight, sharp paper corners --- */
+
+:root[data-variant="14-may-chu"],
+:root[data-variant="14-may-chu"] *,
+:root[data-variant="14-may-chu"] *::before,
+:root[data-variant="14-may-chu"] *::after {
+  font-family: var(--kt-mono);
+  font-weight: 400;
+}
+
+:root[data-variant="14-may-chu"] body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.85;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  overflow-x: clip;
+}
+
+/* Underlines replace bold & italic on a mechanical typewriter */
+:root[data-variant="14-may-chu"] strong,
+:root[data-variant="14-may-chu"] b {
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+  text-decoration-skip-ink: none;
+}
+
+:root[data-variant="14-may-chu"] em,
+:root[data-variant="14-may-chu"] i {
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  text-decoration-skip-ink: none;
+}
+
+:root[data-variant="14-may-chu"] mark {
+  border-radius: 0;
+  padding: 0.05em 0.25em;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--thap);
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="14-may-chu"] a:focus-visible,
+:root[data-variant="14-may-chu"] button:focus-visible,
+:root[data-variant="14-may-chu"] summary:focus-visible,
+:root[data-variant="14-may-chu"] select:focus-visible,
+:root[data-variant="14-may-chu"] input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="14-may-chu"] .animate-reveal {
+    animation: kt-may-chu-type-in 0.28s steps(6, end) both;
+  }
+
+  @keyframes kt-may-chu-type-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* --- Top bar: filing-strip header --- */
+
+:root[data-variant="14-may-chu"] .kt-header {
+  background: var(--paper);
+  border-bottom: 3px double var(--ink);
+  padding: 0.75rem 1.25rem;
+  gap: 0.65rem 1rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-brand {
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--rule);
+}
+
+:root[data-variant="14-may-chu"] .kt-brand:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-brand span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.85rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-header button[popovertarget],
+:root[data-variant="14-may-chu"] .kt-pager {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  min-height: 2.5rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  box-shadow: 2px 2px 0 var(--kt-shadow);
+}
+
+:root[data-variant="14-may-chu"] span.kt-pager {
+  border-style: dashed;
+  border-color: var(--rule);
+  background: transparent;
+  color: var(--muted);
+  box-shadow: none;
+}
+
+:root[data-variant="14-may-chu"] .kt-header button[popovertarget]:hover,
+:root[data-variant="14-may-chu"] a.kt-pager:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  box-shadow: 2px 2px 0 var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-crumbs {
+  font-size: 0.82rem;
+  flex-wrap: wrap;
+  row-gap: 0.25rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-crumbs a {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="14-may-chu"] .kt-crumbs a:hover {
+  text-decoration-style: solid;
+  color: var(--accent);
+}
+
+/* Draft status pill inside header: rectangular rubber-stamp tag */
+:root[data-variant="14-may-chu"] .kt-header > span {
+  border-radius: 0;
+  border: 1px dashed var(--vua);
+  background: var(--card);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  padding: 0.25rem 0.55rem;
+}
+
+/* --- Book picker popover: filing-cabinet index drawer --- */
+
+:root[data-variant="14-may-chu"] .kt-picker {
+  border-radius: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--card);
+  box-shadow: 5px 5px 0 var(--kt-shadow-strong);
+}
+
+:root[data-variant="14-may-chu"] .kt-picker nav {
+  background: var(--side);
+  border-color: var(--rule);
+}
+
+:root[data-variant="14-may-chu"] .kt-picker nav p {
+  color: var(--accent);
+  border-bottom: 1px dashed var(--rule);
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-picker nav button {
+  border-radius: 0;
+  min-height: 2.25rem;
+  font-size: 0.85rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-picker nav button:hover:not(:disabled) {
+  background: var(--card);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="14-may-chu"] .kt-picker nav button[aria-pressed="true"] {
+  background: var(--card);
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-variant="14-may-chu"] .kt-picker div > p {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px double var(--ink);
+  padding-bottom: 0.4rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-picker ol a {
+  border-radius: 0;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  min-height: 2.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-picker ol a:hover {
+  border-color: var(--accent);
+  background: var(--card);
+  color: var(--accent);
+  text-decoration: underline;
+  box-shadow: 2px 2px 0 var(--accent);
+}
+
+/* --- Home page: Manuscript Title Sheet & Typed Ledger TOC --- */
+
+:root[data-variant="14-may-chu"] .kt-home {
+  max-width: 56rem;
+  padding: 1.5rem 1.25rem 5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-hero {
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-top: 3px double var(--ink);
+  padding: 2rem 1.5rem 1.75rem;
+  box-shadow: 4px 4px 0 var(--kt-shadow);
+}
+
+:root[data-variant="14-may-chu"] .kt-hero::before {
+  content: "BẢN THẢO ĐÁNH MÁY // PHỤ LỤC GHI CHÚ";
+  display: block;
+  margin-bottom: 1.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-hero-title {
+  font-size: clamp(2rem, 6vw, 3.1rem);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+  border-bottom: 3px double var(--ink);
+}
+
+:root[data-variant="14-may-chu"] .kt-hero-sub {
+  margin-top: 0.9rem;
+  font-size: 1.125rem;
+  font-style: normal;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+:root[data-variant="14-may-chu"] .kt-hero-sub::before {
+  content: "— ";
+}
+
+:root[data-variant="14-may-chu"] .kt-hero > p:not(.kt-hero-sub) {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 42rem;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+:root[data-variant="14-may-chu"] .kt-hero a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+:root[data-variant="14-may-chu"] .kt-hero > div[aria-hidden="true"] {
+  margin-top: 1.75rem;
+  gap: 0.75rem;
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-hero > div[aria-hidden="true"] > span:first-child,
+:root[data-variant="14-may-chu"] .kt-hero > div[aria-hidden="true"] > span:last-child {
+  height: 0;
+  background: transparent;
+  border-top: 1px dashed var(--rule);
+}
+
+/* Home draft banner */
+:root[data-variant="14-may-chu"] .kt-home > p {
+  border-radius: 0;
+  border-style: dashed;
+  background: var(--side);
+}
+
+/* Start-here excerpt slip */
+:root[data-variant="14-may-chu"] .kt-start {
+  margin-top: 2rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--ink);
+  border-left: 4px solid var(--accent);
+  box-shadow: 4px 4px 0 var(--kt-shadow);
+  align-items: flex-start;
+  gap: 1.25rem 2rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-start > div {
+  flex: 1 1 20rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-start #bat-dau {
+  color: var(--accent);
+  letter-spacing: 0.12em;
+}
+
+:root[data-variant="14-may-chu"] .kt-start #bat-dau::before {
+  content: "[ ";
+}
+
+:root[data-variant="14-may-chu"] .kt-start #bat-dau::after {
+  content: " ]";
+}
+
+:root[data-variant="14-may-chu"] .kt-start-title {
+  margin-top: 0.85rem;
+  font-size: clamp(1.35rem, 3.6vw, 2rem);
+  line-height: 1.35;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.24em;
+  text-decoration-skip-ink: none;
+}
+
+:root[data-variant="14-may-chu"] .kt-start > div > p:not(#bat-dau) {
+  font-size: 1rem;
+  line-height: 2;
+  margin-top: 1.1rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-start-cta {
+  border-radius: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-start-cta::after {
+  content: " ->";
+}
+
+:root[data-variant="14-may-chu"] .kt-start-cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+:root[data-variant="14-may-chu"] .kt-start-number {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--muted);
+  border: 1px dashed var(--rule);
+  background: var(--paper);
+  padding: 0.55rem 0.9rem;
+  text-align: center;
+  min-width: 5.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-start-number::before {
+  content: "ĐOẠN";
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.25rem;
+}
+
+/* Books ledger index */
+:root[data-variant="14-may-chu"] .kt-books {
+  margin-top: 2.5rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  box-shadow: 4px 4px 0 var(--kt-shadow);
+}
+
+:root[data-variant="14-may-chu"] .kt-books h2 {
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  border-bottom: 2px double var(--ink);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-books li {
+  border-bottom: 1px dashed var(--rule);
+}
+
+:root[data-variant="14-may-chu"] .kt-books-link {
+  min-height: 3.25rem;
+  padding: 0.7rem 0.4rem;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+}
+
+:root[data-variant="14-may-chu"] .kt-books-link:hover {
+  background: var(--side);
+}
+
+:root[data-variant="14-may-chu"] .kt-books-link > span:first-child {
+  font-size: 1.15rem;
+  flex: 1 1 12rem;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.24em;
+}
+
+:root[data-variant="14-may-chu"] .kt-books-link:hover > span:first-child {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-books-link > span:nth-child(2) {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+:root[data-variant="14-may-chu"] .kt-books-link > span:nth-child(3) {
+  font-size: 0.88rem;
+  min-width: 5.5rem;
+}
+
+/* Each book section & its chapters */
+:root[data-variant="14-may-chu"] .kt-book {
+  padding-top: 2.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-book > div:first-child {
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-book-name {
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+:root[data-variant="14-may-chu"] .kt-book > div:first-child a {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem 2rem;
+  columns: auto;
+  margin-top: 1rem;
+}
+
+@media (min-width: 44rem) {
+  :root[data-variant="14-may-chu"] .kt-chapter-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  padding: 0.55rem 0.25rem;
+  border-bottom: 1px dotted var(--rule);
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-link {
+  align-items: baseline;
+  gap: 0.65rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-link > span:first-child {
+  width: auto;
+  min-width: 2.6rem;
+  text-align: right;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-link > span:first-child::before {
+  content: "[";
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-link > span:first-child::after {
+  content: "]";
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-chapter-link:hover > span:last-child {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+/* --- Chapter page: Manuscript Desk Grid --- */
+
+:root[data-variant="14-may-chu"] .kt-reader {
+  max-width: 88rem;
+  padding: 1.25rem 0.85rem 4rem;
+  gap: 1.75rem 2rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="14-may-chu"] .kt-reader {
+    padding: 2rem 1.5rem 5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root[data-variant="14-may-chu"] .kt-reader {
+    grid-template-columns: 12.5rem minmax(0, 44rem) 18.5rem;
+    gap: 2.25rem 2.25rem;
+    padding: 2.75rem 1.75rem 5.5rem;
+  }
+}
+
+/* Left sticky TOC slip */
+:root[data-variant="14-may-chu"] .kt-toc {
+  border-left: 1px dashed var(--rule);
+  padding-left: 0.9rem;
+  font-size: 0.82rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-toc > p {
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.12em;
+}
+
+:root[data-variant="14-may-chu"] .kt-toc a {
+  border-radius: 0;
+  padding: 0.4rem 0.35rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-toc a::before {
+  content: "> ";
+  color: var(--rule);
+}
+
+:root[data-variant="14-may-chu"] .kt-toc a:hover {
+  background: var(--side);
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="14-may-chu"] .kt-toc a:hover::before {
+  color: var(--accent);
+}
+
+/* Center manuscript sheet */
+:root[data-variant="14-may-chu"] .kt-chapter {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  padding: 1.5rem 1.15rem 2rem;
+  box-shadow: 4px 4px 0 var(--kt-shadow);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="14-may-chu"] .kt-chapter {
+    padding: 2.5rem 2.5rem 2.75rem 3.5rem;
+    background-image: linear-gradient(
+      to right,
+      transparent 2.25rem,
+      var(--kt-margin-line) 2.25rem,
+      var(--kt-margin-line) calc(2.25rem + 1px),
+      transparent calc(2.25rem + 1px)
+    );
+    box-shadow: 5px 5px 0 var(--kt-shadow);
+  }
+}
+
+:root[data-variant="14-may-chu"] .kt-kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-kicker::before {
+  content: "// ";
+}
+
+:root[data-variant="14-may-chu"] .kt-title {
+  margin-top: 0.75rem;
+  font-size: clamp(1.4rem, 4.2vw, 2.05rem);
+  line-height: 1.38;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px double var(--ink);
+}
+
+:root[data-variant="14-may-chu"] .kt-lead {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-style: normal;
+  line-height: 1.8;
+  color: var(--muted);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed var(--rule);
+}
+
+/* Double-spaced typescript body */
+:root[data-variant="14-may-chu"] .kt-scripture {
+  margin-top: 1.75rem;
+  font-size: 1rem;
+  line-height: 2.05;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="14-may-chu"] .kt-scripture {
+    font-size: 1.05rem;
+    line-height: 2.2;
+  }
+}
+
+:root[data-variant="14-may-chu"] .kt-scripture > div + div {
+  margin-top: 1.5rem;
+}
+
+/* Cancel serif drop cap; use typewriter tab indent */
+:root[data-variant="14-may-chu"] .kt-scripture > div > p {
+  text-indent: 2.5ch;
+}
+
+:root[data-variant="14-may-chu"] .kt-scripture > div > p::first-letter {
+  float: none;
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 400;
+  color: inherit;
+}
+
+/* Bracketed verse numbers */
+:root[data-variant="14-may-chu"] .kt-verse-number {
+  font-size: 0.72em;
+  color: var(--accent);
+  vertical-align: super;
+  line-height: 0;
+  margin-right: 0.25em;
+}
+
+:root[data-variant="14-may-chu"] .kt-verse-number::before {
+  content: "[";
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-verse-number::after {
+  content: "]";
+  color: var(--muted);
+}
+
+/* Inline verses quotation slip */
+:root[data-variant="14-may-chu"] .kt-inline-verses {
+  border-radius: 0;
+  background: var(--side);
+  border: 1px dashed var(--rule);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.15rem;
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-top: 1.1rem;
+  text-indent: 0;
+}
+
+:root[data-variant="14-may-chu"] .kt-inline-verses > p:first-child {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Scene break divider */
+:root[data-variant="14-may-chu"] .kt-divider {
+  margin-top: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.55em;
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-divider::before,
+:root[data-variant="14-may-chu"] .kt-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px dashed var(--rule);
+}
+
+/* Folded notes: typed appendices */
+:root[data-variant="14-may-chu"] .kt-notes {
+  margin-top: 1.75rem;
+  border-bottom: 2px double var(--ink);
+}
+
+:root[data-variant="14-may-chu"] .kt-note {
+  border-top: 1px dashed var(--rule);
+}
+
+:root[data-variant="14-may-chu"] .kt-note-heading {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  padding: 0.9rem 0.25rem;
+  min-height: 3.25rem;
+  justify-content: flex-start;
+  gap: 0.65rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-note-heading::before {
+  content: "[+]";
+  color: var(--accent);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+:root[data-variant="14-may-chu"] .kt-note[open] > .kt-note-heading::before {
+  content: "[-]";
+}
+
+:root[data-variant="14-may-chu"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.26em;
+}
+
+:root[data-variant="14-may-chu"] .kt-note-heading:hover {
+  background: var(--side);
+  text-decoration: underline;
+  text-underline-offset: 0.26em;
+}
+
+:root[data-variant="14-may-chu"] .kt-note-heading > span[aria-hidden="true"] {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-note-body {
+  font-size: 1rem;
+  line-height: 1.95;
+  padding: 0.5rem 0 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="14-may-chu"] .kt-note-body {
+    padding: 0.5rem 0 1.75rem 1.25rem;
+    border-left: 1px dashed var(--rule);
+    margin-left: 0.65rem;
+  }
+}
+
+/* Commentator opinions: bibliography index cards */
+:root[data-variant="14-may-chu"] .kt-opinion {
+  border-radius: 0;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--ink);
+  background: var(--paper);
+  padding: 1rem 1.1rem;
+  box-shadow: 2px 2px 0 var(--kt-shadow);
+  line-height: 1.9;
+}
+
+:root[data-variant="14-may-chu"] .kt-opinion > p:nth-child(2) {
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--rule);
+  font-size: 0.78rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-opinion > p:nth-child(2) > span {
+  border-radius: 0;
+}
+
+:root[data-variant="14-may-chu"] .kt-opinion > p:nth-child(2) > span:first-child {
+  border: 1px solid currentColor;
+  padding: 0.15rem 0.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-opinion > p:nth-child(2) > span:nth-child(2) {
+  border-style: dashed;
+  padding: 0.15rem 0.5rem;
+}
+
+/* Byline colophon */
+:root[data-variant="14-may-chu"] .kt-byline {
+  margin-top: 1.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--rule);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+:root[data-variant="14-may-chu"] .kt-byline::before {
+  content: "-- ";
+}
+
+/* Right aside: pinned carbon-copy editor memo */
+:root[data-variant="14-may-chu"] .kt-aside {
+  border-radius: 0;
+  background: var(--side);
+  border: 1px dashed var(--ink);
+  border-top: 3px double var(--accent);
+  padding: 1.25rem 1.25rem 1.4rem;
+  box-shadow: 4px 4px 0 var(--kt-shadow);
+}
+
+:root[data-variant="14-may-chu"] .kt-aside h2 {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-aside h2::before {
+  content: "* ";
+}
+
+:root[data-variant="14-may-chu"] .kt-aside > div {
+  margin-top: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+/* --- Clickable reference & verse popover --- */
+
+:root[data-variant="14-may-chu"] .kt-ref {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-skip-ink: none;
+  padding: 0 0.1em;
+}
+
+:root[data-variant="14-may-chu"] .kt-ref:hover,
+:root[data-variant="14-may-chu"] .kt-ref[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  text-decoration-thickness: 2px;
+}
+
+:root[data-variant="14-may-chu"] .kt-ref-popover {
+  border-radius: 0;
+  border: 1.5px solid var(--ink);
+  border-top: 4px solid var(--accent);
+  background: var(--card);
+  box-shadow: 5px 5px 0 var(--kt-shadow-strong);
+  padding: 1.25rem 1.35rem;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+:root[data-variant="14-may-chu"] .kt-ref-popover > p:first-child {
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-ref-popover button {
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.82rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+:root[data-variant="14-may-chu"] .kt-ref-popover button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* --- Footer & look switcher --- */
+
+:root[data-variant="14-may-chu"] .kt-footer {
+  border-top: 3px double var(--rule);
+  background: var(--paper);
+  padding-bottom: 3.25rem;
+}
+
+@media (min-width: 48rem) {
+  :root[data-variant="14-may-chu"] .kt-footer {
+    padding-bottom: 0.5rem;
+  }
+}
+
+:root[data-variant="14-may-chu"] .kt-footer p {
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+:root[data-variant="14-may-chu"] .kt-switcher {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: var(--card);
+  box-shadow: 3px 3px 0 var(--kt-shadow-strong);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-switcher select {
+  background: var(--card);
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.1rem 0.25rem;
+}

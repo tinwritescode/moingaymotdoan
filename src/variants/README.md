@@ -5,7 +5,7 @@ Each `NN-name.css` here is one look the reader can pick in the "Giao diện" box
 ## How a look applies
 
 - The chosen id sits on `<html data-variant="NN-name">`. A script in `<head>` sets it before paint, from `localStorage` (`kt-variant`) or from `?v=NN-name` in the URL (`?v=` resets to Gốc).
-- Every rule in a look's file must start with `:root[data-variant="NN-name"]`, so it never leaks into another look. That includes `@media` blocks and keyframe names (prefix keyframes with the id).
+- Every rule in a look's file must start with `:root[data-variant="NN-name"]`, so it never leaks into another look. That includes `@media` blocks and keyframe names (prefix keyframe names with `kt-` plus the id without its number, e.g. `kt-may-chu-…`: a CSS name cannot start with a digit).
 - All looks ship in one CSS bundle. Rules here are unlayered, so they beat Tailwind utilities without `!important`.
 
 ## What a look can change

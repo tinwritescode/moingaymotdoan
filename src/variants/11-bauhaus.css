@@ -1,0 +1,1433 @@
+/* 11-bauhaus — Weimar / Dessau modernist grid, primary red/blue/yellow blocks, geometric sans */
+
+:root[data-variant="11-bauhaus"] {
+  /* Core site tokens (Light — archival Weimar drafting paper) */
+  --paper: #f4f1ea;
+  --ink: #141413;
+  --muted: #4b4943;
+  --accent: #c92a22;
+  --rule: #141413;
+  --card: #ffffff;
+  --side: #eae5d8;
+  --mark: #f2c200;
+  --cao: #14633a;
+  --vua: #8a6000;
+  --thap: #c92a22;
+
+  /* Bauhaus primary triad & architectural tokens */
+  --bh-red: #c92a22;
+  --bh-red-ink: #ffffff;
+  --bh-blue: #1448a0;
+  --bh-blue-ink: #ffffff;
+  --bh-blue-text: #1448a0;
+  --bh-yellow: #f2c200;
+  --bh-yellow-ink: #141413;
+  --bh-line: #141413;
+  --bh-grid: rgba(20, 20, 19, 0.055);
+  --bh-sans: "Inter", "Avenir Next", ui-sans-serif, system-ui, sans-serif;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="11-bauhaus"] {
+    /* Core site tokens (Dark — Dessau nocturnal poster) */
+    --paper: #121316;
+    --ink: #f4f1ea;
+    --muted: #b8b4aa;
+    --accent: #ff6b5b;
+    --rule: #e6e2d8;
+    --card: #1a1c21;
+    --side: #23262e;
+    --mark: #f2c200;
+    --cao: #6ee09b;
+    --vua: #f7d138;
+    --thap: #ff7a6b;
+
+    /* Bauhaus primary triad (calibrated for >= 4.5:1 contrast on dark & white/dark fills) */
+    --bh-red: #c62820;
+    --bh-red-ink: #ffffff;
+    --bh-blue: #2057ba;
+    --bh-blue-ink: #ffffff;
+    --bh-blue-text: #7fb0ff;
+    --bh-yellow: #f2c200;
+    --bh-yellow-ink: #121316;
+    --bh-line: #e6e2d8;
+    --bh-grid: rgba(244, 241, 234, 0.05);
+  }
+}
+
+/* Base typography & subtle architectural millimeter grid */
+:root[data-variant="11-bauhaus"] body {
+  font-family: var(--bh-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(to right, var(--bh-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bh-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--ink);
+  overflow-x: clip;
+}
+
+:root[data-variant="11-bauhaus"] ::selection {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+}
+
+:root[data-variant="11-bauhaus"] :is(a, button, summary, select, input, [tabindex]):focus-visible {
+  outline: 3px solid var(--bh-blue-text);
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="11-bauhaus"] :is(a, button, summary, select, input, [tabindex]):focus-visible {
+    outline-color: var(--bh-yellow);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header, Brand, Breadcrumbs, Pager & Book Picker                            */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="11-bauhaus"] .kt-header {
+  position: relative;
+  background-color: var(--card);
+  background-image: linear-gradient(
+    90deg,
+    var(--bh-red) 0 33.333%,
+    var(--bh-yellow) 33.333% 66.666%,
+    var(--bh-blue) 66.666% 100%
+  );
+  background-size: 100% 6px;
+  background-repeat: no-repeat;
+  background-position: top left;
+  border-bottom: 3px solid var(--bh-line);
+  padding: 1.15rem 1rem 0.9rem;
+  gap: 0.75rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-header {
+    padding: 1.25rem 1.75rem 0.95rem;
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--bh-sans);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* Iconic Bauhaus geometric mark: red square + yellow bar + blue circle */
+:root[data-variant="11-bauhaus"] .kt-brand::before {
+  content: "";
+  display: inline-block;
+  width: 2.1rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  border: 2px solid var(--bh-line);
+  background:
+    radial-gradient(circle 0.34rem at 1.48rem 50%, var(--bh-blue) 96%, transparent 100%),
+    linear-gradient(90deg, var(--bh-red) 0 42%, var(--bh-yellow) 42% 66%, var(--card) 66% 100%);
+}
+
+:root[data-variant="11-bauhaus"] .kt-brand span {
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+:root[data-variant="11-bauhaus"] .kt-header > button[popovertarget] {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  font-family: var(--bh-sans);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.9rem;
+  box-shadow: 3px 3px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-header > button[popovertarget]:hover {
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+  border-color: var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-crumbs {
+  font-family: var(--bh-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+:root[data-variant="11-bauhaus"] .kt-crumbs a {
+  color: var(--bh-blue-text);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+:root[data-variant="11-bauhaus"] .kt-crumbs a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--bh-yellow);
+}
+
+:root[data-variant="11-bauhaus"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  background: var(--side);
+  padding: 0.1rem 0.45rem;
+  border: 1.5px solid var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-pager {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  font-family: var(--bh-sans);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+:root[data-variant="11-bauhaus"] a.kt-pager {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] a.kt-pager:hover {
+  background: var(--bh-blue);
+  color: var(--bh-blue-ink);
+  border-color: var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] span.kt-pager {
+  border-style: dashed;
+  border-color: var(--muted);
+  color: var(--muted);
+  background: transparent;
+}
+
+/* Book Picker Popover */
+:root[data-variant="11-bauhaus"] .kt-picker {
+  border-radius: 0;
+  border: 3px solid var(--bh-line);
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 var(--bh-blue);
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker nav {
+  border-color: var(--bh-line);
+  border-width: 2px;
+  background: var(--paper);
+  padding: 0.5rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker nav p {
+  background: var(--bh-line);
+  color: var(--paper);
+  padding: 0.35rem 0.65rem;
+  margin: 0.5rem 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker nav button {
+  border-radius: 0;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker nav button:not(:disabled):hover {
+  background: var(--side);
+  border-color: var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker nav button[aria-pressed="true"] {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  border-color: var(--bh-line);
+  font-weight: 800;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker nav button[aria-pressed="true"] span:last-child {
+  color: var(--bh-yellow-ink);
+  font-weight: 800;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker > div p {
+  font-family: var(--bh-sans);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 3px solid var(--bh-red);
+  padding-bottom: 0.45rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker ol a {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+:root[data-variant="11-bauhaus"] .kt-picker ol a:hover {
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+  border-color: var(--bh-line);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Home Page — Weimar Exhibition Poster & Modular Grid                        */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="11-bauhaus"] .kt-home {
+  max-width: 78rem;
+  padding: 1.5rem 1rem 5.5rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-home {
+    padding: 2.25rem 1.75rem 6rem;
+  }
+}
+
+/* Hero Poster Block */
+:root[data-variant="11-bauhaus"] .kt-hero {
+  position: relative;
+  text-align: left;
+  background-color: var(--card);
+  border: 3px solid var(--bh-line);
+  box-shadow: 6px 6px 0 var(--bh-line);
+  padding: 1.75rem 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 0;
+  overflow: hidden;
+}
+
+/* Bauhaus vertical primary strip on the left edge of the hero */
+:root[data-variant="11-bauhaus"] .kt-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 10px;
+  background: linear-gradient(
+    180deg,
+    var(--bh-red) 0 38%,
+    var(--bh-yellow) 38% 70%,
+    var(--bh-blue) 70% 100%
+  );
+  border-right: 2px solid var(--bh-line);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-hero {
+    padding: 2.75rem 2.25rem 2.25rem 3rem;
+    box-shadow: 10px 10px 0 var(--bh-line);
+  }
+
+  :root[data-variant="11-bauhaus"] .kt-hero::before {
+    width: 16px;
+  }
+}
+
+/* Geometric Bauhaus composition on the right side of the hero on desktop */
+@media (min-width: 900px) {
+  :root[data-variant="11-bauhaus"] .kt-hero {
+    padding-right: 22rem;
+    background-image:
+      /* Blue Circle */
+      radial-gradient(circle 4.4rem at calc(100% - 7.5rem) 42%, var(--bh-blue) 98%, transparent 100%),
+      /* Yellow inner disk accent */
+      radial-gradient(circle 1.65rem at calc(100% - 13.5rem) 72%, var(--bh-yellow) 98%, transparent 100%),
+      /* Red Square */
+      linear-gradient(var(--bh-red), var(--bh-red)),
+      /* Yellow Horizontal Bar */
+      linear-gradient(var(--bh-yellow), var(--bh-yellow)),
+      /* Structural black vertical divider */
+      linear-gradient(var(--bh-line), var(--bh-line)),
+      /* Structural black horizontal crosshair */
+      linear-gradient(var(--bh-line), var(--bh-line));
+    background-size:
+      100% 100%,
+      100% 100%,
+      5.2rem 5.2rem,
+      9rem 1.4rem,
+      3px 100%,
+      18.5rem 3px;
+    background-position:
+      0 0,
+      0 0,
+      calc(100% - 2.5rem) calc(100% - 2.5rem),
+      calc(100% - 10.5rem) 2.2rem,
+      calc(100% - 18.5rem) 0,
+      100% 62%;
+    background-repeat: no-repeat;
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero-title {
+  font-family: var(--bh-sans);
+  font-size: clamp(2.35rem, 8.8vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-left: 0.5rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero-sub {
+  margin-top: 0.95rem;
+  margin-left: 0.5rem;
+  font-family: var(--bh-sans);
+  font-style: normal;
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  border: 2px solid var(--bh-line);
+  padding: 0.35rem 0.85rem;
+  box-shadow: 4px 4px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero > p:not(.kt-hero-sub) {
+  margin-left: 0.5rem;
+  margin-right: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 34rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero > p a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  padding: 0.5rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--bh-line);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--bh-blue);
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero > p a:hover {
+  background: var(--bh-blue);
+  color: var(--bh-blue-ink);
+  text-decoration: none;
+}
+
+/* Ornamental divider inside hero -> Bauhaus tricolor ruler */
+:root[data-variant="11-bauhaus"] .kt-hero > div[aria-hidden="true"] {
+  width: calc(100% - 0.5rem);
+  margin-top: 1.75rem;
+  margin-left: 0.5rem;
+  gap: 0.65rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero > div[aria-hidden="true"] > span:first-child {
+  height: 6px;
+  background: var(--bh-red);
+  border: 1.5px solid var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero > div[aria-hidden="true"] > span:nth-child(2) {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-family: var(--bh-sans);
+  font-size: 0.95rem;
+  font-weight: 900;
+  background: var(--bh-line);
+  color: var(--bh-yellow);
+  border-radius: 9999px;
+}
+
+:root[data-variant="11-bauhaus"] .kt-hero > div[aria-hidden="true"] > span:last-child {
+  height: 6px;
+  background: var(--bh-blue);
+  border: 1.5px solid var(--bh-line);
+}
+
+/* Start Here ("Bắt đầu đọc") Color-Blocked Feature Module */
+:root[data-variant="11-bauhaus"] .kt-start {
+  margin-top: 2rem;
+  padding: 0;
+  border: 3px solid var(--bh-line);
+  background: var(--card);
+  box-shadow: 6px 6px 0 var(--bh-yellow);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  :root[data-variant="11-bauhaus"] .kt-start {
+    margin-top: 2.75rem;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    box-shadow: 10px 10px 0 var(--bh-yellow);
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-start > div {
+  padding: 1.5rem 1.25rem 1.75rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-start > div {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-start #bat-dau {
+  display: inline-block;
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+  padding: 0.3rem 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  border: 2px solid var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-start-title {
+  margin-top: 1rem;
+  font-family: var(--bh-sans);
+  font-size: clamp(1.9rem, 5.5vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-start > div > p:not(#bat-dau) {
+  margin-top: 1rem;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+:root[data-variant="11-bauhaus"] .kt-start-cta {
+  margin-top: 1.5rem;
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+  font-family: var(--bh-sans);
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 4px 4px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-start-cta:hover {
+  background: var(--bh-blue);
+  color: var(--bh-blue-ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-start-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bh-blue);
+  background-image: radial-gradient(circle 3.4rem at 50% 50%, var(--bh-yellow) 98%, transparent 100%);
+  color: var(--bh-yellow-ink);
+  border-top: 3px solid var(--bh-line);
+  font-family: var(--bh-sans);
+  font-size: 4.25rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 1.25rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 768px) {
+  :root[data-variant="11-bauhaus"] .kt-start-number {
+    border-top: 0;
+    border-left: 3px solid var(--bh-line);
+    background-image: radial-gradient(circle 4.5rem at 50% 50%, var(--bh-yellow) 98%, transparent 100%);
+    font-size: 6.5rem;
+  }
+}
+
+/* Book Index ("Các sách") — Orderly Color-Tabbed Modular Grid */
+:root[data-variant="11-bauhaus"] .kt-books {
+  margin-top: 2.75rem;
+  padding: 0;
+  border-bottom: 0;
+}
+
+:root[data-variant="11-bauhaus"] .kt-books > h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--bh-line);
+  color: var(--paper);
+  padding: 0.45rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+:root[data-variant="11-bauhaus"] .kt-books > h2::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--bh-yellow);
+  display: inline-block;
+}
+
+:root[data-variant="11-bauhaus"] .kt-books ol {
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  border-top: 3px solid var(--bh-line);
+  border-left: 3px solid var(--bh-line);
+  background: var(--card);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books li {
+  border: 0;
+  border-right: 3px solid var(--bh-line);
+  border-bottom: 3px solid var(--bh-line);
+  position: relative;
+}
+
+:root[data-variant="11-bauhaus"] .kt-books li::before {
+  content: "";
+  display: block;
+  height: 7px;
+  background: var(--bh-red);
+  border-bottom: 2px solid var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books li:nth-child(3n + 2)::before {
+  background: var(--bh-blue);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books li:nth-child(3n)::before {
+  background: var(--bh-yellow);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books-link {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0.65rem 0.75rem;
+  min-height: 0;
+  padding: 1.15rem 1.25rem 1.25rem;
+  text-decoration: none;
+}
+
+:root[data-variant="11-bauhaus"] .kt-books-link:hover {
+  background: var(--side);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books-link > span:first-child {
+  grid-column: 1 / -1;
+  font-family: var(--bh-sans);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books-link:hover > span:first-child {
+  color: var(--accent);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books-link > span:nth-child(2) {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+:root[data-variant="11-bauhaus"] .kt-books-link > span:last-child {
+  min-width: 0;
+  background: var(--bh-line);
+  color: var(--paper);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Individual Book Sections & Chapter Tile Grid */
+:root[data-variant="11-bauhaus"] .kt-book {
+  padding-top: 3.25rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-book > div:first-child {
+  border-bottom: 3px solid var(--bh-line);
+  padding-bottom: 0.75rem;
+  align-items: center;
+}
+
+:root[data-variant="11-bauhaus"] .kt-book-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--bh-sans);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-book-name::before {
+  content: "";
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--bh-red);
+}
+
+:root[data-variant="11-bauhaus"] .kt-book:nth-of-type(3n + 2) .kt-book-name::before {
+  background: var(--bh-blue);
+  border-radius: 9999px;
+}
+
+:root[data-variant="11-bauhaus"] .kt-book:nth-of-type(3n) .kt-book-name::before {
+  background: var(--bh-yellow);
+  transform: rotate(45deg) scale(0.85);
+}
+
+:root[data-variant="11-bauhaus"] .kt-book > div:first-child a {
+  border: 2px solid var(--bh-line);
+  background: var(--card);
+  color: var(--ink);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+:root[data-variant="11-bauhaus"] .kt-book > div:first-child a:hover {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-list {
+  columns: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  background: var(--card);
+  border: 2px solid var(--bh-line);
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 3px 3px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-link {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-link > span:first-child {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  background: var(--bh-line);
+  color: var(--paper);
+  font-size: 0.85rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-list > li:nth-child(3n + 1) .kt-chapter-link:hover > span:first-child {
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-list > li:nth-child(3n + 2) .kt-chapter-link:hover > span:first-child {
+  background: var(--bh-blue);
+  color: var(--bh-blue-ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-list > li:nth-child(3n) .kt-chapter-link:hover > span:first-child {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-link > span:last-child {
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.38;
+  color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-link:hover > span:last-child {
+  color: var(--accent);
+}
+
+:root[data-variant="11-bauhaus"] .kt-chapter-list > li > div {
+  margin-left: 0;
+  padding-top: 0.45rem;
+  border-top: 1.5px solid var(--side);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Chapter Reader Page — Orderly 3-Column Bauhaus Architectural Grid          */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="11-bauhaus"] .kt-reader {
+  max-width: 92rem;
+  padding: 1.5rem 1rem 5.5rem;
+  gap: 2rem 2.25rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-reader {
+    padding: 2.25rem 1.75rem 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="11-bauhaus"] .kt-reader {
+    grid-template-columns: 14rem minmax(0, 44rem) 19.5rem;
+    padding-top: 3rem;
+    gap: 2.5rem 2.75rem;
+  }
+}
+
+/* Left Rail Table of Contents */
+@media (min-width: 1024px) {
+  :root[data-variant="11-bauhaus"] .kt-toc {
+    background: var(--card);
+    border: 2px solid var(--bh-line);
+    border-top: 8px solid var(--bh-red);
+    box-shadow: 5px 5px 0 var(--bh-line);
+    padding: 0;
+    top: 1.5rem;
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc > p {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 2px solid var(--bh-line);
+  background: var(--side);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc ol {
+  counter-reset: bauhaus-toc;
+  padding: 0.4rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc li {
+  counter-increment: bauhaus-toc;
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc a {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.45rem;
+  border-radius: 0;
+  padding: 0.55rem 0.55rem;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  border: 1.5px solid transparent;
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc a::before {
+  content: "0" counter(bauhaus-toc);
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc a:hover {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  border-color: var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-toc a:hover::before {
+  color: var(--bh-yellow-ink);
+}
+
+/* Main Chapter Column */
+:root[data-variant="11-bauhaus"] .kt-chapter {
+  background: var(--card);
+  border: 3px solid var(--bh-line);
+  box-shadow: 6px 6px 0 var(--bh-line);
+  padding: 1.4rem 1.15rem 1.75rem;
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-chapter {
+    padding: 2.5rem 2.75rem 2.75rem;
+    box-shadow: 9px 9px 0 var(--bh-line);
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+  border: 2px solid var(--bh-line);
+  padding: 0.3rem 0.8rem;
+  font-family: var(--bh-sans);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+:root[data-variant="11-bauhaus"] .kt-kicker::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: var(--bh-yellow);
+  display: inline-block;
+}
+
+:root[data-variant="11-bauhaus"] .kt-title {
+  margin-top: 1.1rem;
+  padding-bottom: 1.1rem;
+  font-family: var(--bh-sans);
+  font-size: clamp(2rem, 6vw, 3.35rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  border-bottom: 4px solid var(--bh-line);
+  background-image: linear-gradient(
+    90deg,
+    var(--bh-red) 0 4.5rem,
+    var(--bh-yellow) 4.5rem 8rem,
+    var(--bh-blue) 8rem 11.5rem,
+    transparent 11.5rem
+  );
+  background-size: 100% 6px;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+}
+
+:root[data-variant="11-bauhaus"] .kt-lead {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--paper);
+  border: 2px solid var(--bh-line);
+  border-left: 8px solid var(--bh-blue);
+  font-family: var(--bh-sans);
+  font-style: normal;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Bible Story Text */
+:root[data-variant="11-bauhaus"] .kt-scripture {
+  margin-top: 2rem;
+  font-family: var(--bh-sans);
+  font-size: 1.0625rem;
+  line-height: 1.82;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-scripture {
+    font-size: 1.15rem;
+    line-height: 1.85;
+  }
+}
+
+/* Bauhaus Red Square Block Drop Cap */
+:root[data-variant="11-bauhaus"] .kt-scripture > div:first-child > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--bh-sans);
+  font-size: 3.1rem;
+  font-weight: 900;
+  line-height: 0.95;
+  padding: 0.35rem 0.65rem 0.25rem;
+  margin: 0.2rem 0.8rem 0.15rem 0;
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+  border: 2px solid var(--bh-line);
+  box-shadow: 3px 3px 0 var(--bh-yellow);
+}
+
+/* Clickable Reference Button */
+:root[data-variant="11-bauhaus"] .kt-ref {
+  font-family: var(--bh-sans);
+  font-weight: 700;
+  color: var(--bh-blue-text);
+  text-decoration: none;
+  border-bottom: 2.5px solid var(--bh-yellow);
+  padding: 0 0.18em;
+}
+
+:root[data-variant="11-bauhaus"] .kt-ref:hover,
+:root[data-variant="11-bauhaus"] .kt-ref[aria-expanded="true"] {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  border-bottom-color: var(--bh-line);
+}
+
+/* Inline Verses Expanded Block */
+:root[data-variant="11-bauhaus"] .kt-inline-verses {
+  margin-top: 1rem;
+  border-radius: 0;
+  background: var(--paper);
+  border: 2px solid var(--bh-line);
+  border-left: 8px solid var(--bh-blue);
+  box-shadow: 5px 5px 0 var(--bh-yellow);
+  padding: 1rem 1.2rem;
+  font-family: var(--bh-sans);
+  font-size: 1rem;
+  line-height: 1.78;
+  color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-inline-verses > p:first-child {
+  display: inline-block;
+  background: var(--bh-blue);
+  color: var(--bh-blue-ink);
+  padding: 0.18rem 0.55rem;
+  margin-bottom: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+:root[data-variant="11-bauhaus"] .kt-verse-number {
+  display: inline-block;
+  margin-right: 0.2rem;
+  font-family: var(--bh-sans);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Geometric Kandinsky Triad Divider (* * *) */
+:root[data-variant="11-bauhaus"] .kt-divider {
+  margin-top: 2.75rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 0.65rem 0;
+  border-top: 2px solid var(--bh-line);
+  border-bottom: 2px solid var(--bh-line);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--bh-sans);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.45em;
+}
+
+:root[data-variant="11-bauhaus"] .kt-divider::before {
+  content: "";
+  width: 1.1rem;
+  height: 1.1rem;
+  background: var(--bh-red);
+  border: 2px solid var(--bh-line);
+  flex-shrink: 0;
+}
+
+:root[data-variant="11-bauhaus"] .kt-divider::after {
+  content: "";
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 9999px;
+  background: var(--bh-blue);
+  border: 2px solid var(--bh-line);
+  flex-shrink: 0;
+}
+
+/* Foldable Note Sections — Color-Coded Bauhaus Modular Accordions */
+:root[data-variant="11-bauhaus"] .kt-notes {
+  margin-top: 1.75rem;
+  border-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-note {
+  background: var(--paper);
+  border: 2px solid var(--bh-line);
+  border-left: 10px solid var(--bh-blue);
+  box-shadow: 4px 4px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note:nth-of-type(4n + 2) {
+  border-left-color: var(--bh-yellow);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note:nth-of-type(4n + 3) {
+  border-left-color: var(--bh-red);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note:nth-of-type(4n) {
+  border-left-color: var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note-heading {
+  padding: 0.95rem 1.1rem;
+  font-family: var(--bh-sans);
+  font-size: clamp(1.1rem, 3vw, 1.35rem);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  list-style: none;
+}
+
+:root[data-variant="11-bauhaus"] .kt-note-heading:hover {
+  background: var(--side);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note-heading > span[aria-hidden="true"] {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+:root[data-variant="11-bauhaus"] .kt-note[open] > .kt-note-heading {
+  background: var(--card);
+  border-bottom: 2px solid var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note-body {
+  background: var(--card);
+  padding: 1.25rem 1.15rem 1.4rem;
+  font-family: var(--bh-sans);
+  font-size: 1.03rem;
+  line-height: 1.78;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-note-body {
+    padding: 1.4rem 1.5rem 1.6rem;
+  }
+}
+
+/* Commentator Opinions */
+:root[data-variant="11-bauhaus"] .kt-opinion {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  border-left: 6px solid var(--bh-red);
+  background: var(--paper);
+  padding: 1rem 1.15rem;
+}
+
+:root[data-variant="11-bauhaus"] .kt-opinion:nth-of-type(3n + 2) {
+  border-left-color: var(--bh-blue);
+}
+
+:root[data-variant="11-bauhaus"] .kt-opinion:nth-of-type(3n) {
+  border-left-color: var(--bh-yellow);
+}
+
+:root[data-variant="11-bauhaus"] .kt-opinion span {
+  border-radius: 0;
+}
+
+/* Byline */
+:root[data-variant="11-bauhaus"] .kt-byline {
+  margin-top: 2rem;
+  padding: 0.75rem 1rem;
+  background: var(--paper);
+  border: 2px solid var(--bh-line);
+  border-left: 6px solid var(--bh-yellow);
+  font-family: var(--bh-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Right Aside ("Điều cần nhớ") — Bauhaus Exhibition Placard */
+:root[data-variant="11-bauhaus"] .kt-aside {
+  border-radius: 0;
+  border: 3px solid var(--bh-line);
+  background: var(--card);
+  box-shadow: 6px 6px 0 var(--bh-blue);
+  padding: 0;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="11-bauhaus"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    box-shadow: 8px 8px 0 var(--bh-blue);
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-aside > h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  border-bottom: 3px solid var(--bh-line);
+  padding: 0.85rem 1.15rem;
+  font-family: var(--bh-sans);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+:root[data-variant="11-bauhaus"] .kt-aside > h2::before {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 9999px;
+  background: var(--bh-red);
+  border: 2px solid var(--bh-yellow-ink);
+  flex-shrink: 0;
+}
+
+:root[data-variant="11-bauhaus"] .kt-aside > div {
+  margin-top: 0;
+  padding: 1.15rem 1.25rem 1.35rem;
+  font-family: var(--bh-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Reference Popover */
+:root[data-variant="11-bauhaus"] .kt-ref-popover {
+  border-radius: 0;
+  border: 3px solid var(--bh-line);
+  border-top: 9px solid var(--bh-blue);
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 var(--bh-red);
+  padding: 1.2rem 1.3rem;
+  font-family: var(--bh-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+:root[data-variant="11-bauhaus"] .kt-ref-popover > p:first-child {
+  display: inline-block;
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  border: 1.5px solid var(--bh-line);
+  padding: 0.18rem 0.55rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:root[data-variant="11-bauhaus"] .kt-ref-popover button {
+  margin-top: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border: 2px solid var(--bh-line);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+:root[data-variant="11-bauhaus"] .kt-ref-popover button:hover {
+  background: var(--bh-red);
+  color: var(--bh-red-ink);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Footer & Variant Switcher                                                  */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="11-bauhaus"] .kt-footer {
+  border-top: 3px solid var(--bh-line);
+  background-color: var(--card);
+  background-image: linear-gradient(
+    90deg,
+    var(--bh-blue) 0 33.333%,
+    var(--bh-yellow) 33.333% 66.666%,
+    var(--bh-red) 66.666% 100%
+  );
+  background-size: 100% 6px;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+}
+
+:root[data-variant="11-bauhaus"] .kt-footer p {
+  padding: 1.1rem 1rem 4.25rem;
+  font-family: var(--bh-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  :root[data-variant="11-bauhaus"] .kt-footer p {
+    padding: 1.15rem 1.75rem 1.5rem;
+  }
+}
+
+:root[data-variant="11-bauhaus"] .kt-footer a {
+  color: var(--bh-blue-text);
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="11-bauhaus"] .kt-footer a:hover {
+  color: var(--accent);
+}
+
+:root[data-variant="11-bauhaus"] .kt-switcher {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  font-family: var(--bh-sans);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.65rem;
+  box-shadow: 4px 4px 0 var(--bh-line);
+}
+
+:root[data-variant="11-bauhaus"] .kt-switcher select {
+  border-radius: 0;
+  border: 1.5px solid var(--bh-line);
+  background: var(--card);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Crisp Bauhaus Motion (only when motion is allowed)                         */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="11-bauhaus"] :is(
+      .kt-start-cta,
+      a.kt-pager,
+      .kt-header > button[popovertarget],
+      .kt-hero > p a,
+      .kt-chapter-list > li,
+      .kt-books-link,
+      .kt-toc a,
+      .kt-ref,
+      .kt-note-heading,
+      .kt-note-heading > span[aria-hidden="true"]
+    ) {
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      border-color 140ms ease,
+      transform 140ms ease,
+      box-shadow 140ms ease;
+  }
+
+  :root[data-variant="11-bauhaus"] :is(.kt-start-cta, a.kt-pager, .kt-header > button[popovertarget]):hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--bh-line);
+  }
+
+  :root[data-variant="11-bauhaus"] .kt-chapter-list > li:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--bh-line);
+  }
+}
