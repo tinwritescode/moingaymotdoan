@@ -1,0 +1,1258 @@
+/*
+ * 24-chu-lon — Kinh Thánh Chữ Lớn (Large Print for Elderly Readers)
+ *
+ * Design pillars:
+ * - Warm high-contrast palette (sunlit cream paper / deep espresso ink; warm charcoal / ivory at night)
+ *   achieving AAA (>7:1) contrast on reading surfaces and UI text.
+ * - Large-print reading rhythm: 22px body text on phones, 24px on wider screens, generous 1.9 line-height
+ *   for stacked Vietnamese diacritics, single calm reading column (max 46rem) everywhere.
+ * - Zero tiny labels: UI text, kickers, breadcrumbs, verse numbers, metadata, and switcher scaled up
+ *   (18px+ for UI controls, 16px+ bold badges for verse numbers), normal case instead of cramped all-caps.
+ * - Big tactile tap targets (48px–64px minimum) with clear 2px borders and unmistakable focus rings.
+ */
+
+/* -------------------------------------------------------------------------- */
+/* 1. Color Tokens (Warm High-Contrast Light & Dark)                          */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="24-chu-lon"] {
+  --paper: #fcf8ef;
+  --ink: #14100b;
+  --muted: #463b2f;
+  --accent: #8c2313;
+  --rule: #b8a080;
+  --card: #fffdf8;
+  --side: #f2e8d4;
+  --mark: #f6d978;
+  --cao: #165928;
+  --vua: #754a00;
+  --thap: #961b1b;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="24-chu-lon"] {
+    --paper: #14110e;
+    --ink: #faf4e6;
+    --muted: #d6c9b2;
+    --accent: #ffb673;
+    --rule: #736452;
+    --card: #1f1a15;
+    --side: #2b231b;
+    --mark: #694e14;
+    --cao: #8ce69d;
+    --vua: #f7d26e;
+    --thap: #ff9c94;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. Base Document & Accessibility Primitives                                */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="24-chu-lon"] body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.375rem; /* 22px on phones */
+  font-weight: 450;
+  line-height: 1.85;
+  font-optical-sizing: auto;
+  overflow-x: clip;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] body {
+    font-size: 1.5rem; /* 24px on tablets & desktop */
+  }
+}
+
+:root[data-variant="24-chu-lon"] :where(a, button, summary, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+:root[data-variant="24-chu-lon"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  padding: 0.08em 0.3em;
+  border-radius: 0.3rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Top Header, Navigation, Breadcrumbs, Pager & Book Picker                */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="24-chu-lon"] .kt-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  background: var(--card);
+  border-bottom: 2px solid var(--rule);
+  padding: 1rem 1.25rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 48rem) {
+  :root[data-variant="24-chu-lon"] .kt-header {
+    padding: 1.125rem max(1.5rem, calc((100vw - 46rem) / 2));
+  }
+}
+
+:root[data-variant="24-chu-lon"] .kt-brand {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  min-height: 3rem;
+  padding: 0.35rem 0.25rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-brand span {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+:root[data-variant="24-chu-lon"] .kt-brand:hover {
+  color: var(--accent);
+}
+
+/* Book picker trigger button inside header */
+:root[data-variant="24-chu-lon"] .kt-header > button[popovertarget] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem; /* 52px */
+  padding: 0.625rem 1.125rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--side);
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+:root[data-variant="24-chu-lon"] .kt-header > button[popovertarget]:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  width: 100%;
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+:root[data-variant="24-chu-lon"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem; /* 48px */
+  padding-inline: 0.25rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 2px;
+}
+
+:root[data-variant="24-chu-lon"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Header spacer: collapse so controls stay neatly stacked in single-column flow */
+:root[data-variant="24-chu-lon"] .kt-header > .flex-1 {
+  display: none;
+}
+
+/* Draft status pill inside header (dev mode) */
+:root[data-variant="24-chu-lon"] .kt-header > span {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 2px solid var(--vua);
+  background: var(--side);
+  color: var(--ink);
+  padding: 0.625rem 1rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Prev / Next navigation row */
+:root[data-variant="24-chu-lon"] .kt-header > nav[aria-label="Đoạn trước và sau"] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-pager {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 3.375rem; /* 54px */
+  padding: 0.625rem 1rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] a.kt-pager:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] span.kt-pager {
+  border-style: dashed;
+  background: var(--paper);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Book Picker Popover: always single-column, huge tap targets */
+:root[data-variant="24-chu-lon"] .kt-picker {
+  width: min(36rem, calc(100vw - 1.5rem));
+  max-height: min(82dvh, 42rem);
+  overflow-y: auto;
+  border: 2px solid var(--accent);
+  border-radius: 1rem;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.28);
+  font-family: "Inter", system-ui, sans-serif;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav {
+  max-height: 18rem;
+  overflow-y: auto;
+  border-right: 0;
+  border-bottom: 2px solid var(--rule);
+  padding: 0.75rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav p {
+  padding: 0.75rem 0.5rem 0.375rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav button {
+  min-height: 3.25rem; /* 52px */
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.1875rem;
+  font-weight: 600;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav button span:last-child {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav button[aria-pressed="true"] span:last-child {
+  color: var(--paper);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav button:disabled {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 400;
+  opacity: 0.65;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > div {
+  max-height: 20rem;
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > div > p {
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > div ol {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
+  gap: 0.625rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > div ol a {
+  min-height: 3.375rem; /* 54px */
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > div ol a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--accent);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. Home Page — Single Column, High Legibility, Large Tap Cards             */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="24-chu-lon"] .kt-home {
+  max-width: 46rem;
+  width: 100%;
+  margin-inline: auto;
+  padding: 0 1.25rem 6rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-home {
+    padding: 0 2rem 6rem;
+  }
+}
+
+/* Hero block */
+:root[data-variant="24-chu-lon"] .kt-hero {
+  text-align: left;
+  padding-top: 2.25rem;
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero-title {
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(2.625rem, 2.1rem + 2.4vw, 3.75rem);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero-sub {
+  margin-top: 0.5rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(1.5rem, 1.35rem + 0.6vw, 1.875rem);
+  font-weight: 600;
+  font-style: normal;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero > p:nth-of-type(2) {
+  margin: 1.125rem 0 0;
+  max-width: none;
+  font-size: 1.3125rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero > p:nth-of-type(3) {
+  margin-top: 1.25rem;
+  font-size: 1.125rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.25rem; /* 52px */
+  padding: 0.625rem 1.25rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--card);
+  color: var(--accent);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero > div {
+  margin-top: 2rem;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-hero > div > span:first-child,
+:root[data-variant="24-chu-lon"] .kt-hero > div > span:last-child {
+  height: 2px;
+  background: var(--rule);
+}
+
+/* Draft banner on home page */
+:root[data-variant="24-chu-lon"] .kt-home > p {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--vua);
+  border-radius: 0.875rem;
+  background: var(--side);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+/* "Bắt đầu đọc" featured card — single column */
+:root[data-variant="24-chu-lon"] .kt-start {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.75rem 1.5rem;
+  border: 2px solid var(--rule);
+  border-left: 7px solid var(--accent);
+  border-radius: 1rem;
+  background: var(--card);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-start {
+    padding: 2.25rem 2rem;
+  }
+}
+
+:root[data-variant="24-chu-lon"] .kt-start > div {
+  flex: none;
+  width: 100%;
+}
+
+:root[data-variant="24-chu-lon"] .kt-start #bat-dau {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+  padding-right: 4rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-start-title {
+  margin-top: 0.75rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(2rem, 1.75rem + 1.2vw, 2.75rem);
+  line-height: 1.22;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-start > div > p:nth-of-type(2) {
+  margin-top: 1.125rem;
+  max-width: none;
+  font-size: 1.375rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-start-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.75rem; /* 60px */
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.875rem;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (min-width: 30rem) {
+  :root[data-variant="24-chu-lon"] .kt-start-cta {
+    width: auto;
+    min-width: 14rem;
+  }
+}
+
+:root[data-variant="24-chu-lon"] .kt-start-cta:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:root[data-variant="24-chu-lon"] .kt-start-number {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  flex: none;
+  font-family: "Literata", Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--rule);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Book index ("Các sách") */
+:root[data-variant="24-chu-lon"] .kt-books {
+  padding-block: 2.5rem;
+  border-bottom: 2px solid var(--rule);
+}
+
+:root[data-variant="24-chu-lon"] .kt-books > h2 {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-books ol {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-books li {
+  border-bottom: 0;
+}
+
+:root[data-variant="24-chu-lon"] .kt-books-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.375rem 1rem;
+  min-height: 4.5rem; /* 72px */
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.875rem;
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-books-link:hover {
+  border-color: var(--accent);
+  background: var(--side);
+}
+
+:root[data-variant="24-chu-lon"] .kt-books-link > span:first-child {
+  flex: 1 1 100%;
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.75rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-books-link:hover > span:first-child {
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-books-link > span:nth-child(2) {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+:root[data-variant="24-chu-lon"] .kt-books-link > span:nth-child(3) {
+  min-width: auto;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Each book section and single-column chapter list */
+:root[data-variant="24-chu-lon"] .kt-book {
+  padding-top: 2.75rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-book > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.75rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-book-name {
+  font-family: "Literata", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem; /* 48px */
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--card);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-book > div:first-child a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-list {
+  columns: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-list > li {
+  margin-bottom: 0;
+  border: 2px solid var(--rule);
+  border-radius: 0.875rem;
+  background: var(--card);
+  overflow: hidden;
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4rem; /* 64px */
+  padding: 0.875rem 1.125rem;
+  color: var(--ink);
+  font-size: 1.3125rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-link:hover {
+  background: var(--side);
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-link > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding-inline: 0.375rem;
+  border-radius: 0.625rem;
+  background: var(--side);
+  border: 1.5px solid var(--rule);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-link > span:last-child {
+  font-weight: 600;
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-link:hover > span:last-child {
+  color: var(--accent);
+}
+
+/* Draft summary line under chapter link (dev mode) */
+:root[data-variant="24-chu-lon"] .kt-chapter-list > li > div {
+  margin-left: 0;
+  padding: 0.625rem 1.125rem 0.875rem;
+  border-top: 1.5px solid var(--rule);
+  background: var(--side);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+:root[data-variant="24-chu-lon"] .kt-chapter-list > li > div span {
+  font-size: 1.0625rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. Chapter Reader Page — Simple Single Column Everywhere                   */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="24-chu-lon"] .kt-reader {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2.25rem;
+  max-width: 46rem;
+  width: 100%;
+  margin-inline: auto;
+  padding: 1.75rem 1.25rem 6rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-reader {
+    padding: 2.25rem 2rem 6.5rem;
+  }
+}
+
+/* Quick-jump table of contents: visible everywhere as a calm single-column block */
+:root[data-variant="24-chu-lon"] .kt-toc {
+  display: block;
+  position: static;
+  order: 2;
+  padding: 1.375rem 1.25rem;
+  border: 2px solid var(--rule);
+  border-radius: 1rem;
+  background: var(--card);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-toc > p {
+  margin-bottom: 0.875rem;
+  font-size: 1.1875rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-toc ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-toc ol li {
+  margin: 0;
+}
+
+:root[data-variant="24-chu-lon"] .kt-toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.125rem; /* 50px */
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-toc a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--accent);
+}
+
+/* Main chapter column comes first so the title & scripture greet the reader immediately */
+:root[data-variant="24-chu-lon"] .kt-chapter {
+  order: 1;
+  width: 100%;
+}
+
+/* "Điều cần nhớ" takeaway card placed prominently after the chapter */
+:root[data-variant="24-chu-lon"] .kt-aside {
+  order: 3;
+  padding: 1.75rem 1.5rem;
+  border: 2px solid var(--rule);
+  border-left: 7px solid var(--accent);
+  border-radius: 1rem;
+  background: var(--side);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-aside {
+    padding: 2rem 1.875rem;
+  }
+}
+
+:root[data-variant="24-chu-lon"] .kt-aside h2 {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-aside > div {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  font-size: 1.375rem;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+/* Chapter header block */
+:root[data-variant="24-chu-lon"] .kt-kicker {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 0.625rem;
+  background: var(--side);
+  border: 1.5px solid var(--rule);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-title {
+  margin-top: 1rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(2.125rem, 1.8rem + 1.5vw, 3rem);
+  line-height: 1.24;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+:root[data-variant="24-chu-lon"] .kt-lead {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-left: 5px solid var(--rule);
+  border-radius: 0 0.75rem 0.75rem 0;
+  background: var(--side);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.1875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* Main Scripture / Story Reading Body (22px phones -> 24px wider) */
+:root[data-variant="24-chu-lon"] .kt-scripture {
+  margin-top: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.375rem; /* 22px */
+  line-height: 1.9;
+  font-weight: 450;
+  color: var(--ink);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-scripture {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.92;
+  }
+}
+
+/* Remove decorative floating drop cap so opening Vietnamese words stay effortless to read */
+:root[data-variant="24-chu-lon"] .kt-scripture p::first-letter {
+  float: none;
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+/* Clickable verse references — bold, high-contrast, easy to spot and tap */
+:root[data-variant="24-chu-lon"] .kt-ref {
+  display: inline-block;
+  margin-inline: 0.1em;
+  margin-block: 0.12em;
+  padding: 0.08em 0.45em;
+  border: 1.5px solid var(--rule);
+  border-radius: 0.45rem;
+  background: var(--side);
+  color: var(--accent);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.88em;
+  font-weight: 700;
+  line-height: 1.45;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+:root[data-variant="24-chu-lon"] .kt-ref:hover {
+  border-color: var(--accent);
+  background: var(--card);
+}
+
+:root[data-variant="24-chu-lon"] .kt-ref[aria-expanded="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+  text-decoration: none;
+}
+
+/* Inline verses opened under a story paragraph */
+:root[data-variant="24-chu-lon"] .kt-inline-verses {
+  margin-top: 1.25rem;
+  padding: 1.375rem 1.375rem;
+  border: 2px solid var(--rule);
+  border-left: 6px solid var(--accent);
+  border-radius: 0.875rem;
+  background: var(--side);
+  color: var(--ink);
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.375rem; /* 22px */
+  line-height: 1.88;
+}
+
+:root[data-variant="24-chu-lon"] .kt-inline-verses > p:first-child {
+  margin-bottom: 0.875rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+}
+
+/* Raised verse numbers turned into clear, legible inline badges */
+:root[data-variant="24-chu-lon"] .kt-verse-number {
+  display: inline-block;
+  vertical-align: baseline;
+  position: static;
+  top: 0;
+  margin-right: 0.35em;
+  padding: 0.05em 0.38em;
+  border: 1.5px solid var(--rule);
+  border-radius: 0.35rem;
+  background: var(--card);
+  color: var(--accent);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1rem; /* 16px bold — clear and unmistakable */
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* Cross-chapter reference popover */
+:root[data-variant="24-chu-lon"] .kt-ref-popover {
+  width: min(40rem, calc(100vw - 1.5rem));
+  max-height: min(75dvh, 34rem);
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 2.5px solid var(--accent);
+  border-radius: 1rem;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 20px 44px rgb(0 0 0 / 0.3);
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.375rem; /* 22px */
+  line-height: 1.85;
+}
+
+:root[data-variant="24-chu-lon"] .kt-ref-popover > p:first-child {
+  margin-bottom: 0.875rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-ref-popover button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.125rem; /* 50px */
+  min-width: 7.5rem;
+  margin-top: 1.25rem;
+  padding: 0.625rem 1.375rem;
+  border: 2px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--side);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-ref-popover button:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--paper);
+}
+
+/* Divider between scripture and notes */
+:root[data-variant="24-chu-lon"] .kt-divider {
+  margin-top: 2.75rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.5em;
+  color: var(--accent);
+}
+
+/* Foldable Note Sections — chunky high-contrast cards with big tap headers */
+:root[data-variant="24-chu-lon"] .kt-notes {
+  margin-top: 0;
+  border-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-note {
+  border: 2px solid var(--rule);
+  border-radius: 1rem;
+  background: var(--card);
+  overflow: hidden;
+}
+
+:root[data-variant="24-chu-lon"] .kt-note[open] {
+  border-color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-note-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.25rem; /* 68px */
+  padding: 1.125rem 1.25rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  list-style: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-note-heading:hover {
+  background: var(--side);
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-note-heading > span {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 2px solid var(--rule);
+  border-radius: 9999px;
+  background: var(--side);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+:root[data-variant="24-chu-lon"] .kt-note[open] > .kt-note-heading {
+  border-bottom: 2px solid var(--rule);
+  background: var(--side);
+  color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-note[open] > .kt-note-heading > span {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--paper);
+}
+
+:root[data-variant="24-chu-lon"] .kt-note-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.375rem 1.25rem 1.625rem;
+  font-family: "Literata", Georgia, serif;
+  font-size: 1.375rem; /* 22px */
+  line-height: 1.88;
+  color: var(--ink);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-note-heading {
+    padding: 1.25rem 1.5rem;
+  }
+
+  :root[data-variant="24-chu-lon"] .kt-note-body {
+    padding: 1.5rem 1.5rem 1.75rem;
+    font-size: 1.4375rem; /* 23px */
+  }
+}
+
+/* Commentator opinion cards inside "Các nhà giải kinh nói gì" */
+:root[data-variant="24-chu-lon"] .kt-opinion {
+  padding: 1.25rem 1.25rem;
+  border: 2px solid var(--rule);
+  border-left: 6px solid var(--accent);
+  border-radius: 0.875rem;
+  background: var(--side);
+  color: var(--ink);
+}
+
+/* Draft opinion metadata badges (only when a second paragraph exists) */
+:root[data-variant="24-chu-lon"] .kt-opinion > p + p {
+  margin-top: 1rem;
+  padding-top: 0.875rem;
+  border-top: 1.5px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+:root[data-variant="24-chu-lon"] .kt-opinion > p + p span {
+  font-size: 1.0625rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.5rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-byline {
+  margin-top: 1.75rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. Footer & Look Switcher                                                  */
+/* -------------------------------------------------------------------------- */
+
+:root[data-variant="24-chu-lon"] .kt-footer {
+  border-top: 2px solid var(--rule);
+  background: var(--card);
+}
+
+:root[data-variant="24-chu-lon"] .kt-footer p {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: 1.5rem 1.25rem 5.75rem; /* Extra bottom room so fixed switcher never overlaps */
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="24-chu-lon"] .kt-footer p {
+    padding: 1.75rem 2rem 5.75rem;
+  }
+}
+
+:root[data-variant="24-chu-lon"] .kt-footer a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+:root[data-variant="24-chu-lon"] .kt-switcher {
+  right: 0.75rem;
+  bottom: 0.75rem;
+  max-width: calc(100vw - 1.5rem);
+  min-height: 3.25rem; /* 52px */
+  gap: 0.625rem;
+  padding: 0.5rem 0.875rem;
+  border: 2px solid var(--accent);
+  border-radius: 0.875rem;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.22);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+:root[data-variant="24-chu-lon"] .kt-switcher select {
+  min-height: 2.5rem;
+  max-width: 11rem;
+  padding: 0.25rem 0.5rem;
+  border: 1.5px solid var(--rule);
+  border-radius: 0.5rem;
+  background: var(--side);
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 7. Reduced-Motion Safe Transitions                                         */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="24-chu-lon"] .kt-pager,
+  :root[data-variant="24-chu-lon"] .kt-start-cta,
+  :root[data-variant="24-chu-lon"] .kt-books-link,
+  :root[data-variant="24-chu-lon"] .kt-chapter-link,
+  :root[data-variant="24-chu-lon"] .kt-toc a,
+  :root[data-variant="24-chu-lon"] .kt-note-heading,
+  :root[data-variant="24-chu-lon"] .kt-note-heading > span,
+  :root[data-variant="24-chu-lon"] .kt-ref {
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      transform 150ms ease;
+  }
+}
