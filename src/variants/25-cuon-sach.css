@@ -1,0 +1,1112 @@
+/*
+ * 25-cuon-sach — Cuộn sách cổ (Ancient Scroll / Parchment)
+ * Aged vellum tones, CSS-only rolled scroll edges at top and bottom of the reading column,
+ * narrow manuscript column, iron-gall ink-brown text, and vermilion rubrication.
+ */
+
+/* --------------------------------------------------------------------------
+ * 1. Tokens — Light (Daylight Parchment) & Dark (Candlelit Scriptorium)
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] {
+  --paper: #ded0b1;
+  --ink: #332316;
+  --muted: #624d39;
+  --accent: #8b2e1d;
+  --rule: #bfa984;
+  --card: #f5ebd4;
+  --side: #eadcc0;
+  --mark: #e8cf86;
+  --cao: #2a5932;
+  --vua: #7b560d;
+  --thap: #962b21;
+
+  /* Scroll-specific surface, cylinder & shadow palette */
+  --cs-desk-glow: rgba(255, 248, 229, 0.42);
+  --cs-desk-vignette: rgba(74, 51, 28, 0.22);
+  --cs-vellum-top: #f7eed9;
+  --cs-vellum-mid: #f3e6ca;
+  --cs-vellum-bot: #eedeb9;
+  --cs-vellum-stain: rgba(160, 124, 72, 0.09);
+  --cs-vellum-fiber: rgba(112, 82, 44, 0.035);
+  --cs-margin-rule: rgba(139, 46, 29, 0.16);
+  --cs-sheet-edge: rgba(94, 65, 32, 0.24);
+  --cs-sheet-shadow: rgba(54, 36, 18, 0.24);
+
+  /* Rolled parchment cylinder & wooden dowel finials */
+  --cs-roll-deep: #6b5235;
+  --cs-roll-shade: #b99f77;
+  --cs-roll-mid: #dfcda9;
+  --cs-roll-hi: #fbf4e3;
+  --cs-roll-tuck: #4a3520;
+  --cs-knob-dark: #4f341f;
+  --cs-knob-mid: #7d5636;
+  --cs-knob-hi: #a97c52;
+  --cs-cord: #7c2b1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="25-cuon-sach"] {
+    --paper: #16110c;
+    --ink: #eadcc4;
+    --muted: #b8a386;
+    --accent: #e08d63;
+    --rule: #4e3e2e;
+    --card: #241c14;
+    --side: #2e241a;
+    --mark: #574118;
+    --cao: #8cc993;
+    --vua: #e5c26c;
+    --thap: #f08a7a;
+
+    --cs-desk-glow: rgba(140, 96, 52, 0.14);
+    --cs-desk-vignette: rgba(0, 0, 0, 0.58);
+    --cs-vellum-top: #271f16;
+    --cs-vellum-mid: #231b13;
+    --cs-vellum-bot: #1f1810;
+    --cs-vellum-stain: rgba(186, 134, 74, 0.07);
+    --cs-vellum-fiber: rgba(234, 212, 176, 0.025);
+    --cs-margin-rule: rgba(224, 141, 99, 0.16);
+    --cs-sheet-edge: rgba(0, 0, 0, 0.42);
+    --cs-sheet-shadow: rgba(0, 0, 0, 0.56);
+
+    --cs-roll-deep: #130e09;
+    --cs-roll-shade: #302418;
+    --cs-roll-mid: #473726;
+    --cs-roll-hi: #66513b;
+    --cs-roll-tuck: #0c0805;
+    --cs-knob-dark: #1d120a;
+    --cs-knob-mid: #3f2918;
+    --cs-knob-hi: #6b492c;
+    --cs-cord: #b85b3a;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 2. Base Canvas, Typography & Focus
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] body {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse 85% 65% at 50% 18%, var(--cs-desk-glow), transparent 72%),
+    radial-gradient(ellipse 110% 90% at 50% 50%, transparent 55%, var(--cs-desk-vignette) 100%);
+  background-attachment: scroll;
+  color: var(--ink);
+  font-family: "Literata", "Palatino Linotype", Palatino, "Iowan Old Style", Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  overflow-x: clip;
+}
+
+:root[data-variant="25-cuon-sach"] :is(a, button, summary, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+ * 3. Top Header, Breadcrumbs, Pager & Book Picker
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-header {
+  background: linear-gradient(180deg, var(--card) 0%, var(--side) 100%);
+  border-bottom: 3px double var(--rule);
+  box-shadow: 0 2px 10px var(--cs-sheet-shadow);
+  padding: 0.7rem 1.25rem;
+  gap: 0.65rem 1.25rem;
+  font-family: "Literata", Palatino, Georgia, serif;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-brand {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-brand span {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-brand:hover {
+  color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-crumbs {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-crumbs a {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-crumbs a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-header button[popovertarget],
+:root[data-variant="25-cuon-sach"] .kt-pager {
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--ink);
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.875rem;
+  box-shadow: inset 0 0 0 2px var(--card), inset 0 0 0 3px color-mix(in srgb, var(--rule) 50%, transparent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-header button[popovertarget]:hover,
+:root[data-variant="25-cuon-sach"] a.kt-pager:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--side);
+}
+
+:root[data-variant="25-cuon-sach"] span.kt-pager {
+  background: transparent;
+  box-shadow: none;
+  border-style: dashed;
+  color: var(--muted);
+  opacity: 0.72;
+}
+
+/* Book picker folio popover */
+:root[data-variant="25-cuon-sach"] .kt-picker {
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, var(--cs-vellum-top) 0%, var(--cs-vellum-mid) 50%, var(--cs-vellum-bot) 100%);
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px var(--rule),
+    0 18px 40px var(--cs-sheet-shadow);
+  font-family: "Literata", Palatino, Georgia, serif;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-picker nav {
+  border-color: var(--rule);
+  padding: 0.75rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-picker nav p {
+  font-family: "Literata", Palatino, Georgia, serif;
+  color: var(--accent);
+  letter-spacing: 0.16em;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-picker nav button {
+  border-radius: 2px;
+  font-size: 0.92rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-picker nav button[aria-pressed="true"] {
+  background: var(--side);
+  color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-picker ol a {
+  border-radius: 2px;
+  border-color: var(--rule);
+  background: var(--card);
+  font-variant-numeric: lining-nums;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-picker ol a:hover {
+  background: var(--side);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+ * 4. Shared Parchment Scroll Sheet & Rolled Top/Bottom Cylinders (CSS-only)
+ *    Applied to .kt-chapter (narrow reading scroll) and .kt-home (index scroll)
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-chapter,
+:root[data-variant="25-cuon-sach"] .kt-home {
+  position: relative;
+  background-color: var(--card);
+  background-image:
+    /* Subtle left & right inner scribe margin rules */
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 0.9rem,
+      var(--cs-margin-rule) 0.9rem,
+      var(--cs-margin-rule) calc(0.9rem + 1px),
+      transparent calc(0.9rem + 1px),
+      transparent calc(100% - 0.9rem - 1px),
+      var(--cs-margin-rule) calc(100% - 0.9rem - 1px),
+      var(--cs-margin-rule) calc(100% - 0.9rem),
+      transparent calc(100% - 0.9rem)
+    ),
+    /* Soft edge darkening along scroll sides */
+    linear-gradient(
+      90deg,
+      var(--cs-sheet-edge) 0%,
+      transparent 4.5%,
+      transparent 95.5%,
+      var(--cs-sheet-edge) 100%
+    ),
+    /* Organic parchment aging blotches */
+    radial-gradient(ellipse 46% 24% at 14% 12%, var(--cs-vellum-stain), transparent 72%),
+    radial-gradient(ellipse 52% 28% at 86% 68%, var(--cs-vellum-stain), transparent 74%),
+    radial-gradient(ellipse 40% 22% at 22% 88%, var(--cs-vellum-stain), transparent 70%),
+    /* Faint laid-vellum horizontal grain */
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 5px,
+      var(--cs-vellum-fiber) 5px,
+      var(--cs-vellum-fiber) 6px
+    ),
+    /* Base aged parchment tone */
+    linear-gradient(180deg, var(--cs-vellum-top) 0%, var(--cs-vellum-mid) 52%, var(--cs-vellum-bot) 100%);
+  border-inline: 1px solid var(--rule);
+  box-shadow:
+    inset 0 28px 24px -18px var(--cs-sheet-shadow),
+    inset 0 -28px 24px -18px var(--cs-sheet-shadow),
+    0 18px 40px -14px var(--cs-sheet-shadow);
+}
+
+/* Rolled scroll edge — TOP cylinder with wooden finial caps & binding cords */
+:root[data-variant="25-cuon-sach"] .kt-chapter::before,
+:root[data-variant="25-cuon-sach"] .kt-home::before {
+  content: "";
+  position: absolute;
+  top: -0.35rem;
+  left: -0.4rem;
+  right: -0.4rem;
+  height: 2.25rem;
+  border-radius: 1.15rem / 0.85rem;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    /* Wooden dowel caps + crimson binding bands on left and right ends */
+    linear-gradient(
+      90deg,
+      var(--cs-knob-dark) 0px,
+      var(--cs-knob-hi) 6px,
+      var(--cs-knob-mid) 13px,
+      var(--cs-knob-dark) 16px,
+      transparent 17px,
+      transparent 22px,
+      var(--cs-cord) 22px,
+      var(--cs-cord) 25px,
+      transparent 25px,
+      transparent calc(100% - 25px),
+      var(--cs-cord) calc(100% - 25px),
+      var(--cs-cord) calc(100% - 22px),
+      transparent calc(100% - 22px),
+      transparent calc(100% - 17px),
+      var(--cs-knob-dark) calc(100% - 16px),
+      var(--cs-knob-mid) calc(100% - 13px),
+      var(--cs-knob-hi) calc(100% - 6px),
+      var(--cs-knob-dark) 100%
+    ),
+    /* Cylindrical rolled parchment shading (top-to-bottom) */
+    linear-gradient(
+      180deg,
+      var(--cs-roll-deep) 0%,
+      var(--cs-roll-shade) 14%,
+      var(--cs-roll-hi) 38%,
+      var(--cs-roll-mid) 62%,
+      var(--cs-roll-shade) 84%,
+      var(--cs-roll-tuck) 100%
+    );
+  border: 1px solid var(--cs-roll-deep);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 250, 238, 0.25),
+    inset 0 -3px 5px rgba(25, 14, 6, 0.38),
+    0 9px 14px -5px var(--cs-sheet-shadow),
+    0 2px 3px rgba(32, 18, 8, 0.32);
+}
+
+/* Rolled scroll edge — BOTTOM cylinder with wooden finial caps & binding cords */
+:root[data-variant="25-cuon-sach"] .kt-chapter::after,
+:root[data-variant="25-cuon-sach"] .kt-home::after {
+  content: "";
+  position: absolute;
+  bottom: -0.35rem;
+  left: -0.4rem;
+  right: -0.4rem;
+  height: 2.25rem;
+  border-radius: 1.15rem / 0.85rem;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    linear-gradient(
+      90deg,
+      var(--cs-knob-dark) 0px,
+      var(--cs-knob-hi) 6px,
+      var(--cs-knob-mid) 13px,
+      var(--cs-knob-dark) 16px,
+      transparent 17px,
+      transparent 22px,
+      var(--cs-cord) 22px,
+      var(--cs-cord) 25px,
+      transparent 25px,
+      transparent calc(100% - 25px),
+      var(--cs-cord) calc(100% - 25px),
+      var(--cs-cord) calc(100% - 22px),
+      transparent calc(100% - 22px),
+      transparent calc(100% - 17px),
+      var(--cs-knob-dark) calc(100% - 16px),
+      var(--cs-knob-mid) calc(100% - 13px),
+      var(--cs-knob-hi) calc(100% - 6px),
+      var(--cs-knob-dark) 100%
+    ),
+    /* Cylindrical rolled parchment shading (bottom curl: tuck shadow at top of roll) */
+    linear-gradient(
+      180deg,
+      var(--cs-roll-tuck) 0%,
+      var(--cs-roll-shade) 18%,
+      var(--cs-roll-hi) 46%,
+      var(--cs-roll-mid) 70%,
+      var(--cs-roll-shade) 88%,
+      var(--cs-roll-deep) 100%
+    );
+  border: 1px solid var(--cs-roll-deep);
+  box-shadow:
+    inset 0 3px 5px rgba(25, 14, 6, 0.34),
+    inset 0 -2px 3px rgba(255, 250, 238, 0.14),
+    0 -7px 14px -5px var(--cs-sheet-shadow),
+    0 10px 18px -6px var(--cs-sheet-shadow);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-chapter::before,
+  :root[data-variant="25-cuon-sach"] .kt-chapter::after,
+  :root[data-variant="25-cuon-sach"] .kt-home::before,
+  :root[data-variant="25-cuon-sach"] .kt-home::after {
+    left: -0.95rem;
+    right: -0.95rem;
+    height: 2.55rem;
+    border-radius: 1.35rem / 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 5. Home Page — Grand Unrolled Index Scroll
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-home {
+  width: calc(100% - 1.5rem);
+  max-width: 46rem;
+  margin-block: 1.75rem 2.75rem;
+  margin-inline: auto;
+  padding: 4rem 1.5rem 4.25rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-home {
+    width: calc(100% - 3rem);
+    margin-block: 2.5rem 3.5rem;
+    padding: 4.75rem 3.25rem 5rem;
+  }
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero {
+  padding-top: 0.5rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero-title {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(2.4rem, 7.5vw, 4.25rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero-sub {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+  font-style: italic;
+  color: var(--accent);
+  margin-top: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero-sub::before,
+:root[data-variant="25-cuon-sach"] .kt-hero-sub::after {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero a {
+  font-family: "Literata", Palatino, Georgia, serif;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-hero a:hover {
+  text-decoration-style: solid;
+}
+
+/* Featured Start Here illuminated cartouche */
+:root[data-variant="25-cuon-sach"] .kt-start {
+  position: relative;
+  display: block;
+  margin-top: 2rem;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--side);
+  box-shadow: inset 0 0 0 4px var(--card), inset 0 0 0 5px var(--rule);
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-start {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start > div {
+  position: relative;
+  z-index: 1;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start #bat-dau {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start-title {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(1.75rem, 5vw, 2.65rem);
+  font-weight: 600;
+  line-height: 1.22;
+  color: var(--ink);
+  margin-top: 0.65rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start > div > p:not(#bat-dau) {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-top: 0.9rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start-cta {
+  margin-top: 1.35rem;
+  padding: 0.65rem 1.5rem;
+  min-height: 2.85rem;
+  border-radius: 2px;
+  background: var(--accent);
+  color: var(--card);
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 3px color-mix(in srgb, var(--card) 40%, transparent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start-cta:hover {
+  background: var(--ink);
+  color: var(--card);
+  box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 0 3px color-mix(in srgb, var(--card) 35%, transparent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-start-number {
+  position: absolute;
+  top: 0.75rem;
+  right: 1.25rem;
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(4.5rem, 12vw, 7rem);
+  font-weight: 600;
+  line-height: 0.85;
+  color: color-mix(in srgb, var(--rule) 55%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Book Index inside home scroll */
+:root[data-variant="25-cuon-sach"] .kt-books {
+  padding-block: 2.25rem;
+  border-bottom: 3px double var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books #cac-sach {
+  font-family: "Literata", Palatino, Georgia, serif;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books li {
+  border-bottom: 1px dotted var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books-link {
+  min-height: 3.5rem;
+  padding-block: 0.75rem;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books-link > span:first-child {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1 1 12rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books-link:hover > span:first-child {
+  color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books-link > span:nth-child(2) {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-books-link > span:nth-child(3) {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: 5rem;
+  color: var(--muted);
+}
+
+/* Book sections & chapter lists */
+:root[data-variant="25-cuon-sach"] .kt-book {
+  padding-top: 2.5rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-book > div:first-child {
+  border-bottom: 3px double var(--rule);
+  padding-bottom: 0.5rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-book-name {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(1.5rem, 3.8vw, 1.95rem);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-book-name::before {
+  content: "§ ";
+  color: var(--accent);
+  font-weight: 400;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-book > div:first-child a {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-chapter-list {
+  margin-top: 1.25rem;
+  columns: 1;
+  column-gap: 2.25rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-chapter-list {
+    columns: 2;
+  }
+}
+
+:root[data-variant="25-cuon-sach"] .kt-chapter-list li {
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--rule) 65%, transparent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-chapter-link {
+  align-items: baseline;
+  gap: 0.65rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-chapter-link > span:first-child {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  width: 1.8rem;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+ * 6. Chapter Page — Narrow Reading Scroll + Marginalia TOC & Aside
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-reader {
+  max-width: 78rem;
+  padding: 1.75rem 0.9rem 3.5rem;
+  gap: 2rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-reader {
+    padding: 2.5rem 2rem 4.25rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root[data-variant="25-cuon-sach"] .kt-reader {
+    grid-template-columns: minmax(9.5rem, 11rem) minmax(0, 34rem) minmax(13.5rem, 16.5rem);
+    column-gap: 2.5rem;
+    padding: 2.75rem 2rem 4.5rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  :root[data-variant="25-cuon-sach"] .kt-reader {
+    grid-template-columns: 11.5rem minmax(0, 35.5rem) 17rem;
+    column-gap: 3rem;
+  }
+}
+
+/* Narrow central parchment scroll */
+:root[data-variant="25-cuon-sach"] .kt-chapter {
+  width: 100%;
+  max-width: 35.5rem;
+  margin-inline: auto;
+  padding: 3.75rem 1.4rem 4.25rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-chapter {
+    padding: 4.5rem 2.75rem 4.75rem;
+  }
+}
+
+/* Left Margin TOC — Scribe's Table of Sections */
+:root[data-variant="25-cuon-sach"] .kt-toc {
+  font-family: "Literata", Palatino, Georgia, serif;
+  padding-top: 2.5rem;
+  padding-right: 1rem;
+  border-right: 1px solid var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-toc p {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.6rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-toc a {
+  border-radius: 2px;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-toc a:hover {
+  background: color-mix(in srgb, var(--card) 75%, transparent);
+  color: var(--accent);
+}
+
+/* Chapter Heading Block inside the Scroll */
+:root[data-variant="25-cuon-sach"] .kt-kicker {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-align: center;
+  color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-kicker::before,
+:root[data-variant="25-cuon-sach"] .kt-kicker::after {
+  content: " — ";
+  color: var(--rule);
+  font-weight: 400;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-title {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(1.85rem, 5.5vw, 2.65rem);
+  font-weight: 600;
+  line-height: 1.24;
+  text-align: center;
+  color: var(--ink);
+  margin-top: 0.6rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-lead {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  text-align: center;
+  color: var(--muted);
+  margin-top: 0.9rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 3px double var(--rule);
+}
+
+/* Scripture / Story Reading Column */
+:root[data-variant="25-cuon-sach"] .kt-scripture {
+  margin-top: 1.85rem;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: var(--ink);
+  text-align: left;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-scripture {
+    font-size: 1.125rem;
+    line-height: 1.92;
+  }
+}
+
+:root[data-variant="25-cuon-sach"] .kt-scripture > div + div {
+  margin-top: 1.35rem;
+}
+
+/* Illuminated Manuscript Drop Cap on first paragraph */
+:root[data-variant="25-cuon-sach"] .kt-scripture > div:first-child > p:first-child::first-letter {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: 3.6rem;
+  line-height: 0.88;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--side);
+  border: 1px solid var(--rule);
+  box-shadow: inset 0 0 0 2px var(--card);
+  padding: 0.35rem 0.55rem 0.25rem;
+  margin-top: 0.25rem;
+  margin-right: 0.7rem;
+  margin-bottom: 0.15rem;
+  float: left;
+}
+
+/* Inline Quoted Bible Verses inside the Scroll */
+:root[data-variant="25-cuon-sach"] .kt-inline-verses {
+  margin-top: 1.1rem;
+  padding: 1rem 1.15rem;
+  border-radius: 2px;
+  background: var(--side);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  border-left: 3px double var(--accent);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-inline-verses > p:first-child {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 0.45rem;
+}
+
+/* Raised Verse Numbers */
+:root[data-variant="25-cuon-sach"] .kt-verse-number {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 0.2rem;
+  vertical-align: super;
+}
+
+/* Ornament Divider between Story and Notes */
+:root[data-variant="25-cuon-sach"] .kt-divider {
+  margin-top: 2.75rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.45em;
+  text-indent: 0.45em;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-divider::before,
+:root[data-variant="25-cuon-sach"] .kt-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule) 50%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+ * 7. Folded Note Sections & Commentator Opinions
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-notes {
+  margin-top: 1.5rem;
+  border-bottom: 3px double var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note {
+  border-top: 1px solid var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note:first-child {
+  border-top: 3px double var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note-heading {
+  min-height: 3.35rem;
+  padding-block: 0.65rem;
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: clamp(1.2rem, 3.2vw, 1.4rem);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note-heading:hover {
+  color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note-heading > span {
+  font-family: "Literata", Palatino, Georgia, serif;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note-body {
+  padding: 0.25rem 0 1.5rem 0.95rem;
+  border-left: 2px solid color-mix(in srgb, var(--rule) 75%, transparent);
+  margin-left: 0.15rem;
+  font-size: 1rem;
+  line-height: 1.82;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-opinion {
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  background: var(--side);
+  padding: 1rem 1.15rem;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-opinion > p:last-child {
+  font-family: "Literata", Palatino, Georgia, serif;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-opinion span {
+  border-radius: 2px;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-byline {
+  margin-top: 1.75rem;
+  text-align: center;
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-style: italic;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+ * 8. Right Marginalia — "Điều cần nhớ" Vellum Slip
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-aside {
+  width: 100%;
+  max-width: 35.5rem;
+  margin-inline: auto;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, var(--cs-vellum-top) 0%, var(--cs-vellum-bot) 100%);
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px color-mix(in srgb, var(--rule) 75%, transparent),
+    0 10px 24px -12px var(--cs-sheet-shadow);
+  padding: 1.35rem 1.45rem;
+}
+
+@media (min-width: 64rem) {
+  :root[data-variant="25-cuon-sach"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    margin-top: 2rem;
+    max-width: none;
+  }
+}
+
+:root[data-variant="25-cuon-sach"] .kt-aside h2 {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-aside > div {
+  margin-top: 0.85rem;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+ * 9. Clickable References & Verse Popover
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-ref {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  text-underline-offset: 3px;
+  padding-inline: 0.1rem;
+  border-radius: 2px;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-ref:hover,
+:root[data-variant="25-cuon-sach"] .kt-ref[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--mark) 45%, transparent);
+  text-decoration-style: solid;
+  text-decoration-color: var(--accent);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-ref-popover {
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--cs-roll-shade);
+  border-bottom: 4px solid var(--cs-roll-shade);
+  background:
+    linear-gradient(180deg, var(--cs-vellum-top) 0%, var(--cs-vellum-mid) 55%, var(--cs-vellum-bot) 100%);
+  box-shadow:
+    inset 0 0 0 3px var(--card),
+    inset 0 0 0 4px color-mix(in srgb, var(--rule) 65%, transparent),
+    0 18px 36px var(--cs-sheet-shadow);
+  padding: 1.35rem 1.45rem;
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-ref-popover > p:first-child {
+  font-family: "Playfair Display", Palatino, Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-ref-popover button {
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="25-cuon-sach"] .kt-ref-popover button:hover {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+ * 10. Footer & Variant Switcher
+ * -------------------------------------------------------------------------- */
+
+:root[data-variant="25-cuon-sach"] .kt-footer {
+  border-top: 3px double var(--rule);
+  background: linear-gradient(180deg, var(--side) 0%, var(--paper) 100%);
+  padding-bottom: 2.75rem;
+}
+
+@media (min-width: 40rem) {
+  :root[data-variant="25-cuon-sach"] .kt-footer {
+    padding-bottom: 0.5rem;
+  }
+}
+
+:root[data-variant="25-cuon-sach"] .kt-footer p {
+  text-align: center;
+  font-family: "Literata", Palatino, Georgia, serif;
+  font-style: italic;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-switcher {
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--muted);
+  font-family: "Literata", Palatino, Georgia, serif;
+  box-shadow:
+    inset 0 0 0 2px var(--card),
+    inset 0 0 0 3px color-mix(in srgb, var(--rule) 55%, transparent),
+    0 6px 16px var(--cs-sheet-shadow);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-switcher select {
+  background: var(--card);
+  color: var(--ink);
+  font-family: "Literata", Palatino, Georgia, serif;
+}
+
+/* --------------------------------------------------------------------------
+ * 11. Subtle Motion (Reduced-Motion Safe)
+ * -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="25-cuon-sach"] .kt-header button[popovertarget],
+  :root[data-variant="25-cuon-sach"] .kt-pager,
+  :root[data-variant="25-cuon-sach"] .kt-start-cta,
+  :root[data-variant="25-cuon-sach"] .kt-ref,
+  :root[data-variant="25-cuon-sach"] .kt-toc a,
+  :root[data-variant="25-cuon-sach"] .kt-note-heading,
+  :root[data-variant="25-cuon-sach"] .kt-note-heading > span,
+  :root[data-variant="25-cuon-sach"] .kt-books-link > span:first-child {
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 180ms ease;
+  }
+}
