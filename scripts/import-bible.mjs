@@ -14,7 +14,8 @@ const OUT = join(import.meta.dirname, "..", "data", "bible");
 const TONE = { "́": "ùáéú", "̀": "øàè", "̉": "ûå", "̃": "õãü", "̣": "ïäë" };
 const HAT = { "̂": "âáàåãä", "̆": "êéèúüë" };
 const markOf = (table, ch) => Object.keys(table).find((m) => table[m].includes(ch)) ?? "";
-const VNI_CAPITAL = /(?<!\p{L})([AEIOUY])([ùøûõïâáàåãäêéèüë])/gu;
+// "Yên" is already proper Unicode, not VNI for "Y̆n".
+const VNI_CAPITAL = /(?<!\p{L})(?!Yên)([AEIOUY])([ùøûõïâáàåãäêéèüë])/gu;
 // Four verses came through in a second broken encoding; these are decoded by hand.
 const BROKEN = {
   "GEN 40:12": "Giô-sép nói: Ý-nghĩa chiêm bao đó là thể nầy: Ba nhánh nho tức là ba ngày.",
@@ -23,18 +24,75 @@ const BROKEN = {
   "MAT 6:10": "Nước Cha được đến; ý Cha được nên, ở đất như trời!",
 };
 
+// A third broken encoding left capital Ớ, Ở, Ồ, À, Ừ, Ổ as a lone lowercase letter ("ù Đa-vít!" is "Ớ Đa-vít!").
+// Checked word by word against the SWORD "Kinh Thánh Tiếng Việt (1934)" text.
+const LONE = { "ù": "Ớ", "ỳ": "Ở", "è": "Ồ", "ĩ": "À", "ã": "Ừ", "ì": "Ổ" };
+const SENTENCE_START = /(^|[.!?:;]["“”]?\s+)$/u;
+// Typing slips in single verses, each checked against the SWORD text. Every "from" must still be there.
+const TYPOS = {
+  "GEN 20:13": [["cco tôi pưu lạc", "cho tôi phải lưu lạc"]],
+  "NUM 7:37": [["thánhhh", "thánh"]],
+  "NUM 30:13": [["có thế", "có thể"]],
+  "DEU 3:6": [["connnnn", "con"]],
+  "DEU 3:8": [["Ạt-nnôn", "Ạt-nôn"]],
+  "JOS 8:35": [["dặng", "dặn"]],
+  "JOS 11:15": [["dặng", "dặn"]],
+  "JOS 20:9": [["có thế", "có thể"]],
+  "JDG 7:11": [["cóóóóóómạnh", "có sức mạnh"]],
+  "1SA 16:2": [["g: àm sao tôi đii", "Làm sao tôi đi"], ["ngggggggơi", "ngươi"]],
+  "2SA 12:5": [["đđng", "đáng"]],
+  "2SA 12:6": [["chiên conkhông", "chiên con, vì đã làm như vậy, và vì không"]],
+  "1KI 11:1": [["người n Ê-đôm", "người nữ Mô-áp, Am-môn, Ê-đôm"]],
+  "2KI 11:12": [["đếu", "đầu"]],
+  "2KI 11:15": [["Giêiêô-gia-đa", "Giê-hô-gia-đa"]],
+  "1CH 12:8": [["có ó ững", "có những"]],
+  "JOB 29:24": [["mỉn", "mỉm"]],
+  "JOB 29:25": [["giữu", "giữa"]],
+  "JOB 30:12": [["nố", "hố"]],
+  "PSA 106:47": [["Chúa, úa, Và khoe mình về sự ngợ hen Chúaa.", "Chúa, Và khoe mình về sự ngợi khen Chúa."]],
+  "PSA 135:11": [["Từc", "Tức"]],
+  "PRO 8:24": [["s sh", "sanh"]],
+  "ECC 7:24": [["có thế", "có thể"]],
+  "ISA 23:16": [["mầyầyy", "mầy!"]],
+  "JER 38:7": [["quănăng", "quăng"]],
+  "JER 43:6": [["gá i", "gái"]],
+  "MAR 3:22": [["nhờờờờờờ chúa quỉ mà ttttttrừ", "nhờ phép chúa quỉ mà trừ"]],
+  "MAR 16:20": [["v????", "vững đạo."]],
+  "LUK 17:6": [["trộng", "trông"]],
+  "JOH 11:22": [["cụng", "cũng"]],
+  "JOH 19:19": [["JÊSUS NGƯùI NA-XA-RẵT, Là VUA DĂN GIU-ĐA.", "JÊSUS NGƯỜI NA-XA-RÉT, LÀ VUA DÂN GIU-ĐA."]],
+  "ACT 17:23": [["THù CHúA KHÔNG BIôT.", "THỜ CHÚA KHÔNG BIẾT."]],
+};
+
+function fixTypos(ref, verse) {
+  return (TYPOS[ref] ?? []).reduce((v, [from, to]) => {
+    if (!v.includes(from)) throw new Error(`Typo fix no longer applies: ${ref} "${from}"`);
+    return v.replace(from, to);
+  }, verse);
+}
+
 function repair(ref, verse) {
   if (BROKEN[ref]) return BROKEN[ref];
-  return verse
+  const decoded = verse
     .replace(VNI_CAPITAL, (_, base, mark) => (base + markOf(HAT, mark) + markOf(TONE, mark)).normalize("NFC"))
-    .replace(/(?<!\p{L})ỗ/gu, "Í");
+    .replace(/(?<!\p{L})ỗ/gu, "Í")
+    .replace(/\(\d+-\d+\)\s*/g, "")
+    .replace(/([kK])”/g, "$1ỳ")
+    .replace(/hu”nh/g, "huỳnh")
+    .replace(/(?<!\p{L})[ùỳèĩãì](?!\p{L})/gu, (ch, at, v) =>
+      SENTENCE_START.test(v.slice(0, at)) ? LONE[ch] : LONE[ch].toLowerCase(),
+    );
+  return fixTypos(ref, decoded);
 }
 
 const VIETNAMESE = new Set("aàáảãạăằắẳẵặâầấẩẫậbcdđeèéẻẽẹêềếểễệfghiìíỉĩịjklmnoòóỏõọôồốổỗộơờớởỡợpqrstuùúủũụưừứửữựvwxyỳýỷỹỵz");
-/** Self-check: no letter outside Vietnamese and no VNI capital left in the output. */
+// Leftovers of the broken encodings: a lone accented vowel or consonant, "k”" for "kỳ",
+// a stray "(1-2)" verse-range marker, a letter typed three times, a loose combining mark.
+const GARBAGE = /(?<!\p{L})[ùỳèĩãìgn](?!\p{L})|k”|\(\d+-\d+\)|(\p{L})\1\1|\p{M}/iu;
+/** Self-check: no letter outside Vietnamese, no VNI capital and no garbage left in the output. */
 function assertClean(ref, verse) {
   const odd = [...verse].find((ch) => /\p{L}/u.test(ch) && !VIETNAMESE.has(ch.toLowerCase()));
-  if (odd || VNI_CAPITAL.test(verse)) throw new Error(`Still broken: ${ref} ${verse}`);
+  if (odd || VNI_CAPITAL.test(verse) || GARBAGE.test(verse)) throw new Error(`Still broken: ${ref} ${verse}`);
   VNI_CAPITAL.lastIndex = 0;
 }
 
