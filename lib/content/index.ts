@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { chaptersOf, loadBible } from "./bible";
+import { chaptersOf, type Bible } from "./bible";
 import { BOOKS, bookBySlug, type Book } from "./books";
 import { parseNote, type Inline, type Note, type Opinion, type Section } from "./note";
 import { lookupRef, type Ref, type Verse } from "./refs";
@@ -44,6 +44,26 @@ export type Content = {
   chapter(args: { slug: string; number: number; mode: Mode }): ChapterView | null;
   lookup(args: { text: string; book?: Book }): Ref;
 };
+
+function isChapters(x: unknown): x is string[][] {
+  return (
+    Array.isArray(x) &&
+    x.every((c) => Array.isArray(c) && c.length > 0 && c.every((v) => typeof v === "string"))
+  );
+}
+
+function loadBible(dir: string): Bible {
+  const bible = new Map<string, string[][]>();
+  for (const book of BOOKS) {
+    const file = join(dir, `${book.code}.json`);
+    const data: unknown = JSON.parse(readFileSync(file, "utf8"));
+    const chapters =
+      typeof data === "object" && data !== null && "chapters" in data ? data.chapters : undefined;
+    if (!isChapters(chapters)) throw new Error(`Dữ liệu Kinh Thánh sai dạng: ${file}`);
+    bible.set(book.code, chapters);
+  }
+  return bible;
+}
 
 function summarize(opinions: Opinion[]): Summary {
   const count = (pred: (o: Opinion) => boolean) => opinions.filter(pred).length;

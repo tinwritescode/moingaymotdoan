@@ -6,6 +6,13 @@ export type Verse = { number: number; text: string };
 /** A resolved chỗ dẫn: one chapter, a verse range, with the verse text. */
 export type Ref = { label: string; book: Book; chapter: number; verses: Verse[] };
 
+/** "1:3" or "1:3–13". */
+export function verseLabel(args: { chapter: number; verses: Verse[] }) {
+  const from = args.verses[0].number;
+  const to = args.verses[args.verses.length - 1].number;
+  return `${args.chapter}:${from}${to > from ? `–${to}` : ""}`;
+}
+
 /** One item inside "( … ; … )": an optional lead word such as "so", then the chỗ dẫn. */
 export type RefPart = { lead: string; ref: Ref };
 
