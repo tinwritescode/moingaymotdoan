@@ -21,8 +21,8 @@ function pickerBooks(toc: TocBook[]): PickerBook[] {
 export function SiteHeader(props: ParentProps<{ book?: string }>) {
   const books = createMemo(async () => pickerBooks((await getToc()).books));
   return (
-    <header class="flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-rule bg-card px-6 py-3 font-sans">
-      <a href="/" class="font-serif text-[17px] font-semibold">
+    <header class="kt-header flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-rule bg-card px-6 py-3 font-sans">
+      <a href="/" class="kt-brand font-serif text-[17px] font-semibold">
         Kinh Thánh <span class="font-normal text-muted">· ghi chú từng đoạn</span>
       </a>
       <BookPicker books={books()} current={props.book} />

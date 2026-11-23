@@ -18,7 +18,7 @@ export const route = defineFileRoute("/:book/:chapter", {
   },
 });
 
-const PAGER = "inline-flex min-h-11 items-center rounded-lg border border-rule px-3.5 text-sm";
+const PAGER = "kt-pager inline-flex min-h-11 items-center rounded-lg border border-rule px-3.5 text-sm";
 
 const hrefOf = (l: ChapterLink) => chapterHref({ slug: l.book.slug, number: l.number });
 const linkHref = (l: ChapterLink | null) => (l ? hrefOf(l) : null);
@@ -37,7 +37,7 @@ export default function ChapterPage(props: RouteProps<typeof route>) {
         <div class={["flex flex-1 flex-col transition-opacity", { "opacity-60": isPending(view) }]}>
           <Title>{`${ch().book.name} ${ch().number} — ${ch().title}`}</Title>
           <SiteHeader book={ch().book.slug}>
-            <nav aria-label="Vị trí" class="flex gap-2 text-sm text-muted">
+            <nav aria-label="Vị trí" class="kt-crumbs flex gap-2 text-sm text-muted">
               <a href="/" class="hover:text-accent">
                 Mục lục
               </a>

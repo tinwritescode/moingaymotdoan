@@ -30,10 +30,10 @@ export default function MucLuc() {
     <>
       <Title>Kinh Thánh — ghi chú từng đoạn</Title>
       <SiteHeader />
-      <div class="mx-auto w-full max-w-6xl animate-reveal px-6 pb-20 motion-reduce:animate-none">
-        <header class="pt-10 text-center sm:pt-14">
-          <h1 class="font-display text-6xl leading-none font-extrabold sm:text-8xl">Kinh Thánh</h1>
-          <p class="mt-3 font-display text-2xl text-accent italic">bằng lời thường</p>
+      <div class="kt-home mx-auto w-full max-w-6xl animate-reveal px-6 pb-20 motion-reduce:animate-none">
+        <header class="kt-hero pt-10 text-center sm:pt-14">
+          <h1 class="kt-hero-title font-display text-6xl leading-none font-extrabold sm:text-8xl">Kinh Thánh</h1>
+          <p class="kt-hero-sub mt-3 font-display text-2xl text-accent italic">bằng lời thường</p>
           <p class="mx-auto mt-4 max-w-xl text-muted">
             Mỗi đoạn Kinh Thánh, kể lại bằng lời thường, kèm nguyên văn Bản Truyền Thống. <em>Đoạn</em> nghĩa là
             chương.
@@ -88,23 +88,23 @@ function StartHere(props: { book: TocBook }) {
     return story ? firstSentence(plainText(story)) : "";
   });
   return (
-    <section aria-labelledby="bat-dau" class="flex flex-wrap items-end gap-x-14 gap-y-6 border-b border-rule py-12">
+    <section aria-labelledby="bat-dau" class="kt-start flex flex-wrap items-end gap-x-14 gap-y-6 border-b border-rule py-12">
       <div class="min-w-0 flex-[999_1_32rem]">
         <p id="bat-dau" class={`${KICKER} text-accent`}>
           Bắt đầu đọc · {props.book.book.name} {ch().number}
         </p>
-        <h2 class="mt-3 font-display text-5xl leading-[1.05] font-extrabold text-balance sm:text-7xl">{ch().title}</h2>
+        <h2 class="kt-start-title mt-3 font-display text-5xl leading-[1.05] font-extrabold text-balance sm:text-7xl">{ch().title}</h2>
         <p class="mt-5 max-w-2xl text-xl leading-relaxed">{lead()}</p>
         <a
           href={chapterHref({ slug: props.book.book.slug, number: ch().number })}
-          class="mt-6 inline-flex min-h-12 items-center bg-ink px-6 font-sans font-semibold text-paper hover:bg-accent"
+          class="kt-start-cta mt-6 inline-flex min-h-12 items-center bg-ink px-6 font-sans font-semibold text-paper hover:bg-accent"
         >
           Đọc đoạn này
         </a>
       </div>
       <p
         aria-hidden="true"
-        class="flex-[1_1_10rem] text-right font-display text-[11rem] leading-[0.8] font-extrabold text-rule"
+        class="kt-start-number flex-[1_1_10rem] text-right font-display text-[11rem] leading-[0.8] font-extrabold text-rule"
       >
         {ch().number}
       </p>
@@ -114,7 +114,7 @@ function StartHere(props: { book: TocBook }) {
 
 function BookIndex(props: { toc: TocBook[] }) {
   return (
-    <nav aria-labelledby="cac-sach" class="border-b border-rule py-10">
+    <nav aria-labelledby="cac-sach" class="kt-books border-b border-rule py-10">
       <h2 id="cac-sach" class={KICKER}>
         Các sách
       </h2>
@@ -122,7 +122,7 @@ function BookIndex(props: { toc: TocBook[] }) {
         <For each={props.toc}>
           {(t) => (
             <li class="border-b border-rule last:border-b-0">
-              <a href={`#${t.book.slug}`} class="group flex min-h-20 flex-wrap items-baseline gap-x-6 gap-y-1 py-4">
+              <a href={`#${t.book.slug}`} class="kt-books-link group flex min-h-20 flex-wrap items-baseline gap-x-6 gap-y-1 py-4">
                 <span class="flex-[1_1_18rem] font-display text-4xl font-semibold group-hover:text-accent sm:text-5xl">
                   {t.book.name}
                 </span>
@@ -141,20 +141,20 @@ function BookIndex(props: { toc: TocBook[] }) {
 
 function BookSection(props: { entry: TocBook }) {
   return (
-    <section id={props.entry.book.slug} aria-labelledby={`${props.entry.book.slug}-ten`} class="scroll-mt-6 pt-14">
+    <section id={props.entry.book.slug} aria-labelledby={`${props.entry.book.slug}-ten`} class="kt-book scroll-mt-6 pt-14">
       <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink pb-2">
-        <h2 id={`${props.entry.book.slug}-ten`} class="font-display text-3xl font-semibold">
+        <h2 id={`${props.entry.book.slug}-ten`} class="kt-book-name font-display text-3xl font-semibold">
           {props.entry.book.name}
         </h2>
         <a href="#cac-sach" class="font-sans text-sm text-muted hover:text-accent">
           ↑ Các sách
         </a>
       </div>
-      <ol class="mt-5 gap-x-10 sm:columns-2 lg:columns-3">
+      <ol class="kt-chapter-list mt-5 gap-x-10 sm:columns-2 lg:columns-3">
         <For each={props.entry.chapters}>
           {(ch) => (
             <li class="mb-3 break-inside-avoid">
-              <a href={chapterHref({ slug: props.entry.book.slug, number: ch.number })} class="group flex gap-3">
+              <a href={chapterHref({ slug: props.entry.book.slug, number: ch.number })} class="kt-chapter-link group flex gap-3">
                 <span class="w-7 shrink-0 text-right font-sans text-sm leading-7 text-accent">{ch.number}</span>
                 <span class="leading-snug group-hover:text-accent">{ch.title}</span>
               </a>

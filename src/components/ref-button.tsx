@@ -6,7 +6,7 @@ import { InlineVersesContext } from "./inline-verses";
 import { Popover } from "./popover";
 import { VerseText } from "./verse-text";
 
-const LINK = "cursor-pointer text-accent underline decoration-dotted underline-offset-4 hover:decoration-solid";
+const LINK = "kt-ref cursor-pointer text-accent underline decoration-dotted underline-offset-4 hover:decoration-solid";
 
 /**
  * A chỗ dẫn the reader can tap. Into the chapter being read: opens those verses under the paragraph.
@@ -32,7 +32,7 @@ export function RefButton(props: { reference: Ref }) {
           triggerClass={LINK}
           title={`${props.reference.book.name} ${verseLabel(props.reference)}`}
           titleClass="mb-2 font-sans text-sm font-semibold text-muted"
-          class="w-[min(32rem,calc(100vw-2rem))] p-5 font-serif text-[1.075rem] leading-relaxed"
+          class="kt-ref-popover w-[min(32rem,calc(100vw-2rem))] p-5 font-serif text-[1.075rem] leading-relaxed"
         >
           {(close) => (
             <>

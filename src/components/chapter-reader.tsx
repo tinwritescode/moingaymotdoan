@@ -14,7 +14,7 @@ const LEVEL = {
 
 function DraftOpinion(props: { opinion: Opinion }) {
   return (
-    <article class="rounded-xl border border-rule p-4">
+    <article class="kt-opinion rounded-xl border border-rule p-4">
       <p>
         <InlineText nodes={props.opinion.body} />
       </p>
@@ -60,7 +60,7 @@ function StoryParagraph(props: { nodes: Inline[]; view: ChapterView; dropCap: bo
         <InlineText nodes={props.nodes} />
       </p>
       <Show when={verses().length > 0}>
-        <div class="mt-4 rounded-xl bg-side px-5 py-4 text-[1.05rem] leading-[1.75]">
+        <div class="kt-inline-verses mt-4 rounded-xl bg-side px-5 py-4 text-[1.05rem] leading-[1.75]">
           <p class="mb-1.5 font-sans text-xs font-semibold tracking-wider text-muted uppercase">
             Nguyên văn · {props.view.book.name} {verseLabel({ chapter: props.view.number, verses: verses() })}
           </p>
@@ -119,7 +119,7 @@ export function ChapterReader(props: { view: ChapterView }) {
                 ) : (
                   <For each={ch.opinions}>
                     {(body) => (
-                      <article class="rounded-xl border border-rule p-4">
+                      <article class="kt-opinion rounded-xl border border-rule p-4">
                         <InlineText nodes={body} />
                       </article>
                     )}
@@ -144,8 +144,8 @@ export function ChapterReader(props: { view: ChapterView }) {
   });
 
   return (
-    <div class="mx-auto grid w-full max-w-[90rem] flex-1 items-start gap-x-14 gap-y-10 px-6 pt-10 pb-16 lg:grid-cols-[12rem_minmax(0,44rem)_20rem] lg:justify-center lg:pt-14">
-      <nav aria-label="Trong trang này" class="hidden font-sans text-sm lg:sticky lg:top-6 lg:block">
+    <div class="kt-reader mx-auto grid w-full max-w-[90rem] flex-1 items-start gap-x-14 gap-y-10 px-6 pt-10 pb-16 lg:grid-cols-[12rem_minmax(0,44rem)_20rem] lg:justify-center lg:pt-14">
+      <nav aria-label="Trong trang này" class="kt-toc hidden font-sans text-sm lg:sticky lg:top-6 lg:block">
         <p class="mb-3 text-xs font-semibold tracking-widest text-muted uppercase">Trong trang này</p>
         <ol class="space-y-0.5">
           <For each={[{ id: "cau-chuyen", label: "Câu chuyện" }, ...folds()]}>
@@ -164,20 +164,20 @@ export function ChapterReader(props: { view: ChapterView }) {
         </ol>
       </nav>
 
-      <article class="min-w-0">
+      <article class="kt-chapter min-w-0">
         <div class="animate-reveal motion-reduce:animate-none">
-          <p class="font-sans text-xs font-semibold tracking-widest text-accent uppercase">
+          <p class="kt-kicker font-sans text-xs font-semibold tracking-widest text-accent uppercase">
             {props.view.book.name} · Đoạn {props.view.number}
           </p>
-          <h1 class="mt-2 text-4xl leading-tight font-semibold text-balance lg:text-5xl">{props.view.title}</h1>
-          <p class="mt-4 text-lg text-muted italic">
+          <h1 class="kt-title mt-2 text-4xl leading-tight font-semibold text-balance lg:text-5xl">{props.view.title}</h1>
+          <p class="kt-lead mt-4 text-lg text-muted italic">
             Kể lại {props.view.verses.length} câu Kinh Thánh bằng lời thường. Bấm chỗ dẫn trong ngoặc để đọc nguyên văn.
           </p>
 
           <section
             id="cau-chuyen"
             aria-label="Câu chuyện"
-            class="mt-10 scroll-mt-6 space-y-6 text-[1.25rem] leading-[1.85]"
+            class="kt-scripture mt-10 scroll-mt-6 space-y-6 text-[1.25rem] leading-[1.85]"
           >
             <For each={section("Câu chuyện")?.paragraphs ?? []}>
               {(p, i) => (
@@ -189,27 +189,27 @@ export function ChapterReader(props: { view: ChapterView }) {
           </section>
         </div>
 
-        <p aria-hidden="true" class="mt-14 text-center text-xl tracking-[0.6em] text-muted/60">
+        <p aria-hidden="true" class="kt-divider mt-14 text-center text-xl tracking-[0.6em] text-muted/60">
           * * *
         </p>
 
-        <div class="mt-8 border-b border-rule">
+        <div class="kt-notes mt-8 border-b border-rule">
           <For each={folds()}>
             {(f) => (
-              <details id={f.id} class="group scroll-mt-6 border-t border-rule">
-                <summary class="flex min-h-14 cursor-pointer items-center justify-between gap-4 text-2xl font-semibold [&::-webkit-details-marker]:hidden">
+              <details id={f.id} class="kt-note group scroll-mt-6 border-t border-rule">
+                <summary class="kt-note-heading flex min-h-14 cursor-pointer items-center justify-between gap-4 text-2xl font-semibold [&::-webkit-details-marker]:hidden">
                   {f.label}
                   <span aria-hidden="true" class="font-sans text-base text-muted group-open:rotate-180">
                     ▾
                   </span>
                 </summary>
-                <div class="space-y-4 pb-6 text-[1.1rem] leading-[1.75]">{f.body()}</div>
+                <div class="kt-note-body space-y-4 pb-6 text-[1.1rem] leading-[1.75]">{f.body()}</div>
               </details>
             )}
           </For>
         </div>
 
-        <p class="mt-6 font-sans text-sm text-muted">
+        <p class="kt-byline mt-6 font-sans text-sm text-muted">
           {props.view.mode === "nhap"
             ? "Mức tin cậy chỉ hiện ở chế độ Nháp. Trang công bố chỉ giữ ý kiến đã đối chiếu."
             : "Ghi chú do AI soạn, đã được duyệt; ý kiến các nhà giải kinh đã đối chiếu với nguồn."}
@@ -217,7 +217,7 @@ export function ChapterReader(props: { view: ChapterView }) {
       </article>
 
       <Show when={written("Ý chính")}>
-        <aside aria-labelledby="dieu-can-nho" class="rounded-2xl border border-rule bg-card px-6 py-5">
+        <aside aria-labelledby="dieu-can-nho" class="kt-aside rounded-2xl border border-rule bg-card px-6 py-5">
           <h2 id="dieu-can-nho" class="font-sans text-xs font-semibold tracking-widest text-muted uppercase">
             Điều cần nhớ
           </h2>
