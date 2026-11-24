@@ -56,6 +56,14 @@
   color: var(--paper);
 }
 
+:root[data-variant="08-tap-chi"] mark {
+  border-radius: 0;
+  background: var(--mark);
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--accent);
+  padding: 0.04em 0.22em;
+}
+
 :root[data-variant="08-tap-chi"] a:focus-visible,
 :root[data-variant="08-tap-chi"] button:focus-visible,
 :root[data-variant="08-tap-chi"] summary:focus-visible,
@@ -185,6 +193,11 @@
 }
 
 /* Book Picker Popover (.kt-picker) */
+:root[data-variant="08-tap-chi"] .kt-picker::backdrop,
+:root[data-variant="08-tap-chi"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+}
+
 :root[data-variant="08-tap-chi"] .kt-picker {
   border-radius: 0;
   border: 1px solid var(--ink);
@@ -218,6 +231,12 @@
   font-family: var(--font-serif);
   font-size: 0.95rem;
   border-left: 2px solid transparent;
+}
+
+:root[data-variant="08-tap-chi"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--side);
+  border-left-color: var(--rule);
+  color: var(--ink);
 }
 
 :root[data-variant="08-tap-chi"] .kt-picker nav button[aria-pressed="true"] {
@@ -1061,6 +1080,7 @@
 :root[data-variant="08-tap-chi"] .kt-byline {
   margin-top: 2rem;
   padding-top: 1rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--font-sans);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
@@ -1112,6 +1132,10 @@
   padding-bottom: 0.65rem;
   margin-bottom: 0.9rem;
   border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="08-tap-chi"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
 }
 
 :root[data-variant="08-tap-chi"] .kt-ref-popover button {
@@ -1192,6 +1216,7 @@
   color: var(--ink);
   background: var(--card);
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
 }
 
 /* --------------------------------------------------------------------------
@@ -1221,10 +1246,14 @@
   :root[data-variant="08-tap-chi"] .kt-toc ol a,
   :root[data-variant="08-tap-chi"] .kt-note-heading,
   :root[data-variant="08-tap-chi"] .kt-note-heading > span,
+  :root[data-variant="08-tap-chi"] .kt-picker nav button,
   :root[data-variant="08-tap-chi"] .kt-picker ol a,
   :root[data-variant="08-tap-chi"] .kt-ref-popover button,
   :root[data-variant="08-tap-chi"] .kt-chapter-link > span:last-child,
-  :root[data-variant="08-tap-chi"] .kt-book > div:first-child a {
+  :root[data-variant="08-tap-chi"] .kt-book > div:first-child a,
+  :root[data-variant="08-tap-chi"] .kt-crumbs a,
+  :root[data-variant="08-tap-chi"] .kt-footer a,
+  :root[data-variant="08-tap-chi"] .kt-hero > p:last-of-type a {
     transition:
       color 180ms ease,
       background-color 180ms ease,
