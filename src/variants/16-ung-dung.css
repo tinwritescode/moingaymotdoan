@@ -77,6 +77,13 @@
   color: var(--ink);
 }
 
+:root[data-variant="16-ung-dung"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 0.35rem;
+  padding: 0.05em 0.3em;
+}
+
 :root[data-variant="16-ung-dung"] :is(a, button, summary, select):focus-visible {
   outline: 2.5px solid var(--accent);
   outline-offset: 2px;
@@ -1056,6 +1063,11 @@
   line-height: 1.72;
 }
 
+:root[data-variant="16-ung-dung"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="16-ung-dung"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="16-ung-dung"] .kt-opinion > p:last-child span.rounded-md {
   border-radius: 9999px;
   padding: 0.18rem 0.65rem;
@@ -1192,6 +1204,10 @@
   font-weight: 700;
 }
 
+:root[data-variant="16-ung-dung"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="16-ung-dung"] .kt-ref-popover > button {
   margin-top: 1.15rem;
   display: inline-flex;
@@ -1285,6 +1301,11 @@
   cursor: pointer;
 }
 
+:root[data-variant="16-ung-dung"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* ===========================
    MOTION (reduced-motion safe)
    =========================== */
@@ -1308,6 +1329,7 @@
   :root[data-variant="16-ung-dung"] .kt-chapter-link span:first-child,
   :root[data-variant="16-ung-dung"] .kt-ref,
   :root[data-variant="16-ung-dung"] .kt-note,
+  :root[data-variant="16-ung-dung"] .kt-note-heading,
   :root[data-variant="16-ung-dung"] .kt-note-heading > span,
   :root[data-variant="16-ung-dung"] .kt-hero a[href="/ebook"],
   :root[data-variant="16-ung-dung"] .kt-header > button[popovertarget],
@@ -1316,7 +1338,8 @@
   :root[data-variant="16-ung-dung"] .kt-toc a,
   :root[data-variant="16-ung-dung"] .kt-picker nav button,
   :root[data-variant="16-ung-dung"] .kt-picker ol a,
-  :root[data-variant="16-ung-dung"] .kt-ref-popover > button {
+  :root[data-variant="16-ung-dung"] .kt-ref-popover > button,
+  :root[data-variant="16-ung-dung"] .kt-footer a {
     transition:
       background-color 160ms ease,
       border-color 160ms ease,
