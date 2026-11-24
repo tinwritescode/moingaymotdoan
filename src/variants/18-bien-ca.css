@@ -186,13 +186,32 @@
   color: var(--bc-deep);
 }
 
+:root[data-variant="18-bien-ca"] .kt-header > span.rounded-full {
+  border: 1px solid var(--rule);
+  background: var(--side);
+  color: var(--bc-deep);
+  padding: 0.2rem 0.7rem;
+}
+
 /* Book picker popover: sea-glass shell with curved top wave bar */
 
 :root[data-variant="18-bien-ca"] .kt-picker {
   border-radius: 1.5rem;
   border: 1px solid var(--rule);
   background: var(--card);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 0 20px 50px var(--bc-shadow-lg);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="18-bien-ca"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="18-bien-ca"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="18-bien-ca"] .kt-picker::before {
@@ -237,6 +256,17 @@
   max-width: 72rem;
   padding-inline: clamp(1rem, 3.5vw, 2.5rem);
   padding-bottom: 5.5rem;
+}
+
+:root[data-variant="18-bien-ca"] .kt-home > p.rounded {
+  border-radius: 1.25rem;
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.2rem;
+  box-shadow: 0 6px 18px var(--bc-shadow);
 }
 
 :root[data-variant="18-bien-ca"] .kt-hero {
@@ -776,6 +806,15 @@
   line-height: 1.82;
 }
 
+:root[data-variant="18-bien-ca"] #nguyen-van .kt-note-body > p {
+  background: var(--side);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--bc-mid);
+  border-radius: 1.1rem;
+  padding: 1.05rem 1.25rem;
+  line-height: 1.88;
+}
+
 :root[data-variant="18-bien-ca"] .kt-note-body::before {
   content: "";
   position: absolute;
@@ -853,14 +892,34 @@
   background: var(--accent);
 }
 
+:root[data-variant="18-bien-ca"] .kt-aside > div {
+  margin-top: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+:root[data-variant="18-bien-ca"] .kt-aside > div p + p {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+}
+
 @media (min-width: 1024px) {
   :root[data-variant="18-bien-ca"] .kt-reader {
     grid-template-columns: 13rem minmax(0, 44rem) 19.5rem;
   }
 
+  :root[data-variant="18-bien-ca"] .kt-toc {
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
+
   :root[data-variant="18-bien-ca"] .kt-aside {
     position: sticky;
     top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
   }
 }
 
@@ -914,10 +973,12 @@
 }
 
 :root[data-variant="18-bien-ca"] .kt-ref-popover > button {
+  margin-top: 0.85rem;
+  min-height: 2.5rem;
   border-radius: 9999px;
   border: 1px solid var(--rule);
   background: var(--side);
-  padding: 0.3rem 0.95rem;
+  padding: 0.45rem 1.05rem;
   font-weight: 500;
   color: var(--bc-deep);
   text-decoration: none;
@@ -1000,33 +1061,33 @@
 
 /* ── Subtle, serene water motion (strictly under prefers-reduced-motion: no-preference) ── */
 
-@keyframes kt-18-bien-ca-wave-drift {
-  from {
-    background-position-x: 0, 60px, 42px, 102px;
-  }
-  to {
-    background-position-x: 120px, 180px, -78px, -18px;
-  }
-}
-
-@keyframes kt-18-bien-ca-tide-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
+  @keyframes kt-bien-ca-wave-drift {
+    from {
+      background-position-x: 0, 60px, 42px, 102px;
+    }
+    to {
+      background-position-x: 120px, 180px, -78px, -18px;
+    }
+  }
+
+  @keyframes kt-bien-ca-tide-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   :root[data-variant="18-bien-ca"] .kt-divider {
-    animation: kt-18-bien-ca-wave-drift 22s linear infinite;
+    animation: kt-bien-ca-wave-drift 22s linear infinite;
   }
 
   :root[data-variant="18-bien-ca"] .kt-inline-verses {
-    animation: kt-18-bien-ca-tide-in 0.28s ease-out both;
+    animation: kt-bien-ca-tide-in 0.28s ease-out both;
   }
 
   :root[data-variant="18-bien-ca"] .kt-books-link,
