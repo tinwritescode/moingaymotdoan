@@ -94,6 +94,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="20-son-mai"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 2px;
+  border-bottom: 1.5px solid var(--sm-gold);
+  padding: 0.04em 0.2em;
+}
+
 /* ---------- Top Lacquered Cornice Header ---------- */
 
 :root[data-variant="20-son-mai"] .kt-header {
@@ -226,6 +234,12 @@
     inset 0 0 0 3px var(--card),
     inset 0 0 0 4px var(--sm-gold-soft),
     0 22px 48px -12px var(--sm-shadow-deep);
+}
+
+:root[data-variant="20-son-mai"] .kt-picker::backdrop,
+:root[data-variant="20-son-mai"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--sm-obsidian) 42%, transparent);
+  backdrop-filter: blur(2px);
 }
 
 @media (max-width: 639px) {
@@ -1002,6 +1016,11 @@
   box-shadow: 0 6px 16px -12px var(--sm-shadow-deep);
 }
 
+:root[data-variant="20-son-mai"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="20-son-mai"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="20-son-mai"] .kt-byline {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -1113,6 +1132,10 @@
   border-bottom: 1px solid var(--sm-gold-soft);
 }
 
+:root[data-variant="20-son-mai"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
+}
+
 :root[data-variant="20-son-mai"] .kt-ref-popover > button {
   margin-top: 0.85rem;
   min-height: 2.5rem;
@@ -1189,6 +1212,11 @@
   font-weight: 600;
 }
 
+:root[data-variant="20-son-mai"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* ---------- Motion (Respecting Reduced Motion) ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1198,14 +1226,18 @@
   :root[data-variant="20-son-mai"] .kt-chapter-link > span,
   :root[data-variant="20-son-mai"] .kt-start-cta,
   :root[data-variant="20-son-mai"] .kt-hero a,
+  :root[data-variant="20-son-mai"] .kt-crumbs a,
   :root[data-variant="20-son-mai"] .kt-pager,
   :root[data-variant="20-son-mai"] .kt-header button[popovertarget],
+  :root[data-variant="20-son-mai"] .kt-picker nav button,
   :root[data-variant="20-son-mai"] .kt-picker ol a,
   :root[data-variant="20-son-mai"] .kt-toc ol a,
   :root[data-variant="20-son-mai"] .kt-note,
+  :root[data-variant="20-son-mai"] .kt-note-heading,
   :root[data-variant="20-son-mai"] .kt-note-heading > span,
   :root[data-variant="20-son-mai"] .kt-ref,
-  :root[data-variant="20-son-mai"] .kt-ref-popover > button {
+  :root[data-variant="20-son-mai"] .kt-ref-popover > button,
+  :root[data-variant="20-son-mai"] .kt-footer a {
     transition:
       background-color 180ms ease,
       border-color 180ms ease,
