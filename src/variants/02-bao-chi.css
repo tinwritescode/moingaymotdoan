@@ -106,12 +106,12 @@
   background: var(--card);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  min-height: 2.25rem;
-  padding: 0 0.72rem;
+  min-height: 2.5rem;
+  padding: 0 0.8rem;
 }
 
 :root[data-variant="02-bao-chi"] .kt-header > button[popovertarget]:hover {
@@ -148,12 +148,12 @@
   background: var(--card);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.73rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  min-height: 2.25rem;
-  padding: 0 0.68rem;
+  min-height: 2.5rem;
+  padding: 0 0.78rem;
 }
 
 :root[data-variant="02-bao-chi"] a.kt-pager:hover {
@@ -169,10 +169,12 @@
 }
 
 /* Draft badge in header: sharp press slug */
-:root[data-variant="02-bao-chi"] .kt-header > span {
+:root[data-variant="02-bao-chi"] .kt-header > span.rounded-full {
   border-radius: 0;
   border: 1px solid var(--vua);
-  letter-spacing: 0.02em;
+  background: var(--side);
+  color: var(--vua);
+  letter-spacing: 0.04em;
 }
 
 /* Book picker directory popover */
@@ -181,6 +183,7 @@
   border: 2px solid var(--ink);
   background: var(--card);
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 6px 6px 0 var(--bao-shadow);
 }
 
@@ -192,10 +195,12 @@
 @media (max-width: 639px) {
   :root[data-variant="02-bao-chi"] .kt-picker nav {
     max-height: 32dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="02-bao-chi"] .kt-picker > div {
     max-height: 36dvh;
+    overflow-y: auto;
   }
 }
 
@@ -349,10 +354,15 @@
 }
 
 /* Draft notice banner on home */
-:root[data-variant="02-bao-chi"] .kt-home > p.border {
+:root[data-variant="02-bao-chi"] .kt-home > p.rounded {
   border-radius: 0;
   border: 1px solid var(--vua);
   border-left: 4px solid var(--vua);
+  background: var(--side);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.58;
+  padding: 0.85rem 1.15rem;
 }
 
 /* Front-Page Lead Story ("Bắt đầu đọc") */
@@ -926,9 +936,28 @@
   background: var(--side);
 }
 
+:root[data-variant="02-bao-chi"] .kt-note-heading > span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
 :root[data-variant="02-bao-chi"] .kt-note[open] > .kt-note-heading {
   border-bottom: 1px dotted var(--rule);
   margin-bottom: 1rem;
+}
+
+:root[data-variant="02-bao-chi"] .kt-note[open] > .kt-note-heading > span {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 :root[data-variant="02-bao-chi"] .kt-note-body {
@@ -952,15 +981,24 @@
   }
 }
 
-/* Full chapter text ("Nguyên văn cả đoạn") in 2 broadsheet columns on desktop */
+/* Full chapter text ("Nguyên văn cả đoạn") in broadsheet columns */
+:root[data-variant="02-bao-chi"] #nguyen-van .kt-note-body > p {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--card);
+  padding: 1rem 1.05rem;
+  font-size: 1.02rem;
+  line-height: 1.66;
+}
+
 @media (min-width: 768px) {
   :root[data-variant="02-bao-chi"] #nguyen-van .kt-note-body > p {
     columns: 2;
     column-gap: 2.25rem;
     column-rule: 1px solid var(--rule);
+    padding: 1.2rem 1.35rem;
     text-align: justify;
     hyphens: auto;
-    line-height: 1.66;
   }
 }
 
@@ -1135,6 +1173,7 @@
   font-weight: 700;
   text-transform: none;
   letter-spacing: 0;
+  min-height: 2.25rem;
 }
 
 /* ==========================================================================
