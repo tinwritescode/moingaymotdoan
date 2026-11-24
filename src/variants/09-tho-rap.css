@@ -843,6 +843,10 @@
   letter-spacing: 0.08em;
 }
 
+:root[data-variant="09-tho-rap"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
+}
+
 /* Verse numbers as crisp monospace micro-stamps */
 :root[data-variant="09-tho-rap"] .kt-verse-number {
   font-family: var(--tr-mono);
@@ -962,6 +966,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="09-tho-rap"] .kt-note-body > p + p {
+  margin-top: 0.9rem;
+}
+
 /* Full chapter original text inside #nguyen-van uses readable archival serif */
 :root[data-variant="09-tho-rap"] #nguyen-van .kt-note-body {
   font-family: var(--font-serif);
@@ -980,6 +988,7 @@
 :root[data-variant="09-tho-rap"] .kt-opinion {
   border-radius: 0;
   background: var(--paper);
+  color: var(--ink);
   border: 2px solid var(--tr-border);
   border-left: 6px solid var(--tr-cobalt);
   box-shadow: 4px 4px 0 var(--tr-shadow);
@@ -1064,13 +1073,19 @@
   border-top: 2px solid var(--tr-aside-border);
 }
 
+:root[data-variant="09-tho-rap"] .kt-aside > div strong {
+  color: var(--tr-aside-fg);
+  font-weight: 800;
+}
+
 :root[data-variant="09-tho-rap"] .kt-aside .kt-ref {
   background: #ffffff;
   color: #111111;
   border-color: #111111;
 }
 
-:root[data-variant="09-tho-rap"] .kt-aside .kt-ref:hover {
+:root[data-variant="09-tho-rap"] .kt-aside .kt-ref:hover,
+:root[data-variant="09-tho-rap"] .kt-aside .kt-ref[aria-expanded="true"] {
   background: #111111;
   color: var(--tr-yellow);
 }
