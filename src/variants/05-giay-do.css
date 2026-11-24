@@ -125,6 +125,10 @@
   color: var(--muted);
 }
 
+:root[data-variant="05-giay-do"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="05-giay-do"] .kt-header > button[popovertarget] {
   border-radius: 2px;
   border: 1px solid var(--rule);
@@ -150,6 +154,11 @@
 
 :root[data-variant="05-giay-do"] .kt-crumbs a:hover {
   color: var(--accent);
+}
+
+:root[data-variant="05-giay-do"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 500;
 }
 
 :root[data-variant="05-giay-do"] .kt-pager {
@@ -831,6 +840,8 @@
   align-items: center;
   gap: 0.75rem;
   margin-top: 2.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
   font-size: 0.84rem;
   line-height: 1.7;
   color: var(--muted);
@@ -943,7 +954,13 @@
   text-transform: uppercase;
   font-weight: 500;
   color: var(--accent);
+  padding-bottom: 0.45rem;
   margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="05-giay-do"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
 }
 
 :root[data-variant="05-giay-do"] .kt-ref-popover button {
@@ -1020,6 +1037,11 @@
   max-width: min(13rem, 52vw);
 }
 
+:root[data-variant="05-giay-do"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* --------------------------------------------------------------------------
  * 8. Motion (strictly inside prefers-reduced-motion: no-preference)
  * -------------------------------------------------------------------------- */
@@ -1031,6 +1053,7 @@
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  :root[data-variant="05-giay-do"] .kt-brand,
   :root[data-variant="05-giay-do"] .kt-pager,
   :root[data-variant="05-giay-do"] .kt-start-cta,
   :root[data-variant="05-giay-do"] .kt-start-cta::before,
