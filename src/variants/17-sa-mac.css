@@ -159,6 +159,12 @@
   color: var(--muted);
 }
 
+:root[data-variant="17-sa-mac"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
 :root[data-variant="17-sa-mac"] .kt-crumbs a:hover {
   color: var(--accent);
 }
@@ -745,8 +751,10 @@
   }
 
   :root[data-variant="17-sa-mac"] .kt-toc ol a {
-    display: inline-block;
-    padding: 0.3rem 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.7rem;
     border-radius: 2px;
     font-size: 0.82rem;
     color: var(--ink);
@@ -1104,8 +1112,8 @@
 
 :root[data-variant="17-sa-mac"] .kt-ref-popover button {
   margin-top: 1rem;
-  min-height: 2.5rem;
-  padding: 0.45rem 0.95rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 1rem;
   border: 1px solid var(--rule);
   border-radius: 2px;
   background: var(--paper);
@@ -1150,6 +1158,9 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   text-underline-offset: 3px;
 }
@@ -1171,7 +1182,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: var(--card);
   color: var(--ink);
