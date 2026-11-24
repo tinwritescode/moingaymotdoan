@@ -59,6 +59,11 @@
   overflow-x: clip;
 }
 
+:root[data-variant="17-sa-mac"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 /* Consistent accessible focus treatment across all interactive elements */
 :root[data-variant="17-sa-mac"] a:focus-visible,
 :root[data-variant="17-sa-mac"] button:focus-visible,
@@ -100,7 +105,7 @@
   color: var(--muted);
 }
 
-:root[data-variant="17-sa-mac"] .kt-header > span {
+:root[data-variant="17-sa-mac"] .kt-header > span.rounded-full {
   border-radius: 2px;
   border: 1px solid var(--sm-ochre);
   background: var(--sm-ochre-soft);
@@ -115,6 +120,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-header button[popovertarget] {
+  min-height: 2.5rem;
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--paper);
@@ -133,6 +139,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-crumbs {
+  flex-wrap: wrap;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
@@ -145,6 +152,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-pager {
+  min-height: 2.5rem;
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--paper);
@@ -179,10 +187,12 @@
 @media (max-width: 639px) {
   :root[data-variant="17-sa-mac"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="17-sa-mac"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -356,13 +366,14 @@
 }
 
 /* Draft / notice banner on home */
-:root[data-variant="17-sa-mac"] .kt-home > p {
+:root[data-variant="17-sa-mac"] .kt-home > p.rounded {
   border-radius: 2px;
   border: 1px solid var(--rule);
   border-left: 4px solid var(--sm-ochre);
   background: var(--card);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
   padding: 0.85rem 1.15rem;
 }
 
@@ -546,6 +557,9 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -967,7 +981,8 @@
   border-radius: 3px;
   border: 1px solid var(--rule);
   border-top: 3px solid var(--accent);
-  background: var(--card);
+  background-color: var(--card);
+  background-image: linear-gradient(180deg, var(--sm-ochre-soft) 0%, transparent 4rem);
   box-shadow: 0 18px 44px var(--sm-shadow);
   padding: 1.35rem 1.5rem;
   font-family: "Literata", Georgia, serif;
@@ -1051,6 +1066,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-switcher select {
+  min-height: 2.25rem;
   background: var(--card);
   color: var(--ink);
   font-weight: 600;
