@@ -236,6 +236,13 @@
   flex-wrap: wrap;
 }
 
+:root[data-variant="04-dem-sao"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.25rem;
+}
+
 :root[data-variant="04-dem-sao"] .kt-crumbs a:hover {
   color: var(--accent);
   text-shadow: var(--ds-glow-subtle);
@@ -759,8 +766,11 @@
 
 :root[data-variant="04-dem-sao"] .kt-toc a {
   position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0.65rem;
-  padding: 0.48rem 0.75rem;
+  padding: 0.45rem 0.75rem;
   color: var(--muted);
   font-size: 0.85rem;
   line-height: 1.45;
@@ -1113,7 +1123,7 @@
   margin-top: 1rem;
   border: 1px solid var(--ds-border-soft);
   border-radius: 9999px;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.35rem 1.05rem;
   text-decoration: none;
   font-size: 0.84rem;
@@ -1158,6 +1168,10 @@
 }
 
 :root[data-variant="04-dem-sao"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.2rem;
   color: var(--ink);
   text-underline-offset: 3px;
 }
@@ -1182,7 +1196,7 @@
   background: transparent;
   color: var(--ink);
   font-weight: 500;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   cursor: pointer;
 }
