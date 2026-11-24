@@ -73,6 +73,7 @@
   font-family: var(--font-serif);
   font-optical-sizing: auto;
   font-weight: 400;
+  overflow-x: clip;
 }
 
 :root[data-variant="22-lua-to-tam"] ::selection {
@@ -84,6 +85,7 @@
   outline: 1.5px solid var(--accent);
   outline-offset: 3px;
   border-radius: 6px;
+  box-shadow: 0 0 0 4px var(--silk-sheen-rose);
 }
 
 /* Header, brand, breadcrumbs, pager & book picker */
@@ -177,6 +179,13 @@
   color: var(--accent);
 }
 
+:root[data-variant="22-lua-to-tam"] .kt-header > span.rounded-full {
+  border: 1px solid var(--silk-thread);
+  background: var(--silk-veil);
+  color: var(--accent);
+  padding: 0.22rem 0.75rem;
+}
+
 :root[data-variant="22-lua-to-tam"] .kt-picker {
   border-radius: 1.5rem;
   border: 1px solid var(--silk-thread-strong);
@@ -186,9 +195,21 @@
     var(--card) 58%,
     color-mix(in srgb, var(--side) 70%, var(--card)) 100%
   );
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow:
     inset 0 1px 0 var(--silk-highlight),
     var(--silk-shadow);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="22-lua-to-tam"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="22-lua-to-tam"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="22-lua-to-tam"] .kt-picker nav {
@@ -231,6 +252,17 @@
   max-width: 66rem;
   padding-inline: clamp(1.1rem, 4vw, 2.75rem);
   padding-bottom: 6rem;
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-home > p.rounded {
+  border-radius: 1.25rem;
+  border: 1px solid var(--silk-thread);
+  border-left: 3px solid var(--accent);
+  background: var(--silk-veil-strong);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.2rem;
+  box-shadow: inset 0 1px 0 var(--silk-highlight);
 }
 
 :root[data-variant="22-lua-to-tam"] .kt-hero {
@@ -567,6 +599,11 @@
   :root[data-variant="22-lua-to-tam"] .kt-reader {
     grid-template-columns: 11.5rem minmax(0, 44rem) 18.5rem;
   }
+
+  :root[data-variant="22-lua-to-tam"] .kt-toc {
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
+  }
 }
 
 :root[data-variant="22-lua-to-tam"] .kt-toc {
@@ -804,6 +841,15 @@
   line-height: 1.85;
 }
 
+:root[data-variant="22-lua-to-tam"] #nguyen-van .kt-note-body > p {
+  border: 1px solid var(--silk-thread);
+  border-left: 2px solid var(--accent);
+  border-radius: 0.35rem 1.25rem 1.25rem 0.35rem;
+  background: var(--silk-veil);
+  padding: 1.05rem 1.25rem;
+  line-height: 1.9;
+}
+
 :root[data-variant="22-lua-to-tam"] .kt-opinion {
   border: 1px solid var(--silk-thread);
   border-left: 2px solid color-mix(in srgb, var(--accent) 68%, var(--rule));
@@ -848,6 +894,8 @@
   :root[data-variant="22-lua-to-tam"] .kt-aside {
     position: sticky;
     top: 2rem;
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
   }
 }
 
@@ -874,6 +922,12 @@
   margin-top: 1.05rem;
   font-size: 1rem;
   line-height: 1.82;
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--silk-thread);
 }
 
 /* References & verse popover */
@@ -925,11 +979,12 @@
 
 :root[data-variant="22-lua-to-tam"] .kt-ref-popover button {
   margin-top: 1rem;
-  padding: 0.32rem 0.95rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 1.05rem;
   border-radius: 999px;
   border: 1px solid var(--silk-thread);
   background: var(--silk-veil);
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   letter-spacing: 0.04em;
   text-decoration: none;
 }
