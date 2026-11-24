@@ -205,6 +205,9 @@
 }
 
 :root[data-variant="13-so-tay"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 3px;
@@ -856,6 +859,9 @@
 
 :root[data-variant="13-so-tay"] .kt-toc a {
   position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   background-color: var(--card);
   border: 1px solid var(--rule);
   border-left: 4px solid var(--st-tape-ochre);
@@ -1461,8 +1467,8 @@
 
 :root[data-variant="13-so-tay"] .kt-ref-popover button {
   margin-top: 0.9rem;
-  min-height: 2.5rem;
-  padding: 0.45rem 0.9rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.95rem;
   border: 1px solid var(--rule);
   border-radius: 4px;
   background-color: var(--paper);
@@ -1503,6 +1509,9 @@
 }
 
 :root[data-variant="13-so-tay"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--st-pen);
   text-decoration-style: dotted;
   text-underline-offset: 3px;
@@ -1529,7 +1538,7 @@
   color: var(--ink);
   border: 1px solid var(--rule);
   border-radius: 3px;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   padding: 0.1rem 0.3rem;
   font-family: var(--st-mono);
