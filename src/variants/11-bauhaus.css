@@ -228,13 +228,44 @@
   background: transparent;
 }
 
+/* Draft badges in header & home */
+:root[data-variant="11-bauhaus"] .kt-header > span {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  background: var(--bh-yellow);
+  color: var(--bh-yellow-ink);
+  font-weight: 800;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+:root[data-variant="11-bauhaus"] .kt-home > p.rounded {
+  border-radius: 0;
+  border: 2px solid var(--bh-line);
+  border-left: 8px solid var(--bh-yellow);
+  background: var(--card);
+  color: var(--ink);
+  font-weight: 700;
+}
+
 /* Book Picker Popover */
 :root[data-variant="11-bauhaus"] .kt-picker {
   border-radius: 0;
   border: 3px solid var(--bh-line);
   background: var(--card);
   color: var(--ink);
+  max-height: calc(100dvh - 2rem);
   box-shadow: 8px 8px 0 var(--bh-blue);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="11-bauhaus"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="11-bauhaus"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="11-bauhaus"] .kt-picker nav {
@@ -815,8 +846,8 @@
 
 :root[data-variant="11-bauhaus"] .kt-chapter-link > span:last-child {
   font-weight: 700;
-  font-size: 0.98rem;
-  line-height: 1.38;
+  font-size: 1rem;
+  line-height: 1.4;
   color: var(--ink);
 }
 
@@ -863,6 +894,8 @@
     box-shadow: 5px 5px 0 var(--bh-line);
     padding: 0;
     top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
   }
 }
 
@@ -1153,6 +1186,29 @@
   list-style: none;
 }
 
+:root[data-variant="11-bauhaus"] .kt-note-heading::before {
+  content: "";
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid var(--bh-line);
+  background: var(--bh-blue);
+  flex-shrink: 0;
+}
+
+:root[data-variant="11-bauhaus"] .kt-note:nth-of-type(4n + 2) .kt-note-heading::before {
+  background: var(--bh-yellow);
+  border-radius: 9999px;
+}
+
+:root[data-variant="11-bauhaus"] .kt-note:nth-of-type(4n + 3) .kt-note-heading::before {
+  background: var(--bh-red);
+  transform: rotate(45deg) scale(0.85);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note:nth-of-type(4n) .kt-note-heading::before {
+  background: var(--bh-line);
+}
+
 :root[data-variant="11-bauhaus"] .kt-note-heading:hover {
   background: var(--side);
 }
@@ -1187,6 +1243,12 @@
   font-size: 1.03rem;
   line-height: 1.78;
   color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] #nguyen-van .kt-note-body > p {
+  border-left: 4px solid var(--bh-blue);
+  padding-left: 1.15rem;
+  font-variant-numeric: tabular-nums;
 }
 
 @media (min-width: 640px) {
@@ -1243,6 +1305,8 @@
   :root[data-variant="11-bauhaus"] .kt-aside {
     position: sticky;
     top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
     box-shadow: 8px 8px 0 var(--bh-blue);
   }
 }
@@ -1281,6 +1345,11 @@
   color: var(--ink);
 }
 
+:root[data-variant="11-bauhaus"] .kt-aside > div > p + p {
+  padding-top: 0.85rem;
+  border-top: 2px solid var(--side);
+}
+
 /* Reference Popover */
 :root[data-variant="11-bauhaus"] .kt-ref-popover {
   border-radius: 0;
@@ -1312,7 +1381,8 @@
   margin-top: 0.9rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.35rem 0.85rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.95rem;
   border: 2px solid var(--bh-line);
   background: var(--paper);
   color: var(--ink);
