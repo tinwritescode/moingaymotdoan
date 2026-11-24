@@ -175,6 +175,9 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-decoration: underline;
   text-decoration-color: var(--sm-gold-soft);
   text-underline-offset: 4px;
@@ -777,6 +780,9 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-toc ol a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 2px;
   border-left: 2px solid transparent;
   padding-left: 0.65rem;
@@ -1201,7 +1207,7 @@
 
 :root[data-variant="20-son-mai"] .kt-ref-popover > button {
   margin-top: 0.85rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.45rem 1rem;
   border: 1px solid var(--sm-gold-soft);
   border-radius: 2px;
@@ -1242,6 +1248,9 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   text-decoration-color: var(--sm-gold);
   text-underline-offset: 3px;
@@ -1265,7 +1274,7 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: var(--side);
   color: var(--ink);
