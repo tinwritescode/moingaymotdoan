@@ -277,7 +277,9 @@
 }
 
 :root[data-variant="24-chu-lon"] .kt-picker > nav p {
-  padding: 0.75rem 0.5rem 0.375rem;
+  padding: 0.75rem 0.5rem 0.45rem;
+  margin-bottom: 0.45rem;
+  border-bottom: 2px solid var(--rule);
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -358,7 +360,8 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--ink);
-  padding-bottom: 0.45rem;
+  padding: 0.1rem 0 0.45rem 0.75rem;
+  border-left: 5px solid var(--accent);
   border-bottom: 2px solid var(--rule);
 }
 
@@ -596,6 +599,8 @@
   letter-spacing: 0;
   text-transform: none;
   color: var(--accent);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rule);
 }
 
 :root[data-variant="24-chu-lon"] .kt-books ol {
@@ -1296,6 +1301,10 @@
 }
 
 :root[data-variant="24-chu-lon"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding-inline: 0.25rem;
   color: var(--accent);
   font-weight: 700;
   text-decoration: underline;
