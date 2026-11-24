@@ -84,14 +84,21 @@
 :root[data-variant="30-den-dau"] body {
   position: relative;
   min-height: 100dvh;
+  overflow-x: clip;
   background-color: var(--paper);
   background-image:
     radial-gradient(ellipse 72% 38rem at 50% -2rem, var(--den-pool), transparent 72%),
     radial-gradient(ellipse 90% 54rem at 50% 35%, var(--den-halo), transparent 78%);
-  background-attachment: fixed;
+  background-attachment: scroll;
   color: var(--ink);
   font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 1024px) {
+  :root[data-variant="30-den-dau"] body {
+    background-attachment: fixed;
+  }
 }
 
 /* Soft candle-glow vignette around the edges of the viewport */
@@ -121,11 +128,12 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 0.375rem;
+  box-shadow: 0 0 0 4px var(--den-halo);
 }
 
 /* Gentle breathing lamplight motion only when allowed */
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes kt-30-den-dau-flicker {
+  @keyframes kt-den-dau-flicker {
     0%,
     100% {
       opacity: 0.9;
@@ -135,7 +143,7 @@
     }
   }
 
-  @keyframes kt-30-den-dau-flame-pulse {
+  @keyframes kt-den-dau-flame-pulse {
     0%,
     100% {
       box-shadow:
@@ -152,11 +160,32 @@
   }
 
   :root[data-variant="30-den-dau"] body::before {
-    animation: kt-30-den-dau-flicker 9s ease-in-out infinite;
+    animation: kt-den-dau-flicker 9s ease-in-out infinite;
   }
 
   :root[data-variant="30-den-dau"] .kt-brand::before {
-    animation: kt-30-den-dau-flame-pulse 5.5s ease-in-out infinite;
+    animation: kt-den-dau-flame-pulse 5.5s ease-in-out infinite;
+  }
+
+  :root[data-variant="30-den-dau"] .kt-header > button,
+  :root[data-variant="30-den-dau"] .kt-pager,
+  :root[data-variant="30-den-dau"] .kt-start-cta,
+  :root[data-variant="30-den-dau"] .kt-books li,
+  :root[data-variant="30-den-dau"] .kt-chapter-link,
+  :root[data-variant="30-den-dau"] .kt-toc,
+  :root[data-variant="30-den-dau"] .kt-toc a,
+  :root[data-variant="30-den-dau"] .kt-ref,
+  :root[data-variant="30-den-dau"] .kt-ref-popover button,
+  :root[data-variant="30-den-dau"] .kt-note,
+  :root[data-variant="30-den-dau"] .kt-note-heading,
+  :root[data-variant="30-den-dau"] .kt-note-heading span {
+    transition:
+      opacity 220ms ease,
+      color 160ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 200ms ease;
   }
 }
 
@@ -206,19 +235,29 @@
   color: var(--muted);
 }
 
+:root[data-variant="30-den-dau"] .kt-header > span.rounded-full {
+  border-radius: 999px;
+  border: 1px solid var(--den-sheet-edge);
+  background: var(--den-ref-bg);
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+}
+
 :root[data-variant="30-den-dau"] .kt-header > button {
   background: var(--card);
   border: 1px solid var(--rule);
   border-radius: 999px;
+  min-height: 2.5rem;
   padding-inline: 1rem;
   color: var(--ink);
   box-shadow:
     inset 0 1px 0 var(--den-glint),
     0 2px 8px var(--den-shadow);
-  transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    color 180ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-header > button:hover {
@@ -250,14 +289,11 @@
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--card);
+  min-height: 2.5rem;
   padding-inline: 1rem;
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   box-shadow: inset 0 1px 0 var(--den-glint);
-  transition:
-    border-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease;
 }
 
 :root[data-variant="30-den-dau"] a.kt-pager:hover {
@@ -285,6 +321,20 @@
     0 24px 64px var(--den-shadow-deep),
     0 0 32px var(--den-halo),
     inset 0 1px 0 var(--den-glint);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="30-den-dau"] .kt-picker nav {
+    max-height: 30dvh;
+    overflow-y: auto;
+  }
+
+  :root[data-variant="30-den-dau"] .kt-picker > div {
+    max-height: 40dvh;
+    overflow-y: auto;
+  }
 }
 
 :root[data-variant="30-den-dau"] .kt-picker nav {
@@ -316,6 +366,19 @@
   max-width: 54rem;
   padding-inline: clamp(1rem, 4vw, 2.5rem);
   padding-bottom: 5.5rem;
+}
+
+:root[data-variant="30-den-dau"] .kt-home > p.rounded {
+  border-radius: 0.9rem;
+  border: 1px solid var(--den-sheet-edge);
+  border-left: 3.5px solid var(--accent);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  padding: 0.9rem 1.25rem;
+  box-shadow: inset 0 1px 0 var(--den-glint);
 }
 
 :root[data-variant="30-den-dau"] .kt-hero {
@@ -450,10 +513,6 @@
   box-shadow:
     0 6px 22px var(--den-flame-glow),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  transition:
-    background-color 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-start-cta:hover {
@@ -501,10 +560,6 @@
   border-radius: 0.9rem;
   background: var(--card);
   box-shadow: inset 0 1px 0 var(--den-glint);
-  transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    background-color 180ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-books li:hover {
@@ -580,7 +635,6 @@
   border-radius: 0.625rem;
   padding: 0.45rem 0.65rem;
   margin-inline: -0.65rem;
-  transition: background-color 160ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-chapter-link:hover {
@@ -614,12 +668,23 @@
     grid-template-columns: 11.5rem minmax(0, 44rem) 19rem;
     align-items: start;
   }
+
+  :root[data-variant="30-den-dau"] .kt-toc {
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
+
+  :root[data-variant="30-den-dau"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
 }
 
 /* Left Table of Contents — Quiet dimmed rail that brightens on approach */
 :root[data-variant="30-den-dau"] .kt-toc {
   opacity: 0.74;
-  transition: opacity 220ms ease;
   border-left: 1px solid var(--rule);
   padding-left: 0.85rem;
 }
@@ -642,9 +707,6 @@
   font-size: 0.875rem;
   line-height: 1.4;
   color: var(--muted);
-  transition:
-    color 160ms ease,
-    background-color 160ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-toc a:hover {
@@ -764,9 +826,6 @@
   text-decoration-style: dotted;
   text-decoration-color: var(--accent);
   text-underline-offset: 0.22em;
-  transition:
-    background-color 160ms ease,
-    box-shadow 160ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-ref:hover {
@@ -827,6 +886,31 @@
   margin-bottom: 0.85rem;
 }
 
+:root[data-variant="30-den-dau"] .kt-ref-popover button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.4rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--side);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 var(--den-glint);
+}
+
+:root[data-variant="30-den-dau"] .kt-ref-popover button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 var(--den-glint),
+    0 0 12px var(--den-halo);
+}
+
 /* Lamp-ember Divider between Scripture and Notes */
 :root[data-variant="30-den-dau"] .kt-divider {
   display: flex;
@@ -870,10 +954,6 @@
   border-radius: 0.95rem;
   background: var(--side);
   box-shadow: inset 0 1px 0 var(--den-glint);
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-note[open] {
@@ -892,7 +972,6 @@
   font-size: clamp(1.2rem, 2.8vw, 1.45rem);
   font-weight: 600;
   color: var(--ink);
-  transition: color 160ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-note-heading:hover,
@@ -910,7 +989,6 @@
   border-radius: 999px;
   background: var(--den-ref-bg);
   color: var(--accent);
-  transition: transform 200ms ease;
 }
 
 :root[data-variant="30-den-dau"] .kt-note-body {
@@ -918,6 +996,22 @@
   font-size: clamp(1rem, 2.2vw, 1.08rem);
   line-height: 1.82;
   border-top: 1px solid var(--rule);
+}
+
+:root[data-variant="30-den-dau"] #nguyen-van .kt-note-body > p {
+  border-radius: 0.85rem;
+  border: 1px solid var(--den-sheet-edge);
+  background:
+    radial-gradient(ellipse 85% 45% at 50% 0%, var(--den-pool), transparent 72%),
+    var(--side);
+  padding: 1.2rem 1.4rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.04rem, 2.2vw, 1.14rem);
+  line-height: 1.9;
+  color: var(--ink);
+  box-shadow:
+    inset 3.5px 0 0 var(--accent),
+    inset 0 1px 0 var(--den-glint);
 }
 
 /* Commentator Opinions */
@@ -982,6 +1076,12 @@
   font-size: 1rem;
   line-height: 1.72;
   color: var(--ink);
+}
+
+:root[data-variant="30-den-dau"] .kt-aside > div p + p {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
 }
 
 /* --------------------------------------------------------------------------
