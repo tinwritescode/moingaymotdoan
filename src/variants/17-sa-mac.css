@@ -64,6 +64,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="17-sa-mac"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 2px;
+  border-bottom: 1.5px solid var(--sm-ochre);
+  padding: 0.04em 0.2em;
+}
+
 /* Consistent accessible focus treatment across all interactive elements */
 :root[data-variant="17-sa-mac"] a:focus-visible,
 :root[data-variant="17-sa-mac"] button:focus-visible,
@@ -184,6 +192,11 @@
   box-shadow: 0 20px 48px var(--sm-shadow);
 }
 
+:root[data-variant="17-sa-mac"] .kt-picker::backdrop,
+:root[data-variant="17-sa-mac"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="17-sa-mac"] .kt-picker nav {
     max-height: 30dvh;
@@ -218,6 +231,11 @@
   color: var(--accent);
   font-weight: 700;
   box-shadow: inset 3px 0 0 var(--accent);
+}
+
+:root[data-variant="17-sa-mac"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--card);
+  color: var(--accent);
 }
 
 :root[data-variant="17-sa-mac"] .kt-picker > div > p {
@@ -939,6 +957,11 @@
   padding: 1.15rem 1.35rem;
 }
 
+:root[data-variant="17-sa-mac"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="17-sa-mac"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="17-sa-mac"] .kt-opinion p:last-child {
   margin-top: 0.75rem;
 }
@@ -1021,6 +1044,10 @@
   margin-bottom: 0.85rem;
 }
 
+:root[data-variant="17-sa-mac"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="17-sa-mac"] .kt-ref-popover button {
   margin-top: 1rem;
   min-height: 2.5rem;
@@ -1097,6 +1124,11 @@
   font-weight: 600;
 }
 
+:root[data-variant="17-sa-mac"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* ==========================================================================
    Gentle Desert Transitions (reduced-motion safe)
    ========================================================================== */
@@ -1107,13 +1139,17 @@
   :root[data-variant="17-sa-mac"] .kt-chapter-link,
   :root[data-variant="17-sa-mac"] .kt-hero > p:nth-of-type(3) a,
   :root[data-variant="17-sa-mac"] .kt-book > div:first-child a,
+  :root[data-variant="17-sa-mac"] .kt-crumbs a,
   :root[data-variant="17-sa-mac"] .kt-pager,
+  :root[data-variant="17-sa-mac"] .kt-toc ol a,
   :root[data-variant="17-sa-mac"] .kt-ref,
   :root[data-variant="17-sa-mac"] .kt-ref-popover button,
   :root[data-variant="17-sa-mac"] .kt-note-heading,
   :root[data-variant="17-sa-mac"] .kt-note-heading > span[aria-hidden="true"],
   :root[data-variant="17-sa-mac"] .kt-header button[popovertarget],
-  :root[data-variant="17-sa-mac"] .kt-picker ol a {
+  :root[data-variant="17-sa-mac"] .kt-picker nav button,
+  :root[data-variant="17-sa-mac"] .kt-picker ol a,
+  :root[data-variant="17-sa-mac"] .kt-footer a {
     transition:
       background-color 180ms ease,
       border-color 180ms ease,
