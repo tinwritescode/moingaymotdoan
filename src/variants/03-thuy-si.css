@@ -189,6 +189,11 @@
   box-shadow: 8px 8px 0 0 rgb(0 0 0 / 0.14);
 }
 
+:root[data-variant="03-thuy-si"] .kt-picker::backdrop,
+:root[data-variant="03-thuy-si"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
 :root[data-variant="03-thuy-si"] .kt-picker nav {
   border-color: var(--rule);
   padding: 0.5rem;
@@ -221,9 +226,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+:root[data-variant="03-thuy-si"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--side);
+  color: var(--accent);
+}
+
 :root[data-variant="03-thuy-si"] .kt-picker nav button[aria-pressed="true"] {
   background: var(--ink);
   color: var(--paper);
+  font-weight: 700;
 }
 
 :root[data-variant="03-thuy-si"] .kt-picker nav button[aria-pressed="true"] span {
@@ -896,6 +907,8 @@
 /* Byline */
 :root[data-variant="03-thuy-si"] .kt-byline {
   margin-top: 2rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
   font-size: 0.8125rem;
   line-height: 1.6;
   color: var(--muted);
@@ -978,6 +991,10 @@
   margin-bottom: 0.875rem;
 }
 
+:root[data-variant="03-thuy-si"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="03-thuy-si"] .kt-ref-popover button {
   margin-top: 1rem;
   border: 1px solid var(--ink);
@@ -1042,6 +1059,7 @@
   text-transform: none;
   letter-spacing: 0;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   cursor: pointer;
 }
 
@@ -1221,10 +1239,13 @@
     .kt-note-heading > span,
     .kt-ref,
     .kt-header > button[popovertarget],
+    .kt-picker nav button,
     .kt-picker ol a,
     .kt-ref-popover button,
     .kt-hero > p a,
-    .kt-book > div a
+    .kt-book > div a,
+    .kt-crumbs a,
+    .kt-footer a
   ) {
     transition:
       color 140ms ease,
