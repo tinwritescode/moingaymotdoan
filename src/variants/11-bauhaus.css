@@ -139,6 +139,10 @@
   text-decoration: none;
 }
 
+:root[data-variant="11-bauhaus"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 /* Iconic Bauhaus geometric mark: red square + yellow bar + blue circle */
 :root[data-variant="11-bauhaus"] .kt-brand::before {
   content: "";
@@ -1311,6 +1315,12 @@
   text-transform: uppercase;
 }
 
+:root[data-variant="11-bauhaus"] .kt-opinion p + p {
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1.5px dashed var(--bh-line);
+}
+
 :root[data-variant="11-bauhaus"] .kt-opinion span {
   border-radius: 0;
 }
@@ -1424,6 +1434,10 @@
   text-transform: uppercase;
 }
 
+:root[data-variant="11-bauhaus"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="11-bauhaus"] .kt-ref-popover button {
   margin-top: 0.9rem;
   display: inline-flex;
@@ -1516,12 +1530,18 @@
   letter-spacing: 0;
 }
 
+:root[data-variant="11-bauhaus"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* -------------------------------------------------------------------------- */
 /* Crisp Bauhaus Motion (only when motion is allowed)                         */
 /* -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="11-bauhaus"] :is(
+      .kt-brand,
       .kt-start-cta,
       a.kt-pager,
       .kt-header > button[popovertarget],
