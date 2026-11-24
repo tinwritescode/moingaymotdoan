@@ -203,6 +203,15 @@
   text-decoration-style: solid;
 }
 
+/* Draft status pill inside header: rose washi tag */
+:root[data-variant="13-so-tay"] .kt-header > span.rounded-full {
+  background-color: var(--st-tape-rose);
+  color: var(--ink);
+  border: 1px dashed var(--accent);
+  font-family: var(--st-mono);
+  font-weight: 600;
+}
+
 /* Book picker popover: tabbed index binder */
 :root[data-variant="13-so-tay"] .kt-picker {
   background-color: var(--card);
@@ -211,7 +220,19 @@
   border: 1.5px solid var(--rule);
   border-top: 4px solid var(--accent);
   border-radius: 6px;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 0 12px 28px var(--st-shadow-md), 4px 4px 0 var(--side);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="13-so-tay"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="13-so-tay"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="13-so-tay"] .kt-picker nav {
@@ -255,6 +276,18 @@
   max-width: 66rem;
   padding-inline: 1rem;
   padding-bottom: 5rem;
+}
+
+/* Draft notice on home page: pinned index card */
+:root[data-variant="13-so-tay"] .kt-home > p.rounded {
+  background-color: var(--st-sticky);
+  border: 1.5px dashed var(--st-sticky-border);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.1rem;
+  box-shadow: 2px 3px 0 var(--st-shadow);
 }
 
 @media (min-width: 640px) {
@@ -721,6 +754,12 @@
     gap: 2rem 2rem;
     padding-top: 2.5rem;
   }
+
+  :root[data-variant="13-so-tay"] .kt-toc {
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
+    padding-right: 0.25rem;
+  }
 }
 
 /* Left TOC: protruding colored notebook page tabs */
@@ -1033,9 +1072,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  counter-reset: kt-st-note;
 }
 
 :root[data-variant="13-so-tay"] .kt-note {
+  counter-increment: kt-st-note;
   background-color: var(--paper);
   border: 1.5px solid var(--rule);
   border-left: 5px solid var(--st-tape-ochre);
@@ -1070,6 +1111,24 @@
   font-weight: 600;
   color: var(--ink);
   list-style: none;
+  gap: 0.65rem;
+}
+
+:root[data-variant="13-so-tay"] .kt-note-heading::before {
+  content: counter(kt-st-note, decimal-leading-zero);
+  font-family: var(--st-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--st-pen);
+  background: var(--st-hl-yellow);
+  border: 1px solid var(--st-sticky-border);
+  border-radius: 3px;
+  padding: 0.1rem 0.35rem;
+  flex-shrink: 0;
+}
+
+:root[data-variant="13-so-tay"] .kt-note-heading > span {
+  margin-left: auto;
 }
 
 :root[data-variant="13-so-tay"] .kt-note-heading:hover {
@@ -1096,6 +1155,22 @@
   font-size: 1.04rem;
   line-height: 1.78;
   color: var(--ink);
+}
+
+:root[data-variant="13-so-tay"] #nguyen-van .kt-note-body > p {
+  background-color: var(--card);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(1.9rem - 1px),
+    var(--st-line) calc(1.9rem - 1px),
+    var(--st-line) 1.9rem
+  );
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--st-tape-ochre);
+  border-radius: 4px;
+  padding: 0.95rem 1.1rem;
+  line-height: 1.9rem;
 }
 
 /* Commentator opinions: 3x5 Zettelkasten index cards */
@@ -1175,6 +1250,12 @@
     transform: rotate(0.65deg);
   }
 
+  :root[data-variant="13-so-tay"] .kt-aside > div {
+    max-height: calc(100dvh - 8.5rem);
+    overflow-y: auto;
+    padding-right: 0.25rem;
+  }
+
   :root[data-variant="13-so-tay"] .kt-aside:hover,
   :root[data-variant="13-so-tay"] .kt-aside:focus-within {
     transform: rotate(0deg);
@@ -1216,6 +1297,12 @@
   font-size: 1rem;
   line-height: 1.72;
   color: var(--ink);
+}
+
+:root[data-variant="13-so-tay"] .kt-aside > div p + p {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--st-sticky-border);
 }
 
 /* ==========================================================================
@@ -1261,12 +1348,13 @@
 
 :root[data-variant="13-so-tay"] .kt-ref-popover button {
   margin-top: 0.9rem;
-  padding: 0.25rem 0.75rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.9rem;
   border: 1px solid var(--rule);
   border-radius: 4px;
   background-color: var(--paper);
   font-family: var(--st-mono);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
@@ -1338,7 +1426,7 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes kt-13-so-tay-card-in {
+  @keyframes kt-so-tay-card-in {
     from {
       opacity: 0;
       transform: translateY(6px);
@@ -1374,6 +1462,6 @@
   }
 
   :root[data-variant="13-so-tay"] .kt-inline-verses {
-    animation: kt-13-so-tay-card-in 180ms ease-out both;
+    animation: kt-so-tay-card-in 180ms ease-out both;
   }
 }
