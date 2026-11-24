@@ -1132,6 +1132,10 @@
   letter-spacing: 0.12em;
 }
 
+:root[data-variant="11-bauhaus"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
+}
+
 :root[data-variant="11-bauhaus"] .kt-verse-number {
   display: inline-block;
   margin-right: 0.2rem;
@@ -1260,6 +1264,7 @@
 
 :root[data-variant="11-bauhaus"] .kt-note[open] > .kt-note-heading {
   background: var(--card);
+  color: var(--accent);
   border-bottom: 2px solid var(--bh-line);
 }
 
@@ -1275,6 +1280,10 @@
   font-size: 1.03rem;
   line-height: 1.78;
   color: var(--ink);
+}
+
+:root[data-variant="11-bauhaus"] .kt-note-body > p + p {
+  margin-top: 0.9rem;
 }
 
 :root[data-variant="11-bauhaus"] #nguyen-van .kt-note-body > p {
@@ -1297,6 +1306,7 @@
   border: 2px solid var(--bh-line);
   border-left: 6px solid var(--bh-red);
   background: var(--paper);
+  color: var(--ink);
   padding: 1rem 1.15rem;
 }
 
@@ -1313,6 +1323,7 @@
   font-size: 0.92em;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  color: var(--accent);
 }
 
 :root[data-variant="11-bauhaus"] .kt-opinion p + p {
@@ -1405,6 +1416,11 @@
 :root[data-variant="11-bauhaus"] .kt-aside > div > p + p {
   padding-top: 0.85rem;
   border-top: 2px solid var(--side);
+}
+
+:root[data-variant="11-bauhaus"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 800;
 }
 
 /* Reference Popover */
