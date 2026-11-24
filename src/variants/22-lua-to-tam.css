@@ -123,6 +123,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="22-lua-to-tam"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="22-lua-to-tam"] .kt-brand span {
   font-family: var(--font-serif);
   font-style: italic;
@@ -169,6 +173,11 @@
   text-underline-offset: 3px;
 }
 
+:root[data-variant="22-lua-to-tam"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 500;
+}
+
 :root[data-variant="22-lua-to-tam"] .kt-pager {
   min-height: 2.5rem;
   border-radius: 999px;
@@ -211,6 +220,7 @@
     var(--card) 58%,
     color-mix(in srgb, var(--side) 70%, var(--card)) 100%
   ) var(--card);
+  color: var(--ink);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow:
@@ -927,6 +937,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="22-lua-to-tam"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--silk-thread);
+}
+
 :root[data-variant="22-lua-to-tam"] .kt-opinion p.font-sans span {
   border-radius: 999px;
 }
@@ -1025,6 +1041,7 @@
     var(--card) 66%,
     color-mix(in srgb, var(--side) 66%, var(--card)) 100%
   ) var(--card);
+  color: var(--ink);
   box-shadow:
     inset 0 1px 0 var(--silk-highlight),
     var(--silk-shadow);
@@ -1125,6 +1142,7 @@
 /* Gentle silk motion — strictly under reduced-motion opt-in */
 
 @media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="22-lua-to-tam"] .kt-brand,
   :root[data-variant="22-lua-to-tam"] .kt-header > button[popovertarget],
   :root[data-variant="22-lua-to-tam"] .kt-crumbs a,
   :root[data-variant="22-lua-to-tam"] .kt-pager,
