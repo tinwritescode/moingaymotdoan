@@ -100,6 +100,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="01-thu-ban-co"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--tbc-gold);
+  border-radius: 2px;
+  padding: 0.04em 0.25em;
+}
+
 :root[data-variant="01-thu-ban-co"] a:focus-visible,
 :root[data-variant="01-thu-ban-co"] button:focus-visible,
 :root[data-variant="01-thu-ban-co"] summary:focus-visible,
@@ -253,9 +261,19 @@
   padding-bottom: 0.35rem;
 }
 
+:root[data-variant="01-thu-ban-co"] .kt-picker::backdrop,
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover::backdrop {
+  background: rgba(24, 15, 7, 0.22);
+}
+
 :root[data-variant="01-thu-ban-co"] .kt-picker nav button {
   border-radius: 2px;
   font-family: var(--font-serif);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--tbc-rubric-wash);
+  color: var(--accent);
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-picker nav button[aria-pressed="true"] {
@@ -332,6 +350,11 @@
   text-underline-offset: 3px;
 }
 
+:root[data-variant="01-thu-ban-co"] .kt-footer a:hover {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+}
+
 :root[data-variant="01-thu-ban-co"] .kt-switcher {
   font-family: var(--font-serif);
   border-radius: 2px;
@@ -351,6 +374,7 @@
   color: var(--accent);
   background: var(--card);
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   border-radius: 2px;
 }
 
@@ -1225,7 +1249,9 @@
   font-size: 0.9rem;
   color: var(--muted);
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px dotted var(--tbc-gold);
 }
 
 /* ==========================================================================
@@ -1356,9 +1382,13 @@
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="01-thu-ban-co"] .kt-pager,
   :root[data-variant="01-thu-ban-co"] .kt-header > button[popovertarget],
+  :root[data-variant="01-thu-ban-co"] .kt-hero > p a,
   :root[data-variant="01-thu-ban-co"] .kt-start-cta,
   :root[data-variant="01-thu-ban-co"] .kt-books-link > span:first-child,
+  :root[data-variant="01-thu-ban-co"] .kt-book > div > a,
   :root[data-variant="01-thu-ban-co"] .kt-chapter-link > span,
+  :root[data-variant="01-thu-ban-co"] .kt-picker nav button,
+  :root[data-variant="01-thu-ban-co"] .kt-picker ol a,
   :root[data-variant="01-thu-ban-co"] .kt-toc a,
   :root[data-variant="01-thu-ban-co"] .kt-ref,
   :root[data-variant="01-thu-ban-co"] .kt-note-heading,
