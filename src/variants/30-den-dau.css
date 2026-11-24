@@ -120,6 +120,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="30-den-dau"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 0.25rem;
+  border-bottom: 1.5px solid var(--accent);
+  padding: 0.04em 0.22em;
+}
+
 /* Accessible focus outlines across all interactive controls */
 :root[data-variant="30-den-dau"] a:focus-visible,
 :root[data-variant="30-den-dau"] button:focus-visible,
@@ -168,6 +176,7 @@
   }
 
   :root[data-variant="30-den-dau"] .kt-header > button,
+  :root[data-variant="30-den-dau"] .kt-crumbs a,
   :root[data-variant="30-den-dau"] .kt-pager,
   :root[data-variant="30-den-dau"] .kt-hero a,
   :root[data-variant="30-den-dau"] .kt-start-cta,
@@ -175,6 +184,7 @@
   :root[data-variant="30-den-dau"] .kt-books-link > span:first-child,
   :root[data-variant="30-den-dau"] .kt-book > div:first-child a,
   :root[data-variant="30-den-dau"] .kt-chapter-link,
+  :root[data-variant="30-den-dau"] .kt-picker nav button,
   :root[data-variant="30-den-dau"] .kt-picker ol a,
   :root[data-variant="30-den-dau"] .kt-toc,
   :root[data-variant="30-den-dau"] .kt-toc a,
@@ -182,7 +192,8 @@
   :root[data-variant="30-den-dau"] .kt-ref-popover button,
   :root[data-variant="30-den-dau"] .kt-note,
   :root[data-variant="30-den-dau"] .kt-note-heading,
-  :root[data-variant="30-den-dau"] .kt-note-heading span {
+  :root[data-variant="30-den-dau"] .kt-note-heading span,
+  :root[data-variant="30-den-dau"] .kt-footer a {
     transition:
       opacity 220ms ease,
       color 160ms ease,
@@ -329,6 +340,12 @@
   overflow-y: auto;
 }
 
+:root[data-variant="30-den-dau"] .kt-picker::backdrop,
+:root[data-variant="30-den-dau"] .kt-ref-popover::backdrop {
+  background: rgba(12, 8, 4, 0.52);
+  backdrop-filter: blur(2px);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="30-den-dau"] .kt-picker nav {
     max-height: 30dvh;
@@ -356,6 +373,11 @@
   background: var(--den-ref-bg);
   color: var(--accent);
   font-weight: 700;
+}
+
+:root[data-variant="30-den-dau"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--den-ref-bg);
+  color: var(--accent);
 }
 
 :root[data-variant="30-den-dau"] .kt-picker > div > p {
@@ -947,6 +969,10 @@
   margin-bottom: 0.85rem;
 }
 
+:root[data-variant="30-den-dau"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
+}
+
 :root[data-variant="30-den-dau"] .kt-ref-popover button {
   display: inline-flex;
   align-items: center;
@@ -1097,6 +1123,11 @@
   line-height: 1.78;
 }
 
+:root[data-variant="30-den-dau"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="30-den-dau"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="30-den-dau"] .kt-byline {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -1204,4 +1235,9 @@
   color: var(--ink);
   font-weight: 600;
   cursor: pointer;
+}
+
+:root[data-variant="30-den-dau"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
 }
