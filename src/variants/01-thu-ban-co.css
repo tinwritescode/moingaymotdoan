@@ -167,6 +167,10 @@
   color: var(--muted);
 }
 
+:root[data-variant="01-thu-ban-co"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="01-thu-ban-co"] .kt-crumbs {
   font-family: var(--font-serif);
   font-size: 0.875rem;
@@ -174,6 +178,13 @@
   color: var(--muted);
   flex-wrap: wrap;
   align-items: center;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-crumbs a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--tbc-gold);
+  text-underline-offset: 3px;
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-crumbs span[aria-hidden="true"] {
@@ -376,6 +387,11 @@
   min-height: 2.25rem;
   max-width: min(13rem, 52vw);
   border-radius: 2px;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
 }
 
 /* ==========================================================================
@@ -1227,6 +1243,13 @@
   padding-right: 1.25rem;
 }
 
+:root[data-variant="01-thu-ban-co"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="01-thu-ban-co"] .kt-opinion > strong:first-child {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
 :root[data-variant="01-thu-ban-co"] .kt-opinion p.font-sans {
   font-family: var(--font-serif);
   font-size: 0.85rem;
@@ -1355,6 +1378,10 @@
   color: var(--tbc-gold);
 }
 
+:root[data-variant="01-thu-ban-co"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
+}
+
 :root[data-variant="01-thu-ban-co"] .kt-ref-popover > button {
   font-family: var(--font-serif);
   font-size: 0.85rem;
@@ -1380,6 +1407,8 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="01-thu-ban-co"] .kt-brand,
+  :root[data-variant="01-thu-ban-co"] .kt-crumbs a,
   :root[data-variant="01-thu-ban-co"] .kt-pager,
   :root[data-variant="01-thu-ban-co"] .kt-header > button[popovertarget],
   :root[data-variant="01-thu-ban-co"] .kt-hero > p a,
@@ -1393,7 +1422,8 @@
   :root[data-variant="01-thu-ban-co"] .kt-ref,
   :root[data-variant="01-thu-ban-co"] .kt-note-heading,
   :root[data-variant="01-thu-ban-co"] .kt-note-heading > span[aria-hidden="true"],
-  :root[data-variant="01-thu-ban-co"] .kt-ref-popover > button {
+  :root[data-variant="01-thu-ban-co"] .kt-ref-popover > button,
+  :root[data-variant="01-thu-ban-co"] .kt-footer a {
     transition:
       color 180ms ease,
       background-color 180ms ease,
