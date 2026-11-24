@@ -314,6 +314,11 @@
   color: var(--paper);
 }
 
+:root[data-variant="24-chu-lon"] .kt-picker > nav button[aria-pressed="true"]::before {
+  content: "✓ ";
+  font-weight: 800;
+}
+
 :root[data-variant="24-chu-lon"] .kt-picker > nav button:not(:disabled):not([aria-pressed="true"]):hover {
   border-color: var(--accent);
   background: var(--side);
@@ -873,6 +878,8 @@
   letter-spacing: 0;
   text-transform: none;
   color: var(--accent);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rule);
 }
 
 :root[data-variant="24-chu-lon"] .kt-aside > div {
@@ -1050,6 +1057,8 @@
 
 :root[data-variant="24-chu-lon"] .kt-ref-popover > p:first-child {
   margin-bottom: 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rule);
   font-family: "Inter", system-ui, sans-serif;
   font-size: 1.25rem;
   font-weight: 800;
@@ -1299,6 +1308,12 @@
   font-weight: 700;
 }
 
+:root[data-variant="24-chu-lon"] .kt-switcher:focus-within {
+  box-shadow:
+    0 0 0 4px var(--mark),
+    0 8px 24px rgb(0 0 0 / 0.22);
+}
+
 :root[data-variant="24-chu-lon"] .kt-switcher select {
   min-height: 3rem;
   max-width: min(13.5rem, 54vw);
@@ -1321,6 +1336,7 @@
 /* -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="24-chu-lon"] .kt-brand,
   :root[data-variant="24-chu-lon"] .kt-pager,
   :root[data-variant="24-chu-lon"] .kt-header > button[popovertarget],
   :root[data-variant="24-chu-lon"] .kt-crumbs a,
