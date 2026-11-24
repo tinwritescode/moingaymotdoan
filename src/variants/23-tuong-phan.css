@@ -366,6 +366,11 @@
   font-weight: 900;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-picker nav button[aria-pressed="true"]::before {
+  content: "▶ ";
+  flex-shrink: 0;
+}
+
 :root[data-variant="23-tuong-phan"] .kt-picker nav button[aria-pressed="true"] span {
   color: var(--paper);
 }
@@ -840,6 +845,10 @@
   letter-spacing: 0.08em;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-toc > p::before {
+  content: "■ ";
+}
+
 :root[data-variant="23-tuong-phan"] .kt-toc ol {
   display: flex;
   flex-wrap: wrap;
@@ -967,6 +976,8 @@
   background-color: var(--ink);
   color: var(--paper);
   border-bottom-color: var(--tp-focus-bg);
+  outline: 2px solid var(--tp-focus-bg);
+  outline-offset: 1px;
 }
 
 /* Inline Expanded Verses */
@@ -1243,6 +1254,10 @@
   padding-bottom: 0.5rem;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-aside h2::before {
+  content: "■ ";
+}
+
 :root[data-variant="23-tuong-phan"] .kt-aside > div {
   margin-top: 1rem;
   font-size: 1.0625rem;
@@ -1287,6 +1302,7 @@
 :root[data-variant="23-tuong-phan"] .kt-footer a:hover {
   background-color: var(--ink);
   color: var(--paper);
+  padding-inline: 0.15em;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-switcher {
@@ -1299,6 +1315,11 @@
   font-weight: 800;
   padding: 0.4rem 0.65rem;
   box-shadow: 4px 4px 0 var(--tp-shadow);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-switcher:focus-within {
+  outline: 3px solid var(--tp-focus-bg);
+  outline-offset: 2px;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-switcher select {
