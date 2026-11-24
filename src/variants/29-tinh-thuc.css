@@ -65,6 +65,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 /* ==========================================================================
@@ -109,14 +110,26 @@
   gap: 0.45rem;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-header > span.rounded-full {
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--rule));
+  background: var(--side);
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-header button[popovertarget],
 :root[data-variant="29-tinh-thuc"] .kt-pager {
   border-radius: 9999px;
   border-color: var(--rule);
   background: var(--card);
   padding-inline: 0.95rem;
-  min-height: 2.35rem;
-  font-size: 0.8125rem;
+  min-height: 2.5rem;
+  font-size: 0.875rem;
   color: var(--ink);
 }
 
@@ -138,6 +151,20 @@
   border-color: var(--rule);
   background: var(--card);
   box-shadow: 0 20px 50px -16px var(--dawn-shadow), 0 0 0 1px var(--rule);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="29-tinh-thuc"] .kt-picker nav {
+    max-height: 30dvh;
+    overflow-y: auto;
+  }
+
+  :root[data-variant="29-tinh-thuc"] .kt-picker > div {
+    max-height: 40dvh;
+    overflow-y: auto;
+  }
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-picker a {
@@ -161,6 +188,18 @@
   max-width: 44rem;
   padding-inline: clamp(1.25rem, 4vw, 2rem);
   padding-bottom: 5.5rem;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-home > p.rounded {
+  border-radius: 1rem;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  background: var(--side);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  padding: 0.9rem 1.25rem;
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-hero {
@@ -497,6 +536,19 @@
   padding-bottom: 2rem;
 }
 
+:root[data-variant="29-tinh-thuc"] #nguyen-van .kt-note-body > p {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.35rem 1.55rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.06rem, 1rem + 0.25vw, 1.16rem);
+  line-height: 1.92;
+  color: var(--ink);
+  box-shadow: 0 10px 28px -20px var(--dawn-shadow);
+}
+
 /* Commentator opinions */
 :root[data-variant="29-tinh-thuc"] .kt-opinion {
   background: var(--card);
@@ -541,6 +593,28 @@
   line-height: 1.82;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-ref-popover button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.4rem 1.05rem;
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--side);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-ref-popover button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--card);
+}
+
 /* Aside ("Điều cần nhớ"): calm reflection card inline on mobile */
 :root[data-variant="29-tinh-thuc"] .kt-aside {
   background: var(--card);
@@ -562,6 +636,12 @@
   line-height: 1.75;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-aside > div p + p {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--rule) 80%, transparent);
+}
+
 /* Desktop 3-column symmetric sanctuary: dead-center reading column + quiet wings */
 @media (min-width: 64rem) {
   :root[data-variant="29-tinh-thuc"] .kt-reader {
@@ -573,6 +653,8 @@
 
   :root[data-variant="29-tinh-thuc"] .kt-toc {
     top: 5.5rem;
+    max-height: calc(100dvh - 7rem);
+    overflow-y: auto;
     justify-self: end;
     width: 100%;
     max-width: 12.25rem;
@@ -596,6 +678,8 @@
   :root[data-variant="29-tinh-thuc"] .kt-aside {
     position: sticky;
     top: 5.5rem;
+    max-height: calc(100dvh - 7rem);
+    overflow-y: auto;
     justify-self: start;
     margin-inline: 0;
     max-width: 16.5rem;
@@ -607,7 +691,7 @@
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-aside > div {
-    font-size: 0.92rem;
+    font-size: 1rem;
     line-height: 1.68;
   }
 
@@ -700,7 +784,7 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes kt-29-tinh-thuc-dawn {
+  @keyframes kt-tinh-thuc-dawn {
     from {
       opacity: 0;
       transform: translateY(6px);
@@ -713,7 +797,7 @@
 
   :root[data-variant="29-tinh-thuc"] .kt-home,
   :root[data-variant="29-tinh-thuc"] .kt-chapter > div {
-    animation: kt-29-tinh-thuc-dawn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: kt-tinh-thuc-dawn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-header,
