@@ -209,6 +209,19 @@
   }
 }
 
+:root[data-variant="05-giay-do"] .kt-picker nav p {
+  font-family: var(--font-sans);
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+:root[data-variant="05-giay-do"] .kt-picker > div > p {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.45rem;
+}
+
 :root[data-variant="05-giay-do"] .kt-picker nav button {
   border-radius: 2px;
   border-left: 2px solid transparent;
@@ -278,6 +291,21 @@
 :root[data-variant="05-giay-do"] .kt-hero > p:nth-of-type(3) {
   margin-top: 1.15rem;
   letter-spacing: 0.04em;
+}
+
+:root[data-variant="05-giay-do"] .kt-hero > p:nth-of-type(3) a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.2rem 0.5rem;
+  border-bottom: 1px dotted var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+:root[data-variant="05-giay-do"] .kt-hero > p:nth-of-type(3) a:hover {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-bottom-style: solid;
 }
 
 :root[data-variant="05-giay-do"] .kt-hero > div:last-child {
@@ -439,6 +467,20 @@
 :root[data-variant="05-giay-do"] .kt-book > div:first-child {
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.85rem;
+}
+
+:root[data-variant="05-giay-do"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+
+:root[data-variant="05-giay-do"] .kt-book > div:first-child a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 :root[data-variant="05-giay-do"] .kt-book-name {
@@ -701,19 +743,19 @@
 :root[data-variant="05-giay-do"] .kt-note-heading > span {
   display: inline-grid;
   place-items: center;
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--rule);
   border-radius: 2px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
   flex-shrink: 0;
 }
 
 :root[data-variant="05-giay-do"] .kt-note[open] > .kt-note-heading > span {
   border-color: var(--accent);
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  background: var(--accent);
+  color: var(--paper);
 }
 
 :root[data-variant="05-giay-do"] .kt-note-body {
@@ -966,7 +1008,10 @@
   :root[data-variant="05-giay-do"] .kt-note-heading > span,
   :root[data-variant="05-giay-do"] .kt-opinion,
   :root[data-variant="05-giay-do"] .kt-ref,
-  :root[data-variant="05-giay-do"] .kt-header > button[popovertarget] {
+  :root[data-variant="05-giay-do"] .kt-header > button[popovertarget],
+  :root[data-variant="05-giay-do"] .kt-hero > p:nth-of-type(3) a,
+  :root[data-variant="05-giay-do"] .kt-book > div:first-child a,
+  :root[data-variant="05-giay-do"] .kt-ref-popover button {
     transition:
       color 0.25s ease,
       background-color 0.25s ease,
