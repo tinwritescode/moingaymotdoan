@@ -897,6 +897,7 @@
   margin: 1rem 0 1.25rem;
   border-radius: 0;
   background-color: var(--paper);
+  color: var(--ink);
   border: 1px solid var(--rule);
   border-left: 4px double var(--accent);
   padding: 1rem 1.2rem;
@@ -917,6 +918,7 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
   text-indent: 0;
 }
 
@@ -986,6 +988,7 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
   border-bottom: 1px dotted var(--rule);
   margin-bottom: 0.5rem;
 }
@@ -1014,10 +1017,15 @@
 :root[data-variant="27-sach-cu"] .kt-note-body {
   font-size: 1.04rem;
   line-height: 1.8;
+  color: var(--ink);
   padding: 0.25rem 0 1.5rem 0.9rem;
   border-left: 2px solid var(--rule);
   margin-left: 0.25rem;
   margin-bottom: 0.75rem;
+}
+
+:root[data-variant="27-sach-cu"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 :root[data-variant="27-sach-cu"] #nguyen-van .kt-note-body > p {
@@ -1034,6 +1042,7 @@
   border: 1px solid var(--rule);
   border-left: 4px double var(--sach-cu-rule-strong);
   background-color: var(--paper);
+  color: var(--ink);
   padding: 1rem 1.15rem;
   font-size: 1.02rem;
   line-height: 1.75;
@@ -1111,6 +1120,11 @@
   margin-top: 0.85rem;
   padding-top: 0.85rem;
   border-top: 1px dotted var(--sach-cu-rule-strong);
+}
+
+:root[data-variant="27-sach-cu"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* ==========================================================================
