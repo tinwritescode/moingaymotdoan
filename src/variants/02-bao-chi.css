@@ -94,6 +94,11 @@
 }
 
 :root[data-variant="02-bao-chi"] .kt-brand {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-height: 2.75rem;
   font-family: var(--font-display);
   font-size: 1.12rem;
   font-weight: 800;
@@ -222,7 +227,14 @@
 
 :root[data-variant="02-bao-chi"] .kt-picker::backdrop,
 :root[data-variant="02-bao-chi"] .kt-ref-popover::backdrop {
-  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  background: rgba(18, 18, 18, 0.38);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="02-bao-chi"] .kt-picker::backdrop,
+  :root[data-variant="02-bao-chi"] .kt-ref-popover::backdrop {
+    background: rgba(0, 0, 0, 0.68);
+  }
 }
 
 :root[data-variant="02-bao-chi"] .kt-picker nav {
@@ -295,6 +307,7 @@
 }
 
 :root[data-variant="02-bao-chi"] .kt-picker ol a {
+  min-height: 2.75rem;
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
@@ -1019,6 +1032,11 @@
 
 :root[data-variant="02-bao-chi"] .kt-note {
   border-top: 1px solid var(--ink);
+  scroll-margin-top: 1.5rem;
+}
+
+:root[data-variant="02-bao-chi"] .kt-note[open] {
+  border-top: 2px solid var(--accent);
 }
 
 :root[data-variant="02-bao-chi"] .kt-note:first-child {
@@ -1181,18 +1199,23 @@
 :root[data-variant="02-bao-chi"] .kt-ref {
   color: var(--accent);
   font-weight: 500;
+  padding-inline: 0.14em;
   text-decoration: underline;
   text-decoration-style: dotted;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
 
-:root[data-variant="02-bao-chi"] .kt-ref:hover,
-:root[data-variant="02-bao-chi"] .kt-ref[aria-expanded="true"] {
+:root[data-variant="02-bao-chi"] .kt-ref:hover {
   background: var(--accent);
   color: var(--paper);
   text-decoration: none;
-  padding-inline: 0.15em;
+}
+
+:root[data-variant="02-bao-chi"] .kt-ref[aria-expanded="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
 }
 
 :root[data-variant="02-bao-chi"] .kt-ref-popover {
