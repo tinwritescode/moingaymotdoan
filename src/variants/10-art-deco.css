@@ -488,6 +488,7 @@
 :root[data-variant="10-art-deco"] .kt-hero a[href="/ebook"] {
   display: inline-flex;
   align-items: center;
+  min-height: 2.5rem;
   gap: 0.45rem;
   margin-top: 0.5rem;
   padding: 0.45rem 1.15rem;
@@ -811,11 +812,23 @@
 }
 
 :root[data-variant="10-art-deco"] .kt-book > div:first-child > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--ad-gold-soft);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--accent);
+  text-decoration: none;
+}
+
+:root[data-variant="10-art-deco"] .kt-book > div:first-child > a:hover {
+  background-color: var(--ad-obsidian);
+  border-color: var(--ad-gold);
+  color: var(--ad-gold-bright);
 }
 
 :root[data-variant="10-art-deco"] .kt-chapter-list {
@@ -1141,12 +1154,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   border: 1px solid var(--ad-gold-line);
   color: var(--accent);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 :root[data-variant="10-art-deco"] .kt-note[open] .kt-note-heading {
@@ -1338,6 +1351,12 @@
   font-size: 0.82rem;
 }
 
+@media (min-width: 48rem) {
+  :root[data-variant="10-art-deco"] .kt-footer p {
+    padding-bottom: 1.5rem;
+  }
+}
+
 :root[data-variant="10-art-deco"] .kt-footer a {
   color: var(--ad-gold-bright);
   text-decoration-color: var(--ad-gold);
@@ -1369,6 +1388,7 @@
   color: var(--ad-gold-bright);
   border: 1px solid var(--ad-gold-line);
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   padding: 0.18rem 0.35rem;
   font-size: 0.76rem;
   text-transform: none;
@@ -1459,6 +1479,8 @@
   :root[data-variant="10-art-deco"] .kt-note-heading > span[aria-hidden="true"],
   :root[data-variant="10-art-deco"] .kt-ref,
   :root[data-variant="10-art-deco"] .kt-picker ol a,
+  :root[data-variant="10-art-deco"] .kt-ref-popover > button,
+  :root[data-variant="10-art-deco"] .kt-book > div:first-child > a,
   :root[data-variant="10-art-deco"] .kt-hero a[href="/ebook"] {
     transition:
       background-color 180ms ease,
