@@ -258,7 +258,7 @@
   color: var(--ink);
 }
 
-:root[data-variant="07-muc-dien-tu"] .kt-picker nav button:hover:not(:disabled) {
+:root[data-variant="07-muc-dien-tu"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
   background-color: var(--side);
   border-color: var(--ink);
 }
@@ -284,6 +284,12 @@
   font-weight: 700;
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.45rem;
+}
+
+:root[data-variant="07-muc-dien-tu"] .kt-picker > div > p::before {
+  content: "§ ";
+  color: var(--muted);
+  font-weight: 400;
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-picker ol a {
@@ -914,6 +920,10 @@
   background-color: var(--side);
 }
 
+:root[data-variant="07-muc-dien-tu"] .kt-note[open] > .kt-note-heading {
+  border-bottom: 1px dotted var(--rule);
+}
+
 :root[data-variant="07-muc-dien-tu"] .kt-note-heading span {
   font-family: var(--eink-mono);
   font-size: 0.95rem;
@@ -1021,6 +1031,12 @@
   padding-bottom: 0.5rem;
 }
 
+:root[data-variant="07-muc-dien-tu"] .kt-aside h2::before {
+  content: "■ ";
+  font-size: 0.65em;
+  vertical-align: 0.1em;
+}
+
 :root[data-variant="07-muc-dien-tu"] .kt-aside > div {
   margin-top: 0.85rem;
   font-family: var(--font-serif);
@@ -1090,4 +1106,9 @@
   font-weight: 600;
   min-height: 2.25rem;
   max-width: min(13rem, 52vw);
+}
+
+:root[data-variant="07-muc-dien-tu"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
 }
