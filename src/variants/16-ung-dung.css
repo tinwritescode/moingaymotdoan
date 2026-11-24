@@ -126,6 +126,10 @@
   text-decoration: none;
 }
 
+:root[data-variant="16-ung-dung"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="16-ung-dung"] .kt-brand::before {
   content: "";
   width: 0.65rem;
@@ -1002,6 +1006,10 @@
   color: var(--accent);
 }
 
+:root[data-variant="16-ung-dung"] .kt-note[open] > .kt-note-heading {
+  border-bottom: 1px solid var(--ud-teal-border);
+}
+
 :root[data-variant="16-ung-dung"] .kt-note-heading > span {
   width: 2rem;
   height: 2rem;
@@ -1066,6 +1074,12 @@
 :root[data-variant="16-ung-dung"] .kt-opinion > p:first-child > strong:first-child,
 :root[data-variant="16-ung-dung"] .kt-opinion > strong:first-child {
   color: var(--accent);
+}
+
+:root[data-variant="16-ung-dung"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
 }
 
 :root[data-variant="16-ung-dung"] .kt-opinion > p:last-child span.rounded-md {
@@ -1322,6 +1336,7 @@
     }
   }
 
+  :root[data-variant="16-ung-dung"] .kt-brand,
   :root[data-variant="16-ung-dung"] .kt-pager,
   :root[data-variant="16-ung-dung"] .kt-start-cta,
   :root[data-variant="16-ung-dung"] .kt-books-link,
@@ -1355,7 +1370,8 @@
   }
 
   :root[data-variant="16-ung-dung"] .kt-start-cta:active,
-  :root[data-variant="16-ung-dung"] .kt-pager:active {
+  :root[data-variant="16-ung-dung"] .kt-pager:active,
+  :root[data-variant="16-ung-dung"] .kt-ref-popover > button:active {
     transform: scale(0.97);
   }
 
