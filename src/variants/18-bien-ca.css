@@ -784,6 +784,7 @@
   border: 1px solid var(--rule);
   border-left: 4px solid var(--accent);
   background: linear-gradient(135deg, var(--side) 0%, color-mix(in srgb, var(--card) 75%, var(--side)) 100%);
+  color: var(--ink);
   padding: 1.15rem 1.4rem;
   font-size: 1.04rem;
   line-height: 1.82;
@@ -793,6 +794,13 @@
 :root[data-variant="18-bien-ca"] .kt-inline-verses > p:first-child {
   color: var(--accent);
   letter-spacing: 0.1em;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="18-bien-ca"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* Signature double-crest CSS wave section divider between story and notes */
@@ -849,7 +857,8 @@
   color: var(--bc-deep);
 }
 
-:root[data-variant="18-bien-ca"] .kt-note-heading:hover {
+:root[data-variant="18-bien-ca"] .kt-note-heading:hover,
+:root[data-variant="18-bien-ca"] .kt-note[open] > .kt-note-heading {
   background: color-mix(in srgb, var(--side) 55%, transparent);
   color: var(--accent);
 }
@@ -876,6 +885,11 @@
   padding: 1.5rem 1.35rem 1.5rem;
   font-size: 1.075rem;
   line-height: 1.82;
+  color: var(--ink);
+}
+
+:root[data-variant="18-bien-ca"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 :root[data-variant="18-bien-ca"] #nguyen-van .kt-note-body > p {
@@ -909,6 +923,7 @@
   border: 1px solid var(--rule);
   border-left: 3.5px solid var(--bc-glass);
   background: color-mix(in srgb, var(--side) 48%, var(--card));
+  color: var(--ink);
   padding: 1.15rem 1.25rem;
 }
 
@@ -986,6 +1001,11 @@
   margin-top: 0.8rem;
   padding-top: 0.8rem;
   border-top: 1px solid var(--rule);
+}
+
+:root[data-variant="18-bien-ca"] .kt-aside > div strong {
+  color: var(--bc-deep);
+  font-weight: 700;
 }
 
 @media (min-width: 1024px) {
