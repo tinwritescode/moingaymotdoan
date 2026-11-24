@@ -257,6 +257,7 @@
   border: 1px solid var(--ad-gold);
   background-color: var(--card);
   color: var(--ink);
+  max-height: calc(100dvh - 2rem);
   box-shadow:
     inset 0 0 0 4px var(--card),
     inset 0 0 0 5px var(--ad-gold-line),
@@ -357,15 +358,26 @@
   align-items: center;
   justify-content: center;
   margin-top: 1.1rem;
-  padding: 0.4rem 1.1rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 1.2rem;
   border: 1px solid var(--ad-gold);
   background-color: var(--ad-obsidian);
   color: var(--ad-gold-bright);
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
+}
+
+/* Home draft notice plaque */
+:root[data-variant="10-art-deco"] .kt-home > p.rounded {
+  border-radius: 0;
+  border: 1px solid var(--ad-gold);
+  border-left: 4px solid var(--ad-gold);
+  background-color: var(--card);
+  color: var(--ink);
+  letter-spacing: 0.04em;
 }
 
 :root[data-variant="10-art-deco"] .kt-ref-popover > button:hover {
@@ -856,6 +868,14 @@
     column-gap: 2.5rem;
     padding-top: 3.25rem;
   }
+
+  :root[data-variant="10-art-deco"] .kt-toc,
+  :root[data-variant="10-art-deco"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
 }
 
 /* Left TOC — Engraved Architectural Index */
@@ -1056,10 +1076,12 @@
   margin-top: 2rem;
   border-top: 3px double var(--ad-gold);
   border-bottom: 3px double var(--ad-gold);
+  counter-reset: kt-ad-sec;
 }
 
 :root[data-variant="10-art-deco"] .kt-note {
   border-top: 1px solid var(--ad-gold-soft);
+  counter-increment: kt-ad-sec;
 }
 
 :root[data-variant="10-art-deco"] .kt-note:first-child {
@@ -1084,6 +1106,24 @@
   font-weight: 600;
   color: var(--ink);
   padding-block: 0.9rem;
+}
+
+:root[data-variant="10-art-deco"] .kt-note-heading::before {
+  content: counter(kt-ad-sec, upper-roman);
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.9rem;
+  height: 1.9rem;
+  padding-inline: 0.35rem;
+  margin-right: 0.45rem;
+  border: 1px solid var(--ad-gold);
+  background-color: var(--ad-obsidian);
+  color: var(--ad-gold-bright);
+  font-family: var(--ad-deco-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
 }
 
 :root[data-variant="10-art-deco"] .kt-note-heading:hover {
@@ -1112,6 +1152,13 @@
   font-size: 1.05rem;
   line-height: 1.8;
   padding-bottom: 1.5rem;
+}
+
+:root[data-variant="10-art-deco"] #nguyen-van .kt-note-body > p {
+  border-top: 3px double var(--ad-gold);
+  border-bottom: 3px double var(--ad-gold);
+  background-color: var(--paper);
+  padding: 1.15rem 1.25rem;
 }
 
 /* Commentator Opinion Plaques */
@@ -1219,8 +1266,13 @@
 }
 
 :root[data-variant="10-art-deco"] .kt-aside > div {
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.72;
+}
+
+:root[data-variant="10-art-deco"] .kt-aside > div > p + p {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--ad-gold-soft);
 }
 
 /* --------------------------------------------------------------------------
@@ -1313,6 +1365,14 @@
    14. Mobile Refinements (360px+ safety, zero horizontal overflow, >=16px)
    -------------------------------------------------------------------------- */
 @media (max-width: 40rem) {
+  :root[data-variant="10-art-deco"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="10-art-deco"] .kt-picker > div {
+    max-height: 40dvh;
+  }
+
   :root[data-variant="10-art-deco"] .kt-header {
     padding: 0.75rem 1rem;
     gap: 0.65rem 0.85rem;
