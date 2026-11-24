@@ -811,6 +811,8 @@
 
 :root[data-variant="24-chu-lon"] .kt-toc > p {
   margin-bottom: 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rule);
   font-size: 1.1875rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -895,6 +897,11 @@
 :root[data-variant="24-chu-lon"] .kt-aside > div p + p {
   padding-top: 1.125rem;
   border-top: 2px solid var(--rule);
+}
+
+:root[data-variant="24-chu-lon"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 800;
 }
 
 /* Chapter header block */
@@ -1013,12 +1020,18 @@
 
 :root[data-variant="24-chu-lon"] .kt-inline-verses > p:first-child {
   margin-bottom: 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rule);
   font-family: "Inter", system-ui, sans-serif;
   font-size: 1.125rem;
   font-weight: 800;
   letter-spacing: 0;
   text-transform: none;
   color: var(--accent);
+}
+
+:root[data-variant="24-chu-lon"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.65rem;
 }
 
 /* Raised verse numbers turned into clear, legible inline badges */
@@ -1181,6 +1194,11 @@
   color: var(--ink);
 }
 
+:root[data-variant="24-chu-lon"] .kt-note-body strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
 :root[data-variant="24-chu-lon"] #nguyen-van .kt-note-body > p {
   padding: 1.25rem 1.35rem;
   border: 2px solid var(--rule);
@@ -1288,6 +1306,7 @@
 
 :root[data-variant="24-chu-lon"] .kt-footer a:hover {
   background: var(--side);
+  padding-inline: 0.2em;
   color: var(--ink);
 }
 
