@@ -325,6 +325,7 @@
 
 :root[data-variant="21-tranh-dong-ho"] .kt-picker nav button {
   border-radius: 2px;
+  border: 2px solid transparent;
   font-weight: 600;
 }
 
@@ -1218,6 +1219,17 @@
   color: var(--accent);
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-opinion > p + p {
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1.5px dashed var(--rule);
+}
+
+:root[data-variant="21-tranh-dong-ho"] .kt-opinion > p:last-child span.rounded-md {
+  border-radius: 2px;
+  border: 1.5px solid var(--dh-block);
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-opinion:nth-of-type(3n + 2) {
   border-left-color: var(--dh-indigo);
 }
@@ -1437,6 +1449,7 @@
     animation: kt-tranh-dong-ho-stamp 180ms ease-out both;
   }
 
+  :root[data-variant="21-tranh-dong-ho"] .kt-brand,
   :root[data-variant="21-tranh-dong-ho"] .kt-header > button[popovertarget],
   :root[data-variant="21-tranh-dong-ho"] .kt-crumbs a,
   :root[data-variant="21-tranh-dong-ho"] .kt-pager,
@@ -1464,5 +1477,13 @@
   :root[data-variant="21-tranh-dong-ho"] .kt-start-cta:hover,
   :root[data-variant="21-tranh-dong-ho"] .kt-books-link:hover {
     transform: translate(-1px, -1px);
+  }
+
+  :root[data-variant="21-tranh-dong-ho"] .kt-start-cta:active,
+  :root[data-variant="21-tranh-dong-ho"] .kt-header > button[popovertarget]:active,
+  :root[data-variant="21-tranh-dong-ho"] a.kt-pager:active,
+  :root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--dh-block);
   }
 }
