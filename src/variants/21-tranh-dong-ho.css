@@ -323,6 +323,11 @@
   font-weight: 600;
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--dh-ochre-tint);
+  color: var(--ink);
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-picker nav button[aria-pressed="true"] {
   background: var(--dh-vermilion);
   color: var(--dh-on-pigment);
@@ -853,6 +858,10 @@
     overflow: hidden;
   }
 
+  :root[data-variant="21-tranh-dong-ho"] .kt-aside > h2 {
+    flex-shrink: 0;
+  }
+
   :root[data-variant="21-tranh-dong-ho"] .kt-aside > div {
     overflow-y: auto;
   }
@@ -1358,6 +1367,11 @@
   text-underline-offset: 3px;
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-footer a:hover {
+  background: var(--dh-ochre-tint);
+  color: var(--ink);
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-switcher {
   border-radius: 3px;
   border: 2.5px solid var(--dh-block);
@@ -1370,6 +1384,7 @@
 
 :root[data-variant="21-tranh-dong-ho"] .kt-switcher select {
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   background: var(--paper);
   color: var(--ink);
   border: 1.5px solid var(--dh-block);
@@ -1403,10 +1418,12 @@
   :root[data-variant="21-tranh-dong-ho"] .kt-hero a,
   :root[data-variant="21-tranh-dong-ho"] .kt-start-cta,
   :root[data-variant="21-tranh-dong-ho"] .kt-books-link,
+  :root[data-variant="21-tranh-dong-ho"] .kt-book > div:first-child a,
   :root[data-variant="21-tranh-dong-ho"] .kt-chapter-link,
   :root[data-variant="21-tranh-dong-ho"] .kt-toc a,
   :root[data-variant="21-tranh-dong-ho"] .kt-ref,
   :root[data-variant="21-tranh-dong-ho"] .kt-note-heading > span,
+  :root[data-variant="21-tranh-dong-ho"] .kt-picker nav button,
   :root[data-variant="21-tranh-dong-ho"] .kt-picker ol a,
   :root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > button {
     transition:
