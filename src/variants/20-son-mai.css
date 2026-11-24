@@ -80,11 +80,13 @@
   background-attachment: scroll;
   color: var(--ink);
   font-feature-settings: "kern" 1, "liga" 1;
+  overflow-x: clip;
 }
 
 :root[data-variant="20-son-mai"] :is(a, button, summary, select):focus-visible {
   outline: 2px solid var(--sm-focus);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--sm-gold-soft);
 }
 
 :root[data-variant="20-son-mai"] ::selection {
@@ -200,6 +202,14 @@
   box-shadow: none;
 }
 
+:root[data-variant="20-son-mai"] .kt-header > span.rounded-full {
+  border-radius: 2px;
+  border: 1px solid var(--sm-gold-soft);
+  background: var(--side);
+  color: var(--accent);
+  padding: 0.2rem 0.65rem;
+}
+
 /* ---------- Book Picker Lacquer Box ---------- */
 
 :root[data-variant="20-son-mai"] .kt-picker {
@@ -208,10 +218,22 @@
   background:
     linear-gradient(180deg, var(--sm-sheen) 0%, transparent 18%),
     var(--card);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow:
     inset 0 0 0 3px var(--card),
     inset 0 0 0 4px var(--sm-gold-soft),
     0 22px 48px -12px var(--sm-shadow-deep);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="20-son-mai"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="20-son-mai"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="20-son-mai"] .kt-picker nav {
@@ -252,6 +274,17 @@
   max-width: 72rem;
   padding-inline: 1rem;
   padding-bottom: 5.5rem;
+}
+
+:root[data-variant="20-son-mai"] .kt-home > p.rounded {
+  border-radius: 2px;
+  border: 1px solid var(--sm-gold-soft);
+  border-left: 4px solid var(--sm-cinnabar);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.15rem;
+  box-shadow: 0 6px 18px -12px var(--sm-shadow-deep);
 }
 
 @media (min-width: 640px) {
@@ -632,6 +665,18 @@
     padding-inline: 2rem;
     padding-top: 3rem;
   }
+
+  :root[data-variant="20-son-mai"] .kt-toc {
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
+  }
+
+  :root[data-variant="20-son-mai"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
 }
 
 /* Left Rail TOC */
@@ -884,6 +929,16 @@
   line-height: 1.8;
 }
 
+:root[data-variant="20-son-mai"] #nguyen-van .kt-note-body > p {
+  border: 1px solid var(--sm-gold-soft);
+  border-left: 4px solid var(--sm-gold);
+  border-radius: 2px;
+  background: var(--card);
+  padding: 1.05rem 1.25rem;
+  line-height: 1.88;
+  box-shadow: inset 0 1px 0 var(--sm-sheen-edge);
+}
+
 @media (min-width: 640px) {
   :root[data-variant="20-son-mai"] .kt-note-body {
     padding: 0.75rem 1.5rem 1.6rem;
@@ -958,6 +1013,12 @@
   color: var(--ink);
 }
 
+:root[data-variant="20-son-mai"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--sm-gold-soft);
+}
+
 /* ---------- References & Popover ---------- */
 
 :root[data-variant="20-son-mai"] .kt-ref {
@@ -1011,7 +1072,9 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-ref-popover > button {
-  padding: 0.3rem 0.75rem;
+  margin-top: 0.85rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 1rem;
   border: 1px solid var(--sm-gold-soft);
   border-radius: 2px;
   background: var(--side);
