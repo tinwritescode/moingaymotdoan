@@ -90,6 +90,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="18-bien-ca"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 0.3rem;
+  border-bottom: 1.5px solid var(--bc-glass);
+  padding: 0.04em 0.22em;
+}
+
 /* ── Header: floating coastal bar with a CSS sinusoidal wave shoreline ── */
 
 :root[data-variant="18-bien-ca"] .kt-header {
@@ -180,6 +188,12 @@
   font-size: 0.85rem;
 }
 
+:root[data-variant="18-bien-ca"] .kt-crumbs a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 :root[data-variant="18-bien-ca"] .kt-crumbs > span:last-child {
   border-radius: 9999px;
   background: var(--side);
@@ -204,6 +218,12 @@
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow: 0 20px 50px var(--bc-shadow-lg);
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker::backdrop,
+:root[data-variant="18-bien-ca"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  backdrop-filter: blur(2px);
 }
 
 @media (max-width: 639px) {
@@ -248,6 +268,12 @@
   background: var(--side);
   color: var(--accent);
   font-weight: 700;
+}
+
+:root[data-variant="18-bien-ca"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  border-radius: 9999px;
+  background: var(--side);
+  color: var(--bc-deep);
 }
 
 :root[data-variant="18-bien-ca"] .kt-picker > div > p {
@@ -881,6 +907,11 @@
   padding: 1.15rem 1.25rem;
 }
 
+:root[data-variant="18-bien-ca"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="18-bien-ca"] .kt-opinion > strong:first-child {
+  color: var(--bc-deep);
+}
+
 :root[data-variant="18-bien-ca"] .kt-byline {
   margin-top: 2rem;
   border-radius: 1rem;
@@ -1023,6 +1054,10 @@
   letter-spacing: 0.04em;
 }
 
+:root[data-variant="18-bien-ca"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="18-bien-ca"] .kt-ref-popover > button {
   margin-top: 0.85rem;
   min-height: 2.5rem;
@@ -1110,6 +1145,11 @@
   cursor: pointer;
 }
 
+:root[data-variant="18-bien-ca"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 @media (min-width: 640px) {
   :root[data-variant="18-bien-ca"] .kt-footer {
     padding-bottom: 1.25rem;
@@ -1152,8 +1192,10 @@
   :root[data-variant="18-bien-ca"] .kt-start-cta,
   :root[data-variant="18-bien-ca"] .kt-pager,
   :root[data-variant="18-bien-ca"] .kt-header > button[popovertarget],
+  :root[data-variant="18-bien-ca"] .kt-crumbs a,
   :root[data-variant="18-bien-ca"] .kt-hero a,
   :root[data-variant="18-bien-ca"] .kt-book > div a,
+  :root[data-variant="18-bien-ca"] .kt-picker nav button,
   :root[data-variant="18-bien-ca"] .kt-picker ol a,
   :root[data-variant="18-bien-ca"] .kt-toc ol a,
   :root[data-variant="18-bien-ca"] .kt-note,
@@ -1161,7 +1203,8 @@
   :root[data-variant="18-bien-ca"] .kt-note-heading > span[aria-hidden="true"],
   :root[data-variant="18-bien-ca"] .kt-ref,
   :root[data-variant="18-bien-ca"] .kt-ref-popover > button,
-  :root[data-variant="18-bien-ca"] .kt-chapter-link > span:first-child {
+  :root[data-variant="18-bien-ca"] .kt-chapter-link > span:first-child,
+  :root[data-variant="18-bien-ca"] .kt-footer a {
     transition:
       background-color 0.22s ease,
       border-color 0.22s ease,
