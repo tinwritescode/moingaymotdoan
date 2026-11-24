@@ -148,8 +148,8 @@
 
 /* Book picker pill trigger inside header */
 :root[data-variant="16-ung-dung"] .kt-header > button[popovertarget] {
-  min-height: 2.5rem;
-  padding: 0.35rem 0.95rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 1rem;
   border-radius: 9999px;
   background: var(--ud-teal-soft);
   border: 1px solid var(--ud-teal-border);
@@ -204,8 +204,8 @@
 
 /* Prev / Next pill buttons */
 :root[data-variant="16-ung-dung"] .kt-pager {
-  min-height: 2.5rem;
-  padding: 0.35rem 0.95rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 1rem;
   border-radius: 9999px;
   border: 1px solid var(--rule);
   background: var(--card);
@@ -292,12 +292,16 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--accent);
-  padding-inline: 0.5rem;
+  padding: 0 0.5rem 0.35rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="16-ung-dung"] .kt-picker nav button {
   border-radius: 9999px;
   padding: 0.5rem 0.9rem;
+  color: var(--ink);
+  min-height: 2.75rem;
   font-weight: 500;
 }
 
@@ -317,13 +321,27 @@
   opacity: 0.85;
 }
 
-:root[data-variant="16-ung-dung"] .kt-picker > div p {
+:root[data-variant="16-ung-dung"] .kt-picker > div > p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: var(--ink);
   padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="16-ung-dung"] .kt-picker > div > p::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--ud-accent-bright), var(--accent));
+  box-shadow: 0 0 0 3px var(--ud-teal-soft);
+  flex-shrink: 0;
 }
 
 :root[data-variant="16-ung-dung"] .kt-picker ol a {
@@ -360,7 +378,8 @@
 :root[data-variant="16-ung-dung"] .kt-hero {
   position: relative;
   text-align: left;
-  background: var(--ud-hero-bg);
+  background-color: var(--card);
+  background-image: var(--ud-hero-bg);
   border: 1px solid var(--ud-teal-border);
   border-radius: var(--ud-radius-card);
   padding: 1.75rem 1.35rem 1.5rem;
@@ -413,8 +432,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  min-height: 2.5rem;
-  padding: 0.45rem 1.05rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 1.1rem;
   border-radius: 9999px;
   background: var(--card);
   border: 1px solid var(--rule);
@@ -679,8 +698,8 @@
 :root[data-variant="16-ung-dung"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
-  padding: 0.25rem 0.85rem;
+  min-height: 2.75rem;
+  padding: 0.3rem 0.9rem;
   border-radius: 9999px;
   background: var(--paper);
   border: 1px solid var(--rule);
