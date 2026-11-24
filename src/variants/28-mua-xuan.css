@@ -142,6 +142,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="28-mua-xuan"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="28-mua-xuan"] .kt-brand::before {
   content: "\273f\fe0e";
   font-family: var(--font-sans);
@@ -186,6 +190,11 @@
   text-underline-offset: 4px;
 }
 
+:root[data-variant="28-mua-xuan"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 :root[data-variant="28-mua-xuan"] .kt-pager {
   min-height: 2.5rem;
   border-radius: 999px;
@@ -225,6 +234,7 @@
   background:
     var(--mx-ribbon) top / 100% 3px no-repeat,
     var(--card);
+  color: var(--ink);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow: var(--mx-popover-shadow);
@@ -893,6 +903,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="28-mua-xuan"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--rule);
+}
+
 :root[data-variant="28-mua-xuan"] .kt-byline {
   margin-top: 1.75rem;
   padding-top: 1rem;
@@ -969,6 +985,7 @@
   background:
     var(--mx-ribbon) top / 100% 3px no-repeat,
     var(--card);
+  color: var(--ink);
   padding: 1.25rem 1.35rem;
   box-shadow: var(--mx-popover-shadow);
   font-size: 1.05rem;
@@ -979,6 +996,9 @@
   color: var(--accent);
   font-weight: 700;
   letter-spacing: 0.04em;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="28-mua-xuan"] .kt-ref-popover > p:not(:first-child) {
@@ -1146,6 +1166,7 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="28-mua-xuan"] .kt-brand,
   :root[data-variant="28-mua-xuan"] .kt-pager,
   :root[data-variant="28-mua-xuan"] .kt-header > button[popovertarget],
   :root[data-variant="28-mua-xuan"] .kt-crumbs a,
