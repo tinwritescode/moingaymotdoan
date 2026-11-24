@@ -66,15 +66,15 @@
     --thap: #f28876;
 
     --dh-block: #8f7758;
-    --dh-vermilion: #c93b28;
-    --dh-vermilion-deep: #962618;
+    --dh-vermilion: #a92a1a;
+    --dh-vermilion-deep: #821d11;
     --dh-vermilion-tint: rgba(240, 126, 100, 0.16);
     --dh-ochre: #e8be56;
     --dh-ochre-fill: #b8841b;
     --dh-ochre-tint: rgba(232, 190, 86, 0.16);
-    --dh-indigo: #315e94;
+    --dh-indigo: #2c5588;
     --dh-indigo-tint: rgba(114, 166, 224, 0.16);
-    --dh-verdigris: #2a784c;
+    --dh-verdigris: #1f603c;
     --dh-verdigris-tint: rgba(124, 212, 156, 0.16);
     --dh-diep-glint: rgba(242, 231, 207, 0.045);
     --dh-diep-fiber: rgba(242, 231, 207, 0.03);
@@ -294,10 +294,12 @@
 @media (max-width: 639px) {
   :root[data-variant="21-tranh-dong-ho"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="21-tranh-dong-ho"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -379,7 +381,8 @@
   border-left: 8px solid var(--dh-vermilion);
   background: var(--card);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
   padding: 0.9rem 1.15rem;
   box-shadow: 4px 4px 0 var(--dh-block);
 }
@@ -720,7 +723,10 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-book > div:first-child a {
-  padding: 0.25rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.75rem;
   border: 2px solid var(--dh-block);
   border-radius: 2px;
   background: var(--card);
@@ -842,6 +848,12 @@
     position: sticky;
     top: 1.5rem;
     max-height: calc(100dvh - 3rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  :root[data-variant="21-tranh-dong-ho"] .kt-aside > div {
     overflow-y: auto;
   }
 }
@@ -1278,8 +1290,8 @@
   font-size: 0.96rem;
 }
 
-:root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > p:nth-of-type(2) {
-  padding: 1.05rem 1.25rem 0.5rem;
+:root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > p:not(:first-of-type) {
+  padding: 0.85rem 1.25rem 0.25rem;
   font-size: 1.05rem;
   line-height: 1.78;
 }
@@ -1357,6 +1369,7 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-switcher select {
+  min-height: 2.25rem;
   background: var(--paper);
   color: var(--ink);
   border: 1.5px solid var(--dh-block);
