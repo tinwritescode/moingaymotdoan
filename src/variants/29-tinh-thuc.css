@@ -61,6 +61,13 @@
   color: var(--ink);
 }
 
+:root[data-variant="29-tinh-thuc"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 3px;
+  padding: 0.04em 0.24em;
+}
+
 :root[data-variant="29-tinh-thuc"] :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -111,6 +118,12 @@
   gap: 0.45rem;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-crumbs a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-header > span.rounded-full {
   border-radius: 9999px;
   border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--rule));
@@ -156,6 +169,12 @@
   overflow-y: auto;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-picker::backdrop,
+:root[data-variant="29-tinh-thuc"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 26%, transparent);
+  backdrop-filter: blur(3px);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="29-tinh-thuc"] .kt-picker nav {
     max-height: 30dvh;
@@ -179,6 +198,11 @@
   background: var(--side);
   color: var(--accent);
   font-weight: 600;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--side);
+  color: var(--accent);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-picker > div > p {
@@ -640,8 +664,15 @@
   padding: 1.15rem 1.35rem;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="29-tinh-thuc"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-byline {
   margin-top: 2.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
   font-size: 0.8125rem;
   line-height: 1.6;
   color: var(--muted);
@@ -673,6 +704,22 @@
   box-shadow: 0 20px 48px -18px var(--dawn-shadow), 0 0 0 1px var(--rule);
   font-size: 1.04rem;
   line-height: 1.82;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-ref-popover > p:first-child {
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-ref-popover button {
@@ -843,6 +890,11 @@
   cursor: pointer;
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* ==========================================================================
    FOCUS MODE FADE — QUIET CHROME UNTIL HOVER OR FOCUS (POINTER DEVICES)
    ========================================================================== */
@@ -932,10 +984,12 @@
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-hero a,
+  :root[data-variant="29-tinh-thuc"] .kt-crumbs a,
   :root[data-variant="29-tinh-thuc"] .kt-start-cta,
   :root[data-variant="29-tinh-thuc"] .kt-books-link,
   :root[data-variant="29-tinh-thuc"] .kt-book > div:first-child a,
   :root[data-variant="29-tinh-thuc"] .kt-chapter-link,
+  :root[data-variant="29-tinh-thuc"] .kt-picker nav button,
   :root[data-variant="29-tinh-thuc"] .kt-picker ol a,
   :root[data-variant="29-tinh-thuc"] .kt-toc a,
   :root[data-variant="29-tinh-thuc"] .kt-note-heading,
@@ -943,7 +997,8 @@
   :root[data-variant="29-tinh-thuc"] .kt-ref,
   :root[data-variant="29-tinh-thuc"] .kt-ref-popover button,
   :root[data-variant="29-tinh-thuc"] .kt-pager,
-  :root[data-variant="29-tinh-thuc"] .kt-header button[popovertarget] {
+  :root[data-variant="29-tinh-thuc"] .kt-header button[popovertarget],
+  :root[data-variant="29-tinh-thuc"] .kt-footer a {
     transition:
       color 0.2s ease,
       background-color 0.2s ease,
