@@ -101,6 +101,7 @@
 :root[data-variant="09-tho-rap"] select:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--tr-yellow);
 }
 
 /* Disable soft fade-in for crisp brutalist instant render */
@@ -157,6 +158,7 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  min-height: 2.5rem;
   padding: 0 0.9rem;
 }
 
@@ -190,7 +192,7 @@
 }
 
 /* Draft status pill inside header */
-:root[data-variant="09-tho-rap"] .kt-header > span {
+:root[data-variant="09-tho-rap"] .kt-header > span.rounded-full {
   border-radius: 0;
   border: 2px solid var(--tr-border);
   background: var(--tr-yellow);
@@ -210,6 +212,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  min-height: 2.5rem;
   padding: 0 0.85rem;
 }
 
@@ -348,8 +351,10 @@
   color: #111111;
   box-shadow: 5px 5px 0 var(--tr-shadow);
   font-family: var(--tr-mono);
+  font-size: 0.95rem;
+  line-height: 1.55;
   font-weight: 700;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.05rem;
   margin-top: 1.75rem;
 }
 
@@ -936,6 +941,13 @@
   line-height: 1.85;
 }
 
+:root[data-variant="09-tho-rap"] #nguyen-van .kt-note-body > p {
+  background: var(--paper);
+  border: 2px solid var(--tr-border);
+  border-left: 6px solid var(--tr-border);
+  padding: 1.1rem 1.2rem;
+}
+
 /* Commentator opinion cards */
 :root[data-variant="09-tho-rap"] .kt-opinion {
   border-radius: 0;
@@ -1032,6 +1044,7 @@
   background: var(--card);
   color: var(--ink);
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 8px 8px 0 var(--tr-shadow);
 }
 
@@ -1198,9 +1211,10 @@
   background: #ffffff;
   color: #111111;
   border: 2px solid #111111;
+  min-height: 2.25rem;
   padding: 0.15rem 0.35rem;
   font-family: var(--tr-mono);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: none;
 }
@@ -1236,10 +1250,12 @@
 @media (max-width: 639px) {
   :root[data-variant="09-tho-rap"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="09-tho-rap"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
   :root[data-variant="09-tho-rap"] .kt-header {
     padding: 0.75rem 1rem;
