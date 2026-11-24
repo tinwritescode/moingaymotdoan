@@ -160,6 +160,9 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-decoration: underline;
   text-decoration-color: var(--rule);
   text-underline-offset: 3px;
@@ -828,6 +831,9 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 2px;
   padding: 0.4rem 0.55rem;
   font-size: 0.88rem;
@@ -1205,7 +1211,7 @@
 
 :root[data-variant="25-cuon-sach"] .kt-ref-popover button {
   margin-top: 0.9rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.45rem 1rem;
   border: 1px solid var(--rule);
   border-radius: 2px;
@@ -1248,6 +1254,9 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   text-underline-offset: 3px;
 }
@@ -1269,7 +1278,7 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: var(--card);
   color: var(--ink);
