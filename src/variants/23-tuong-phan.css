@@ -233,9 +233,12 @@
 }
 
 :root[data-variant="23-tuong-phan"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   font-weight: 700;
-  padding: 0.2rem 0.15rem;
+  padding: 0.25rem 0.35rem;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-crumbs a:hover {
@@ -376,6 +379,7 @@
 }
 
 :root[data-variant="23-tuong-phan"] .kt-picker nav button:disabled {
+  border: 2px dashed var(--muted);
   color: var(--muted);
   opacity: 1;
   font-weight: 400;
@@ -388,6 +392,10 @@
   color: var(--ink);
   border-bottom: 3px solid var(--ink);
   padding-bottom: 0.45rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-picker > div > p::before {
+  content: "■ ";
 }
 
 :root[data-variant="23-tuong-phan"] .kt-picker ol a {
@@ -598,6 +606,10 @@
   letter-spacing: 0.08em;
   border-bottom: 3px solid var(--ink);
   padding-bottom: 0.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-books #cac-sach::before {
+  content: "■ ";
 }
 
 :root[data-variant="23-tuong-phan"] .kt-books ol {
@@ -1320,8 +1332,15 @@
 }
 
 :root[data-variant="23-tuong-phan"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.25rem;
   color: var(--accent);
   font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-footer a:hover {
