@@ -94,6 +94,11 @@
   text-underline-offset: 0.2em;
 }
 
+:root[data-variant="14-may-chu"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="14-may-chu"] a:focus-visible,
 :root[data-variant="14-may-chu"] button:focus-visible,
 :root[data-variant="14-may-chu"] summary:focus-visible,
@@ -199,7 +204,7 @@
 }
 
 /* Draft status pill inside header: rectangular rubber-stamp tag */
-:root[data-variant="14-may-chu"] .kt-header > span {
+:root[data-variant="14-may-chu"] .kt-header > span.rounded-full {
   border-radius: 0;
   border: 1px dashed var(--vua);
   background: var(--card);
@@ -222,10 +227,12 @@
 @media (max-width: 639px) {
   :root[data-variant="14-may-chu"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="14-may-chu"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -361,7 +368,7 @@
 }
 
 /* Home draft banner */
-:root[data-variant="14-may-chu"] .kt-home > p {
+:root[data-variant="14-may-chu"] .kt-home > p.rounded {
   border-radius: 0;
   border-style: dashed;
   border-left: 4px solid var(--accent);
@@ -811,10 +818,12 @@
 :root[data-variant="14-may-chu"] .kt-notes {
   margin-top: 1.75rem;
   border-bottom: 2px double var(--ink);
+  counter-reset: kt-mc-sec;
 }
 
 :root[data-variant="14-may-chu"] .kt-note {
   border-top: 1px dashed var(--rule);
+  counter-increment: kt-mc-sec;
 }
 
 :root[data-variant="14-may-chu"] .kt-note-heading {
@@ -827,14 +836,10 @@
 }
 
 :root[data-variant="14-may-chu"] .kt-note-heading::before {
-  content: "[+]";
+  content: counter(kt-mc-sec, decimal-leading-zero) ".";
   color: var(--accent);
   font-size: 0.85rem;
   flex-shrink: 0;
-}
-
-:root[data-variant="14-may-chu"] .kt-note[open] > .kt-note-heading::before {
-  content: "[-]";
 }
 
 :root[data-variant="14-may-chu"] .kt-note[open] > .kt-note-heading {
@@ -851,8 +856,21 @@
 
 :root[data-variant="14-may-chu"] .kt-note-heading > span[aria-hidden="true"] {
   margin-left: auto;
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid var(--rule);
+  background: var(--paper);
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+:root[data-variant="14-may-chu"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--card);
 }
 
 :root[data-variant="14-may-chu"] .kt-note-body {
@@ -1057,5 +1075,25 @@
   background: var(--card);
   color: var(--ink);
   border-bottom: 1px solid var(--rule);
+  min-height: 2.25rem;
   padding: 0.1rem 0.25rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="14-may-chu"] :is(
+      .kt-header button[popovertarget],
+      a.kt-pager,
+      .kt-start-cta,
+      .kt-toc a,
+      .kt-note-heading,
+      .kt-ref,
+      .kt-ref-popover button,
+      .kt-picker ol a
+    ) {
+    transition:
+      color 140ms ease,
+      background-color 140ms ease,
+      border-color 140ms ease,
+      box-shadow 140ms ease;
+  }
 }
