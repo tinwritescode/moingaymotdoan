@@ -142,6 +142,10 @@
   text-shadow: var(--t26-glow);
 }
 
+:root[data-variant="26-terminal"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="26-terminal"] .kt-brand::before {
   content: "$ ";
   color: var(--accent);
@@ -205,6 +209,11 @@
   color: var(--t26-inv-fg);
 }
 
+:root[data-variant="26-terminal"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 :root[data-variant="26-terminal"] .kt-pager {
   min-height: 2.5rem;
   border-radius: 0;
@@ -243,6 +252,7 @@
   border-radius: 0;
   border: 2px solid var(--accent);
   background: var(--card);
+  color: var(--ink);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow: 6px 6px 0 var(--t26-shadow);
@@ -1142,6 +1152,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="26-terminal"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--rule);
+}
+
 :root[data-variant="26-terminal"] .kt-opinion p:last-child span.rounded-md {
   border-radius: 0;
   border: 1px solid currentColor;
@@ -1248,6 +1264,7 @@
 :root[data-variant="26-terminal"] .kt-footer a:hover {
   background: var(--t26-inv-bg);
   color: var(--t26-inv-fg);
+  padding-inline: 0.15em;
   text-decoration: none;
 }
 
@@ -1301,6 +1318,7 @@
     animation: kt-terminal-blink 1.1s steps(1, end) infinite;
   }
 
+  :root[data-variant="26-terminal"] .kt-brand,
   :root[data-variant="26-terminal"] .kt-header button[popovertarget],
   :root[data-variant="26-terminal"] .kt-crumbs a,
   :root[data-variant="26-terminal"] .kt-pager,
