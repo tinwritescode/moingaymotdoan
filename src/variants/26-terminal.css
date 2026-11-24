@@ -158,7 +158,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-header button[popovertarget] {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
@@ -215,7 +215,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-pager {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
@@ -292,7 +292,9 @@
 }
 
 :root[data-variant="26-terminal"] .kt-picker nav button {
+  min-height: 2.75rem;
   border-radius: 0;
+  color: var(--ink);
 }
 
 :root[data-variant="26-terminal"] .kt-picker nav button[aria-pressed="true"] {
@@ -321,10 +323,19 @@
   border-bottom: 1px dashed var(--rule);
 }
 
+:root[data-variant="26-terminal"] .kt-picker > div > p::before {
+  content: "$ ls ";
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: none;
+}
+
 :root[data-variant="26-terminal"] .kt-picker ol a {
+  min-height: 2.75rem;
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -436,7 +447,7 @@
 :root[data-variant="26-terminal"] .kt-hero a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   padding: 0.2rem 0.65rem;
   border: 1px dashed var(--accent);
   color: var(--accent);
@@ -671,7 +682,7 @@
 :root[data-variant="26-terminal"] .kt-book > div a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   padding-inline: 0.5rem;
 }
 
@@ -713,7 +724,8 @@
 }
 
 :root[data-variant="26-terminal"] .kt-chapter-link {
-  align-items: baseline;
+  min-height: 2.75rem;
+  align-items: center;
   gap: 0.6rem;
   font-size: 1rem;
 }
