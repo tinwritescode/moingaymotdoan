@@ -1003,6 +1003,14 @@
   letter-spacing: 0.06em;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-inline-verses > p:first-child::before {
+  content: "■ ";
+}
+
+:root[data-variant="23-tuong-phan"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.65rem;
+}
+
 /* Raised Verse Numbers — Crisp High-Contrast Chips */
 :root[data-variant="23-tuong-phan"] .kt-verse-number {
   display: inline-block;
@@ -1041,6 +1049,10 @@
   color: var(--ink);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref-popover > p:first-child::before {
+  content: "■ ";
 }
 
 :root[data-variant="23-tuong-phan"] .kt-ref-popover > p:not(:first-child) {
@@ -1164,6 +1176,11 @@
   margin-top: 1.25rem;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-note-body strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
 :root[data-variant="23-tuong-phan"] #nguyen-van .kt-note-body > p {
   border: 2px solid var(--ink);
   border-left: 8px solid var(--ink);
@@ -1269,6 +1286,14 @@
   margin-top: 0.9rem;
   padding-top: 0.9rem;
   border-top: 2px solid var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
 }
 
 /* ==========================================================================
