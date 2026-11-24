@@ -171,6 +171,9 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-decoration: none;
   border-bottom: 1px dotted var(--rule);
 }
@@ -745,6 +748,9 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-toc ol li a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0;
   padding: 0.45rem 0.5rem;
   color: var(--ink);
@@ -1209,7 +1215,7 @@
   text-decoration: none;
   border: 1px solid var(--rule);
   background-color: var(--paper);
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.45rem 0.95rem;
   margin-top: 0.9rem;
 }
@@ -1254,6 +1260,9 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--ink);
   text-underline-offset: 3px;
 }
@@ -1273,7 +1282,7 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   font-family: "Literata", Georgia, serif;
   background-color: var(--card);
