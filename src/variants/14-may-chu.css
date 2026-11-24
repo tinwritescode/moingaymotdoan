@@ -195,6 +195,9 @@
 }
 
 :root[data-variant="14-may-chu"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 0.22em;
@@ -696,6 +699,9 @@
 }
 
 :root[data-variant="14-may-chu"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0;
   padding: 0.4rem 0.35rem;
   line-height: 1.5;
@@ -1104,7 +1110,7 @@
 
 :root[data-variant="14-may-chu"] .kt-ref-popover button {
   margin-top: 0.85rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border: 1px solid var(--ink);
   background: var(--paper);
   color: var(--ink);
@@ -1142,6 +1148,9 @@
 }
 
 :root[data-variant="14-may-chu"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--ink);
   text-decoration: underline;
   text-decoration-style: dotted;
@@ -1166,7 +1175,7 @@
   background: var(--card);
   color: var(--ink);
   border-bottom: 1px solid var(--rule);
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   padding: 0.1rem 0.25rem;
 }
