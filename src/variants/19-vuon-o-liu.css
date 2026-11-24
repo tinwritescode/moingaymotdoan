@@ -204,6 +204,7 @@
   border: 1px solid var(--rule);
   border-top: 3px solid var(--accent);
   background: var(--card);
+  color: var(--ink);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow: var(--olive-shadow);
@@ -236,6 +237,9 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   color: var(--accent);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px dashed var(--rule);
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-picker nav button {
@@ -906,6 +910,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="19-vuon-o-liu"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--rule);
+}
+
 :root[data-variant="19-vuon-o-liu"] .kt-opinion > p:last-child span {
   border-radius: 0.55rem 0.18rem 0.55rem 0.18rem;
 }
@@ -965,6 +975,7 @@
   border-top: 3px solid var(--accent);
   border-radius: var(--olive-radius-leaf);
   background: var(--card);
+  color: var(--ink);
   box-shadow: var(--olive-shadow);
   font-size: 1.05rem;
   line-height: 1.75;
@@ -1157,6 +1168,7 @@
 
 /* Motion — strictly under prefers-reduced-motion: no-preference */
 @media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="19-vuon-o-liu"] .kt-brand,
   :root[data-variant="19-vuon-o-liu"] .kt-header > button[popovertarget],
   :root[data-variant="19-vuon-o-liu"] .kt-crumbs a,
   :root[data-variant="19-vuon-o-liu"] .kt-pager,
