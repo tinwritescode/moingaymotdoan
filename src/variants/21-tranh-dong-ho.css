@@ -282,6 +282,11 @@
     0 18px 40px var(--dh-shadow-color);
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-picker::backdrop,
+:root[data-variant="21-tranh-dong-ho"] .kt-ref-popover::backdrop {
+  background: rgba(18, 14, 10, 0.45);
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-picker::before {
   content: "";
   display: block;
@@ -1122,6 +1127,11 @@
   background: var(--side);
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-note-heading:hover {
+  background: var(--dh-ochre-tint);
+  color: var(--accent);
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-note-heading::before {
   content: counter(kt-dh-note, decimal-leading-zero);
   display: inline-grid;
@@ -1201,6 +1211,11 @@
   border-radius: 3px;
   padding: 1rem 1.15rem;
   box-shadow: 3px 3px 0 var(--dh-block);
+}
+
+:root[data-variant="21-tranh-dong-ho"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="21-tranh-dong-ho"] .kt-opinion > strong:first-child {
+  color: var(--accent);
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-opinion:nth-of-type(3n + 2) {
@@ -1305,6 +1320,10 @@
   line-height: 1.78;
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > p:not(:first-of-type) + p {
+  padding-top: 0.45rem;
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > button {
   margin: 0.65rem 1.25rem 1.15rem;
   min-height: 2.5rem;
@@ -1393,6 +1412,11 @@
   font-weight: 700;
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-switcher select option {
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
 /* ==========================================================================
    Motion — Woodblock Stamp Press (strictly under reduced-motion opt-in)
    ========================================================================== */
@@ -1414,6 +1438,7 @@
   }
 
   :root[data-variant="21-tranh-dong-ho"] .kt-header > button[popovertarget],
+  :root[data-variant="21-tranh-dong-ho"] .kt-crumbs a,
   :root[data-variant="21-tranh-dong-ho"] .kt-pager,
   :root[data-variant="21-tranh-dong-ho"] .kt-hero a,
   :root[data-variant="21-tranh-dong-ho"] .kt-start-cta,
@@ -1422,10 +1447,12 @@
   :root[data-variant="21-tranh-dong-ho"] .kt-chapter-link,
   :root[data-variant="21-tranh-dong-ho"] .kt-toc a,
   :root[data-variant="21-tranh-dong-ho"] .kt-ref,
+  :root[data-variant="21-tranh-dong-ho"] .kt-note-heading,
   :root[data-variant="21-tranh-dong-ho"] .kt-note-heading > span,
   :root[data-variant="21-tranh-dong-ho"] .kt-picker nav button,
   :root[data-variant="21-tranh-dong-ho"] .kt-picker ol a,
-  :root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > button {
+  :root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > button,
+  :root[data-variant="21-tranh-dong-ho"] .kt-footer a {
     transition:
       background-color 150ms ease,
       border-color 150ms ease,
