@@ -132,7 +132,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-header button[popovertarget] {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--paper);
@@ -169,7 +169,7 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-pager {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--paper);
@@ -236,10 +236,14 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--accent);
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="17-sa-mac"] .kt-picker nav button {
+  min-height: 2.75rem;
   border-radius: 2px;
+  color: var(--ink);
 }
 
 :root[data-variant="17-sa-mac"] .kt-picker nav button[aria-pressed="true"] {
@@ -260,13 +264,23 @@
   font-weight: 600;
   color: var(--ink);
   padding-bottom: 0.45rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  box-shadow: inset 0 -2px 0 0 var(--sm-ochre);
+}
+
+:root[data-variant="17-sa-mac"] .kt-picker > div > p::before {
+  content: "\25c8  ";
+  color: var(--accent);
+  font-size: 0.88rem;
+  vertical-align: 0.06em;
 }
 
 :root[data-variant="17-sa-mac"] .kt-picker ol a {
+  min-height: 2.75rem;
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--paper);
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 
@@ -335,7 +349,7 @@
 :root[data-variant="17-sa-mac"] .kt-hero > p:nth-of-type(3) a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   gap: 0.35rem;
   color: var(--accent);
   font-weight: 600;
@@ -612,7 +626,7 @@
 :root[data-variant="17-sa-mac"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -630,13 +644,14 @@
 :root[data-variant="17-sa-mac"] .kt-chapter-list > li {
   margin-bottom: 0;
   border-bottom: 1px solid var(--rule);
-  padding-block: 0.7rem;
+  padding-block: 0.45rem;
 }
 
 :root[data-variant="17-sa-mac"] .kt-chapter-link {
-  align-items: baseline;
+  min-height: 2.75rem;
+  align-items: center;
   gap: 0.9rem;
-  padding: 0.25rem 0.35rem;
+  padding: 0.3rem 0.35rem;
   margin-inline: -0.35rem;
   border-radius: 2px;
 }
