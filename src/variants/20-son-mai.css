@@ -157,6 +157,7 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-crumbs {
+  flex-wrap: wrap;
   font-size: 0.82rem;
   letter-spacing: 0.02em;
 }
@@ -174,6 +175,7 @@
 
 :root[data-variant="20-son-mai"] .kt-header button[popovertarget],
 :root[data-variant="20-son-mai"] .kt-pager {
+  min-height: 2.5rem;
   border-radius: 3px;
   border: 1px solid var(--sm-gold-soft);
   background:
@@ -229,10 +231,12 @@
 @media (max-width: 639px) {
   :root[data-variant="20-son-mai"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="20-son-mai"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -282,7 +286,8 @@
   border-left: 4px solid var(--sm-cinnabar);
   background: var(--card);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
   padding: 0.85rem 1.15rem;
   box-shadow: 0 6px 18px -12px var(--sm-shadow-deep);
 }
@@ -556,6 +561,19 @@
   font-size: clamp(1.85rem, 3.5vw, 2.35rem);
   line-height: 1.2;
   color: var(--ink);
+}
+
+:root[data-variant="20-son-mai"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding-inline: 0.65rem;
+  border-radius: 2px;
+}
+
+:root[data-variant="20-son-mai"] .kt-book > div:first-child a:hover {
+  background: var(--side);
+  color: var(--accent);
 }
 
 :root[data-variant="20-son-mai"] .kt-chapter-list {
@@ -912,14 +930,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   border-radius: 2px;
   border: 1px solid var(--sm-gold-soft);
   background: var(--card);
   color: var(--accent);
   font-size: 0.9rem;
+}
+
+:root[data-variant="20-son-mai"] .kt-note[open] > .kt-note-heading > span {
+  background: var(--sm-cinnabar);
+  border-color: var(--sm-gold);
+  color: var(--sm-plaque-gold);
 }
 
 :root[data-variant="20-son-mai"] .kt-note-body {
@@ -1132,6 +1156,7 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-switcher select {
+  min-height: 2.25rem;
   background: var(--side);
   color: var(--ink);
   border: 1px solid var(--sm-gold-soft);
