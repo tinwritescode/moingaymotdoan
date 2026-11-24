@@ -208,6 +208,11 @@
 /* Book picker popover — crisp monochrome drawer, zero drop shadow            */
 /* -------------------------------------------------------------------------- */
 
+:root[data-variant="07-muc-dien-tu"] .kt-picker::backdrop,
+:root[data-variant="07-muc-dien-tu"] .kt-ref-popover::backdrop {
+  background-color: color-mix(in srgb, var(--ink) 28%, transparent);
+}
+
 :root[data-variant="07-muc-dien-tu"] .kt-picker {
   width: min(38rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
@@ -849,6 +854,10 @@
   margin-bottom: 0.75rem;
 }
 
+:root[data-variant="07-muc-dien-tu"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="07-muc-dien-tu"] .kt-ref-popover button {
   margin-top: 0.9rem;
   min-height: 2.5rem;
@@ -949,6 +958,13 @@
   padding: 1rem 1.1rem;
 }
 
+:root[data-variant="07-muc-dien-tu"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="07-muc-dien-tu"] .kt-opinion > strong:first-child {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
 :root[data-variant="07-muc-dien-tu"] .kt-opinion > p:nth-child(2) {
   margin-top: 0.75rem;
   padding-top: 0.6rem;
@@ -977,6 +993,8 @@
 /* Editorial byline */
 :root[data-variant="07-muc-dien-tu"] .kt-byline {
   margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   line-height: 1.55;
@@ -1071,4 +1089,5 @@
   font-size: 0.78rem;
   font-weight: 600;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
 }
