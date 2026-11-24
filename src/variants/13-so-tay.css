@@ -221,6 +221,11 @@
 }
 
 /* Book picker popover: tabbed index binder */
+:root[data-variant="13-so-tay"] .kt-picker::backdrop,
+:root[data-variant="13-so-tay"] .kt-ref-popover::backdrop {
+  background-color: color-mix(in srgb, var(--ink) 26%, transparent);
+}
+
 :root[data-variant="13-so-tay"] .kt-picker {
   background-color: var(--card);
   background-image: radial-gradient(var(--st-dot) 1px, transparent 1px);
@@ -253,6 +258,11 @@
 :root[data-variant="13-so-tay"] .kt-picker nav p {
   font-family: var(--st-mono);
   letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background-color: var(--paper);
   color: var(--accent);
 }
 
@@ -1247,6 +1257,13 @@
   line-height: 1.75;
 }
 
+:root[data-variant="13-so-tay"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="13-so-tay"] .kt-opinion > strong:first-child {
+  color: var(--st-pen);
+  background: linear-gradient(to top, var(--st-hl-yellow) 36%, transparent 36%);
+  padding-inline: 0.15em;
+}
+
 :root[data-variant="13-so-tay"] .kt-opinion > p + p {
   margin-top: 0.85rem;
   padding-top: 0.65rem;
@@ -1389,6 +1406,10 @@
   margin-bottom: 1rem;
 }
 
+:root[data-variant="13-so-tay"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.45rem;
+}
+
 :root[data-variant="13-so-tay"] .kt-ref-popover button {
   margin-top: 0.9rem;
   min-height: 2.5rem;
@@ -1466,6 +1487,11 @@
   font-size: 0.78rem;
 }
 
+:root[data-variant="13-so-tay"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* ==========================================================================
    Subtle tactile motion (only when reduced-motion is not requested)
    ========================================================================== */
@@ -1490,10 +1516,14 @@
   :root[data-variant="13-so-tay"] a.kt-pager,
   :root[data-variant="13-so-tay"] .kt-aside,
   :root[data-variant="13-so-tay"] .kt-ref,
+  :root[data-variant="13-so-tay"] .kt-note-heading,
   :root[data-variant="13-so-tay"] .kt-note-heading > span,
   :root[data-variant="13-so-tay"] .kt-ref-popover button,
+  :root[data-variant="13-so-tay"] .kt-picker nav button,
   :root[data-variant="13-so-tay"] .kt-picker ol a,
-  :root[data-variant="13-so-tay"] .kt-chapter-list > li {
+  :root[data-variant="13-so-tay"] .kt-chapter-list > li,
+  :root[data-variant="13-so-tay"] .kt-crumbs a,
+  :root[data-variant="13-so-tay"] .kt-footer a {
     transition:
       transform 160ms ease,
       background-color 160ms ease,
