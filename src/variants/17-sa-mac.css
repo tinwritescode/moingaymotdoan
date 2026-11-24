@@ -56,6 +56,7 @@
   font-family: "Literata", Georgia, serif;
   font-size: 1.0625rem;
   line-height: 1.78;
+  overflow-x: clip;
 }
 
 /* Consistent accessible focus treatment across all interactive elements */
@@ -66,6 +67,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
+  box-shadow: 0 0 0 4px var(--sm-terracotta-soft);
 }
 
 /* ==========================================================================
@@ -100,7 +102,10 @@
 
 :root[data-variant="17-sa-mac"] .kt-header > span {
   border-radius: 2px;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--sm-ochre);
+  background: var(--sm-ochre-soft);
+  color: var(--ink);
+  padding: 0.22rem 0.65rem;
 }
 
 @media (min-width: 48rem) {
@@ -166,7 +171,19 @@
   border: 1px solid var(--rule);
   border-top: 3px solid var(--accent);
   background: var(--card);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 0 20px 48px var(--sm-shadow);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="17-sa-mac"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="17-sa-mac"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="17-sa-mac"] .kt-picker nav {
@@ -341,7 +358,12 @@
 /* Draft / notice banner on home */
 :root[data-variant="17-sa-mac"] .kt-home > p {
   border-radius: 2px;
-  border-left: 3px solid var(--sm-ochre);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--sm-ochre);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.15rem;
 }
 
 /* "Bắt đầu đọc" — Sun-baked sandstone monolith slab */
@@ -657,6 +679,8 @@
     position: sticky;
     top: 1.75rem;
     align-self: start;
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
   }
 }
 
@@ -863,6 +887,16 @@
   color: var(--ink);
 }
 
+/* Primary source text inside #nguyen-van — warm sun-baked sandstone block */
+:root[data-variant="17-sa-mac"] #nguyen-van .kt-note-body > p {
+  background: var(--side);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--sm-ochre);
+  border-radius: 2px;
+  padding: 1.05rem 1.25rem;
+  line-height: 1.88;
+}
+
 /* Commentator opinions — Carved sandstone clay tablets */
 :root[data-variant="17-sa-mac"] .kt-opinion {
   background: var(--paper);
@@ -922,6 +956,12 @@
   color: var(--ink);
 }
 
+:root[data-variant="17-sa-mac"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--rule);
+}
+
 /* Reference Popover */
 :root[data-variant="17-sa-mac"] .kt-ref-popover {
   border-radius: 3px;
@@ -949,20 +989,24 @@
 
 :root[data-variant="17-sa-mac"] .kt-ref-popover button {
   margin-top: 1rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 0.1rem;
 }
 
 :root[data-variant="17-sa-mac"] .kt-ref-popover button:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--paper);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ==========================================================================
