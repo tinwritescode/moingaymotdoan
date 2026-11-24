@@ -49,6 +49,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 0;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 :root[data-variant="03-thuy-si"] mark {
@@ -103,11 +104,11 @@
   background: var(--paper);
   color: var(--ink);
   font-weight: 700;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  min-height: 2.35rem;
-  padding: 0 0.75rem;
+  min-height: 2.5rem;
+  padding: 0 0.8rem;
 }
 
 :root[data-variant="03-thuy-si"] .kt-header > button[popovertarget]:hover {
@@ -133,9 +134,9 @@
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
-  min-height: 2.35rem;
-  padding: 0 0.7rem;
-  font-size: 0.72rem;
+  min-height: 2.5rem;
+  padding: 0 0.78rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -159,10 +160,16 @@
   opacity: 0.7;
 }
 
-:root[data-variant="03-thuy-si"] .kt-header > span {
+:root[data-variant="03-thuy-si"] .kt-header > span.rounded-full {
   border-radius: 0;
-  font-size: 0.7rem;
-  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--vua);
+  background: var(--side);
+  color: var(--vua);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -173,6 +180,7 @@
   border-top: 4px solid var(--accent);
   background: var(--card);
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 8px 8px 0 0 rgb(0 0 0 / 0.14);
 }
 
@@ -184,10 +192,12 @@
 @media (max-width: 639px) {
   :root[data-variant="03-thuy-si"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="03-thuy-si"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -322,9 +332,15 @@
 }
 
 /* Draft banner on home */
-:root[data-variant="03-thuy-si"] .kt-home > p {
+:root[data-variant="03-thuy-si"] .kt-home > p.rounded {
   border-radius: 0;
+  border: 1px solid var(--rule);
   border-left: 4px solid var(--vua);
+  background: var(--side);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.65;
+  padding: 0.9rem 1.25rem;
 }
 
 /* ── Home: Start Here (asymmetric giant numeral block) ────────────────────── */
@@ -799,13 +815,21 @@
 }
 
 :root[data-variant="03-thuy-si"] .kt-note-heading > span {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--muted);
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--ink);
 }
 
 :root[data-variant="03-thuy-si"] .kt-note[open] .kt-note-heading > span {
-  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--paper);
 }
 
 :root[data-variant="03-thuy-si"] .kt-note-body {
@@ -817,8 +841,10 @@
 }
 
 :root[data-variant="03-thuy-si"] #nguyen-van .kt-note-body > p {
+  background: var(--side);
+  border: 1px solid var(--rule);
   border-left: 3px solid var(--ink);
-  padding-left: 1.25rem;
+  padding: 1.1rem 1.25rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -994,6 +1020,7 @@
   font-weight: 700;
   text-transform: none;
   letter-spacing: 0;
+  min-height: 2.25rem;
   cursor: pointer;
 }
 
