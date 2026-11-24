@@ -178,12 +178,13 @@
 }
 
 /* Draft badge in header */
-:root[data-variant="27-sach-cu"] .kt-header > span {
+:root[data-variant="27-sach-cu"] .kt-header > span.rounded-full {
   font-family: "Literata", Georgia, serif;
   border-radius: 0;
   border: 1px solid var(--vua);
   background-color: var(--side);
   color: var(--vua);
+  padding: 0.22rem 0.65rem;
 }
 
 /* Page-turner folio links */
@@ -228,10 +229,12 @@
 @media (max-width: 639px) {
   :root[data-variant="27-sach-cu"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="27-sach-cu"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -295,7 +298,8 @@
   border: 3px double var(--sach-cu-rule-strong);
   background-color: var(--paper);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
   padding: 0.85rem 1.15rem;
 }
 
@@ -582,6 +586,9 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: "Literata", Georgia, serif;
   font-style: italic;
   font-size: 0.9rem;
@@ -929,17 +936,29 @@
   flex-shrink: 0;
 }
 
-:root[data-variant="27-sach-cu"] .kt-note-heading span {
-  margin-left: auto;
-}
-
 :root[data-variant="27-sach-cu"] .kt-note-heading:hover {
   color: var(--accent);
 }
 
-:root[data-variant="27-sach-cu"] .kt-note-heading span {
+:root[data-variant="27-sach-cu"] .kt-note-heading > span {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  flex-shrink: 0;
+  border: 1px solid var(--rule);
+  background-color: var(--paper);
   font-family: "Literata", Georgia, serif;
   color: var(--accent);
+  font-size: 0.95rem;
+}
+
+:root[data-variant="27-sach-cu"] .kt-note[open] > .kt-note-heading > span {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--card);
 }
 
 :root[data-variant="27-sach-cu"] .kt-note-body {
@@ -1168,6 +1187,7 @@
 }
 
 :root[data-variant="27-sach-cu"] .kt-switcher select {
+  min-height: 2.25rem;
   font-family: "Literata", Georgia, serif;
   background-color: var(--card);
   color: var(--ink);
@@ -1181,11 +1201,8 @@
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="27-sach-cu"] a,
   :root[data-variant="27-sach-cu"] button,
-  :root[data-variant="27-sach-cu"] .kt-note-heading {
-    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
-  }
-
-  :root[data-variant="27-sach-cu"] .kt-note-heading span {
-    transition: transform 180ms ease;
+  :root[data-variant="27-sach-cu"] .kt-note-heading,
+  :root[data-variant="27-sach-cu"] .kt-note-heading > span {
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease, transform 180ms ease;
   }
 }
