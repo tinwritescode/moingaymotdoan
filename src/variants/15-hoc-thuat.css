@@ -64,10 +64,16 @@
   overflow-x: clip;
 }
 
+:root[data-variant="15-hoc-thuat"] ::selection {
+  background-color: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="15-hoc-thuat"] :is(a, button, summary, select, input):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 1px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -152,6 +158,7 @@
   font-style: italic;
   color: var(--muted);
   gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-crumbs a {
@@ -172,7 +179,7 @@
 }
 
 /* Draft status stamp in header */
-:root[data-variant="15-hoc-thuat"] .kt-header > span {
+:root[data-variant="15-hoc-thuat"] .kt-header > span.rounded-full {
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--vua) 45%, transparent);
   font-family: var(--kt-tex-serif);
@@ -221,10 +228,12 @@
 @media (max-width: 639px) {
   :root[data-variant="15-hoc-thuat"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="15-hoc-thuat"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -284,7 +293,7 @@
 }
 
 /* Draft mode notice banner on home */
-:root[data-variant="15-hoc-thuat"] .kt-home > p {
+:root[data-variant="15-hoc-thuat"] .kt-home > p.rounded {
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--vua) 50%, transparent);
   border-left: 3px solid var(--vua);
@@ -1059,9 +1068,22 @@
 
 :root[data-variant="15-hoc-thuat"] .kt-note-heading > span:last-child {
   margin-left: auto;
+  display: inline-grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1px solid var(--rule);
+  background-color: var(--card);
   font-family: var(--kt-tex-serif);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
+  flex-shrink: 0;
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-note[open] > .kt-note-heading > span:last-child {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--side);
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-note-body {
@@ -1258,7 +1280,8 @@
   font-family: var(--kt-tex-mono);
   font-variant-caps: normal;
   letter-spacing: 0;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  min-height: 2.25rem;
   background-color: var(--paper);
   color: var(--ink);
 }
