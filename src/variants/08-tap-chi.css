@@ -98,6 +98,10 @@
   flex-wrap: wrap;
 }
 
+:root[data-variant="08-tap-chi"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="08-tap-chi"] .kt-brand span {
   font-family: var(--font-sans);
   font-size: 0.6875rem;
@@ -150,6 +154,11 @@
 :root[data-variant="08-tap-chi"] .kt-crumbs a:hover {
   color: var(--accent);
   border-bottom-color: var(--accent);
+}
+
+:root[data-variant="08-tap-chi"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* Draft status pill in header (dev mode) — square editorial tag, wraps safely */
@@ -1062,6 +1071,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="08-tap-chi"] .kt-opinion p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px dotted var(--rule);
+}
+
 :root[data-variant="08-tap-chi"] .kt-opinion p:last-child span {
   border-radius: 0;
   letter-spacing: 0.08em;
@@ -1219,6 +1234,11 @@
   max-width: min(13rem, 52vw);
 }
 
+:root[data-variant="08-tap-chi"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* --------------------------------------------------------------------------
    12. Motion (strictly inside prefers-reduced-motion: no-preference)
    -------------------------------------------------------------------------- */
@@ -1239,11 +1259,13 @@
     animation: kt-tap-chi-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  :root[data-variant="08-tap-chi"] .kt-brand,
   :root[data-variant="08-tap-chi"] .kt-header > button[popovertarget],
   :root[data-variant="08-tap-chi"] a.kt-pager,
   :root[data-variant="08-tap-chi"] .kt-start-cta,
   :root[data-variant="08-tap-chi"] .kt-books-link > span:first-child,
   :root[data-variant="08-tap-chi"] .kt-toc ol a,
+  :root[data-variant="08-tap-chi"] .kt-ref,
   :root[data-variant="08-tap-chi"] .kt-note-heading,
   :root[data-variant="08-tap-chi"] .kt-note-heading > span,
   :root[data-variant="08-tap-chi"] .kt-picker nav button,
