@@ -72,10 +72,16 @@
   overflow-x: clip;
 }
 
+:root[data-variant="16-ung-dung"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="16-ung-dung"] :is(a, button, summary, select):focus-visible {
   outline: 2.5px solid var(--accent);
   outline-offset: 2px;
   border-radius: 0.75rem;
+  box-shadow: 0 0 0 4px var(--ud-teal-soft);
 }
 
 /* Sticky compact app header (sticky from tablet up so phones keep reading space) */
@@ -179,6 +185,10 @@
   line-height: 1.35;
   padding: 0.25rem 0.7rem;
   border-radius: 9999px;
+  background: var(--side);
+  border: 1px solid var(--ud-teal-border);
+  color: var(--vua);
+  font-weight: 600;
 }
 
 /* Prev / Next pill buttons */
@@ -252,10 +262,12 @@
 
   :root[data-variant="16-ung-dung"] .kt-picker nav {
     max-height: 28dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="16-ung-dung"] .kt-picker > div {
     max-height: 44dvh;
+    overflow-y: auto;
   }
 }
 
@@ -408,6 +420,12 @@
 /* Draft banner on home */
 :root[data-variant="16-ung-dung"] .kt-home > p.rounded {
   border-radius: 1rem;
+  background: var(--card);
+  border: 1px solid var(--ud-teal-border);
+  border-left: 4px solid var(--vua);
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
   padding: 0.75rem 1rem;
   box-shadow: var(--ud-shadow-sm);
 }
@@ -635,8 +653,8 @@
 :root[data-variant="16-ung-dung"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
-  padding: 0.25rem 0.75rem;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.85rem;
   border-radius: 9999px;
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -1239,6 +1257,7 @@
 }
 
 :root[data-variant="16-ung-dung"] .kt-switcher select {
+  min-height: 2.25rem;
   background: transparent;
   color: var(--ink);
   font-weight: 700;
