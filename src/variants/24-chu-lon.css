@@ -263,6 +263,11 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
+:root[data-variant="24-chu-lon"] .kt-picker::backdrop,
+:root[data-variant="24-chu-lon"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
 :root[data-variant="24-chu-lon"] .kt-picker > nav {
   max-height: 18rem;
   overflow-y: auto;
@@ -307,6 +312,12 @@
   background: var(--accent);
   border-color: var(--accent);
   color: var(--paper);
+}
+
+:root[data-variant="24-chu-lon"] .kt-picker > nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--accent);
 }
 
 :root[data-variant="24-chu-lon"] .kt-picker > nav button[aria-pressed="true"] span:last-child {
@@ -1045,6 +1056,10 @@
   color: var(--accent);
 }
 
+:root[data-variant="24-chu-lon"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.75rem;
+}
+
 :root[data-variant="24-chu-lon"] .kt-ref-popover button {
   display: inline-flex;
   align-items: center;
@@ -1187,6 +1202,11 @@
   color: var(--ink);
 }
 
+:root[data-variant="24-chu-lon"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="24-chu-lon"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 /* Draft opinion metadata badges (only when a second paragraph exists) */
 :root[data-variant="24-chu-lon"] .kt-opinion > p + p {
   margin-top: 1rem;
@@ -1209,6 +1229,8 @@
 
 :root[data-variant="24-chu-lon"] .kt-byline {
   margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1.5px solid var(--rule);
   font-family: "Inter", system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.65;
@@ -1289,6 +1311,11 @@
   font-weight: 600;
 }
 
+:root[data-variant="24-chu-lon"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 /* -------------------------------------------------------------------------- */
 /* 7. Reduced-Motion Safe Transitions                                         */
 /* -------------------------------------------------------------------------- */
@@ -1296,17 +1323,20 @@
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="24-chu-lon"] .kt-pager,
   :root[data-variant="24-chu-lon"] .kt-header > button[popovertarget],
+  :root[data-variant="24-chu-lon"] .kt-crumbs a,
   :root[data-variant="24-chu-lon"] .kt-hero a,
   :root[data-variant="24-chu-lon"] .kt-start-cta,
   :root[data-variant="24-chu-lon"] .kt-books-link,
   :root[data-variant="24-chu-lon"] .kt-book > div:first-child a,
   :root[data-variant="24-chu-lon"] .kt-chapter-link,
+  :root[data-variant="24-chu-lon"] .kt-picker > nav button,
   :root[data-variant="24-chu-lon"] .kt-picker > div ol a,
   :root[data-variant="24-chu-lon"] .kt-toc a,
   :root[data-variant="24-chu-lon"] .kt-note-heading,
   :root[data-variant="24-chu-lon"] .kt-note-heading > span,
   :root[data-variant="24-chu-lon"] .kt-ref,
-  :root[data-variant="24-chu-lon"] .kt-ref-popover button {
+  :root[data-variant="24-chu-lon"] .kt-ref-popover button,
+  :root[data-variant="24-chu-lon"] .kt-footer a {
     transition:
       background-color 150ms ease,
       border-color 150ms ease,
