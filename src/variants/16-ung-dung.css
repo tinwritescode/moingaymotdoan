@@ -276,10 +276,23 @@
   padding: 0.65rem;
 }
 
+:root[data-variant="16-ung-dung"] .kt-picker nav p {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  padding-inline: 0.5rem;
+}
+
 :root[data-variant="16-ung-dung"] .kt-picker nav button {
   border-radius: 9999px;
   padding: 0.5rem 0.9rem;
   font-weight: 500;
+}
+
+:root[data-variant="16-ung-dung"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--ud-teal-soft);
+  color: var(--accent);
 }
 
 :root[data-variant="16-ung-dung"] .kt-picker nav button[aria-pressed="true"] {
@@ -298,6 +311,8 @@
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="16-ung-dung"] .kt-picker ol a {
@@ -1240,6 +1255,11 @@
   text-underline-offset: 3px;
 }
 
+:root[data-variant="16-ung-dung"] .kt-footer a:hover {
+  color: var(--ud-accent-hover);
+  text-decoration-color: var(--ud-accent-hover);
+}
+
 :root[data-variant="16-ung-dung"] .kt-switcher {
   right: 0.85rem;
   bottom: 0.85rem;
@@ -1258,6 +1278,7 @@
 
 :root[data-variant="16-ung-dung"] .kt-switcher select {
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
   font-weight: 700;
@@ -1290,7 +1311,10 @@
   :root[data-variant="16-ung-dung"] .kt-note-heading > span,
   :root[data-variant="16-ung-dung"] .kt-hero a[href="/ebook"],
   :root[data-variant="16-ung-dung"] .kt-header > button[popovertarget],
+  :root[data-variant="16-ung-dung"] .kt-crumbs a,
+  :root[data-variant="16-ung-dung"] .kt-book > div:first-child a,
   :root[data-variant="16-ung-dung"] .kt-toc a,
+  :root[data-variant="16-ung-dung"] .kt-picker nav button,
   :root[data-variant="16-ung-dung"] .kt-picker ol a,
   :root[data-variant="16-ung-dung"] .kt-ref-popover > button {
     transition:
