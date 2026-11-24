@@ -146,6 +146,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-header button[popovertarget] {
+  min-height: 2.5rem;
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
@@ -197,6 +198,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-pager {
+  min-height: 2.5rem;
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
@@ -242,10 +244,12 @@
 @media (max-width: 639px) {
   :root[data-variant="26-terminal"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="26-terminal"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -304,7 +308,8 @@
   border-left: 4px solid var(--vua);
   background: var(--side);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
   padding: 0.85rem 1.1rem;
 }
 
@@ -619,6 +624,18 @@
 :root[data-variant="26-terminal"] .kt-book-name::after {
   content: " ] ==";
   color: var(--accent);
+}
+
+:root[data-variant="26-terminal"] .kt-book > div a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding-inline: 0.5rem;
+}
+
+:root[data-variant="26-terminal"] .kt-book > div a:hover {
+  background: var(--t26-inv-bg);
+  color: var(--t26-inv-fg);
 }
 
 :root[data-variant="26-terminal"] .kt-chapter-list {
@@ -980,10 +997,12 @@
   border-bottom: 1px solid var(--rule);
   background: var(--card);
   box-shadow: 4px 4px 0 var(--t26-shadow);
+  counter-reset: kt-term-note;
 }
 
 :root[data-variant="26-terminal"] .kt-note {
   border-top: 1px dashed var(--rule);
+  counter-increment: kt-term-note;
 }
 
 :root[data-variant="26-terminal"] .kt-note:first-child {
@@ -1006,7 +1025,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-note-heading::before {
-  content: "[+]";
+  content: counter(kt-term-note, decimal-leading-zero) ":";
   margin-right: 0.6rem;
   color: var(--accent);
   font-weight: 800;
@@ -1019,17 +1038,28 @@
   color: var(--accent);
 }
 
-:root[data-variant="26-terminal"] .kt-note[open] > .kt-note-heading::before {
-  content: "[-]";
-}
-
 :root[data-variant="26-terminal"] .kt-note-heading:hover {
   background: var(--side);
 }
 
 :root[data-variant="26-terminal"] .kt-note-heading > span {
   margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  flex-shrink: 0;
+  border: 1px solid var(--rule);
+  background: var(--paper);
   color: var(--accent);
+  font-weight: 800;
+}
+
+:root[data-variant="26-terminal"] .kt-note[open] > .kt-note-heading > span {
+  background: var(--t26-inv-bg);
+  border-color: var(--accent);
+  color: var(--t26-inv-fg);
 }
 
 :root[data-variant="26-terminal"] .kt-note-body {
@@ -1107,6 +1137,12 @@
     position: sticky;
     top: 1.5rem;
     max-height: calc(100dvh - 3rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  :root[data-variant="26-terminal"] .kt-aside > div {
     overflow-y: auto;
   }
 }
@@ -1184,6 +1220,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-switcher select {
+  min-height: 2.25rem;
   border-radius: 0;
   background: var(--card);
   color: var(--ink);
