@@ -94,6 +94,15 @@
   color: #111111;
 }
 
+:root[data-variant="09-tho-rap"] mark {
+  background: var(--tr-yellow);
+  color: #111111;
+  border: 1.5px solid var(--tr-border);
+  border-radius: 0;
+  padding: 0.03em 0.22em;
+  font-weight: 700;
+}
+
 /* Sharp brutalist focus indicators everywhere */
 :root[data-variant="09-tho-rap"] a:focus-visible,
 :root[data-variant="09-tho-rap"] button:focus-visible,
@@ -137,6 +146,11 @@
   letter-spacing: -0.02em;
   text-transform: uppercase;
   text-decoration: none;
+}
+
+:root[data-variant="09-tho-rap"] .kt-brand:hover {
+  background: var(--tr-acid);
+  color: #111111;
 }
 
 :root[data-variant="09-tho-rap"] .kt-brand span {
@@ -189,6 +203,11 @@
   background: var(--tr-yellow);
   color: #111111;
   text-decoration: none;
+}
+
+:root[data-variant="09-tho-rap"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 800;
 }
 
 /* Draft status pill inside header */
@@ -979,6 +998,12 @@
   letter-spacing: 0.03em;
 }
 
+:root[data-variant="09-tho-rap"] .kt-opinion p + p {
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1.5px dashed var(--tr-border);
+}
+
 :root[data-variant="09-tho-rap"] .kt-opinion p:last-child span {
   border-radius: 0;
   font-family: var(--tr-mono);
@@ -1244,6 +1269,11 @@
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: none;
+}
+
+:root[data-variant="09-tho-rap"] .kt-switcher select option {
+  background-color: #ffffff;
+  color: #111111;
 }
 
 /* ==========================================================================
