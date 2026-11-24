@@ -69,6 +69,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="15-hoc-thuat"] mark {
+  background-color: var(--mark);
+  color: var(--ink);
+  border-radius: 0;
+  border-bottom: 1px dotted var(--accent);
+  padding: 0.03em 0.18em;
+}
+
 :root[data-variant="15-hoc-thuat"] :is(a, button, summary, select, input):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -96,12 +104,17 @@
   :root[data-variant="15-hoc-thuat"] .kt-ref,
   :root[data-variant="15-hoc-thuat"] .kt-pager,
   :root[data-variant="15-hoc-thuat"] .kt-header button[popovertarget],
+  :root[data-variant="15-hoc-thuat"] .kt-crumbs a,
   :root[data-variant="15-hoc-thuat"] .kt-start-cta,
+  :root[data-variant="15-hoc-thuat"] .kt-hero > p:nth-of-type(3) a,
+  :root[data-variant="15-hoc-thuat"] .kt-book > div:first-child a,
   :root[data-variant="15-hoc-thuat"] .kt-toc a,
   :root[data-variant="15-hoc-thuat"] .kt-note-heading,
   :root[data-variant="15-hoc-thuat"] .kt-note-heading > span:last-child,
   :root[data-variant="15-hoc-thuat"] .kt-ref-popover > button,
-  :root[data-variant="15-hoc-thuat"] .kt-picker ol a {
+  :root[data-variant="15-hoc-thuat"] .kt-picker nav button,
+  :root[data-variant="15-hoc-thuat"] .kt-picker ol a,
+  :root[data-variant="15-hoc-thuat"] .kt-footer a {
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 }
@@ -233,6 +246,11 @@
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
 }
 
+:root[data-variant="15-hoc-thuat"] .kt-picker::backdrop,
+:root[data-variant="15-hoc-thuat"] .kt-ref-popover::backdrop {
+  background-color: color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="15-hoc-thuat"] .kt-picker nav {
     max-height: 30dvh;
@@ -274,6 +292,11 @@
   color: var(--accent);
   border-left: 2px solid var(--accent);
   font-weight: 600;
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background-color: var(--side);
+  color: var(--accent);
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-picker > div > p {
@@ -1169,6 +1192,13 @@
   font-variant-numeric: lining-nums tabular-nums;
 }
 
+:root[data-variant="15-hoc-thuat"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="15-hoc-thuat"] .kt-opinion > strong:first-child {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
 :root[data-variant="15-hoc-thuat"] .kt-opinion > p:nth-of-type(2) {
   margin-top: 0.65rem;
   padding-top: 0.5rem;
@@ -1187,6 +1217,8 @@
 /* Byline -> Scholarly Provenance Colophon */
 :root[data-variant="15-hoc-thuat"] .kt-byline {
   margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px dotted var(--rule);
   font-family: var(--kt-tex-serif);
   font-size: 0.88rem;
   font-style: italic;
@@ -1314,6 +1346,11 @@
   font-size: 0.78rem;
   min-height: 2.25rem;
   max-width: min(13rem, 52vw);
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-switcher select option {
   background-color: var(--paper);
   color: var(--ink);
 }
