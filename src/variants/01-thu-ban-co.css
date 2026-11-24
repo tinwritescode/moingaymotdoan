@@ -201,8 +201,8 @@
   background: var(--card);
   color: var(--ink);
   box-shadow: inset 0 0 0 2px var(--card), inset 0 0 0 3px var(--tbc-gold-soft);
-  min-height: 2.5rem;
-  padding-inline: 0.9rem;
+  min-height: 2.75rem;
+  padding-inline: 0.95rem;
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-header > button[popovertarget]:hover,
@@ -280,6 +280,8 @@
 :root[data-variant="01-thu-ban-co"] .kt-picker nav button {
   border-radius: 2px;
   font-family: var(--font-serif);
+  color: var(--ink);
+  min-height: 2.75rem;
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
@@ -302,10 +304,17 @@
   padding-bottom: 0.45rem;
 }
 
+:root[data-variant="01-thu-ban-co"] .kt-picker > div > p::before {
+  content: "❖ ";
+  color: var(--tbc-gold);
+  font-size: 0.78em;
+}
+
 :root[data-variant="01-thu-ban-co"] .kt-picker ol a {
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--paper);
+  color: var(--ink);
   font-variant-numeric: lining-nums;
   font-weight: 600;
 }
@@ -492,7 +501,7 @@
 :root[data-variant="01-thu-ban-co"] .kt-hero > p a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--font-serif);
   font-style: italic;
   color: var(--accent);
@@ -684,9 +693,15 @@
 
 :root[data-variant="01-thu-ban-co"] .kt-books-link {
   min-height: 3.75rem;
-  padding-block: 0.75rem;
+  padding: 0.75rem 0.35rem;
   gap: 0.25rem 0.85rem;
   align-items: baseline;
+  border-left: 2px solid transparent;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-books-link:hover {
+  background: color-mix(in srgb, var(--tbc-rubric-wash) 45%, transparent);
+  border-left-color: var(--accent);
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-books-link > span:first-child {
@@ -751,7 +766,7 @@
 :root[data-variant="01-thu-ban-co"] .kt-book > div > a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.875rem;
@@ -794,7 +809,8 @@
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-chapter-link {
-  align-items: baseline;
+  min-height: 2.75rem;
+  align-items: center;
   gap: 0.75rem;
   font-size: 1rem;
   color: var(--ink);
