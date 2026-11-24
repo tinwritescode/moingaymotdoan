@@ -68,6 +68,11 @@
   }
 }
 
+:root[data-variant="24-chu-lon"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="24-chu-lon"] :where(a, button, summary, select, [tabindex]):focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
@@ -188,7 +193,7 @@
 }
 
 /* Draft status pill inside header (dev mode) */
-:root[data-variant="24-chu-lon"] .kt-header > span {
+:root[data-variant="24-chu-lon"] .kt-header > span.rounded-full {
   width: 100%;
   border-radius: 0.75rem;
   border: 2px solid var(--vua);
@@ -445,7 +450,7 @@
 }
 
 /* Draft banner on home page */
-:root[data-variant="24-chu-lon"] .kt-home > p {
+:root[data-variant="24-chu-lon"] .kt-home > p.rounded {
   margin-top: 1.5rem;
   padding: 1rem 1.25rem;
   border: 2px solid var(--vua);
@@ -496,6 +501,7 @@
 
 :root[data-variant="24-chu-lon"] .kt-start-title {
   margin-top: 0.75rem;
+  padding-right: 4rem;
   font-family: "Literata", Georgia, serif;
   font-size: clamp(2rem, 1.75rem + 1.2vw, 2.75rem);
   line-height: 1.22;
@@ -1254,7 +1260,7 @@
 
 :root[data-variant="24-chu-lon"] .kt-switcher select {
   min-height: 3rem;
-  max-width: 13.5rem;
+  max-width: min(13.5rem, 54vw);
   padding: 0.25rem 0.5rem;
   border: 1.5px solid var(--rule);
   border-radius: 0.5rem;
@@ -1270,13 +1276,16 @@
 
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="24-chu-lon"] .kt-pager,
+  :root[data-variant="24-chu-lon"] .kt-header > button[popovertarget],
+  :root[data-variant="24-chu-lon"] .kt-hero a,
   :root[data-variant="24-chu-lon"] .kt-start-cta,
   :root[data-variant="24-chu-lon"] .kt-books-link,
   :root[data-variant="24-chu-lon"] .kt-chapter-link,
   :root[data-variant="24-chu-lon"] .kt-toc a,
   :root[data-variant="24-chu-lon"] .kt-note-heading,
   :root[data-variant="24-chu-lon"] .kt-note-heading > span,
-  :root[data-variant="24-chu-lon"] .kt-ref {
+  :root[data-variant="24-chu-lon"] .kt-ref,
+  :root[data-variant="24-chu-lon"] .kt-ref-popover button {
     transition:
       background-color 150ms ease,
       border-color 150ms ease,
