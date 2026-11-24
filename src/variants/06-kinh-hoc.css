@@ -49,6 +49,11 @@
   overflow-x: clip;
 }
 
+:root[data-variant="06-kinh-hoc"] ::selection {
+  background-color: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="06-kinh-hoc"] :is(a, button, summary, select, input):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -126,6 +131,7 @@
   font-size: 0.9rem;
   gap: 0.45rem;
   align-items: baseline;
+  flex-wrap: wrap;
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-crumbs a {
@@ -236,6 +242,14 @@
   background-color: var(--card);
   color: var(--accent);
   border-left: 2px solid var(--accent);
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-picker > div > p {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--ink);
+  border-bottom: 3px double var(--rule);
+  padding-bottom: 0.45rem;
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-picker ol a {
@@ -361,6 +375,26 @@
   font-size: 1rem;
   line-height: 1.65;
   color: var(--muted);
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-hero > p a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.2rem 0.55rem;
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-hero > p a:hover {
+  background-color: var(--side);
+  border-bottom-color: var(--accent);
 }
 
 /* Featured Opening Pericope Box */
@@ -539,6 +573,25 @@
 :root[data-variant="06-kinh-hoc"] .kt-book > div:first-child {
   border-bottom: 3px double var(--rule);
   padding-bottom: 0.5rem;
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-book > div:first-child a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-book-name {
@@ -967,20 +1020,20 @@
   margin-left: auto;
   display: inline-grid;
   place-items: center;
-  width: 1.65rem;
-  height: 1.65rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--rule);
   border-radius: 2px;
   background-color: var(--card);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-note[open] > .kt-note-heading > span:last-child {
   border-color: var(--accent);
-  color: var(--accent);
-  background-color: var(--side);
+  background-color: var(--accent);
+  color: var(--paper);
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-note-heading:hover {
