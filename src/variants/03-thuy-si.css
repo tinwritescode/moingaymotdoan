@@ -77,6 +77,7 @@
 :root[data-variant="03-thuy-si"] .kt-brand {
   display: inline-flex;
   align-items: center;
+  min-height: 2.75rem;
   gap: 0.5rem;
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -207,7 +208,14 @@
 
 :root[data-variant="03-thuy-si"] .kt-picker::backdrop,
 :root[data-variant="03-thuy-si"] .kt-ref-popover::backdrop {
-  background: color-mix(in srgb, var(--ink) 24%, transparent);
+  background: rgba(17, 17, 17, 0.36);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-variant="03-thuy-si"] .kt-picker::backdrop,
+  :root[data-variant="03-thuy-si"] .kt-ref-popover::backdrop {
+    background: rgba(0, 0, 0, 0.68);
+  }
 }
 
 :root[data-variant="03-thuy-si"] .kt-picker nav {
@@ -287,6 +295,7 @@
 }
 
 :root[data-variant="03-thuy-si"] .kt-picker ol a {
+  min-height: 2.75rem;
   border-radius: 0;
   border-color: var(--rule);
   background: var(--paper);
@@ -853,6 +862,7 @@
 :root[data-variant="03-thuy-si"] .kt-note {
   counter-increment: kt-swiss-note;
   border-top: 1px solid var(--rule);
+  scroll-margin-top: 1.5rem;
 }
 
 :root[data-variant="03-thuy-si"] .kt-note:first-child {
@@ -860,7 +870,7 @@
 }
 
 :root[data-variant="03-thuy-si"] .kt-note[open] {
-  border-top-color: var(--accent);
+  border-top: 2px solid var(--accent);
 }
 
 :root[data-variant="03-thuy-si"] .kt-note-heading {
@@ -1020,18 +1030,23 @@
   font-family: var(--font-sans);
   font-weight: 600;
   color: var(--accent);
+  padding: 0 0.16em;
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
 
-:root[data-variant="03-thuy-si"] .kt-ref:hover,
-:root[data-variant="03-thuy-si"] .kt-ref[aria-expanded="true"] {
+:root[data-variant="03-thuy-si"] .kt-ref:hover {
   background: var(--accent);
   color: var(--paper);
   text-decoration: none;
-  padding: 0 0.2em;
+}
+
+:root[data-variant="03-thuy-si"] .kt-ref[aria-expanded="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
 }
 
 :root[data-variant="03-thuy-si"] .kt-ref-popover {
