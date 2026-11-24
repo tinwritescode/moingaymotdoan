@@ -943,6 +943,13 @@
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.06em;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid var(--ud-teal-border);
+}
+
+:root[data-variant="16-ung-dung"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="16-ung-dung"] .kt-verse-number {
@@ -1007,6 +1014,7 @@
 }
 
 :root[data-variant="16-ung-dung"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
   border-bottom: 1px solid var(--ud-teal-border);
 }
 
@@ -1029,7 +1037,7 @@
 }
 
 :root[data-variant="16-ung-dung"] .kt-note-body {
-  padding: 0.15rem 1.25rem 1.35rem;
+  padding: 0.9rem 1.25rem 1.35rem;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 1.02rem;
   line-height: 1.76;
@@ -1043,7 +1051,7 @@
   }
 
   :root[data-variant="16-ung-dung"] .kt-note-body {
-    padding: 0.15rem 1.5rem 1.5rem;
+    padding: 1rem 1.5rem 1.5rem;
   }
 }
 
@@ -1065,6 +1073,7 @@
 :root[data-variant="16-ung-dung"] .kt-opinion {
   border-radius: 1.1rem;
   background: var(--paper);
+  color: var(--ink);
   border: 1px solid var(--rule);
   padding: 1rem 1.15rem;
   font-size: 1rem;
@@ -1151,6 +1160,11 @@
   margin-top: 0.8rem;
   padding-top: 0.8rem;
   border-top: 1px solid var(--ud-teal-border);
+}
+
+:root[data-variant="16-ung-dung"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* ===========================
