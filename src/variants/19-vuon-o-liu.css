@@ -214,6 +214,13 @@
   border-color: var(--rule);
 }
 
+:root[data-variant="19-vuon-o-liu"] .kt-picker nav p {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
 :root[data-variant="19-vuon-o-liu"] .kt-picker nav button {
   border-radius: var(--olive-radius-sm);
 }
@@ -221,7 +228,17 @@
 :root[data-variant="19-vuon-o-liu"] .kt-picker nav button[aria-pressed="true"] {
   background: var(--card);
   color: var(--accent);
+  font-weight: 700;
   box-shadow: var(--olive-shadow-sm);
+}
+
+:root[data-variant="19-vuon-o-liu"] .kt-picker > div > p {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-picker ol a {
@@ -308,6 +325,7 @@
 :root[data-variant="19-vuon-o-liu"] .kt-hero a {
   display: inline-flex;
   align-items: center;
+  min-height: 2.5rem;
   gap: 0.35rem;
   margin-top: 0.45rem;
   padding: 0.45rem 1.05rem;
@@ -972,6 +990,16 @@
   line-height: 1.6;
 }
 
+:root[data-variant="19-vuon-o-liu"] .kt-footer a {
+  color: var(--accent);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="19-vuon-o-liu"] .kt-footer a:hover {
+  color: var(--ink);
+}
+
 :root[data-variant="19-vuon-o-liu"] .kt-switcher {
   border-radius: 1.15rem 0.3rem 1.15rem 0.3rem;
   border: 1px solid var(--rule);
@@ -984,6 +1012,7 @@
 
 :root[data-variant="19-vuon-o-liu"] .kt-switcher select {
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
   font-weight: 500;
@@ -1097,6 +1126,7 @@
   :root[data-variant="19-vuon-o-liu"] .kt-hero a,
   :root[data-variant="19-vuon-o-liu"] .kt-start-cta,
   :root[data-variant="19-vuon-o-liu"] .kt-books-link,
+  :root[data-variant="19-vuon-o-liu"] .kt-book > div a,
   :root[data-variant="19-vuon-o-liu"] .kt-chapter-list > li,
   :root[data-variant="19-vuon-o-liu"] .kt-chapter-link > span:first-child,
   :root[data-variant="19-vuon-o-liu"] .kt-toc a,
