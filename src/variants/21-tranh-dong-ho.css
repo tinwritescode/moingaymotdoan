@@ -210,6 +210,9 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
@@ -906,6 +909,9 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-left: 3px solid transparent;
   border-radius: 2px;
   padding: 0.45rem 0.6rem;
@@ -1367,7 +1373,7 @@
 
 :root[data-variant="21-tranh-dong-ho"] .kt-ref-popover > button {
   margin: 0.65rem 1.25rem 1.15rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.45rem 1.05rem;
   border: 2px solid var(--dh-block);
   border-radius: 3px;
@@ -1422,6 +1428,9 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   font-weight: 700;
   text-underline-offset: 3px;
@@ -1443,7 +1452,7 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: var(--paper);
   color: var(--ink);
