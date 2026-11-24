@@ -1072,6 +1072,7 @@
   background-color: var(--side);
   background-image: radial-gradient(var(--st-dot) 1px, transparent 1px);
   background-size: 14px 14px;
+  color: var(--ink);
   border: 1.5px dashed var(--accent);
   border-radius: 4px;
   padding: 1rem 1.15rem;
@@ -1096,6 +1097,13 @@
   font-family: var(--st-mono);
   color: var(--accent);
   letter-spacing: 0.09em;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px dashed var(--rule);
+}
+
+:root[data-variant="13-so-tay"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="13-so-tay"] .kt-verse-number {
@@ -1193,6 +1201,10 @@
   background-color: var(--side);
 }
 
+:root[data-variant="13-so-tay"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
+}
+
 :root[data-variant="13-so-tay"] .kt-note[open] > .kt-note-heading::before {
   background: var(--accent);
   color: var(--card);
@@ -1249,6 +1261,7 @@
 :root[data-variant="13-so-tay"] .kt-opinion {
   position: relative;
   background-color: var(--card);
+  color: var(--ink);
   background-image:
     linear-gradient(
       to bottom,
@@ -1384,12 +1397,20 @@
   border-top: 1px dashed var(--st-sticky-border);
 }
 
+:root[data-variant="13-so-tay"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
+  background: linear-gradient(to top, var(--st-hl-yellow) 36%, transparent 36%);
+  padding-inline: 0.12em;
+}
+
 /* ==========================================================================
    Reference Popover: floating 3x5 scripture index card
    ========================================================================== */
 
 :root[data-variant="13-so-tay"] .kt-ref-popover {
   background-color: var(--card);
+  color: var(--ink);
   background-image:
     linear-gradient(
       to bottom,
