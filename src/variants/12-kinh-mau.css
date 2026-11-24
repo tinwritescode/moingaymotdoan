@@ -124,6 +124,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="12-kinh-mau"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 0.2rem;
+  border-bottom: 1.5px solid var(--km-amber);
+  padding: 0.04em 0.22em;
+}
+
 /* Universal high-visibility Gothic focus ring */
 :root[data-variant="12-kinh-mau"] a:focus-visible,
 :root[data-variant="12-kinh-mau"] button:focus-visible,
@@ -270,6 +278,11 @@
    BOOK PICKER POPOVER — Leaded Stained-Glass Nave Index
    ========================================================================== */
 
+:root[data-variant="12-kinh-mau"] .kt-picker::backdrop,
+:root[data-variant="12-kinh-mau"] .kt-ref-popover::backdrop {
+  background: rgba(9, 12, 18, 0.54);
+}
+
 :root[data-variant="12-kinh-mau"] .kt-picker {
   border: 2px solid var(--km-lead);
   border-radius: 1.25rem 1.25rem 0.35rem 0.35rem;
@@ -316,6 +329,11 @@
   border-bottom: 1.5px solid var(--km-lead-soft);
   margin: 0.45rem 0.5rem 0.35rem;
   padding: 0.25rem 0.25rem 0.35rem;
+}
+
+:root[data-variant="12-kinh-mau"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--card);
+  color: var(--accent);
 }
 
 :root[data-variant="12-kinh-mau"] .kt-picker nav button[aria-pressed="true"] {
@@ -1257,6 +1275,12 @@
   border-left-color: var(--km-ruby);
 }
 
+:root[data-variant="12-kinh-mau"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="12-kinh-mau"] .kt-opinion > strong:first-child {
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--accent);
+}
+
 :root[data-variant="12-kinh-mau"] .kt-byline {
   margin-top: 1.75rem;
   padding-top: 1rem;
@@ -1446,6 +1470,11 @@
   padding: 0.15rem 0.35rem;
 }
 
+:root[data-variant="12-kinh-mau"] .kt-switcher select option {
+  background-color: var(--km-stone-2);
+  color: var(--km-stone-ink);
+}
+
 /* ==========================================================================
    RESPONSIVE — Tablet & Desktop Cathedral Proportions
    ========================================================================== */
@@ -1527,9 +1556,13 @@
   :root[data-variant="12-kinh-mau"] .kt-chapter-link,
   :root[data-variant="12-kinh-mau"] .kt-toc a,
   :root[data-variant="12-kinh-mau"] .kt-ref,
+  :root[data-variant="12-kinh-mau"] .kt-note-heading,
   :root[data-variant="12-kinh-mau"] .kt-note-heading > span[aria-hidden="true"],
+  :root[data-variant="12-kinh-mau"] .kt-picker nav button,
   :root[data-variant="12-kinh-mau"] .kt-picker ol a,
-  :root[data-variant="12-kinh-mau"] .kt-ref-popover > button {
+  :root[data-variant="12-kinh-mau"] .kt-ref-popover > button,
+  :root[data-variant="12-kinh-mau"] .kt-crumbs a,
+  :root[data-variant="12-kinh-mau"] .kt-footer a {
     transition:
       background-color 180ms ease,
       border-color 180ms ease,
