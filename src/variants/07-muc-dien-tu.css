@@ -122,8 +122,8 @@
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-header > button[popovertarget] {
-  min-height: 2.5rem;
-  padding: 0.25rem 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.8rem;
   border-radius: 0;
   border: 1px solid var(--ink);
   background-color: var(--paper);
@@ -179,8 +179,8 @@
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-pager {
-  min-height: 2.5rem;
-  padding: 0.25rem 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.8rem;
   border-radius: 0;
   border: 1px solid var(--ink);
   background-color: var(--paper);
@@ -252,8 +252,8 @@
 
 :root[data-variant="07-muc-dien-tu"] .kt-picker nav button {
   border-radius: 0;
-  min-height: 2.3rem;
-  padding: 0.3rem 0.55rem;
+  min-height: 2.75rem;
+  padding: 0.35rem 0.55rem;
   border: 1px solid transparent;
   color: var(--ink);
 }
@@ -360,8 +360,8 @@
 :root[data-variant="07-muc-dien-tu"] .kt-hero a[href="/ebook"] {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
-  padding: 0.35rem 0.85rem;
+  min-height: 2.75rem;
+  padding: 0.35rem 0.9rem;
   border: 1px solid var(--ink);
   color: var(--ink);
   font-size: 0.8125rem;
@@ -421,8 +421,8 @@
 
 :root[data-variant="07-muc-dien-tu"] .kt-start-cta {
   margin-top: 1.15rem;
-  min-height: 2.65rem;
-  padding: 0 1.2rem;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
   border-radius: 0;
   border: 1.5px solid var(--ink);
   background-color: var(--ink);
@@ -576,13 +576,13 @@
 :root[data-variant="07-muc-dien-tu"] .kt-book > div a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--eink-mono);
   font-size: 0.78rem;
   color: var(--muted);
   text-decoration: none;
   border: 1px solid var(--rule);
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.7rem;
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-book > div a:hover {
@@ -604,8 +604,9 @@
 
 :root[data-variant="07-muc-dien-tu"] .kt-chapter-link {
   gap: 0.9rem;
-  align-items: baseline;
-  padding: 0.2rem 0.35rem;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0.25rem 0.35rem;
   color: var(--ink);
 }
 
