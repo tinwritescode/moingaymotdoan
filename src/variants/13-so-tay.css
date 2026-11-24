@@ -156,6 +156,10 @@
   border-radius: 0 4px 4px 0;
 }
 
+:root[data-variant="13-so-tay"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="13-so-tay"] .kt-brand span {
   font-family: var(--st-mono);
   font-size: 0.76rem;
@@ -211,6 +215,11 @@
   text-decoration-style: solid;
 }
 
+:root[data-variant="13-so-tay"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 /* Draft status pill inside header: rose washi tag */
 :root[data-variant="13-so-tay"] .kt-header > span.rounded-full {
   background-color: var(--st-tape-rose);
@@ -259,6 +268,10 @@
   font-family: var(--st-mono);
   letter-spacing: 0.12em;
   color: var(--accent);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker nav button {
+  border-radius: 0 6px 6px 0;
 }
 
 :root[data-variant="13-so-tay"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
@@ -1180,6 +1193,12 @@
   background-color: var(--side);
 }
 
+:root[data-variant="13-so-tay"] .kt-note[open] > .kt-note-heading::before {
+  background: var(--accent);
+  color: var(--card);
+  border-color: var(--accent);
+}
+
 :root[data-variant="13-so-tay"] .kt-note-heading > span {
   margin-left: auto;
   width: 2rem;
@@ -1508,6 +1527,7 @@
     }
   }
 
+  :root[data-variant="13-so-tay"] .kt-brand,
   :root[data-variant="13-so-tay"] .kt-toc a,
   :root[data-variant="13-so-tay"] .kt-start-cta,
   :root[data-variant="13-so-tay"] .kt-hero a,
