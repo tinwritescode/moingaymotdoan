@@ -1047,6 +1047,13 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   color: var(--accent);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1.5px solid var(--dh-block);
+}
+
+:root[data-variant="21-tranh-dong-ho"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-verse-number {
@@ -1164,6 +1171,7 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-note[open] .kt-note-heading {
+  color: var(--accent);
   border-bottom: 2px solid var(--dh-block);
 }
 
@@ -1194,6 +1202,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
+}
+
 /* Primary source text inside #nguyen-van */
 :root[data-variant="21-tranh-dong-ho"] #nguyen-van .kt-note-body > p {
   background: var(--side);
@@ -1207,6 +1219,7 @@
 /* Commentator Opinions — Carved Woodcut Commentary Slips */
 :root[data-variant="21-tranh-dong-ho"] .kt-opinion {
   background: var(--card);
+  color: var(--ink);
   border: 2px solid var(--dh-block);
   border-left: 6px solid var(--dh-verdigris);
   border-radius: 3px;
@@ -1289,6 +1302,11 @@
   margin-top: 0.85rem;
   padding-top: 0.85rem;
   border-top: 2px dashed var(--rule);
+}
+
+:root[data-variant="21-tranh-dong-ho"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 800;
 }
 
 /* ==========================================================================
