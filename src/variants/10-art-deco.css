@@ -192,8 +192,8 @@
   letter-spacing: 0.16em;
   font-size: 0.78rem;
   font-weight: 600;
-  min-height: 2.5rem;
-  padding-inline: 1rem;
+  min-height: 2.75rem;
+  padding-inline: 1.05rem;
   box-shadow: inset 0 0 0 2px var(--ad-obsidian), inset 0 0 0 3px var(--ad-gold-soft);
 }
 
@@ -246,8 +246,8 @@
   letter-spacing: 0.12em;
   font-size: 0.76rem;
   font-weight: 600;
-  min-height: 2.5rem;
-  padding-inline: 0.95rem;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
 }
 
 :root[data-variant="10-art-deco"] a.kt-pager:hover {
@@ -298,6 +298,18 @@
   background-repeat: no-repeat;
 }
 
+@media (max-width: 639px) {
+  :root[data-variant="10-art-deco"] .kt-picker nav {
+    max-height: 30dvh;
+    overflow-y: auto;
+  }
+
+  :root[data-variant="10-art-deco"] .kt-picker > div {
+    max-height: 40dvh;
+    overflow-y: auto;
+  }
+}
+
 :root[data-variant="10-art-deco"] .kt-picker nav {
   border-color: var(--ad-gold-line);
   padding: 0.85rem;
@@ -314,6 +326,8 @@
 :root[data-variant="10-art-deco"] .kt-picker nav button {
   border-radius: 0;
   border-left: 2px solid transparent;
+  color: var(--ink);
+  min-height: 2.75rem;
 }
 
 :root[data-variant="10-art-deco"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
@@ -340,13 +354,23 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 1.15rem;
+  color: var(--ink);
   border-bottom: 3px double var(--ad-gold);
   padding-bottom: 0.5rem;
+}
+
+:root[data-variant="10-art-deco"] .kt-picker > div > p::before {
+  content: "◆ ";
+  color: var(--ad-gold);
+  font-size: 0.7em;
+  vertical-align: 0.1em;
 }
 
 :root[data-variant="10-art-deco"] .kt-picker ol a {
   border-radius: 0;
   border: 1px solid var(--ad-gold-line);
+  background-color: var(--paper);
+  color: var(--ink);
   font-variant-numeric: lining-nums tabular-nums;
   font-weight: 600;
 }
@@ -383,8 +407,8 @@
   align-items: center;
   justify-content: center;
   margin-top: 1.1rem;
-  min-height: 2.5rem;
-  padding: 0.45rem 1.2rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 1.25rem;
   border: 1px solid var(--ad-gold);
   background-color: var(--ad-obsidian);
   color: var(--ad-gold-bright);
@@ -509,10 +533,10 @@
 :root[data-variant="10-art-deco"] .kt-hero a[href="/ebook"] {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   gap: 0.45rem;
   margin-top: 0.5rem;
-  padding: 0.45rem 1.15rem;
+  padding: 0.45rem 1.2rem;
   border: 1px solid var(--ad-gold-line);
   background-color: var(--card);
   color: var(--accent);
@@ -835,8 +859,8 @@
 :root[data-variant="10-art-deco"] .kt-book > div:first-child > a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
-  padding: 0.2rem 0.7rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.75rem;
   border: 1px solid var(--ad-gold-soft);
   text-transform: uppercase;
   letter-spacing: 0.18em;
