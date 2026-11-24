@@ -89,6 +89,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="10-art-deco"] mark {
+  border-radius: 0;
+  background-color: var(--mark);
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--ad-gold);
+  padding: 0.04em 0.22em;
+}
+
 :root[data-variant="10-art-deco"] :focus-visible {
   outline: 2px solid var(--ad-gold-bright);
   outline-offset: 3px;
@@ -254,6 +262,11 @@
 /* --------------------------------------------------------------------------
    5. Popovers — Book Picker & Verse Reference Plaque
    -------------------------------------------------------------------------- */
+:root[data-variant="10-art-deco"] .kt-picker::backdrop,
+:root[data-variant="10-art-deco"] .kt-ref-popover::backdrop {
+  background-color: rgba(7, 6, 4, 0.56);
+}
+
 :root[data-variant="10-art-deco"] .kt-picker,
 :root[data-variant="10-art-deco"] .kt-ref-popover {
   border-radius: 0;
@@ -1210,6 +1223,15 @@
   background-repeat: no-repeat;
 }
 
+:root[data-variant="10-art-deco"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="10-art-deco"] .kt-opinion > strong:first-child {
+  font-family: var(--ad-deco-sans);
+  font-size: 0.88em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 :root[data-variant="10-art-deco"] .kt-opinion p:last-child span {
   border-radius: 0;
   letter-spacing: 0.04em;
@@ -1395,6 +1417,11 @@
   letter-spacing: 0.02em;
 }
 
+:root[data-variant="10-art-deco"] .kt-switcher select option {
+  background-color: var(--ad-obsidian-soft);
+  color: var(--ad-gold-bright);
+}
+
 /* --------------------------------------------------------------------------
    14. Mobile Refinements (360px+ safety, zero horizontal overflow, >=16px)
    -------------------------------------------------------------------------- */
@@ -1478,10 +1505,13 @@
   :root[data-variant="10-art-deco"] .kt-note-heading,
   :root[data-variant="10-art-deco"] .kt-note-heading > span[aria-hidden="true"],
   :root[data-variant="10-art-deco"] .kt-ref,
+  :root[data-variant="10-art-deco"] .kt-picker nav button,
   :root[data-variant="10-art-deco"] .kt-picker ol a,
   :root[data-variant="10-art-deco"] .kt-ref-popover > button,
   :root[data-variant="10-art-deco"] .kt-book > div:first-child > a,
-  :root[data-variant="10-art-deco"] .kt-hero a[href="/ebook"] {
+  :root[data-variant="10-art-deco"] .kt-hero a[href="/ebook"],
+  :root[data-variant="10-art-deco"] .kt-crumbs a,
+  :root[data-variant="10-art-deco"] .kt-footer a {
     transition:
       background-color 180ms ease,
       border-color 180ms ease,
