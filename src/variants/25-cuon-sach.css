@@ -923,7 +923,13 @@
   font-size: 0.76rem;
   letter-spacing: 0.14em;
   color: var(--accent);
-  margin-bottom: 0.45rem;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px dotted var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* Raised Verse Numbers */
@@ -990,6 +996,11 @@
   color: var(--accent);
 }
 
+:root[data-variant="25-cuon-sach"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
+  border-bottom: 1px dotted var(--rule);
+}
+
 :root[data-variant="25-cuon-sach"] .kt-note-heading > span {
   display: inline-flex;
   align-items: center;
@@ -1012,12 +1023,16 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-note-body {
-  padding: 0.25rem 0 1.5rem 0.95rem;
+  padding: 0.7rem 0 1.5rem 0.95rem;
   border-left: 2px solid color-mix(in srgb, var(--rule) 75%, transparent);
   margin-left: 0.15rem;
   font-size: 1rem;
   line-height: 1.82;
   color: var(--ink);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 :root[data-variant="25-cuon-sach"] #nguyen-van .kt-note-body > p {
@@ -1034,6 +1049,7 @@
   border: 1px solid var(--rule);
   border-left: 3px solid var(--accent);
   background: var(--side);
+  color: var(--ink);
   padding: 1rem 1.15rem;
 }
 
@@ -1115,6 +1131,11 @@
   margin-top: 0.85rem;
   padding-top: 0.85rem;
   border-top: 1px dotted var(--rule);
+}
+
+:root[data-variant="25-cuon-sach"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* --------------------------------------------------------------------------
