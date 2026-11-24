@@ -74,6 +74,7 @@
 :root[data-variant="19-vuon-o-liu"] :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--olive-wash-strong);
 }
 
 /* Header & top navigation */
@@ -151,6 +152,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="19-vuon-o-liu"] .kt-header > span.rounded-full {
+  border-radius: var(--olive-radius-sm);
+  border: 1px solid var(--rule);
+  background: var(--side);
+  color: var(--accent);
+  padding: 0.22rem 0.7rem;
+}
+
 :root[data-variant="19-vuon-o-liu"] .kt-pager {
   border-radius: var(--olive-radius-sm);
   border-color: var(--rule);
@@ -181,7 +190,19 @@
   border: 1px solid var(--rule);
   border-top: 3px solid var(--accent);
   background: var(--card);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: var(--olive-shadow);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="19-vuon-o-liu"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="19-vuon-o-liu"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-picker nav {
@@ -219,6 +240,17 @@
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 4.5rem;
+}
+
+:root[data-variant="19-vuon-o-liu"] .kt-home > p.rounded {
+  border-radius: var(--olive-radius-sm);
+  border: 1px solid var(--rule);
+  border-inline-start: 4px solid var(--accent);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.15rem;
+  box-shadow: var(--olive-shadow-sm);
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-hero {
@@ -565,7 +597,7 @@
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-toc {
-  top: 5.25rem;
+  top: 1.75rem;
   padding: 1.2rem 0.95rem;
   border: 1px solid var(--rule);
   border-radius: var(--olive-radius-leaf);
@@ -797,6 +829,15 @@
   line-height: 1.8;
 }
 
+:root[data-variant="19-vuon-o-liu"] #nguyen-van .kt-note-body > p {
+  background: var(--side);
+  border: 1px solid var(--rule);
+  border-inline-start: 4px solid var(--accent);
+  border-radius: 0.35rem 1.35rem 0.35rem 1.35rem;
+  padding: 1.05rem 1.25rem;
+  line-height: 1.88;
+}
+
 /* Commentator opinions */
 :root[data-variant="19-vuon-o-liu"] .kt-opinion {
   padding: 1rem 1.15rem;
@@ -852,6 +893,12 @@
   line-height: 1.72;
 }
 
+:root[data-variant="19-vuon-o-liu"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--rule);
+}
+
 /* Reference popover */
 :root[data-variant="19-vuon-o-liu"] .kt-ref-popover {
   padding: 1.35rem 1.4rem;
@@ -877,13 +924,14 @@
 :root[data-variant="19-vuon-o-liu"] .kt-ref-popover > button {
   display: inline-flex;
   align-items: center;
+  min-height: 2.5rem;
   margin-top: 1rem;
-  padding: 0.38rem 0.95rem;
+  padding: 0.45rem 1.05rem;
   border-radius: var(--olive-radius-sm);
   border: 1px solid var(--rule);
   background: var(--side);
   color: var(--ink);
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: none;
 }
@@ -1014,9 +1062,16 @@
     padding: 2.75rem 2rem 5rem;
   }
 
+  :root[data-variant="19-vuon-o-liu"] .kt-toc {
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
+  }
+
   :root[data-variant="19-vuon-o-liu"] .kt-aside {
     position: sticky;
-    top: 5.25rem;
+    top: 1.75rem;
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
   }
 }
 
