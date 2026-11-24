@@ -838,6 +838,7 @@
 :root[data-variant="24-chu-lon"] .kt-toc a {
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   min-height: 3.125rem; /* 50px */
   padding: 0.5rem 1rem;
   border: 2px solid var(--rule);
@@ -848,6 +849,13 @@
   font-weight: 600;
   line-height: 1.35;
   text-decoration: none;
+}
+
+:root[data-variant="24-chu-lon"] .kt-toc a::after {
+  content: "↓";
+  color: var(--accent);
+  font-size: 0.95em;
+  line-height: 1;
 }
 
 :root[data-variant="24-chu-lon"] .kt-toc a:hover {
@@ -865,6 +873,7 @@
 /* "Điều cần nhớ" takeaway card placed prominently after the chapter */
 :root[data-variant="24-chu-lon"] .kt-aside {
   order: 3;
+  scroll-margin-top: 1.5rem;
   padding: 1.75rem 1.5rem;
   border: 2px solid var(--rule);
   border-left: 7px solid var(--accent);
@@ -982,8 +991,8 @@
   display: inline-block;
   margin-inline: 0.1em;
   margin-block: 0.12em;
-  padding: 0.08em 0.45em;
-  border: 1.5px solid var(--rule);
+  padding: 0.12em 0.5em;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 45%, var(--rule));
   border-radius: 0.45rem;
   background: var(--side);
   color: var(--accent);
@@ -1130,6 +1139,7 @@
 }
 
 :root[data-variant="24-chu-lon"] .kt-note {
+  scroll-margin-top: 1.5rem;
   border: 2px solid var(--rule);
   border-radius: 1rem;
   background: var(--card);
@@ -1138,6 +1148,7 @@
 
 :root[data-variant="24-chu-lon"] .kt-note[open] {
   border-color: var(--accent);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
 }
 
 :root[data-variant="24-chu-lon"] .kt-note-heading {
@@ -1304,7 +1315,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 3rem;
-  padding-inline: 0.25rem;
+  padding-inline: 0.35rem;
   color: var(--accent);
   font-weight: 700;
   text-decoration: underline;
@@ -1315,7 +1326,6 @@
 
 :root[data-variant="24-chu-lon"] .kt-footer a:hover {
   background: var(--side);
-  padding-inline: 0.2em;
   color: var(--ink);
 }
 
