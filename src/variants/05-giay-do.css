@@ -152,6 +152,13 @@
   flex-wrap: wrap;
 }
 
+:root[data-variant="05-giay-do"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.25rem;
+}
+
 :root[data-variant="05-giay-do"] .kt-crumbs a:hover {
   color: var(--accent);
 }
@@ -640,6 +647,9 @@
 }
 
 :root[data-variant="05-giay-do"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0;
   padding: 0.35rem 0;
   font-size: 0.84rem;
@@ -1013,7 +1023,7 @@
 
 :root[data-variant="05-giay-do"] .kt-ref-popover button {
   margin-top: 1rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.35rem 0.95rem;
   border: 1px solid var(--rule);
   border-radius: 2px;
@@ -1060,6 +1070,10 @@
 }
 
 :root[data-variant="05-giay-do"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.2rem;
   color: var(--ink);
   text-underline-offset: 3px;
 }
@@ -1081,7 +1095,7 @@
   background: var(--card);
   color: var(--ink);
   font-weight: 500;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
 }
 
