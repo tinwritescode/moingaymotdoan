@@ -586,11 +586,28 @@
 :root[data-variant="29-tinh-thuc"] .kt-inline-verses {
   margin-top: 1.2rem;
   background: var(--side);
+  color: var(--ink);
   border-left: 2px solid var(--accent);
   border-radius: 0 0.9rem 0.9rem 0;
   padding: 1.15rem 1.35rem;
   font-size: 1.04rem;
   line-height: 1.85;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-inline-verses > p:first-child {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* Divider between scripture and study notes */
@@ -622,7 +639,8 @@
   color: var(--ink);
 }
 
-:root[data-variant="29-tinh-thuc"] .kt-note-heading:hover {
+:root[data-variant="29-tinh-thuc"] .kt-note-heading:hover,
+:root[data-variant="29-tinh-thuc"] .kt-note[open] > .kt-note-heading {
   color: var(--accent);
 }
 
@@ -649,7 +667,13 @@
 :root[data-variant="29-tinh-thuc"] .kt-note-body {
   font-size: 1.04rem;
   line-height: 1.85;
+  color: var(--ink);
+  padding-top: 0.25rem;
   padding-bottom: 2rem;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 :root[data-variant="29-tinh-thuc"] #nguyen-van .kt-note-body > p {
@@ -668,6 +692,7 @@
 /* Commentator opinions */
 :root[data-variant="29-tinh-thuc"] .kt-opinion {
   background: var(--card);
+  color: var(--ink);
   border: 1px solid var(--rule);
   border-left: 3px solid color-mix(in srgb, var(--accent) 55%, var(--rule));
   border-radius: 0.875rem;
@@ -777,11 +802,20 @@
 :root[data-variant="29-tinh-thuc"] .kt-aside h2 {
   letter-spacing: 0.16em;
   color: var(--accent);
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-aside > div {
   font-size: 1rem;
   line-height: 1.75;
+  color: var(--ink);
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-aside > div p + p {
