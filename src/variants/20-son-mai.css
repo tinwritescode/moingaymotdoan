@@ -144,6 +144,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="20-son-mai"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="20-son-mai"] .kt-brand::before {
   content: "";
   display: inline-block;
@@ -179,6 +183,11 @@
 :root[data-variant="20-son-mai"] .kt-crumbs a:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
+}
+
+:root[data-variant="20-son-mai"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 :root[data-variant="20-son-mai"] .kt-header button[popovertarget],
@@ -228,6 +237,7 @@
   background:
     linear-gradient(180deg, var(--sm-sheen) 0%, transparent 18%),
     var(--card);
+  color: var(--ink);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow:
@@ -268,6 +278,11 @@
 
 :root[data-variant="20-son-mai"] .kt-picker nav button {
   border-radius: 2px;
+}
+
+:root[data-variant="20-son-mai"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--card);
+  color: var(--accent);
 }
 
 :root[data-variant="20-son-mai"] .kt-picker nav button[aria-pressed="true"] {
@@ -1021,6 +1036,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="20-son-mai"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--sm-gold-soft);
+}
+
 :root[data-variant="20-son-mai"] .kt-byline {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -1220,6 +1241,7 @@
 /* ---------- Motion (Respecting Reduced Motion) ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
+  :root[data-variant="20-son-mai"] .kt-brand,
   :root[data-variant="20-son-mai"] .kt-books-link,
   :root[data-variant="20-son-mai"] .kt-book > div:first-child a,
   :root[data-variant="20-son-mai"] .kt-chapter-list > li,
