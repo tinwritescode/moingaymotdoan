@@ -177,7 +177,7 @@
 
 :root[data-variant="25-cuon-sach"] .kt-header button[popovertarget],
 :root[data-variant="25-cuon-sach"] .kt-pager {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 2px;
   border: 1px solid var(--rule);
   background: var(--card);
@@ -259,7 +259,9 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-picker nav button {
+  min-height: 2.75rem;
   border-radius: 2px;
+  color: var(--ink);
   font-size: 0.92rem;
 }
 
@@ -284,10 +286,18 @@
   border-bottom: 1px solid var(--rule);
 }
 
+:root[data-variant="25-cuon-sach"] .kt-picker > div > p::before {
+  content: "\2766  ";
+  color: var(--accent);
+  font-weight: 400;
+}
+
 :root[data-variant="25-cuon-sach"] .kt-picker ol a {
+  min-height: 2.75rem;
   border-radius: 2px;
   border-color: var(--rule);
   background: var(--card);
+  color: var(--ink);
   font-variant-numeric: lining-nums;
 }
 
@@ -538,7 +548,7 @@
 :root[data-variant="25-cuon-sach"] .kt-hero a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: "Literata", Palatino, Georgia, serif;
   color: var(--accent);
   text-decoration: underline;
@@ -707,7 +717,7 @@
 :root[data-variant="25-cuon-sach"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: "Literata", Palatino, Georgia, serif;
   font-size: 0.85rem;
   font-style: italic;
@@ -733,7 +743,8 @@
 }
 
 :root[data-variant="25-cuon-sach"] .kt-chapter-link {
-  align-items: baseline;
+  min-height: 2.75rem;
+  align-items: center;
   gap: 0.65rem;
   font-size: 1rem;
   line-height: 1.5;
