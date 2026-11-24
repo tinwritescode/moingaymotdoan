@@ -785,8 +785,12 @@
 
 :root[data-variant="01-thu-ban-co"] .kt-chapter-list > li {
   margin-bottom: 0;
-  padding-block: 0.55rem;
+  padding: 0.55rem 0.35rem;
   border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, transparent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-chapter-list > li:hover {
+  background: color-mix(in srgb, var(--tbc-rubric-wash) 45%, transparent);
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-chapter-link {
@@ -1078,7 +1082,9 @@
 
 /* Inline Verses Box (Expanded Quotation Cartouche — Lapis & Gold Border) */
 :root[data-variant="01-thu-ban-co"] .kt-inline-verses {
+  margin-top: 0.95rem;
   background: var(--paper);
+  color: var(--ink);
   border: 1px solid var(--rule);
   border-left: 4px solid var(--tbc-lapis);
   border-radius: 2px;
@@ -1096,6 +1102,10 @@
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.4rem;
   margin-bottom: 0.65rem;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* Manuscript Tailpiece Divider */
@@ -1156,6 +1166,11 @@
 
 :root[data-variant="01-thu-ban-co"] .kt-note-heading:hover {
   color: var(--accent);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
+  border-bottom: 1px dotted var(--tbc-gold);
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-note-heading > span[aria-hidden="true"] {
@@ -1340,6 +1355,11 @@
   content: "¶ ";
   color: var(--accent);
   font-weight: 600;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* ==========================================================================
