@@ -206,6 +206,11 @@
   text-shadow: none;
 }
 
+:root[data-variant="04-dem-sao"] .kt-brand:hover {
+  color: var(--accent);
+  text-shadow: var(--ds-glow-heading);
+}
+
 :root[data-variant="04-dem-sao"] .kt-header > button[popovertarget] {
   border-radius: 9999px;
   border-color: var(--ds-border-soft);
@@ -234,6 +239,11 @@
 :root[data-variant="04-dem-sao"] .kt-crumbs a:hover {
   color: var(--accent);
   text-shadow: var(--ds-glow-subtle);
+}
+
+:root[data-variant="04-dem-sao"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 :root[data-variant="04-dem-sao"] .kt-pager {
@@ -1027,7 +1037,7 @@
    9. Reference Popover
    ========================================================================== */
 :root[data-variant="04-dem-sao"] .kt-ref-popover {
-  background: var(--ds-surface-elevated);
+  background: color-mix(in srgb, var(--card) 94%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--ds-border-glow);
@@ -1042,7 +1052,13 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.78rem;
+  padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ds-border-soft);
+}
+
+:root[data-variant="04-dem-sao"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
 }
 
 :root[data-variant="04-dem-sao"] .kt-ref-popover button {
@@ -1091,6 +1107,11 @@
   font-size: 0.84rem;
   color: var(--muted);
   padding-block: 1.25rem;
+}
+
+:root[data-variant="04-dem-sao"] .kt-footer a {
+  color: var(--ink);
+  text-underline-offset: 3px;
 }
 
 :root[data-variant="04-dem-sao"] .kt-footer a:hover {
