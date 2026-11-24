@@ -86,6 +86,8 @@
 }
 
 :root[data-variant="14-may-chu"] mark {
+  background-color: var(--mark);
+  color: var(--ink);
   border-radius: 0;
   padding: 0.05em 0.25em;
   text-decoration: underline;
@@ -201,6 +203,12 @@
 :root[data-variant="14-may-chu"] .kt-crumbs a:hover {
   text-decoration-style: solid;
   color: var(--accent);
+}
+
+:root[data-variant="14-may-chu"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 /* Draft status pill inside header: rectangular rubber-stamp tag */
@@ -942,6 +950,13 @@
   line-height: 1.9;
 }
 
+:root[data-variant="14-may-chu"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="14-may-chu"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 :root[data-variant="14-may-chu"] .kt-opinion > p:nth-child(2) {
   margin-top: 0.85rem;
   padding-top: 0.65rem;
@@ -1123,8 +1138,14 @@
   padding: 0.1rem 0.25rem;
 }
 
+:root[data-variant="14-may-chu"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="14-may-chu"] :is(
+      .kt-brand,
       .kt-header button[popovertarget],
       a.kt-pager,
       .kt-hero a,
