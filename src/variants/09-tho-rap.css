@@ -909,6 +909,12 @@
   border-bottom: 2.5px solid var(--tr-border);
 }
 
+:root[data-variant="09-tho-rap"] .kt-note-heading:hover::before,
+:root[data-variant="09-tho-rap"] .kt-note[open] > .kt-note-heading::before {
+  background: #111111;
+  color: var(--tr-yellow);
+}
+
 :root[data-variant="09-tho-rap"] .kt-note-heading > span[aria-hidden="true"] {
   display: inline-grid;
   place-items: center;
@@ -963,6 +969,14 @@
 
 :root[data-variant="09-tho-rap"] .kt-opinion:nth-child(even) {
   border-left-color: var(--tr-coral);
+}
+
+:root[data-variant="09-tho-rap"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="09-tho-rap"] .kt-opinion > strong:first-child {
+  font-family: var(--tr-mono);
+  font-size: 0.92em;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 :root[data-variant="09-tho-rap"] .kt-opinion p:last-child span {
@@ -1039,6 +1053,11 @@
 /* ==========================================================================
    POPOVERS: REFERENCE BOX & BOOK PICKER
    ========================================================================== */
+
+:root[data-variant="09-tho-rap"] .kt-ref-popover::backdrop,
+:root[data-variant="09-tho-rap"] .kt-picker::backdrop {
+  background: rgba(17, 17, 17, 0.48);
+}
 
 :root[data-variant="09-tho-rap"] .kt-ref-popover,
 :root[data-variant="09-tho-rap"] .kt-picker {
@@ -1125,7 +1144,7 @@
   border: 2px solid transparent;
 }
 
-:root[data-variant="09-tho-rap"] .kt-picker nav button:hover:not(:disabled) {
+:root[data-variant="09-tho-rap"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
   background: var(--tr-acid);
   color: #111111;
   border-color: var(--tr-border);
@@ -1329,7 +1348,12 @@
   :root[data-variant="09-tho-rap"] .kt-chapter-list > li,
   :root[data-variant="09-tho-rap"] .kt-note-heading > span[aria-hidden="true"],
   :root[data-variant="09-tho-rap"] .kt-ref-popover > button,
-  :root[data-variant="09-tho-rap"] .kt-picker ol a {
+  :root[data-variant="09-tho-rap"] .kt-picker nav button,
+  :root[data-variant="09-tho-rap"] .kt-picker ol a,
+  :root[data-variant="09-tho-rap"] .kt-toc a,
+  :root[data-variant="09-tho-rap"] .kt-ref,
+  :root[data-variant="09-tho-rap"] .kt-crumbs a,
+  :root[data-variant="09-tho-rap"] .kt-footer a {
     transition:
       transform 110ms cubic-bezier(0.2, 0.8, 0.2, 1),
       box-shadow 110ms cubic-bezier(0.2, 0.8, 0.2, 1),
