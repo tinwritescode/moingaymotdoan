@@ -71,7 +71,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes kt-15-hoc-thuat-reveal {
+  @keyframes kt-hoc-thuat-reveal {
     from {
       opacity: 0;
       transform: translateY(4px);
@@ -84,7 +84,11 @@
 
   :root[data-variant="15-hoc-thuat"] .kt-home,
   :root[data-variant="15-hoc-thuat"] .kt-chapter > div:first-child {
-    animation: kt-15-hoc-thuat-reveal 0.3s ease-out both;
+    animation: kt-hoc-thuat-reveal 0.3s ease-out both;
+  }
+
+  :root[data-variant="15-hoc-thuat"] .kt-ref {
+    transition: background-color 0.15s ease, border-color 0.15s ease;
   }
 }
 
@@ -132,7 +136,7 @@
   font-variant-caps: small-caps;
   letter-spacing: 0.06em;
   font-size: 0.9rem;
-  min-height: 2.35rem;
+  min-height: 2.5rem;
   padding: 0.25rem 0.75rem;
   color: var(--ink);
 }
@@ -187,7 +191,7 @@
   font-size: 0.86rem;
   font-variant-caps: small-caps;
   letter-spacing: 0.04em;
-  min-height: 2.35rem;
+  min-height: 2.5rem;
   padding: 0.25rem 0.75rem;
 }
 
@@ -209,7 +213,19 @@
   border-top: 2.5px solid var(--ink);
   background-color: var(--paper);
   font-family: var(--kt-tex-serif);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="15-hoc-thuat"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="15-hoc-thuat"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-picker nav {
@@ -275,9 +291,9 @@
   background-color: var(--card);
   font-family: var(--kt-tex-serif);
   font-style: italic;
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--ink);
-  padding: 0.6rem 0.95rem;
+  padding: 0.7rem 1rem;
 }
 
 /* \maketitle block */
@@ -627,8 +643,8 @@
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-chapter-link > span:last-child {
-  font-size: 0.98rem;
-  line-height: 1.45;
+  font-size: 1rem;
+  line-height: 1.48;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-chapter-link:hover > span:last-child {
@@ -664,6 +680,18 @@
   :root[data-variant="15-hoc-thuat"] .kt-reader {
     grid-template-columns: 12.5rem minmax(0, 40rem) 17.5rem;
     padding-top: 3rem;
+  }
+
+  :root[data-variant="15-hoc-thuat"] .kt-toc {
+    max-height: calc(100dvh - 3.5rem);
+    overflow-y: auto;
+  }
+
+  :root[data-variant="15-hoc-thuat"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
   }
 }
 
@@ -758,8 +786,8 @@
   margin: 0.9rem auto 0;
   padding-bottom: 1.35rem;
   border-bottom: 1px solid var(--ink);
-  font-size: 0.96rem;
-  line-height: 1.55;
+  font-size: 1rem;
+  line-height: 1.6;
   font-style: italic;
   color: var(--muted);
 }
@@ -830,7 +858,6 @@
   text-decoration: none;
   border-bottom: 1px dotted color-mix(in srgb, var(--accent) 65%, transparent);
   padding: 0 0.08em;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-ref::before {
@@ -932,14 +959,15 @@
 
 :root[data-variant="15-hoc-thuat"] .kt-ref-popover > button {
   margin-top: 0.85rem;
+  min-height: 2.5rem;
   font-family: var(--kt-tex-serif);
   font-variant-caps: small-caps;
   letter-spacing: 0.08em;
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: 0.88rem;
+  color: var(--ink);
   text-decoration: none;
   border: 1px solid var(--rule);
-  padding: 0.2rem 0.65rem;
+  padding: 0.45rem 0.9rem;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-ref-popover > button:hover {
@@ -1058,9 +1086,12 @@
 
 /* Primary source text section (Nguyên văn cả đoạn) */
 :root[data-variant="15-hoc-thuat"] #nguyen-van .kt-note-body > p {
-  border-left: 2px solid var(--rule);
-  padding-left: 1rem;
-  line-height: 1.82;
+  background-color: var(--card);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  border-left: 2.5px solid var(--accent);
+  padding: 0.95rem 1.15rem;
+  line-height: 1.84;
 }
 
 /* Commentator Opinions -> Bracketed LaTeX Bibliography / Critical Apparatus Entries [1], [2] */
@@ -1157,9 +1188,15 @@
 
 :root[data-variant="15-hoc-thuat"] .kt-aside > div {
   margin-top: 0.75rem;
-  font-size: 0.96rem;
-  line-height: 1.62;
+  font-size: 1rem;
+  line-height: 1.65;
   color: var(--ink);
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-aside > div p + p {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dotted var(--rule);
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-aside > div p {
