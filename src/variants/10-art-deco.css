@@ -866,6 +866,10 @@
   padding-bottom: 0.75rem;
 }
 
+:root[data-variant="10-art-deco"] .kt-chapter-list > li:hover {
+  border-bottom-color: var(--ad-gold);
+}
+
 :root[data-variant="10-art-deco"] .kt-chapter-link {
   align-items: flex-start;
   gap: 0.85rem;
@@ -1056,8 +1060,10 @@
 
 /* Inline Expanded Scripture Verses — Symmetrical Inlaid Gilded Plaque */
 :root[data-variant="10-art-deco"] .kt-inline-verses {
+  margin-top: 1.15rem;
   border-radius: 0;
   background-color: var(--side);
+  color: var(--ink);
   border-top: 1px solid var(--ad-gold-line);
   border-bottom: 1px solid var(--ad-gold-line);
   border-left: 3px solid var(--ad-gold);
@@ -1075,6 +1081,10 @@
   border-bottom: 1px solid var(--ad-gold-soft);
   padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
+}
+
+:root[data-variant="10-art-deco"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="10-art-deco"] .kt-verse-number {
@@ -1198,6 +1208,7 @@
 :root[data-variant="10-art-deco"] .kt-note-body {
   font-size: 1.05rem;
   line-height: 1.8;
+  color: var(--ink);
   padding-bottom: 1.5rem;
 }
 
@@ -1212,6 +1223,7 @@
 :root[data-variant="10-art-deco"] .kt-opinion {
   border-radius: 0;
   background-color: var(--paper);
+  color: var(--ink);
   border: 1px solid var(--ad-gold-line);
   border-left: 3px solid var(--ad-gold);
   border-right: 3px solid var(--ad-gold);
@@ -1330,6 +1342,12 @@
 :root[data-variant="10-art-deco"] .kt-aside > div {
   font-size: 1rem;
   line-height: 1.72;
+  color: var(--ink);
+}
+
+:root[data-variant="10-art-deco"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 :root[data-variant="10-art-deco"] .kt-aside > div > p + p {
