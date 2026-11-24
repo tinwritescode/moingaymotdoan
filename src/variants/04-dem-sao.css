@@ -863,10 +863,26 @@
   border: 1px solid var(--ds-border-soft);
   border-left: 3px solid var(--accent);
   background: var(--ds-surface-glass);
+  color: var(--ink);
   padding: 1.2rem 1.4rem;
   font-size: 1.02rem;
   line-height: 1.85;
   box-shadow: var(--ds-shadow-card);
+}
+
+:root[data-variant="04-dem-sao"] .kt-inline-verses > p:first-child {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px solid var(--ds-border-soft);
+}
+
+:root[data-variant="04-dem-sao"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="04-dem-sao"] .kt-verse-number {
@@ -921,7 +937,8 @@
   text-shadow: var(--ds-glow-subtle);
 }
 
-:root[data-variant="04-dem-sao"] .kt-note-heading:hover {
+:root[data-variant="04-dem-sao"] .kt-note-heading:hover,
+:root[data-variant="04-dem-sao"] .kt-note[open] > .kt-note-heading {
   color: var(--accent);
 }
 
@@ -949,6 +966,7 @@
   padding: 0.25rem 1.35rem 1.5rem;
   font-size: 1.05rem;
   line-height: 1.85;
+  color: var(--ink);
   border-top: 1px solid var(--ds-border-soft);
 }
 
@@ -977,6 +995,12 @@
 :root[data-variant="04-dem-sao"] .kt-opinion > p:first-child > strong:first-child,
 :root[data-variant="04-dem-sao"] .kt-opinion > strong:first-child {
   color: var(--accent);
+}
+
+:root[data-variant="04-dem-sao"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--ds-border-soft);
 }
 
 :root[data-variant="04-dem-sao"] .kt-byline {
@@ -1025,6 +1049,12 @@
   margin-top: 1rem;
   font-size: 1.02rem;
   line-height: 1.85;
+  color: var(--ink);
+}
+
+:root[data-variant="04-dem-sao"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 :root[data-variant="04-dem-sao"] .kt-aside > div p + p {
@@ -1038,6 +1068,7 @@
    ========================================================================== */
 :root[data-variant="04-dem-sao"] .kt-ref-popover {
   background: color-mix(in srgb, var(--card) 94%, transparent);
+  color: var(--ink);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--ds-border-glow);
