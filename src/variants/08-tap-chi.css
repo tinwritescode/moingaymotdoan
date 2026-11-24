@@ -224,6 +224,7 @@
   background: var(--side);
   color: var(--accent);
   border-left-color: var(--accent);
+  font-weight: 700;
 }
 
 :root[data-variant="08-tap-chi"] .kt-picker > div > p {
@@ -321,10 +322,13 @@
 }
 
 :root[data-variant="08-tap-chi"] .kt-hero > p:last-of-type a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   color: var(--ink);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
-  padding-bottom: 0.2rem;
+  padding: 0.2rem 0;
 }
 
 :root[data-variant="08-tap-chi"] .kt-hero > p:last-of-type a:hover {
@@ -551,6 +555,10 @@
   letter-spacing: -0.02em;
 }
 
+:root[data-variant="08-tap-chi"] .kt-books-link:hover > span:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="08-tap-chi"] .kt-books-link > span:nth-child(2) {
   font-family: var(--font-sans);
   font-size: 0.6875rem;
@@ -610,12 +618,19 @@
 }
 
 :root[data-variant="08-tap-chi"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+:root[data-variant="08-tap-chi"] .kt-book > div:first-child a:hover {
+  color: var(--accent);
 }
 
 :root[data-variant="08-tap-chi"] .kt-chapter-list {
@@ -656,6 +671,10 @@
   font-size: 1.02rem;
   line-height: 1.45;
   color: var(--ink);
+}
+
+:root[data-variant="08-tap-chi"] .kt-chapter-link:hover > span:last-child {
+  color: var(--accent);
 }
 
 /* --------------------------------------------------------------------------
@@ -1202,7 +1221,10 @@
   :root[data-variant="08-tap-chi"] .kt-toc ol a,
   :root[data-variant="08-tap-chi"] .kt-note-heading,
   :root[data-variant="08-tap-chi"] .kt-note-heading > span,
-  :root[data-variant="08-tap-chi"] .kt-picker ol a {
+  :root[data-variant="08-tap-chi"] .kt-picker ol a,
+  :root[data-variant="08-tap-chi"] .kt-ref-popover button,
+  :root[data-variant="08-tap-chi"] .kt-chapter-link > span:last-child,
+  :root[data-variant="08-tap-chi"] .kt-book > div:first-child a {
     transition:
       color 180ms ease,
       background-color 180ms ease,
