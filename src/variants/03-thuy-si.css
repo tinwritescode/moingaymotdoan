@@ -52,6 +52,11 @@
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
+:root[data-variant="03-thuy-si"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="03-thuy-si"] mark {
   border-radius: 0;
   background: var(--mark);
@@ -201,6 +206,16 @@
   }
 }
 
+:root[data-variant="03-thuy-si"] .kt-picker nav p {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
 :root[data-variant="03-thuy-si"] .kt-picker nav button {
   border-radius: 0;
   font-variant-numeric: tabular-nums;
@@ -292,13 +307,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  min-height: 2.25rem;
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink);
   border-bottom: 2px solid var(--accent);
-  padding-bottom: 0.2rem;
+  padding: 0.25rem 0;
   text-decoration: none;
 }
 
@@ -453,7 +469,9 @@
 
 :root[data-variant="03-thuy-si"] .kt-books-link:hover {
   border-left-color: var(--accent);
+  background: var(--side);
   padding-left: 0.75rem;
+  padding-right: 0.5rem;
 }
 
 :root[data-variant="03-thuy-si"] .kt-books-link > span:first-child {
@@ -513,6 +531,9 @@
 }
 
 :root[data-variant="03-thuy-si"] .kt-book > div a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -817,11 +838,11 @@
 :root[data-variant="03-thuy-si"] .kt-note-heading > span {
   display: inline-grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--rule);
   background: var(--paper);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--ink);
 }
@@ -1201,7 +1222,9 @@
     .kt-ref,
     .kt-header > button[popovertarget],
     .kt-picker ol a,
-    .kt-ref-popover button
+    .kt-ref-popover button,
+    .kt-hero > p a,
+    .kt-book > div a
   ) {
     transition:
       color 140ms ease,
