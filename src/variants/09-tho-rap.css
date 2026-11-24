@@ -132,9 +132,10 @@
 
 :root[data-variant="09-tho-rap"] .kt-brand {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   flex-wrap: wrap;
   gap: 0.35rem;
+  min-height: 2.75rem;
   background: var(--tr-yellow);
   color: #111111;
   border: 2.5px solid var(--tr-border);
@@ -194,6 +195,10 @@
 }
 
 :root[data-variant="09-tho-rap"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.2rem;
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
@@ -710,13 +715,27 @@
 }
 
 :root[data-variant="09-tho-rap"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0;
-  padding: 0.65rem 0.85rem;
+  padding: 0.55rem 0.85rem;
   font-family: var(--tr-mono);
   font-size: 0.8rem;
   font-weight: 700;
   line-height: 1.35;
   color: var(--ink);
+}
+
+:root[data-variant="09-tho-rap"] .kt-toc a::before {
+  content: ">";
+  margin-right: 0.45rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+:root[data-variant="09-tho-rap"] .kt-toc a:hover::before {
+  color: #111111;
 }
 
 :root[data-variant="09-tho-rap"] .kt-toc a:hover {
@@ -1269,6 +1288,9 @@
 }
 
 :root[data-variant="09-tho-rap"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--ink);
   font-weight: 700;
   text-decoration-thickness: 2px;
@@ -1299,7 +1321,7 @@
   background: #ffffff;
   color: #111111;
   border: 2px solid #111111;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   padding: 0.15rem 0.35rem;
   font-family: var(--tr-mono);
