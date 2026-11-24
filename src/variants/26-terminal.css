@@ -204,6 +204,13 @@
   margin-right: 0.15rem;
 }
 
+:root[data-variant="26-terminal"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.2rem;
+}
+
 :root[data-variant="26-terminal"] .kt-crumbs a:hover {
   background: var(--t26-inv-bg);
   color: var(--t26-inv-fg);
@@ -797,6 +804,9 @@
 }
 
 :root[data-variant="26-terminal"] .kt-toc ol a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0;
   padding: 0.35rem 0.4rem;
   color: var(--ink);
@@ -1006,7 +1016,7 @@
 
 :root[data-variant="26-terminal"] .kt-ref-popover button {
   margin-top: 0.85rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.45rem 0.85rem;
   border: 1px solid var(--rule);
   background: var(--paper);
@@ -1288,6 +1298,10 @@
 }
 
 :root[data-variant="26-terminal"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.2rem;
   color: var(--accent);
   font-weight: 600;
 }
@@ -1295,7 +1309,6 @@
 :root[data-variant="26-terminal"] .kt-footer a:hover {
   background: var(--t26-inv-bg);
   color: var(--t26-inv-fg);
-  padding-inline: 0.15em;
   text-decoration: none;
 }
 
@@ -1316,7 +1329,7 @@
 }
 
 :root[data-variant="26-terminal"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   border-radius: 0;
   background: var(--card);
