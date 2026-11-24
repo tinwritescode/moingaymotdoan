@@ -757,6 +757,7 @@
   border: 1px solid color-mix(in srgb, var(--mx-apricot-deep) 28%, var(--rule));
   border-left: 3.5px solid var(--mx-apricot-deep);
   background: var(--side);
+  color: var(--ink);
   padding: 1rem 1.2rem;
   font-size: 1.02rem;
   line-height: 1.8;
@@ -765,6 +766,13 @@
 :root[data-variant="28-mua-xuan"] .kt-inline-verses > p:first-child {
   color: var(--accent);
   letter-spacing: 0.1em;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="28-mua-xuan"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="28-mua-xuan"] .kt-verse-number {
@@ -876,6 +884,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="28-mua-xuan"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
+}
+
 :root[data-variant="28-mua-xuan"] #nguyen-van .kt-note-body > p {
   border-radius: 0.9rem;
   border: 1px solid color-mix(in srgb, var(--mx-apricot-deep) 28%, var(--rule));
@@ -891,6 +903,7 @@
   border: 1px solid var(--rule);
   border-left: 3.5px solid var(--mx-peach-deep);
   background: var(--card);
+  color: var(--ink);
   padding: 1rem 1.15rem;
 }
 
@@ -929,9 +942,11 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-aside h2 {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.4rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
   color: var(--accent);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
@@ -947,6 +962,11 @@
   font-size: 1rem;
   line-height: 1.72;
   color: var(--ink);
+}
+
+:root[data-variant="28-mua-xuan"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 :root[data-variant="28-mua-xuan"] .kt-aside > div p + p {
