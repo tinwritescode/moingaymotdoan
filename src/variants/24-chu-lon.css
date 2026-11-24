@@ -171,12 +171,17 @@
   display: inline-flex;
   align-items: center;
   min-height: 3rem; /* 48px */
-  padding-inline: 0.25rem;
+  padding-inline: 0.35rem;
+  border-radius: 0.4rem;
   color: var(--accent);
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.22em;
   text-decoration-thickness: 2px;
+}
+
+:root[data-variant="24-chu-lon"] .kt-crumbs a:hover {
+  background: var(--side);
 }
 
 :root[data-variant="24-chu-lon"] .kt-crumbs > span:last-child {
@@ -337,6 +342,8 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--ink);
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--rule);
 }
 
 :root[data-variant="24-chu-lon"] .kt-picker > div ol {
@@ -1233,12 +1240,24 @@
   }
 }
 
+@media (min-width: 64rem) {
+  :root[data-variant="24-chu-lon"] .kt-footer p {
+    padding-bottom: 2rem;
+  }
+}
+
 :root[data-variant="24-chu-lon"] .kt-footer a {
   color: var(--accent);
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.2em;
   text-decoration-thickness: 2px;
+  border-radius: 0.25rem;
+}
+
+:root[data-variant="24-chu-lon"] .kt-footer a:hover {
+  background: var(--side);
+  color: var(--ink);
 }
 
 :root[data-variant="24-chu-lon"] .kt-switcher {
@@ -1280,7 +1299,9 @@
   :root[data-variant="24-chu-lon"] .kt-hero a,
   :root[data-variant="24-chu-lon"] .kt-start-cta,
   :root[data-variant="24-chu-lon"] .kt-books-link,
+  :root[data-variant="24-chu-lon"] .kt-book > div:first-child a,
   :root[data-variant="24-chu-lon"] .kt-chapter-link,
+  :root[data-variant="24-chu-lon"] .kt-picker > div ol a,
   :root[data-variant="24-chu-lon"] .kt-toc a,
   :root[data-variant="24-chu-lon"] .kt-note-heading,
   :root[data-variant="24-chu-lon"] .kt-note-heading > span,
