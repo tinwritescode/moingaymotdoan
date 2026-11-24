@@ -297,6 +297,9 @@
 }
 
 :root[data-variant="30-den-dau"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-underline-offset: 3px;
 }
 
@@ -826,6 +829,9 @@
 }
 
 :root[data-variant="30-den-dau"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0.5rem;
   padding: 0.45rem 0.6rem;
   font-size: 0.875rem;
@@ -1028,8 +1034,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
-  padding: 0.4rem 1.05rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 1.05rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--side);
@@ -1278,6 +1284,9 @@
 }
 
 :root[data-variant="30-den-dau"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   text-underline-offset: 3px;
 }
@@ -1300,7 +1309,7 @@
 }
 
 :root[data-variant="30-den-dau"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
