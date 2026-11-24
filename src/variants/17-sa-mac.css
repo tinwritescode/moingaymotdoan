@@ -845,6 +845,7 @@
 :root[data-variant="17-sa-mac"] .kt-inline-verses {
   margin-top: 1.15rem;
   background: var(--side);
+  color: var(--ink);
   border: 1px solid var(--rule);
   border-left: 3px solid var(--accent);
   border-radius: 2px;
@@ -859,6 +860,10 @@
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.45rem;
   margin-bottom: 0.75rem;
+}
+
+:root[data-variant="17-sa-mac"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="17-sa-mac"] .kt-verse-number {
@@ -926,6 +931,11 @@
   color: var(--accent);
 }
 
+:root[data-variant="17-sa-mac"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+}
+
 :root[data-variant="17-sa-mac"] .kt-note-heading > span[aria-hidden="true"] {
   display: inline-flex;
   align-items: center;
@@ -947,11 +957,15 @@
 }
 
 :root[data-variant="17-sa-mac"] .kt-note-body {
-  padding-top: 0.35rem;
+  padding-top: 0.85rem;
   padding-bottom: 1.75rem;
   font-size: 1.0625rem;
   line-height: 1.82;
   color: var(--ink);
+}
+
+:root[data-variant="17-sa-mac"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 /* Primary source text inside #nguyen-van — warm sun-baked sandstone block */
@@ -967,6 +981,7 @@
 /* Commentator opinions — Carved sandstone clay tablets */
 :root[data-variant="17-sa-mac"] .kt-opinion {
   background: var(--paper);
+  color: var(--ink);
   border: 1px solid var(--rule);
   border-left: 3px solid var(--sm-ochre);
   border-radius: 2px;
@@ -1034,6 +1049,11 @@
   margin-top: 0.85rem;
   padding-top: 0.85rem;
   border-top: 1px solid var(--rule);
+}
+
+:root[data-variant="17-sa-mac"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* Reference Popover */
