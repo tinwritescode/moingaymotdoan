@@ -881,12 +881,14 @@
 /* Inline Expanded Verses (Eggshell / Lacquer Inlay Box) */
 :root[data-variant="20-son-mai"] .kt-inline-verses {
   position: relative;
+  margin-top: 1.15rem;
   border-radius: 2px;
   border: 1px solid var(--sm-gold-soft);
   border-left: 4px solid var(--sm-cinnabar);
   background:
     linear-gradient(180deg, var(--sm-sheen) 0%, transparent 45%),
     var(--side);
+  color: var(--ink);
   padding: 1.15rem 1.25rem;
   font-size: 1.05rem;
   line-height: 1.8;
@@ -898,6 +900,13 @@
 :root[data-variant="20-son-mai"] .kt-inline-verses > p:first-child {
   color: var(--accent);
   letter-spacing: 0.14em;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid var(--sm-gold-soft);
+}
+
+:root[data-variant="20-son-mai"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* ---------- Ornament Divider ---------- */
@@ -969,7 +978,8 @@
   }
 }
 
-:root[data-variant="20-son-mai"] .kt-note-heading:hover {
+:root[data-variant="20-son-mai"] .kt-note-heading:hover,
+:root[data-variant="20-son-mai"] .kt-note[open] > .kt-note-heading {
   color: var(--accent);
 }
 
@@ -994,10 +1004,15 @@
 }
 
 :root[data-variant="20-son-mai"] .kt-note-body {
-  padding: 0.35rem 1.25rem 1.4rem;
+  padding: 0.85rem 1.25rem 1.4rem;
   border-top: 1px solid var(--sm-gold-soft);
   font-size: 1.05rem;
   line-height: 1.8;
+  color: var(--ink);
+}
+
+:root[data-variant="20-son-mai"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 :root[data-variant="20-son-mai"] #nguyen-van .kt-note-body > p {
@@ -1027,6 +1042,7 @@
   background:
     linear-gradient(180deg, var(--sm-sheen) 0%, transparent 40%),
     var(--card);
+  color: var(--ink);
   padding: 1.15rem 1.25rem;
   box-shadow: 0 6px 16px -12px var(--sm-shadow-deep);
 }
@@ -1099,6 +1115,11 @@
   margin-top: 0.85rem;
   padding-top: 0.85rem;
   border-top: 1px solid var(--sm-gold-soft);
+}
+
+:root[data-variant="20-son-mai"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* ---------- References & Popover ---------- */
