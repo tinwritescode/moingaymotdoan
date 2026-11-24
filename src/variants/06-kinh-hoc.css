@@ -53,6 +53,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 2px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 @media (min-width: 68rem) {
@@ -161,7 +162,7 @@
 }
 
 /* Draft status indicator in header & home */
-:root[data-variant="06-kinh-hoc"] .kt-header > span {
+:root[data-variant="06-kinh-hoc"] .kt-header > span.rounded-full {
   border-radius: 2px;
   border: 1px solid color-mix(in srgb, var(--vua) 50%, var(--rule));
   background-color: var(--side);
@@ -175,6 +176,10 @@
   border-color: var(--rule);
   border-left: 3px solid var(--vua);
   background-color: var(--side);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.65;
+  padding: 0.85rem 1.15rem;
 }
 
 /* ─── Book Picker Popover (Canonical Index Drawer) ─── */
@@ -184,6 +189,7 @@
   border: 1px solid var(--ink);
   background-color: var(--card);
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow:
     inset 0 0 0 3px var(--card),
     inset 0 0 0 4px var(--rule),
@@ -193,10 +199,12 @@
 @media (max-width: 639px) {
   :root[data-variant="06-kinh-hoc"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="06-kinh-hoc"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -283,6 +291,7 @@
   color: var(--ink);
   font-family: var(--font-serif);
   font-weight: 600;
+  min-height: 2.25rem;
 }
 
 /* ─── Home Page: Study Bible Title Page & Canon Table of Contents ─── */
@@ -808,8 +817,8 @@
 
 @media (min-width: 52rem) {
   :root[data-variant="06-kinh-hoc"] .kt-inline-verses {
-    font-size: 0.9125rem;
-    line-height: 1.58;
+    font-size: 0.95rem;
+    line-height: 1.62;
   }
 }
 
@@ -956,8 +965,22 @@
 
 :root[data-variant="06-kinh-hoc"] .kt-note-heading > span:last-child {
   margin-left: auto;
+  display: inline-grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background-color: var(--card);
   color: var(--muted);
   font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-note[open] > .kt-note-heading > span:last-child {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--side);
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-note-heading:hover {
@@ -973,6 +996,13 @@
   padding-top: 0.25rem;
   padding-bottom: 1.35rem;
   color: var(--ink);
+}
+
+:root[data-variant="06-kinh-hoc"] #nguyen-van .kt-note-body > p {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background-color: var(--card);
+  padding: 1rem 1.05rem;
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-note-body p strong {
@@ -1053,8 +1083,8 @@
 :root[data-variant="06-kinh-hoc"] .kt-opinion p:first-child strong:first-child,
 :root[data-variant="06-kinh-hoc"] .kt-opinion > strong:first-child {
   color: var(--accent);
-  font-variant-caps: small-caps;
-  letter-spacing: 0.03em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-opinion p + p {
@@ -1137,8 +1167,8 @@
   }
 
   :root[data-variant="06-kinh-hoc"] .kt-aside > div {
-    font-size: 0.875rem;
-    line-height: 1.56;
+    font-size: 0.9375rem;
+    line-height: 1.58;
   }
 }
 
