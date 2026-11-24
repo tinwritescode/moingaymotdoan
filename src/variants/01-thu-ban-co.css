@@ -75,16 +75,22 @@
   color: var(--ink);
   background-color: var(--paper);
   background-image:
-    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255, 248, 226, 0.22), transparent 65%),
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255, 248, 226, 0.24), transparent 65%),
     radial-gradient(ellipse 110% 100% at 50% 50%, transparent 58%, var(--tbc-vellum-edge) 100%);
-  background-attachment: fixed;
   font-variant-numeric: oldstyle-nums;
+  overflow-x: clip;
+}
+
+@media (min-width: 768px) {
+  :root[data-variant="01-thu-ban-co"] body {
+    background-attachment: fixed;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root[data-variant="01-thu-ban-co"] body {
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(217, 168, 72, 0.08), transparent 65%),
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(217, 168, 72, 0.09), transparent 65%),
       radial-gradient(ellipse 110% 100% at 50% 50%, transparent 55%, var(--tbc-vellum-edge) 100%);
   }
 }
@@ -93,9 +99,10 @@
 :root[data-variant="01-thu-ban-co"] button:focus-visible,
 :root[data-variant="01-thu-ban-co"] summary:focus-visible,
 :root[data-variant="01-thu-ban-co"] select:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2.5px solid var(--accent);
   outline-offset: 2px;
   border-radius: 2px;
+  box-shadow: 0 0 0 4px var(--tbc-gold-soft);
 }
 
 /* ==========================================================================
@@ -105,15 +112,17 @@
 :root[data-variant="01-thu-ban-co"] .kt-header {
   font-family: var(--font-serif);
   background: linear-gradient(180deg, var(--card) 0%, color-mix(in srgb, var(--card) 82%, var(--side)) 100%);
+  border-top: 3px solid var(--tbc-lapis);
   border-bottom: 3px double var(--tbc-gold);
   box-shadow: 0 2px 12px var(--tbc-folio-shadow);
-  padding: 0.75rem 1rem;
-  gap: 0.65rem 1.15rem;
+  padding: 0.55rem 0.85rem;
+  gap: 0.45rem 0.85rem;
 }
 
 @media (min-width: 640px) {
   :root[data-variant="01-thu-ban-co"] .kt-header {
     padding: 0.85rem 1.75rem;
+    gap: 0.65rem 1.15rem;
   }
 }
 
@@ -204,6 +213,7 @@
   border: 1px solid var(--tbc-gold);
   background: var(--card);
   color: var(--ink);
+  max-height: calc(100dvh - 2rem);
   box-shadow:
     inset 0 0 0 4px var(--card),
     inset 0 0 0 5px var(--rule),
@@ -213,6 +223,16 @@
 :root[data-variant="01-thu-ban-co"] .kt-picker nav {
   background: color-mix(in srgb, var(--side) 55%, var(--card));
   border-color: var(--rule);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="01-thu-ban-co"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="01-thu-ban-co"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-picker nav p {
@@ -328,21 +348,25 @@
 
 :root[data-variant="01-thu-ban-co"] .kt-home {
   max-width: 64rem;
-  margin-block: 0.85rem 2.25rem;
-  padding: 0 0.85rem 2.5rem;
+  margin-block: 0.75rem 2.25rem;
+  padding: 0.5rem 0.95rem 2.5rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  box-shadow:
+    inset 0 0 0 4px var(--card),
+    inset 0 0 0 5px var(--tbc-gold-soft),
+    0 8px 26px var(--tbc-folio-shadow);
+  border-radius: 2px;
 }
 
 @media (min-width: 640px) {
   :root[data-variant="01-thu-ban-co"] .kt-home {
     margin-block: 2rem 3rem;
     padding: 0.75rem 2.5rem 3.5rem;
-    background: var(--card);
-    border: 1px solid var(--rule);
     box-shadow:
       inset 0 0 0 6px var(--card),
       inset 0 0 0 7px var(--tbc-gold),
       0 14px 40px var(--tbc-folio-shadow);
-    border-radius: 2px;
   }
 }
 
@@ -771,6 +795,8 @@
   font-family: var(--font-serif);
   padding-right: 1.25rem;
   border-right: 1px solid var(--rule);
+  max-height: calc(100dvh - 3rem);
+  overflow-y: auto;
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-toc > p {
@@ -808,10 +834,31 @@
 
 /* Center Illuminated Vellum Folio (kt-chapter) */
 :root[data-variant="01-thu-ban-co"] .kt-chapter {
-  background: var(--card);
+  position: relative;
+  background-color: var(--card);
+  background-image:
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold)),
+    linear-gradient(var(--tbc-gold), var(--tbc-gold));
+  background-size:
+    18px 2px, 2px 18px,
+    18px 2px, 2px 18px,
+    18px 2px, 2px 18px,
+    18px 2px, 2px 18px;
+  background-position:
+    12px 12px, 12px 12px,
+    calc(100% - 12px) 12px, calc(100% - 12px) 12px,
+    12px calc(100% - 12px), 12px calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px);
+  background-repeat: no-repeat;
   border: 1px solid var(--rule);
   border-radius: 2px;
-  padding: 1.65rem 1.15rem 2rem;
+  padding: 1.85rem 1.25rem 2.15rem;
   box-shadow:
     inset 0 0 0 4px var(--card),
     inset 0 0 0 5px var(--tbc-gold-soft),
@@ -960,11 +1007,11 @@
   text-decoration-color: var(--accent);
 }
 
-/* Inline Verses Box (Expanded Quotation Cartouche) */
+/* Inline Verses Box (Expanded Quotation Cartouche — Lapis & Gold Border) */
 :root[data-variant="01-thu-ban-co"] .kt-inline-verses {
   background: var(--paper);
   border: 1px solid var(--rule);
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--tbc-lapis);
   border-radius: 2px;
   padding: 1rem 1.15rem;
   font-size: 1.05rem;
@@ -976,7 +1023,7 @@
   font-family: var(--font-serif);
   font-size: 0.78rem;
   letter-spacing: 0.14em;
-  color: var(--accent);
+  color: var(--tbc-lapis);
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.4rem;
   margin-bottom: 0.65rem;
@@ -1072,7 +1119,19 @@
   }
 }
 
-/* Commentator Opinions (Patristic / Scholia Cards) */
+/* Full Chapter Scripture Passage (Illuminated Folio Column) */
+:root[data-variant="01-thu-ban-co"] #nguyen-van .kt-note-body > p {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 3px double var(--tbc-gold);
+  border-right: 3px double var(--tbc-gold);
+  padding: 1.15rem 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  border-radius: 2px;
+}
+
+/* Commentator Opinions (Patristic / Scholia Cards — alternating Cinnabar & Lapis) */
 :root[data-variant="01-thu-ban-co"] .kt-opinion {
   position: relative;
   border-radius: 2px;
@@ -1081,6 +1140,10 @@
   background: var(--paper);
   padding: 1rem 1.15rem;
   box-shadow: inset 0 1px 0 var(--tbc-gold-soft);
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-opinion:nth-child(even) {
+  border-left-color: var(--tbc-lapis);
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-opinion::after {
@@ -1141,6 +1204,8 @@
   :root[data-variant="01-thu-ban-co"] .kt-aside {
     position: sticky;
     top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
     background: color-mix(in srgb, var(--side) 45%, transparent);
     border: 0;
     border-top: 3px double var(--tbc-gold);
@@ -1219,7 +1284,8 @@
   border: 1px solid var(--rule);
   background: var(--paper);
   border-radius: 2px;
-  padding: 0.35rem 0.85rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.95rem;
   margin-top: 0.9rem;
 }
 
