@@ -232,6 +232,9 @@
 }
 
 :root[data-variant="12-kinh-mau"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--km-stone-muted);
 }
 
@@ -977,6 +980,9 @@
 }
 
 :root[data-variant="12-kinh-mau"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-left: 3px solid transparent;
   border-radius: 0.25rem;
   color: var(--ink);
@@ -1447,7 +1453,7 @@
 :root[data-variant="12-kinh-mau"] .kt-ref-popover > button {
   margin: 0.5rem 1.25rem 1.1rem;
   padding: 0.45rem 1.05rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 0.65rem 0.65rem 0.2rem 0.2rem;
   border: 1.5px solid var(--km-lead);
   background: var(--side);
@@ -1489,6 +1495,9 @@
 }
 
 :root[data-variant="12-kinh-mau"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--km-stone-accent);
   text-underline-offset: 3px;
 }
@@ -1512,7 +1521,7 @@
   color: var(--km-stone-ink);
   border: 1px solid rgba(243, 196, 107, 0.35);
   border-radius: 0.35rem;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   font-size: 0.78rem;
   padding: 0.15rem 0.35rem;
