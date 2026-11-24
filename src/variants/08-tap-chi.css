@@ -63,6 +63,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 0;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 /* --------------------------------------------------------------------------
@@ -190,16 +191,19 @@
   border-top: 3px solid var(--accent);
   background: var(--card);
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 0 24px 56px -16px rgba(0, 0, 0, 0.28);
 }
 
 @media (max-width: 639px) {
   :root[data-variant="08-tap-chi"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="08-tap-chi"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -400,9 +404,11 @@
   border: 0;
   border-left: 3px solid var(--vua);
   background: var(--side);
-  font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  padding: 0.75rem 1.15rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  padding: 0.85rem 1.2rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -873,6 +879,8 @@
 
 :root[data-variant="08-tap-chi"] .kt-aside > div p + p {
   margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--font-serif);
   font-style: normal;
   font-weight: 400;
@@ -979,6 +987,8 @@
 
 :root[data-variant="08-tap-chi"] .kt-note[open] > .kt-note-heading > span {
   border-color: var(--accent);
+  background: var(--accent);
+  color: var(--paper);
 }
 
 :root[data-variant="08-tap-chi"] .kt-note-body {
@@ -1156,12 +1166,13 @@
 
 :root[data-variant="08-tap-chi"] .kt-switcher select {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: none;
   color: var(--ink);
   background: var(--card);
+  min-height: 2.25rem;
 }
 
 /* --------------------------------------------------------------------------
