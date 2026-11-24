@@ -184,6 +184,12 @@
   font-size: 0.875rem;
 }
 
+:root[data-variant="28-mua-xuan"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
 :root[data-variant="28-mua-xuan"] .kt-crumbs a:hover {
   color: var(--accent);
   text-decoration: underline;
@@ -688,6 +694,9 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0.65rem;
   padding: 0.45rem 0.7rem;
   color: var(--muted);
@@ -1045,7 +1054,7 @@
 
 :root[data-variant="28-mua-xuan"] .kt-ref-popover > button {
   margin-top: 0.9rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--mx-peach-soft);
@@ -1078,6 +1087,9 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   text-underline-offset: 4px;
 }
@@ -1096,7 +1108,7 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
