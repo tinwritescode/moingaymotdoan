@@ -38,7 +38,13 @@ export default function MucLuc() {
             Mỗi đoạn Kinh Thánh, kể lại bằng lời thường, kèm nguyên văn Bản Truyền Thống. <em>Đoạn</em> nghĩa là
             chương.
           </p>
-          <p class="mt-3 font-sans text-sm">
+          <p class="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 font-sans text-sm">
+            <a href="/cam-xuc" class="font-semibold text-accent underline-offset-4 hover:underline">
+              Đọc theo cảm xúc (100 chủ đề) →
+            </a>
+            <span aria-hidden="true" class="text-rule">
+              ·
+            </span>
             <a href="/ebook" class="text-accent underline-offset-4 hover:underline">
               Tải ebook cho Kindle →
             </a>

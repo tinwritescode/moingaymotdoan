@@ -26,6 +26,12 @@ export function SiteHeader(props: ParentProps<{ book?: string }>) {
         Kinh Thánh <span class="font-normal text-muted">· ghi chú từng đoạn</span>
       </a>
       <BookPicker books={books()} current={props.book} />
+      <a
+        href="/cam-xuc"
+        class="inline-flex min-h-11 items-center rounded-lg border border-rule px-3.5 text-sm hover:border-accent"
+      >
+        Theo cảm xúc
+      </a>
       {props.children}
     </header>
   );

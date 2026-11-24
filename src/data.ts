@@ -1,5 +1,6 @@
 import { query } from "@solidjs/router";
 import type { ChapterView, Mode, TocBook } from "../lib/content";
+import type { MoodIndex, MoodView } from "../lib/moods";
 
 /** What every page needs: the mode it is built in and the đoạn it may link to. */
 export type Toc = { mode: Mode; books: TocBook[] };
@@ -8,6 +9,8 @@ export type Toc = { mode: Mode; books: TocBook[] };
 export const dataUrl = {
   toc: () => "/data/toc.json",
   chapter: (args: { slug: string; number: number }) => `/data/${args.slug}/${args.number}.json`,
+  moodIndex: () => "/data/cam-xuc.json",
+  mood: (slug: string) => `/data/cam-xuc/${slug}.json`,
 };
 
 /**
@@ -35,3 +38,20 @@ export const getChapter = query(async (slug: string, number: number): Promise<Ch
   }
   return fetchJson<ChapterView>(dataUrl.chapter({ slug, number }));
 }, "chapter");
+
+export const getMoodIndex = query(async (): Promise<MoodIndex> => {
+  if (import.meta.env.SSR) {
+    return (await import("./content.server")).loadMoodIndex();
+  }
+  const index = await fetchJson<MoodIndex>(dataUrl.moodIndex());
+  if (!index) throw new Error("Không tải được danh sách chuyên mục cảm xúc");
+  return index;
+}, "mood-index");
+
+/** null: không có chuyên mục cảm xúc với slug này. */
+export const getMood = query(async (slug: string): Promise<MoodView | null> => {
+  if (import.meta.env.SSR) {
+    return (await import("./content.server")).loadMood(slug);
+  }
+  return fetchJson<MoodView>(dataUrl.mood(slug));
+}, "mood");

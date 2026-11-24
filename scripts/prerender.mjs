@@ -28,8 +28,14 @@ const linksIn = (html) =>
   [...html.matchAll(/href="(\/(?!\/)[^"#?]*)/g)].map((m) => m[1]).filter((p) => p === "/" || !isStatic(p));
 
 const toc = await (await fetchPath("/data/toc.json")).json();
+const moodIndex = await (await fetchPath("/data/cam-xuc.json")).json();
 // Pages read these in the browser; no page links to them, so they are listed here.
-const data = ["/data/toc.json", ...toc.books.flatMap((b) => b.chapters.map((c) => `/data/${b.book.slug}/${c.number}.json`))];
+const data = [
+  "/data/toc.json",
+  "/data/cam-xuc.json",
+  ...moodIndex.moods.map((m) => `/data/cam-xuc/${m.slug}.json`),
+  ...toc.books.flatMap((b) => b.chapters.map((c) => `/data/${b.book.slug}/${c.number}.json`)),
+];
 
 const seen = new Set(["/", ...data]);
 const queue = [...seen];
