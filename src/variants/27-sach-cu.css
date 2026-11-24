@@ -119,6 +119,10 @@
   text-shadow: 0 1px 0 var(--sach-cu-press);
 }
 
+:root[data-variant="27-sach-cu"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="27-sach-cu"] .kt-brand::before {
   content: "❦ ";
   color: var(--accent);
@@ -229,6 +233,7 @@
   border-radius: 0;
   border: 3px double var(--sach-cu-rule-strong);
   background-color: var(--card);
+  color: var(--ink);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   box-shadow: 0 14px 36px var(--sach-cu-shadow), inset 0 0 0 4px var(--card), inset 0 0 0 5px var(--rule);
@@ -261,12 +266,14 @@
   letter-spacing: 0.14em;
   color: var(--accent);
   border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.3rem;
   margin-bottom: 0.35rem;
 }
 
 :root[data-variant="27-sach-cu"] .kt-picker nav button {
   border-radius: 0;
   font-family: "Literata", Georgia, serif;
+  border-left: 3px solid transparent;
   border-bottom: 1px dotted transparent;
 }
 
@@ -976,6 +983,11 @@
 
 :root[data-variant="27-sach-cu"] .kt-note-heading:hover {
   color: var(--accent);
+}
+
+:root[data-variant="27-sach-cu"] .kt-note[open] > .kt-note-heading {
+  border-bottom: 1px dotted var(--rule);
+  margin-bottom: 0.5rem;
 }
 
 :root[data-variant="27-sach-cu"] .kt-note-heading > span {
