@@ -95,6 +95,11 @@
   }
 }
 
+:root[data-variant="01-thu-ban-co"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="01-thu-ban-co"] a:focus-visible,
 :root[data-variant="01-thu-ban-co"] button:focus-visible,
 :root[data-variant="01-thu-ban-co"] summary:focus-visible,
@@ -256,6 +261,7 @@
 :root[data-variant="01-thu-ban-co"] .kt-picker nav button[aria-pressed="true"] {
   background: var(--tbc-rubric-wash);
   color: var(--accent);
+  font-weight: 700;
   border-left: 3px solid var(--accent);
 }
 
@@ -444,11 +450,14 @@
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-hero > p a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--font-serif);
   font-style: italic;
   color: var(--accent);
   border-bottom: 1px dotted var(--tbc-gold);
-  padding-bottom: 0.1rem;
+  padding: 0.15rem 0.35rem;
   text-decoration: none;
 }
 
@@ -473,6 +482,9 @@
 :root[data-variant="01-thu-ban-co"] .kt-home > p.rounded {
   font-family: var(--font-serif);
   font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  padding: 0.85rem 1.15rem;
   border-radius: 2px;
   border: 1px solid var(--tbc-gold);
   border-left: 4px solid var(--vua);
@@ -697,6 +709,9 @@
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-book > div > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.875rem;
@@ -1107,8 +1122,8 @@
   margin-left: auto;
   display: inline-grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--rule);
   border-radius: 2px;
   background: var(--paper);
@@ -1116,6 +1131,12 @@
   font-family: var(--font-serif);
   font-size: 0.9rem;
   flex-shrink: 0;
+}
+
+:root[data-variant="01-thu-ban-co"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
+  background: var(--tbc-cta-bg);
+  border-color: var(--tbc-gold-bright);
+  color: var(--tbc-cta-ink);
 }
 
 :root[data-variant="01-thu-ban-co"] .kt-note-body {
@@ -1279,6 +1300,7 @@
 :root[data-variant="01-thu-ban-co"] .kt-ref-popover {
   border-radius: 3px;
   border: 1px solid var(--tbc-gold);
+  border-top: 3px solid var(--tbc-lapis);
   background: var(--card);
   color: var(--ink);
   padding: 1.35rem 1.5rem;
