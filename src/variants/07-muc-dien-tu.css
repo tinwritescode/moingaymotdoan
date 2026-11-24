@@ -67,7 +67,7 @@
 :root[data-variant="07-muc-dien-tu"] button:focus-visible,
 :root[data-variant="07-muc-dien-tu"] summary:focus-visible,
 :root[data-variant="07-muc-dien-tu"] select:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 3px solid var(--ink);
   outline-offset: 2px;
   border-radius: 0;
 }
@@ -160,14 +160,14 @@
 }
 
 /* Draft status indicator inside header: quiet hairline note, not heavy chrome. */
-:root[data-variant="07-muc-dien-tu"] .kt-header > span {
+:root[data-variant="07-muc-dien-tu"] .kt-header > span.rounded-full {
   border-radius: 0;
   border: 0;
   border-left: 2px solid var(--ink);
   background-color: transparent;
   color: var(--muted);
   font-family: var(--eink-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 500;
   padding: 0.1rem 0 0.1rem 0.55rem;
   line-height: 1.4;
@@ -206,6 +206,7 @@
 :root[data-variant="07-muc-dien-tu"] .kt-picker {
   width: min(38rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   border-radius: 0;
   border: 2px solid var(--ink);
   background-color: var(--card);
@@ -215,10 +216,12 @@
 @media (max-width: 639px) {
   :root[data-variant="07-muc-dien-tu"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="07-muc-dien-tu"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -295,15 +298,16 @@
   padding: 0 1.25rem 5rem;
 }
 
-:root[data-variant="07-muc-dien-tu"] .kt-home > p {
+:root[data-variant="07-muc-dien-tu"] .kt-home > p.rounded {
   border-radius: 0;
   border: 1px solid var(--ink);
   border-left: 3px solid var(--ink);
   background-color: var(--side);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.825rem;
-  padding: 0.55rem 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 0.7rem 0.95rem;
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-hero {
@@ -669,9 +673,9 @@
 :root[data-variant="07-muc-dien-tu"] .kt-toc a {
   display: inline-block;
   border-radius: 0;
-  padding: 0.1rem 0;
+  padding: 0.25rem 0.15rem;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
   color: var(--ink);
   background-color: transparent;
   text-decoration: none;
@@ -917,8 +921,10 @@
 }
 
 :root[data-variant="07-muc-dien-tu"] #nguyen-van .kt-note-body > p {
-  border-left: 2px solid var(--ink);
-  padding-left: 1rem;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--ink);
+  background-color: var(--card);
+  padding: 1rem 1.15rem;
   line-height: 1.85;
 }
 
@@ -1044,6 +1050,7 @@
   background-color: var(--card);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  min-height: 2.25rem;
 }
