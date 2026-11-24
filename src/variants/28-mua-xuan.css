@@ -106,6 +106,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 0.45rem;
+  box-shadow: 0 0 0 5px var(--mx-apricot-soft);
 }
 
 /* ==========================================================================
@@ -200,6 +201,13 @@
   color: var(--muted);
 }
 
+:root[data-variant="28-mua-xuan"] .kt-header > span.rounded-full {
+  border: 1px solid color-mix(in srgb, var(--mx-apricot-deep) 40%, var(--rule));
+  background: var(--mx-apricot-soft);
+  color: var(--accent);
+  padding: 0.22rem 0.7rem;
+}
+
 /* Book picker popover */
 :root[data-variant="28-mua-xuan"] .kt-picker {
   border-radius: 1.15rem;
@@ -207,7 +215,19 @@
   background:
     var(--mx-ribbon) top / 100% 3px no-repeat,
     var(--card);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: var(--mx-popover-shadow);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="28-mua-xuan"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="28-mua-xuan"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="28-mua-xuan"] .kt-picker nav {
@@ -252,6 +272,17 @@
   padding-inline: 1rem;
   padding-top: 1.5rem;
   padding-bottom: 5rem;
+}
+
+:root[data-variant="28-mua-xuan"] .kt-home > p.rounded {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--mx-apricot-deep) 35%, var(--rule));
+  border-left: 4px solid var(--accent);
+  background: var(--mx-apricot-soft);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.15rem;
+  box-shadow: var(--mx-card-shadow);
 }
 
 /* Festive spring masthead card */
@@ -784,6 +815,15 @@
   color: var(--ink);
 }
 
+:root[data-variant="28-mua-xuan"] #nguyen-van .kt-note-body > p {
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--mx-apricot-deep) 28%, var(--rule));
+  border-left: 4px solid var(--accent);
+  background: var(--side);
+  padding: 1.05rem 1.25rem;
+  line-height: 1.88;
+}
+
 /* Commentator opinions */
 :root[data-variant="28-mua-xuan"] .kt-opinion {
   border-radius: 0.9rem;
@@ -837,6 +877,12 @@
   color: var(--ink);
 }
 
+:root[data-variant="28-mua-xuan"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--rule);
+}
+
 /* ==========================================================================
    8. Clickable references & verse popover
    ========================================================================== */
@@ -881,10 +927,11 @@
 
 :root[data-variant="28-mua-xuan"] .kt-ref-popover > button {
   margin-top: 0.9rem;
+  min-height: 2.5rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--mx-peach-soft);
-  padding: 0.3rem 0.9rem;
+  padding: 0.45rem 1.05rem;
   font-weight: 600;
   color: var(--accent);
   text-decoration: none;
@@ -997,9 +1044,16 @@
     padding: 3rem 3.25rem 3.25rem;
   }
 
+  :root[data-variant="28-mua-xuan"] .kt-toc {
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
+
   :root[data-variant="28-mua-xuan"] .kt-aside {
     position: sticky;
     top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
   }
 
   :root[data-variant="28-mua-xuan"] .kt-chapter > div:first-child {
