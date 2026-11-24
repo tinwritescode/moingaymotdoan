@@ -238,7 +238,7 @@
 /* Book picker button & chapter pager — chunky carved woodcut blocks */
 :root[data-variant="21-tranh-dong-ho"] .kt-header > button[popovertarget],
 :root[data-variant="21-tranh-dong-ho"] .kt-pager {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.35rem 0.9rem;
   border-radius: 3px;
   border: 2.5px solid var(--dh-block);
@@ -324,8 +324,10 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-picker nav button {
+  min-height: 2.75rem;
   border-radius: 2px;
   border: 2px solid transparent;
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -350,12 +352,20 @@
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 800;
   font-size: 1.25rem;
+  color: var(--ink);
   border-bottom: 2.5px solid var(--dh-block);
   padding-bottom: 0.45rem;
 }
 
+:root[data-variant="21-tranh-dong-ho"] .kt-picker > div > p::before {
+  content: "\2756  ";
+  color: var(--dh-vermilion);
+  font-size: 0.95rem;
+  vertical-align: 0.04em;
+}
+
 :root[data-variant="21-tranh-dong-ho"] .kt-picker ol a {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border-radius: 2px;
   border: 2px solid var(--dh-block);
   background: var(--paper);
@@ -460,7 +470,7 @@
 :root[data-variant="21-tranh-dong-ho"] .kt-hero a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.35rem 1.05rem;
   border: 2px solid var(--dh-block);
   border-radius: 3px;
@@ -736,8 +746,8 @@
 :root[data-variant="21-tranh-dong-ho"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
-  padding: 0.25rem 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.85rem;
   border: 2px solid var(--dh-block);
   border-radius: 2px;
   background: var(--card);
@@ -770,6 +780,7 @@
 }
 
 :root[data-variant="21-tranh-dong-ho"] .kt-chapter-link {
+  min-height: 2.75rem;
   align-items: stretch;
   gap: 0;
 }
