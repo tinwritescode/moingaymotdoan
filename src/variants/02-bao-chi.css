@@ -53,6 +53,11 @@
   overflow-x: clip;
 }
 
+:root[data-variant="02-bao-chi"] ::selection {
+  background: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="02-bao-chi"] a:focus-visible,
 :root[data-variant="02-bao-chi"] button:focus-visible,
 :root[data-variant="02-bao-chi"] summary:focus-visible,
@@ -220,6 +225,15 @@
   color: var(--paper);
 }
 
+:root[data-variant="02-bao-chi"] .kt-picker > div > p {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 0.45rem;
+}
+
 :root[data-variant="02-bao-chi"] .kt-picker ol a {
   border-radius: 0;
   border: 1px solid var(--rule);
@@ -322,6 +336,9 @@
 }
 
 :root[data-variant="02-bao-chi"] .kt-hero > p a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 700;
@@ -329,7 +346,7 @@
   text-transform: uppercase;
   color: var(--accent);
   border-bottom: 1px solid var(--accent);
-  padding: 0.1rem 0.2rem;
+  padding: 0.2rem 0.45rem;
   text-decoration: none;
 }
 
@@ -572,6 +589,9 @@
 }
 
 :root[data-variant="02-bao-chi"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 700;
@@ -864,6 +884,11 @@
   padding-bottom: 0.5rem;
 }
 
+:root[data-variant="02-bao-chi"] .kt-aside h2::before {
+  content: "■ ";
+  color: var(--ink);
+}
+
 :root[data-variant="02-bao-chi"] .kt-aside > div {
   margin-top: 0.85rem;
   font-size: 1rem;
@@ -939,8 +964,8 @@
 :root[data-variant="02-bao-chi"] .kt-note-heading > span {
   display: inline-grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--ink);
   background: var(--card);
   color: var(--ink);
@@ -1186,6 +1211,7 @@
   :root[data-variant="02-bao-chi"] .kt-start-cta,
   :root[data-variant="02-bao-chi"] .kt-books-link,
   :root[data-variant="02-bao-chi"] .kt-note-heading,
+  :root[data-variant="02-bao-chi"] .kt-note-heading > span,
   :root[data-variant="02-bao-chi"] .kt-ref,
   :root[data-variant="02-bao-chi"] .kt-ref-popover > button,
   :root[data-variant="02-bao-chi"] .kt-toc a {
