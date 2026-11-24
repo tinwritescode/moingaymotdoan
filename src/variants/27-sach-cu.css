@@ -84,6 +84,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 0;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 /* ==========================================================================
@@ -219,7 +220,19 @@
   border-radius: 0;
   border: 3px double var(--sach-cu-rule-strong);
   background-color: var(--card);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: 0 14px 36px var(--sach-cu-shadow), inset 0 0 0 4px var(--card), inset 0 0 0 5px var(--rule);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="27-sach-cu"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="27-sach-cu"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="27-sach-cu"] .kt-picker nav {
@@ -275,6 +288,15 @@
     inset 0 0 0 6px var(--card),
     inset 0 0 0 7px var(--rule),
     0 10px 32px var(--sach-cu-paper-edge);
+}
+
+:root[data-variant="27-sach-cu"] .kt-home > p.rounded {
+  border-radius: 0;
+  border: 3px double var(--sach-cu-rule-strong);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  padding: 0.85rem 1.15rem;
 }
 
 @media (min-width: 640px) {
@@ -626,6 +648,18 @@
     gap: 2.5rem 2.5rem;
     padding-top: 2.75rem;
   }
+
+  :root[data-variant="27-sach-cu"] .kt-toc {
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
+
+  :root[data-variant="27-sach-cu"] .kt-aside {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
 }
 
 /* Left column: Marginal Index (.kt-toc) */
@@ -884,6 +918,19 @@
   letter-spacing: 0.03em;
   color: var(--ink);
   padding: 0.85rem 0.25rem;
+  gap: 0.45rem;
+}
+
+:root[data-variant="27-sach-cu"] .kt-note-heading::before {
+  content: "❦";
+  color: var(--accent);
+  font-weight: 400;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+
+:root[data-variant="27-sach-cu"] .kt-note-heading span {
+  margin-left: auto;
 }
 
 :root[data-variant="27-sach-cu"] .kt-note-heading:hover {
@@ -902,6 +949,14 @@
   border-left: 2px solid var(--rule);
   margin-left: 0.25rem;
   margin-bottom: 0.75rem;
+}
+
+:root[data-variant="27-sach-cu"] #nguyen-van .kt-note-body > p {
+  background-color: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 4px double var(--accent);
+  padding: 1rem 1.2rem;
+  line-height: 1.88;
 }
 
 /* Commentator slips (.kt-opinion) */
@@ -976,6 +1031,12 @@
   color: var(--ink);
 }
 
+:root[data-variant="27-sach-cu"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dotted var(--sach-cu-rule-strong);
+}
+
 /* ==========================================================================
    Clickable References & Footnote Slip Popover (.kt-ref, .kt-ref-popover)
    ========================================================================== */
@@ -1036,13 +1097,15 @@
 :root[data-variant="27-sach-cu"] .kt-ref-popover button {
   font-family: "Literata", Georgia, serif;
   font-size: 0.85rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   text-decoration: none;
   border: 1px solid var(--rule);
   background-color: var(--paper);
-  padding: 0.3rem 0.8rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.95rem;
   margin-top: 0.9rem;
 }
 
