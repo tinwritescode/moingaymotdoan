@@ -99,6 +99,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="28-mua-xuan"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 0.3rem;
+  border-bottom: 1.5px solid var(--mx-apricot-deep);
+  padding: 0.04em 0.22em;
+}
+
 :root[data-variant="28-mua-xuan"] a:focus-visible,
 :root[data-variant="28-mua-xuan"] button:focus-visible,
 :root[data-variant="28-mua-xuan"] summary:focus-visible,
@@ -222,6 +230,12 @@
   box-shadow: var(--mx-popover-shadow);
 }
 
+:root[data-variant="28-mua-xuan"] .kt-picker::backdrop,
+:root[data-variant="28-mua-xuan"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  backdrop-filter: blur(2px);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="28-mua-xuan"] .kt-picker nav {
     max-height: 30dvh;
@@ -251,8 +265,9 @@
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
-:root[data-variant="28-mua-xuan"] .kt-picker nav button:not(:disabled):hover {
+:root[data-variant="28-mua-xuan"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
   background: var(--mx-apricot-soft);
+  color: var(--accent);
 }
 
 :root[data-variant="28-mua-xuan"] .kt-picker > div > p {
@@ -873,6 +888,11 @@
   line-height: 1.78;
 }
 
+:root[data-variant="28-mua-xuan"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="28-mua-xuan"] .kt-opinion > strong:first-child {
+  color: var(--accent);
+}
+
 :root[data-variant="28-mua-xuan"] .kt-byline {
   margin-top: 1.75rem;
   padding-top: 1rem;
@@ -961,6 +981,10 @@
   letter-spacing: 0.04em;
 }
 
+:root[data-variant="28-mua-xuan"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="28-mua-xuan"] .kt-ref-popover > button {
   margin-top: 0.9rem;
   min-height: 2.5rem;
@@ -1019,6 +1043,11 @@
   background: transparent;
   color: var(--ink);
   font-weight: 600;
+}
+
+:root[data-variant="28-mua-xuan"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
 }
 
 /* ==========================================================================
@@ -1119,6 +1148,7 @@
 @media (prefers-reduced-motion: no-preference) {
   :root[data-variant="28-mua-xuan"] .kt-pager,
   :root[data-variant="28-mua-xuan"] .kt-header > button[popovertarget],
+  :root[data-variant="28-mua-xuan"] .kt-crumbs a,
   :root[data-variant="28-mua-xuan"] .kt-start-cta,
   :root[data-variant="28-mua-xuan"] .kt-books-link,
   :root[data-variant="28-mua-xuan"] .kt-book > div:first-child a,
@@ -1131,7 +1161,9 @@
   :root[data-variant="28-mua-xuan"] .kt-ref,
   :root[data-variant="28-mua-xuan"] .kt-ref-popover > button,
   :root[data-variant="28-mua-xuan"] .kt-hero a,
-  :root[data-variant="28-mua-xuan"] .kt-picker ol a {
+  :root[data-variant="28-mua-xuan"] .kt-picker nav button,
+  :root[data-variant="28-mua-xuan"] .kt-picker ol a,
+  :root[data-variant="28-mua-xuan"] .kt-footer a {
     transition:
       background-color 180ms ease,
       border-color 180ms ease,
