@@ -217,7 +217,7 @@
   background: var(--ds-surface-elevated);
   color: var(--ink);
   padding-inline: 1rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   font-size: 0.875rem;
   letter-spacing: 0.02em;
 }
@@ -251,7 +251,7 @@
   border: 1px solid var(--ds-border-soft);
   background: var(--ds-surface-elevated);
   padding-inline: 1rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   font-size: 0.84rem;
   letter-spacing: 0.01em;
 }
@@ -307,12 +307,28 @@
 :root[data-variant="04-dem-sao"] .kt-picker nav p {
   color: var(--accent);
   letter-spacing: 0.14em;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 1px solid var(--ds-border-soft);
 }
 
 :root[data-variant="04-dem-sao"] .kt-picker > div > p {
   font-family: "Playfair Display", Georgia, serif;
   color: var(--ink);
   text-shadow: var(--ds-glow-subtle);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--ds-border-soft);
+}
+
+:root[data-variant="04-dem-sao"] .kt-picker > div > p::before {
+  content: "✦ ";
+  color: var(--ds-star);
+  font-size: 0.78em;
+}
+
+:root[data-variant="04-dem-sao"] .kt-picker nav button {
+  color: var(--ink);
+  min-height: 2.75rem;
 }
 
 :root[data-variant="04-dem-sao"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
@@ -331,6 +347,7 @@
   border-radius: 0.75rem;
   border-color: var(--ds-border-soft);
   background: var(--ds-surface-glass);
+  color: var(--ink);
 }
 
 :root[data-variant="04-dem-sao"] .kt-picker ol a:hover {
@@ -411,7 +428,7 @@
 :root[data-variant="04-dem-sao"] .kt-hero > p a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0.35rem 1.05rem;
   border-radius: 9999px;
   border: 1px solid var(--ds-border-soft);
@@ -634,10 +651,10 @@
 :root[data-variant="04-dem-sao"] .kt-book > div:first-child > a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   border: 1px solid var(--ds-border-soft);
   border-radius: 9999px;
-  padding: 0.3rem 0.85rem;
+  padding: 0.3rem 0.9rem;
   font-size: 0.8rem;
   letter-spacing: 0.03em;
   color: var(--muted);
