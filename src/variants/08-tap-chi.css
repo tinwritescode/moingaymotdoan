@@ -855,6 +855,7 @@
   margin-bottom: 0.5rem;
   border-radius: 0;
   background: var(--side);
+  color: var(--ink);
   border-left: 3px solid var(--accent);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
@@ -870,7 +871,13 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
+  padding-bottom: 0.4rem;
   margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="08-tap-chi"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="08-tap-chi"] .kt-verse-number {
@@ -934,6 +941,11 @@
   font-size: 1rem;
   line-height: 1.72;
   color: var(--muted);
+}
+
+:root[data-variant="08-tap-chi"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 @media (min-width: 64rem) {
@@ -1030,6 +1042,7 @@
 
 :root[data-variant="08-tap-chi"] .kt-note[open] > .kt-note-heading {
   color: var(--accent);
+  border-bottom: 1px dotted var(--rule);
 }
 
 :root[data-variant="08-tap-chi"] .kt-note[open] > .kt-note-heading > span {
@@ -1039,7 +1052,7 @@
 }
 
 :root[data-variant="08-tap-chi"] .kt-note-body {
-  padding-top: 0.25rem;
+  padding-top: 0.75rem;
   padding-bottom: 2rem;
   font-family: var(--font-serif);
   font-size: 1.075rem;
@@ -1061,6 +1074,7 @@
   border-top: 1px solid var(--rule);
   border-left: 2px solid var(--ink);
   background: var(--card);
+  color: var(--ink);
   padding: 1.25rem 1.45rem;
 }
 
@@ -1130,6 +1144,7 @@
   border: 1px solid var(--ink);
   border-top: 3px solid var(--accent);
   background: var(--card);
+  color: var(--ink);
   padding: 1.5rem 1.65rem;
   box-shadow: 0 24px 56px -16px rgba(0, 0, 0, 0.28);
   font-family: var(--font-serif);
