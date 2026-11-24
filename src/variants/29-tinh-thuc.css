@@ -105,6 +105,7 @@
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-crumbs {
+  flex-wrap: wrap;
   font-size: 0.8125rem;
   letter-spacing: 0.01em;
   gap: 0.45rem;
@@ -167,8 +168,20 @@
   }
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-picker nav button[aria-pressed="true"] {
+  background: var(--side);
+  color: var(--accent);
+  font-weight: 600;
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-picker a {
   border-radius: 0.65rem;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-picker ol a:hover {
+  border-color: var(--accent);
+  background: var(--side);
+  color: var(--accent);
 }
 
 @media (min-width: 64rem) {
@@ -229,6 +242,26 @@
   line-height: 1.75;
   max-width: 32rem;
   margin-inline: auto;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-hero a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-hero a:hover {
+  border-color: var(--accent);
+  background: var(--side);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-hero > div[aria-hidden="true"] {
@@ -357,6 +390,19 @@
   font-weight: 600;
   font-size: clamp(1.55rem, 3vw, 1.95rem);
   color: var(--ink);
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding-inline: 0.65rem;
+  border-radius: 9999px;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-book > div:first-child a:hover {
+  background: var(--side);
+  color: var(--accent);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-chapter-list {
@@ -528,6 +574,26 @@
 
 :root[data-variant="29-tinh-thuc"] .kt-note-heading:hover {
   color: var(--accent);
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-note-heading > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-note[open] > .kt-note-heading > span {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-note-body {
@@ -737,21 +803,29 @@
   border-color: var(--accent);
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-switcher select {
+  min-height: 2.25rem;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 500;
+  cursor: pointer;
+}
+
 /* ==========================================================================
-   FOCUS MODE FADE — NEAR-INVISIBLE CHROME UNTIL HOVER OR FOCUS (POINTER DEVICES)
+   FOCUS MODE FADE — QUIET CHROME UNTIL HOVER OR FOCUS (POINTER DEVICES)
    ========================================================================== */
 
 @media (hover: hover) {
   :root[data-variant="29-tinh-thuc"] .kt-header {
-    opacity: 0.16;
+    opacity: 0.28;
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-footer {
-    opacity: 0.24;
+    opacity: 0.34;
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-switcher {
-    opacity: 0.22;
+    opacity: 0.3;
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-header:hover,
@@ -768,7 +842,7 @@
 @media (hover: hover) and (min-width: 64rem) {
   :root[data-variant="29-tinh-thuc"] .kt-toc,
   :root[data-variant="29-tinh-thuc"] .kt-aside {
-    opacity: 0.15;
+    opacity: 0.26;
   }
 
   :root[data-variant="29-tinh-thuc"] .kt-toc:hover,
