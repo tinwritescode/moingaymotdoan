@@ -177,8 +177,8 @@
   font-weight: 600;
   color: var(--ink);
   box-shadow: 2px 2px 0 var(--rule);
-  min-height: 2.5rem;
-  padding-inline: 0.85rem;
+  min-height: 2.75rem;
+  padding-inline: 0.9rem;
 }
 
 :root[data-variant="13-so-tay"] .kt-header > button[popovertarget]:hover,
@@ -268,10 +268,15 @@
   font-family: var(--st-mono);
   letter-spacing: 0.12em;
   color: var(--accent);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px dashed var(--rule);
 }
 
 :root[data-variant="13-so-tay"] .kt-picker nav button {
   border-radius: 0 6px 6px 0;
+  color: var(--ink);
+  min-height: 2.75rem;
 }
 
 :root[data-variant="13-so-tay"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
@@ -293,7 +298,9 @@
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--ink);
-  padding-bottom: 0.45rem;
+  padding: 0.15rem 0.6rem 0.45rem;
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(100deg, var(--st-hl-yellow) 0%, transparent 78%);
   border-bottom: 1.5px dashed var(--rule);
 }
 
@@ -301,6 +308,7 @@
   background-color: var(--paper);
   border: 1px solid var(--rule);
   border-radius: 4px;
+  color: var(--ink);
   font-family: var(--st-mono);
   font-weight: 600;
 }
@@ -421,13 +429,13 @@
 :root[data-variant="13-so-tay"] .kt-hero a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--st-mono);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--st-pen);
   background: linear-gradient(to top, var(--st-hl-mint) 40%, transparent 40%);
-  padding: 0.15rem 0.55rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 3px;
   text-decoration: none;
 }
@@ -716,10 +724,10 @@
 :root[data-variant="13-so-tay"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--st-mono);
   font-size: 0.78rem;
-  padding: 0.2rem 0.65rem;
+  padding: 0.25rem 0.7rem;
   border: 1px dashed var(--rule);
   border-radius: 4px;
   text-decoration: none;
@@ -764,7 +772,8 @@
 }
 
 :root[data-variant="13-so-tay"] .kt-chapter-link {
-  align-items: baseline;
+  min-height: 2.75rem;
+  align-items: center;
   gap: 0.65rem;
   font-size: 1rem;
 }
