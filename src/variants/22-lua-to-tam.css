@@ -234,7 +234,17 @@
 :root[data-variant="22-lua-to-tam"] .kt-picker nav button[aria-pressed="true"] {
   background: linear-gradient(90deg, var(--side) 0%, color-mix(in srgb, var(--side) 45%, transparent) 100%);
   color: var(--accent);
+  font-weight: 700;
   box-shadow: inset 2px 0 0 var(--accent);
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-picker > div > p {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--silk-thread);
 }
 
 :root[data-variant="22-lua-to-tam"] .kt-picker ol a {
@@ -330,6 +340,7 @@
 :root[data-variant="22-lua-to-tam"] .kt-hero a {
   display: inline-flex;
   align-items: center;
+  min-height: 2.5rem;
   gap: 0.35rem;
   padding: 0.35rem 1rem;
   border-radius: 999px;
@@ -1039,6 +1050,16 @@
   }
 }
 
+:root[data-variant="22-lua-to-tam"] .kt-footer a {
+  color: var(--accent);
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-footer a:hover {
+  color: var(--ink);
+}
+
 :root[data-variant="22-lua-to-tam"] .kt-switcher {
   border-radius: 999px;
   border: 1px solid var(--silk-thread);
@@ -1053,6 +1074,7 @@
 
 :root[data-variant="22-lua-to-tam"] .kt-switcher select {
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
   font-weight: 500;
@@ -1067,6 +1089,7 @@
   :root[data-variant="22-lua-to-tam"] .kt-hero a,
   :root[data-variant="22-lua-to-tam"] .kt-start-cta,
   :root[data-variant="22-lua-to-tam"] .kt-books-link,
+  :root[data-variant="22-lua-to-tam"] .kt-book > div:first-child a,
   :root[data-variant="22-lua-to-tam"] .kt-chapter-list > li,
   :root[data-variant="22-lua-to-tam"] .kt-toc a,
   :root[data-variant="22-lua-to-tam"] .kt-note,
