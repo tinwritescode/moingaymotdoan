@@ -554,6 +554,9 @@
 }
 
 :root[data-variant="09-tho-rap"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--tr-mono);
   font-size: 0.78rem;
   font-weight: 700;
@@ -561,7 +564,7 @@
   text-transform: uppercase;
   color: var(--tr-invert-fg);
   border: 1.5px solid currentColor;
-  padding: 0.25rem 0.55rem;
+  padding: 0.25rem 0.65rem;
   text-decoration: none;
 }
 
@@ -1068,8 +1071,12 @@
   text-transform: uppercase;
 }
 
-:root[data-variant="09-tho-rap"] .kt-ref-popover > p:nth-child(2) {
-  padding: 1rem 1.15rem 0.5rem;
+:root[data-variant="09-tho-rap"] .kt-ref-popover > p:not(:first-child) {
+  padding: 0.9rem 1.15rem 0.25rem;
+}
+
+:root[data-variant="09-tho-rap"] .kt-ref-popover > p:not(:first-child) + p {
+  padding-top: 0.35rem;
 }
 
 :root[data-variant="09-tho-rap"] .kt-ref-popover > button {
@@ -1212,6 +1219,7 @@
   color: #111111;
   border: 2px solid #111111;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   padding: 0.15rem 0.35rem;
   font-family: var(--tr-mono);
   font-size: 0.78rem;
@@ -1243,6 +1251,16 @@
     position: sticky;
     top: 1.5rem;
     max-height: calc(100dvh - 3rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  :root[data-variant="09-tho-rap"] .kt-aside h2 {
+    flex-shrink: 0;
+  }
+
+  :root[data-variant="09-tho-rap"] .kt-aside > div {
     overflow-y: auto;
   }
 }
@@ -1305,9 +1323,11 @@
   :root[data-variant="09-tho-rap"] .kt-header > button[popovertarget],
   :root[data-variant="09-tho-rap"] a.kt-pager,
   :root[data-variant="09-tho-rap"] .kt-hero a,
+  :root[data-variant="09-tho-rap"] .kt-book > div:first-child a,
   :root[data-variant="09-tho-rap"] .kt-start-cta,
   :root[data-variant="09-tho-rap"] .kt-books li,
   :root[data-variant="09-tho-rap"] .kt-chapter-list > li,
+  :root[data-variant="09-tho-rap"] .kt-note-heading > span[aria-hidden="true"],
   :root[data-variant="09-tho-rap"] .kt-ref-popover > button,
   :root[data-variant="09-tho-rap"] .kt-picker ol a {
     transition:
