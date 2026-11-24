@@ -163,7 +163,7 @@
   }
 }
 
-:root[data-variant="04-dem-sao"] .kt-header > span {
+:root[data-variant="04-dem-sao"] .kt-header > span.rounded-full {
   border: 1px solid var(--ds-border-soft);
   background: var(--ds-surface-elevated);
   color: var(--vua);
@@ -259,6 +259,7 @@
   border: 1px solid var(--ds-border-glow);
   border-radius: 1.25rem;
   max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow: var(--ds-shadow-pop);
 }
 
@@ -269,10 +270,12 @@
 @media (max-width: 639px) {
   :root[data-variant="04-dem-sao"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="04-dem-sao"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -302,6 +305,19 @@
   max-width: 58rem;
   padding-inline: clamp(1rem, 4vw, 2rem);
   padding-bottom: 6rem;
+}
+
+:root[data-variant="04-dem-sao"] .kt-home > p.rounded {
+  border-radius: 1rem;
+  border: 1px solid var(--ds-border-soft);
+  border-left: 3px solid var(--vua);
+  background: var(--ds-surface-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.7;
+  padding: 0.9rem 1.25rem;
 }
 
 /* Hero */
@@ -845,7 +861,15 @@
 }
 
 :root[data-variant="04-dem-sao"] .kt-note-heading > span[aria-hidden="true"] {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--ds-border-soft);
+  background: var(--ds-surface-hover);
   color: var(--accent);
+  font-size: 0.9rem;
   flex-shrink: 0;
 }
 
@@ -861,8 +885,12 @@
 }
 
 :root[data-variant="04-dem-sao"] #nguyen-van .kt-note-body > p {
-  border-left: 2px solid var(--ds-border-glow);
-  padding-left: 1.15rem;
+  background: var(--side);
+  border: 1px solid var(--ds-border-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0.85rem;
+  padding: 1.1rem 1.25rem;
+  line-height: 1.9;
 }
 
 /* Commentator Opinions */
@@ -918,6 +946,12 @@
   margin-top: 1rem;
   font-size: 1.02rem;
   line-height: 1.85;
+}
+
+:root[data-variant="04-dem-sao"] .kt-aside > div p + p {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--ds-border-soft);
 }
 
 /* ==========================================================================
@@ -1004,6 +1038,7 @@
   background: transparent;
   color: var(--ink);
   font-weight: 500;
+  min-height: 2.25rem;
   cursor: pointer;
 }
 
