@@ -349,9 +349,20 @@
 }
 
 :root[data-variant="14-may-chu"] .kt-hero a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.15rem 0.55rem;
+  border: 1px dashed var(--rule);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
+}
+
+:root[data-variant="14-may-chu"] .kt-hero a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--side);
 }
 
 :root[data-variant="14-may-chu"] .kt-hero > div[aria-hidden="true"] {
@@ -544,8 +555,19 @@
 }
 
 :root[data-variant="14-may-chu"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.15rem 0.55rem;
+  border: 1px dashed var(--rule);
   text-decoration: underline;
   text-underline-offset: 0.22em;
+}
+
+:root[data-variant="14-may-chu"] .kt-book > div:first-child a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--side);
 }
 
 :root[data-variant="14-may-chu"] .kt-chapter-list {
@@ -858,19 +880,19 @@
   margin-left: auto;
   display: inline-grid;
   place-items: center;
-  min-width: 1.7rem;
-  height: 1.7rem;
+  min-width: 2rem;
+  height: 2rem;
   border: 1px solid var(--rule);
   background: var(--paper);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--ink);
   flex-shrink: 0;
 }
 
 :root[data-variant="14-may-chu"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
   border-color: var(--accent);
-  color: var(--accent);
-  background: var(--card);
+  color: var(--paper);
+  background: var(--accent);
 }
 
 :root[data-variant="14-may-chu"] .kt-note-body {
@@ -1076,6 +1098,7 @@
   color: var(--ink);
   border-bottom: 1px solid var(--rule);
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   padding: 0.1rem 0.25rem;
 }
 
@@ -1083,9 +1106,12 @@
   :root[data-variant="14-may-chu"] :is(
       .kt-header button[popovertarget],
       a.kt-pager,
+      .kt-hero a,
+      .kt-book > div:first-child a,
       .kt-start-cta,
       .kt-toc a,
       .kt-note-heading,
+      .kt-note-heading > span[aria-hidden="true"],
       .kt-ref,
       .kt-ref-popover button,
       .kt-picker ol a
