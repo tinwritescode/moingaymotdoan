@@ -798,9 +798,24 @@
     color-mix(in srgb, var(--side) 86%, var(--card)) 0%,
     var(--silk-veil) 100%
   );
+  color: var(--ink);
   padding: 1.15rem 1.35rem;
   font-size: 1.02rem;
   line-height: 1.85;
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-inline-verses > p:first-child {
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid var(--silk-thread);
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="22-lua-to-tam"] .kt-verse-number {
@@ -880,7 +895,8 @@
   color: var(--ink);
 }
 
-:root[data-variant="22-lua-to-tam"] .kt-note-heading:hover {
+:root[data-variant="22-lua-to-tam"] .kt-note-heading:hover,
+:root[data-variant="22-lua-to-tam"] .kt-note[open] > .kt-note-heading {
   color: var(--accent);
 }
 
@@ -909,6 +925,11 @@
   border-top: 1px solid var(--silk-thread);
   font-size: 1.04rem;
   line-height: 1.85;
+  color: var(--ink);
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-note-body > p + p {
+  margin-top: 0.85rem;
 }
 
 :root[data-variant="22-lua-to-tam"] #nguyen-van .kt-note-body > p {
@@ -929,6 +950,7 @@
     var(--silk-veil) 0%,
     color-mix(in srgb, var(--side) 65%, var(--card)) 100%
   );
+  color: var(--ink);
   padding: 1.1rem 1.3rem;
 }
 
@@ -1005,6 +1027,12 @@
   margin-top: 1.05rem;
   font-size: 1rem;
   line-height: 1.82;
+  color: var(--ink);
+}
+
+:root[data-variant="22-lua-to-tam"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 :root[data-variant="22-lua-to-tam"] .kt-aside > div p + p {
@@ -1072,6 +1100,7 @@
   border-radius: 999px;
   border: 1px solid var(--silk-thread);
   background: var(--silk-veil);
+  color: var(--ink);
   font-size: 0.84rem;
   letter-spacing: 0.04em;
   text-decoration: none;
