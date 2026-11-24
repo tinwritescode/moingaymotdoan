@@ -692,6 +692,7 @@
   margin-top: 1.25rem;
   border-radius: 2px;
   background: var(--side);
+  color: var(--ink);
   border-left: 2px solid var(--accent);
   padding: 1.15rem 1.35rem;
   font-size: 1rem;
@@ -703,7 +704,13 @@
   letter-spacing: 0.14em;
   font-weight: 500;
   color: var(--muted);
+  padding-bottom: 0.4rem;
   margin-bottom: 0.6rem;
+  border-bottom: 1px dotted var(--rule);
+}
+
+:root[data-variant="05-giay-do"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 :root[data-variant="05-giay-do"] .kt-verse-number {
@@ -769,7 +776,8 @@
 }
 
 :root[data-variant="05-giay-do"] .kt-note[open] > .kt-note-heading {
-  color: var(--ink);
+  color: var(--accent);
+  border-bottom: 1px dotted var(--rule);
 }
 
 :root[data-variant="05-giay-do"] .kt-note-heading > span {
@@ -791,10 +799,11 @@
 }
 
 :root[data-variant="05-giay-do"] .kt-note-body {
-  padding-top: 0.25rem;
+  padding-top: 0.65rem;
   padding-bottom: 2rem;
   font-size: 1.04rem;
   line-height: 1.9;
+  color: var(--ink);
 }
 
 :root[data-variant="05-giay-do"] .kt-note-body p {
@@ -829,6 +838,12 @@
 
 :root[data-variant="05-giay-do"] .kt-opinion:hover {
   border-left-color: var(--accent);
+}
+
+:root[data-variant="05-giay-do"] .kt-opinion > p + p {
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px dotted var(--rule);
 }
 
 :root[data-variant="05-giay-do"] .kt-opinion > p:nth-child(2) span {
@@ -890,6 +905,11 @@
   border-top: 1px dotted var(--rule);
 }
 
+:root[data-variant="05-giay-do"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 @media (min-width: 1024px) {
   :root[data-variant="05-giay-do"] .kt-aside {
     position: sticky;
@@ -941,6 +961,7 @@
   border: 1px solid var(--rule);
   border-top: 2px solid var(--accent);
   background: var(--card);
+  color: var(--ink);
   box-shadow: var(--gd-shadow);
   padding: 1.4rem 1.5rem;
   font-family: var(--font-serif);
