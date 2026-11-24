@@ -215,6 +215,11 @@
 
 /* --- Book picker popover: filing-cabinet index drawer --- */
 
+:root[data-variant="14-may-chu"] .kt-picker::backdrop,
+:root[data-variant="14-may-chu"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+}
+
 :root[data-variant="14-may-chu"] .kt-picker {
   border-radius: 0;
   border: 1.5px solid var(--ink);
@@ -254,7 +259,7 @@
   font-size: 0.85rem;
 }
 
-:root[data-variant="14-may-chu"] .kt-picker nav button:hover:not(:disabled) {
+:root[data-variant="14-may-chu"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
   background: var(--card);
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -1045,6 +1050,10 @@
   margin-bottom: 0.85rem;
 }
 
+:root[data-variant="14-may-chu"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 :root[data-variant="14-may-chu"] .kt-ref-popover button {
   margin-top: 0.85rem;
   min-height: 2.5rem;
@@ -1084,6 +1093,18 @@
   line-height: 1.7;
 }
 
+:root[data-variant="14-may-chu"] .kt-footer a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.22em;
+}
+
+:root[data-variant="14-may-chu"] .kt-footer a:hover {
+  color: var(--accent);
+  text-decoration-style: solid;
+}
+
 :root[data-variant="14-may-chu"] .kt-switcher {
   border-radius: 0;
   border: 1px solid var(--ink);
@@ -1114,7 +1135,10 @@
       .kt-note-heading > span[aria-hidden="true"],
       .kt-ref,
       .kt-ref-popover button,
-      .kt-picker ol a
+      .kt-picker nav button,
+      .kt-picker ol a,
+      .kt-crumbs a,
+      .kt-footer a
     ) {
     transition:
       color 140ms ease,
