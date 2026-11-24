@@ -944,6 +944,7 @@
   margin: 0.9rem 0 1.15rem;
   border-radius: 0;
   background-color: var(--side);
+  color: var(--ink);
   border-left: 2px solid var(--ink);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
@@ -980,6 +981,11 @@
 :root[data-variant="15-hoc-thuat"] .kt-inline-verses > p:first-child::before {
   content: "†  ";
   font-variant-caps: normal;
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
+  text-indent: 0;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-inline-verses > p:last-child {
@@ -1127,6 +1133,7 @@
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
   border-bottom: 1px dotted var(--rule);
   margin-bottom: 0.55rem;
 }
@@ -1155,6 +1162,7 @@
   padding: 0.2rem 0 1.45rem;
   font-size: 1.02rem;
   line-height: 1.7;
+  color: var(--ink);
   counter-reset: kt-op;
 }
 
@@ -1190,6 +1198,7 @@
   border-top: 1px solid var(--rule);
   border-left: 2px solid var(--rule);
   background-color: var(--card);
+  color: var(--ink);
   padding: 0.85rem 1.05rem 0.85rem 3.1rem;
   font-size: 1rem;
   line-height: 1.66;
@@ -1293,6 +1302,11 @@
   margin-top: 0.75rem;
   padding-top: 0.75rem;
   border-top: 1px dotted var(--rule);
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-aside > div p {
