@@ -101,6 +101,7 @@
     animation: kt-hoc-thuat-reveal 0.3s ease-out both;
   }
 
+  :root[data-variant="15-hoc-thuat"] .kt-brand,
   :root[data-variant="15-hoc-thuat"] .kt-ref,
   :root[data-variant="15-hoc-thuat"] .kt-pager,
   :root[data-variant="15-hoc-thuat"] .kt-header button[popovertarget],
@@ -232,6 +233,12 @@
   border-color: var(--ink);
   color: var(--accent);
   background-color: var(--side);
+}
+
+:root[data-variant="15-hoc-thuat"] span.kt-pager {
+  border-style: dashed;
+  color: var(--muted);
+  opacity: 0.72;
 }
 
 /* Book picker popover: crisp scholarly index */
@@ -985,6 +992,7 @@
   border: 1px solid var(--ink);
   border-top: 2.5px solid var(--ink);
   background-color: var(--paper);
+  color: var(--ink);
   padding: 1.1rem 1.3rem;
   font-family: var(--kt-tex-serif);
   font-size: 1rem;
@@ -1012,6 +1020,10 @@
 :root[data-variant="15-hoc-thuat"] .kt-ref-popover > p:nth-of-type(2) {
   text-align: justify;
   hyphens: auto;
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.5rem;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-ref-popover > button {
@@ -1112,6 +1124,11 @@
 
 :root[data-variant="15-hoc-thuat"] .kt-note-heading:hover {
   color: var(--accent);
+}
+
+:root[data-variant="15-hoc-thuat"] .kt-note[open] > .kt-note-heading {
+  border-bottom: 1px dotted var(--rule);
+  margin-bottom: 0.55rem;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-note-heading > span:last-child {
