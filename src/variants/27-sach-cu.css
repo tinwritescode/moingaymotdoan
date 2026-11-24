@@ -76,6 +76,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="27-sach-cu"] mark {
+  background-color: var(--mark);
+  color: var(--ink);
+  border-radius: 0;
+  border-bottom: 1px dotted var(--accent);
+  padding: 0.03em 0.18em;
+}
+
 /* Crisp antique focus rings */
 :root[data-variant="27-sach-cu"] a:focus-visible,
 :root[data-variant="27-sach-cu"] button:focus-visible,
@@ -226,6 +234,11 @@
   box-shadow: 0 14px 36px var(--sach-cu-shadow), inset 0 0 0 4px var(--card), inset 0 0 0 5px var(--rule);
 }
 
+:root[data-variant="27-sach-cu"] .kt-picker::backdrop,
+:root[data-variant="27-sach-cu"] .kt-ref-popover::backdrop {
+  background-color: color-mix(in srgb, var(--ink) 28%, transparent);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="27-sach-cu"] .kt-picker nav {
     max-height: 30dvh;
@@ -262,6 +275,12 @@
   color: var(--accent);
   font-weight: 700;
   border-left: 3px solid var(--accent);
+}
+
+:root[data-variant="27-sach-cu"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background-color: var(--side);
+  color: var(--accent);
+  border-bottom-color: var(--rule);
 }
 
 :root[data-variant="27-sach-cu"] .kt-picker > div > p {
@@ -1008,6 +1027,13 @@
   line-height: 1.75;
 }
 
+:root[data-variant="27-sach-cu"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="27-sach-cu"] .kt-opinion > strong:first-child {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
 :root[data-variant="27-sach-cu"] .kt-opinion > p:nth-of-type(2) {
   font-family: "Literata", Georgia, serif;
   margin-top: 0.75rem;
@@ -1132,6 +1158,10 @@
   font-weight: 400;
 }
 
+:root[data-variant="27-sach-cu"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.55rem;
+}
+
 :root[data-variant="27-sach-cu"] .kt-ref-popover button {
   font-family: "Literata", Georgia, serif;
   font-size: 0.85rem;
@@ -1212,6 +1242,11 @@
   background-color: var(--card);
   color: var(--ink);
   font-weight: 600;
+}
+
+:root[data-variant="27-sach-cu"] .kt-switcher select option {
+  background-color: var(--card);
+  color: var(--ink);
 }
 
 /* ==========================================================================
