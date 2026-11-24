@@ -657,6 +657,10 @@
   border-bottom: 1px dotted color-mix(in srgb, var(--rule) 65%, transparent);
 }
 
+:root[data-variant="06-kinh-hoc"] .kt-chapter-list li:hover {
+  background-color: color-mix(in srgb, var(--side) 65%, transparent);
+}
+
 :root[data-variant="06-kinh-hoc"] .kt-chapter-link {
   gap: 0.65rem;
   font-size: 1rem;
@@ -903,6 +907,7 @@
   margin-bottom: 0.35rem;
   border-radius: 0;
   background-color: var(--side);
+  color: var(--ink);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   border-left: 3px double var(--accent);
@@ -931,6 +936,10 @@
   border-bottom: 1px dotted var(--rule);
   padding-bottom: 0.3rem;
   margin-bottom: 0.45rem;
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* Raised Study-Bible Verse Numbers */
@@ -1093,6 +1102,7 @@
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-note[open] > .kt-note-heading {
+  color: var(--accent);
   border-bottom: 1px dotted var(--rule);
 }
 
@@ -1102,7 +1112,7 @@
   font-family: var(--font-serif);
   font-size: 1rem;
   line-height: 1.64;
-  padding-top: 0.25rem;
+  padding-top: 0.65rem;
   padding-bottom: 1.35rem;
   color: var(--ink);
 }
@@ -1186,6 +1196,7 @@
   border-top: 1px solid var(--rule);
   border-left: 2px solid color-mix(in srgb, var(--accent) 45%, var(--rule));
   background-color: transparent;
+  color: var(--ink);
   padding: 0.7rem 0 0.25rem 0.9rem;
 }
 
