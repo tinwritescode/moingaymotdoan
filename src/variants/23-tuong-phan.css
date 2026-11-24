@@ -303,6 +303,11 @@
   outline: none;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-picker::backdrop,
+:root[data-variant="23-tuong-phan"] .kt-ref-popover::backdrop {
+  background-color: rgba(0, 0, 0, 0.62);
+}
+
 @media (max-width: 639px) {
   :root[data-variant="23-tuong-phan"] .kt-picker nav {
     max-height: 30dvh;
@@ -347,7 +352,7 @@
   padding: 0.45rem 0.65rem;
 }
 
-:root[data-variant="23-tuong-phan"] .kt-picker nav button:not(:disabled):hover {
+:root[data-variant="23-tuong-phan"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
   background-color: var(--paper);
   border-color: var(--ink);
   text-decoration: underline;
@@ -1116,6 +1121,10 @@
   border-bottom: 3px solid var(--ink);
 }
 
+:root[data-variant="23-tuong-phan"] .kt-note[open] > .kt-note-heading:hover {
+  text-decoration-color: var(--tp-focus-bg);
+}
+
 :root[data-variant="23-tuong-phan"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
   background-color: var(--paper);
   color: var(--ink);
@@ -1160,6 +1169,14 @@
   background-color: var(--paper);
   padding: 1.15rem 1.25rem;
   color: var(--ink);
+}
+
+:root[data-variant="23-tuong-phan"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="23-tuong-phan"] .kt-opinion > strong:first-child {
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-opinion > p:nth-child(2) {
@@ -1294,4 +1311,9 @@
   font-weight: 800;
   min-height: 2.75rem;
   padding: 0.25rem 0.5rem;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-switcher select option {
+  background-color: var(--paper);
+  color: var(--ink);
 }
