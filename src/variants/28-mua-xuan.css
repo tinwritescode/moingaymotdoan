@@ -150,6 +150,7 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-header > button[popovertarget] {
+  min-height: 2.5rem;
   border-radius: 999px;
   border-color: color-mix(in srgb, var(--mx-peach-deep) 35%, var(--rule));
   background: var(--mx-peach-soft);
@@ -178,6 +179,7 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-pager {
+  min-height: 2.5rem;
   border-radius: 999px;
   border-color: var(--rule);
   padding-inline: 0.95rem;
@@ -223,10 +225,12 @@
 @media (max-width: 639px) {
   :root[data-variant="28-mua-xuan"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="28-mua-xuan"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -280,7 +284,8 @@
   border-left: 4px solid var(--accent);
   background: var(--mx-apricot-soft);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
   padding: 0.85rem 1.15rem;
   box-shadow: var(--mx-card-shadow);
 }
@@ -532,6 +537,19 @@
   content: "\2740\fe0e";
   font-family: var(--font-sans);
   font-size: 1.05rem;
+  color: var(--accent);
+}
+
+:root[data-variant="28-mua-xuan"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding-inline: 0.7rem;
+  border-radius: 999px;
+}
+
+:root[data-variant="28-mua-xuan"] .kt-book > div:first-child a:hover {
+  background: var(--mx-peach-soft);
   color: var(--accent);
 }
 
@@ -798,14 +816,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   border-radius: 999px;
   background: var(--mx-apricot-soft);
   border: 1px solid color-mix(in srgb, var(--mx-apricot-deep) 25%, var(--rule));
   color: var(--accent);
   font-size: 0.85rem;
+}
+
+:root[data-variant="28-mua-xuan"] .kt-note[open] > .kt-note-heading > span {
+  background: var(--mx-cta-bg);
+  border-color: var(--mx-cta-bg);
+  color: var(--mx-cta-ink);
 }
 
 :root[data-variant="28-mua-xuan"] .kt-note-body {
@@ -974,6 +998,7 @@
 }
 
 :root[data-variant="28-mua-xuan"] .kt-switcher select {
+  min-height: 2.25rem;
   background: transparent;
   color: var(--ink);
   font-weight: 600;
