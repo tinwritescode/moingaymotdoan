@@ -93,8 +93,16 @@
     animation: kt-hoc-thuat-reveal 0.3s ease-out both;
   }
 
-  :root[data-variant="15-hoc-thuat"] .kt-ref {
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+  :root[data-variant="15-hoc-thuat"] .kt-ref,
+  :root[data-variant="15-hoc-thuat"] .kt-pager,
+  :root[data-variant="15-hoc-thuat"] .kt-header button[popovertarget],
+  :root[data-variant="15-hoc-thuat"] .kt-start-cta,
+  :root[data-variant="15-hoc-thuat"] .kt-toc a,
+  :root[data-variant="15-hoc-thuat"] .kt-note-heading,
+  :root[data-variant="15-hoc-thuat"] .kt-note-heading > span:last-child,
+  :root[data-variant="15-hoc-thuat"] .kt-ref-popover > button,
+  :root[data-variant="15-hoc-thuat"] .kt-picker ol a {
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 }
 
@@ -268,6 +276,16 @@
   font-weight: 600;
 }
 
+:root[data-variant="15-hoc-thuat"] .kt-picker > div > p {
+  font-family: var(--kt-tex-serif);
+  font-variant-caps: small-caps;
+  letter-spacing: 0.08em;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--ink);
+}
+
 :root[data-variant="15-hoc-thuat"] .kt-picker ol a {
   border-radius: 0;
   border: 1px solid var(--rule);
@@ -376,10 +394,13 @@
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-hero > p:nth-of-type(3) a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.15rem 0.5rem;
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px dotted var(--accent);
-  padding-bottom: 1px;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-hero > p:nth-of-type(3) a:hover {
@@ -603,6 +624,10 @@
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding-inline: 0.35rem;
   font-family: var(--kt-tex-serif);
   font-size: 0.86rem;
   font-style: italic;
@@ -1070,20 +1095,20 @@
   margin-left: auto;
   display: inline-grid;
   place-items: center;
-  width: 1.65rem;
-  height: 1.65rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--rule);
   background-color: var(--card);
   font-family: var(--kt-tex-serif);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
   flex-shrink: 0;
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-note[open] > .kt-note-heading > span:last-child {
   border-color: var(--accent);
-  color: var(--accent);
-  background-color: var(--side);
+  color: var(--paper);
+  background-color: var(--accent);
 }
 
 :root[data-variant="15-hoc-thuat"] .kt-note-body {
@@ -1243,6 +1268,12 @@
   padding-bottom: 2.75rem;
 }
 
+@media (min-width: 48rem) {
+  :root[data-variant="15-hoc-thuat"] .kt-footer {
+    padding-bottom: 0.75rem;
+  }
+}
+
 :root[data-variant="15-hoc-thuat"] .kt-footer p {
   max-width: 52rem;
   margin: 0 auto;
@@ -1282,6 +1313,7 @@
   letter-spacing: 0;
   font-size: 0.78rem;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   background-color: var(--paper);
   color: var(--ink);
 }
