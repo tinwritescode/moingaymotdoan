@@ -149,6 +149,9 @@
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--muted);
   text-decoration: none;
 }
@@ -695,15 +698,17 @@
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-toc a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: 0;
-  padding: 0.25rem 0.35rem;
+  padding: 0.35rem 0.55rem;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   color: var(--ink);
   background-color: transparent;
   text-decoration: none;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px dotted var(--rule);
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-toc a:hover {
@@ -873,11 +878,11 @@
 
 :root[data-variant="07-muc-dien-tu"] .kt-ref-popover button {
   margin-top: 0.9rem;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border: 1px solid var(--ink);
   background-color: var(--paper);
   color: var(--ink);
-  padding: 0.35rem 0.95rem;
+  padding: 0.45rem 1rem;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -1090,6 +1095,9 @@
 }
 
 :root[data-variant="07-muc-dien-tu"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--ink);
   text-underline-offset: 3px;
 }
@@ -1118,7 +1126,7 @@
   font-family: var(--font-sans);
   font-size: 0.78rem;
   font-weight: 600;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
 }
 
