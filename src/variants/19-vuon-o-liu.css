@@ -153,6 +153,9 @@
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   text-underline-offset: 4px;
 }
 
@@ -689,6 +692,9 @@
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   border-radius: var(--olive-radius-sm);
   padding: 0.45rem 0.65rem;
   color: var(--ink);
@@ -1037,7 +1043,7 @@
 :root[data-variant="19-vuon-o-liu"] .kt-ref-popover > button {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   margin-top: 1rem;
   padding: 0.45rem 1.05rem;
   border-radius: var(--olive-radius-sm);
@@ -1072,6 +1078,9 @@
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--accent);
   font-weight: 600;
   text-underline-offset: 3px;
@@ -1092,7 +1101,7 @@
 }
 
 :root[data-variant="19-vuon-o-liu"] .kt-switcher select {
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
