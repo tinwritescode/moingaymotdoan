@@ -162,13 +162,41 @@
   color: var(--muted);
 }
 
+/* Draft badge in header & draft banner on home */
+:root[data-variant="05-giay-do"] .kt-header > span {
+  border-radius: 2px;
+  border: 1px solid color-mix(in srgb, var(--vua) 45%, var(--rule));
+  background: var(--side);
+  color: var(--vua);
+  white-space: normal;
+  line-height: 1.4;
+}
+
+:root[data-variant="05-giay-do"] .kt-home > p.rounded {
+  border-radius: 2px;
+  border-color: var(--rule);
+  border-left: 2px solid var(--vua);
+  background: var(--side);
+}
+
 /* Book picker popover: folded sheet of giấy dó with vermilion top edge */
 :root[data-variant="05-giay-do"] .kt-picker {
   border-radius: 2px;
   border: 1px solid var(--rule);
   border-top: 2px solid var(--accent);
   background: var(--card);
+  max-height: calc(100dvh - 2rem);
   box-shadow: var(--gd-shadow);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="05-giay-do"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="05-giay-do"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="05-giay-do"] .kt-picker nav button {
@@ -482,6 +510,8 @@
   top: 2.5rem;
   border-left: 1px solid var(--rule);
   padding-left: 1rem;
+  max-height: calc(100dvh - 4rem);
+  overflow-y: auto;
 }
 
 :root[data-variant="05-giay-do"] .kt-toc > p {
@@ -673,6 +703,15 @@
   margin-top: 0;
 }
 
+/* Full original chapter on handmade paper sheet wash */
+:root[data-variant="05-giay-do"] #nguyen-van .kt-note-body > p {
+  background: color-mix(in srgb, var(--side) 58%, transparent);
+  border-left: 2px solid var(--accent);
+  border-radius: 2px;
+  padding: 1.25rem 1.4rem;
+  line-height: 1.98;
+}
+
 /* Commentator opinions: unboxed manuscript entries */
 :root[data-variant="05-giay-do"] .kt-opinion {
   border-radius: 0;
@@ -680,6 +719,14 @@
   border-left: 1.5px solid var(--rule);
   background: transparent;
   padding: 0.65rem 0 0.65rem 1.35rem;
+}
+
+:root[data-variant="05-giay-do"] .kt-opinion > p:first-child > strong:first-child::before,
+:root[data-variant="05-giay-do"] .kt-opinion > strong:first-child::before {
+  content: "▪ ";
+  color: var(--accent);
+  font-size: 0.72em;
+  vertical-align: 0.1em;
 }
 
 :root[data-variant="05-giay-do"] .kt-opinion:hover {
@@ -691,10 +738,27 @@
 }
 
 :root[data-variant="05-giay-do"] .kt-byline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: 2.25rem;
   font-size: 0.84rem;
   line-height: 1.7;
   color: var(--muted);
+}
+
+:root[data-variant="05-giay-do"] .kt-byline::before {
+  content: "✦";
+  display: inline-grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  flex-shrink: 0;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;
+  font-size: 0.72rem;
+  color: var(--accent);
+  transform: rotate(-3deg);
 }
 
 /* Right aside ("Điều cần nhớ"): unboxed book marginalia on desktop, soft wash on phone */
@@ -724,20 +788,20 @@
   :root[data-variant="05-giay-do"] .kt-aside {
     position: sticky;
     top: 2.5rem;
-    background: transparent;
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
+    background-color: transparent;
+    background-image: linear-gradient(
+      to bottom,
+      var(--accent) 0 1.85rem,
+      var(--rule) 1.85rem 100%
+    );
+    background-size: 2px 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
     border-radius: 0;
-    border-left: 1px solid var(--rule);
+    border-left: none;
     padding: 0.2rem 0 0.2rem 1.5rem;
-  }
-
-  :root[data-variant="05-giay-do"] .kt-aside::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -1px;
-    width: 2px;
-    height: 1.85rem;
-    background: var(--accent);
   }
 }
 
@@ -787,13 +851,37 @@
   margin-bottom: 0.75rem;
 }
 
+:root[data-variant="05-giay-do"] .kt-ref-popover button {
+  margin-top: 1rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+:root[data-variant="05-giay-do"] .kt-ref-popover button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
 /* --------------------------------------------------------------------------
  * 7. Footer colophon & variant switcher
  * -------------------------------------------------------------------------- */
 
 :root[data-variant="05-giay-do"] .kt-footer {
   border-top: 1px solid var(--rule);
-  background: transparent;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--side) 70%, transparent) 0%,
+    transparent 100%
+  );
 }
 
 :root[data-variant="05-giay-do"] .kt-footer > p {
