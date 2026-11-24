@@ -68,6 +68,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="05-giay-do"] mark {
+  background: var(--mark);
+  color: var(--ink);
+  border-radius: 2px;
+  border-bottom: 1px dotted var(--accent);
+  padding: 0.04em 0.2em;
+}
+
 :root[data-variant="05-giay-do"] a:focus-visible,
 :root[data-variant="05-giay-do"] button:focus-visible,
 :root[data-variant="05-giay-do"] summary:focus-visible,
@@ -140,6 +148,10 @@
   flex-wrap: wrap;
 }
 
+:root[data-variant="05-giay-do"] .kt-crumbs a:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="05-giay-do"] .kt-pager {
   border-radius: 2px;
   border: 1px solid var(--rule);
@@ -187,6 +199,11 @@
 }
 
 /* Book picker popover: folded sheet of giấy dó with vermilion top edge */
+:root[data-variant="05-giay-do"] .kt-picker::backdrop,
+:root[data-variant="05-giay-do"] .kt-ref-popover::backdrop {
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
 :root[data-variant="05-giay-do"] .kt-picker {
   border-radius: 2px;
   border: 1px solid var(--rule);
@@ -225,6 +242,12 @@
 :root[data-variant="05-giay-do"] .kt-picker nav button {
   border-radius: 2px;
   border-left: 2px solid transparent;
+}
+
+:root[data-variant="05-giay-do"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background: var(--side);
+  border-left-color: var(--rule);
+  color: var(--ink);
 }
 
 :root[data-variant="05-giay-do"] .kt-picker nav button[aria-pressed="true"] {
@@ -971,6 +994,15 @@
   }
 }
 
+:root[data-variant="05-giay-do"] .kt-footer a {
+  color: var(--ink);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="05-giay-do"] .kt-footer a:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="05-giay-do"] .kt-switcher {
   border-radius: 2px;
   border: 1px solid var(--rule);
@@ -985,6 +1017,7 @@
   color: var(--ink);
   font-weight: 500;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
 }
 
 /* --------------------------------------------------------------------------
@@ -1011,7 +1044,11 @@
   :root[data-variant="05-giay-do"] .kt-header > button[popovertarget],
   :root[data-variant="05-giay-do"] .kt-hero > p:nth-of-type(3) a,
   :root[data-variant="05-giay-do"] .kt-book > div:first-child a,
-  :root[data-variant="05-giay-do"] .kt-ref-popover button {
+  :root[data-variant="05-giay-do"] .kt-ref-popover button,
+  :root[data-variant="05-giay-do"] .kt-picker nav button,
+  :root[data-variant="05-giay-do"] .kt-picker ol a,
+  :root[data-variant="05-giay-do"] .kt-crumbs a,
+  :root[data-variant="05-giay-do"] .kt-footer a {
     transition:
       color 0.25s ease,
       background-color 0.25s ease,
