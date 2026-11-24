@@ -279,6 +279,17 @@
   }
 }
 
+:root[data-variant="04-dem-sao"] .kt-picker nav p {
+  color: var(--accent);
+  letter-spacing: 0.14em;
+}
+
+:root[data-variant="04-dem-sao"] .kt-picker > div > p {
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--ink);
+  text-shadow: var(--ds-glow-subtle);
+}
+
 :root[data-variant="04-dem-sao"] .kt-picker button[aria-pressed="true"] {
   background: var(--ds-surface-hover);
   color: var(--accent);
@@ -364,6 +375,26 @@
   max-width: 34rem;
   margin-top: 1.35rem;
   line-height: 1.8;
+}
+
+:root[data-variant="04-dem-sao"] .kt-hero > p a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.35rem 1.05rem;
+  border-radius: 9999px;
+  border: 1px solid var(--ds-border-soft);
+  background: var(--ds-surface-elevated);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+
+:root[data-variant="04-dem-sao"] .kt-hero > p a:hover {
+  border-color: var(--ds-border-glow);
+  background: var(--ds-surface-hover);
+  box-shadow: var(--ds-glow-subtle);
 }
 
 :root[data-variant="04-dem-sao"] .kt-hero > div[aria-hidden="true"] {
@@ -570,6 +601,9 @@
 }
 
 :root[data-variant="04-dem-sao"] .kt-book > div:first-child > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   border: 1px solid var(--ds-border-soft);
   border-radius: 9999px;
   padding: 0.3rem 0.85rem;
@@ -863,14 +897,21 @@
 :root[data-variant="04-dem-sao"] .kt-note-heading > span[aria-hidden="true"] {
   display: inline-grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 9999px;
   border: 1px solid var(--ds-border-soft);
   background: var(--ds-surface-hover);
   color: var(--accent);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   flex-shrink: 0;
+}
+
+:root[data-variant="04-dem-sao"] .kt-note[open] > .kt-note-heading > span[aria-hidden="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+  box-shadow: var(--ds-glow-subtle);
 }
 
 :root[data-variant="04-dem-sao"] .kt-note-body {
@@ -1004,6 +1045,12 @@
   padding-bottom: 3.75rem;
 }
 
+@media (min-width: 640px) {
+  :root[data-variant="04-dem-sao"] .kt-footer {
+    padding-bottom: 1.5rem;
+  }
+}
+
 :root[data-variant="04-dem-sao"] .kt-footer::before {
   content: "";
   position: absolute;
@@ -1078,7 +1125,9 @@
       .kt-note-heading,
       .kt-note-heading > span[aria-hidden="true"],
       .kt-ref-popover button,
-      .kt-picker ol a
+      .kt-picker ol a,
+      .kt-hero > p a,
+      .kt-book > div:first-child > a
     ) {
     transition:
       color 220ms cubic-bezier(0.22, 1, 0.36, 1),
