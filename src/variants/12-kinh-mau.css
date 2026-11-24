@@ -126,6 +126,7 @@
 :root[data-variant="12-kinh-mau"] select:focus-visible {
   outline: 2px solid var(--km-focus);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--km-amber-tint);
 }
 
 /* ==========================================================================
@@ -263,9 +264,21 @@
   border-radius: 1.25rem 1.25rem 0.35rem 0.35rem;
   background: var(--card);
   color: var(--ink);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   box-shadow:
     0 22px 48px var(--km-glow),
     inset 0 1px 0 var(--km-lead-hi);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="12-kinh-mau"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="12-kinh-mau"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="12-kinh-mau"] .kt-picker::before {
@@ -313,6 +326,20 @@
 :root[data-variant="12-kinh-mau"] .kt-home {
   max-width: 74rem;
   padding-top: 2rem;
+}
+
+/* Draft banner on home page — leaded amber glass notice */
+:root[data-variant="12-kinh-mau"] .kt-home > p.rounded {
+  border: 2px solid var(--km-lead);
+  border-left: 6px solid var(--km-amber);
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
+  background:
+    linear-gradient(90deg, var(--km-amber-tint), transparent 60%),
+    var(--card);
+  color: var(--ink);
+  padding: 0.85rem 1.15rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 14px var(--km-glow);
 }
 
 /* Hero framed as a Gothic Cathedral Pointed-Arch Portal with Rose Window glow */
@@ -806,8 +833,8 @@
   padding: 0.65rem 0.85rem;
   display: flex;
   align-items: center;
-  font-size: 0.98rem;
-  line-height: 1.4;
+  font-size: 1rem;
+  line-height: 1.45;
   color: var(--ink);
 }
 
@@ -1100,8 +1127,47 @@
   background: var(--side);
 }
 
+:root[data-variant="12-kinh-mau"] .kt-note[open] {
+  box-shadow:
+    0 8px 22px var(--km-glow),
+    inset 0 0 0 1px var(--km-lead-hi);
+}
+
 :root[data-variant="12-kinh-mau"] .kt-note[open] .kt-note-heading {
   border-bottom: 1.5px solid var(--km-lead-soft);
+  background:
+    linear-gradient(90deg, var(--km-sapphire-tint), transparent 55%),
+    var(--side);
+}
+
+:root[data-variant="12-kinh-mau"] .kt-note[open]:nth-child(4n + 2) .kt-note-heading {
+  background:
+    linear-gradient(90deg, var(--km-amber-tint), transparent 55%),
+    var(--side);
+}
+
+:root[data-variant="12-kinh-mau"] .kt-note[open]:nth-child(4n + 3) .kt-note-heading {
+  background:
+    linear-gradient(90deg, var(--km-emerald-tint), transparent 55%),
+    var(--side);
+}
+
+:root[data-variant="12-kinh-mau"] .kt-note[open]:nth-child(4n + 4) .kt-note-heading {
+  background:
+    linear-gradient(90deg, var(--km-ruby-tint), transparent 55%),
+    var(--side);
+}
+
+:root[data-variant="12-kinh-mau"] #nguyen-van .kt-note-body > p {
+  background:
+    linear-gradient(180deg, var(--km-amber-tint), transparent 45%),
+    var(--card);
+  border: 1.5px solid var(--km-lead);
+  border-left: 5px solid var(--km-amber);
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
+  padding: 1.1rem 1.2rem;
+  line-height: 1.9;
+  box-shadow: inset 0 1px 0 var(--km-lead-hi);
 }
 
 :root[data-variant="12-kinh-mau"] .kt-note-heading > span[aria-hidden="true"] {
@@ -1206,6 +1272,12 @@
   color: var(--ink);
 }
 
+:root[data-variant="12-kinh-mau"] .kt-aside > div p + p {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--km-lead-soft);
+}
+
 /* ==========================================================================
    REFERENCE POPOVER — Backlit Stained-Glass Lantern
    ========================================================================== */
@@ -1250,7 +1322,8 @@
 
 :root[data-variant="12-kinh-mau"] .kt-ref-popover > button {
   margin: 0.5rem 1.25rem 1.1rem;
-  padding: 0.35rem 0.9rem;
+  padding: 0.45rem 1.05rem;
+  min-height: 2.5rem;
   border-radius: 0.65rem 0.65rem 0.2rem 0.2rem;
   border: 1.5px solid var(--km-lead);
   background: var(--side);
@@ -1366,9 +1439,18 @@
     gap: 2.25rem;
   }
 
+  :root[data-variant="12-kinh-mau"] .kt-toc {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
+
   :root[data-variant="12-kinh-mau"] .kt-aside {
     position: sticky;
     top: 1.5rem;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
   }
 }
 
