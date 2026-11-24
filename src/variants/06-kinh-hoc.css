@@ -54,6 +54,14 @@
   color: var(--ink);
 }
 
+:root[data-variant="06-kinh-hoc"] mark {
+  background-color: var(--mark);
+  color: var(--ink);
+  border-radius: 1px;
+  border-bottom: 1px dotted var(--accent);
+  padding: 0.03em 0.18em;
+}
+
 :root[data-variant="06-kinh-hoc"] :is(a, button, summary, select, input):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -190,6 +198,11 @@
 
 /* ─── Book Picker Popover (Canonical Index Drawer) ─── */
 
+:root[data-variant="06-kinh-hoc"] .kt-picker::backdrop,
+:root[data-variant="06-kinh-hoc"] .kt-ref-popover::backdrop {
+  background-color: color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
 :root[data-variant="06-kinh-hoc"] .kt-picker {
   border-radius: 2px;
   border: 1px solid var(--ink);
@@ -238,10 +251,16 @@
   min-height: 2.25rem;
 }
 
+:root[data-variant="06-kinh-hoc"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
+  background-color: var(--paper);
+  color: var(--accent);
+}
+
 :root[data-variant="06-kinh-hoc"] .kt-picker nav button[aria-pressed="true"] {
   background-color: var(--card);
   color: var(--accent);
   border-left: 2px solid var(--accent);
+  font-weight: 700;
 }
 
 :root[data-variant="06-kinh-hoc"] .kt-picker > div > p {
@@ -287,6 +306,15 @@
   }
 }
 
+:root[data-variant="06-kinh-hoc"] .kt-footer a {
+  color: var(--ink);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-footer a:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="06-kinh-hoc"] .kt-switcher {
   border-radius: 2px;
   border: 1px solid var(--rule);
@@ -306,6 +334,7 @@
   font-family: var(--font-serif);
   font-weight: 600;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
 }
 
 /* ─── Home Page: Study Bible Title Page & Canon Table of Contents ─── */
@@ -627,6 +656,10 @@
   font-weight: 700;
   line-height: 1.45;
   width: 2rem;
+  color: var(--accent);
+}
+
+:root[data-variant="06-kinh-hoc"] .kt-chapter-link:hover > span:last-child {
   color: var(--accent);
 }
 
@@ -1154,6 +1187,8 @@
 
 :root[data-variant="06-kinh-hoc"] .kt-byline {
   margin-top: 1.1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dotted var(--rule);
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.84375rem;
