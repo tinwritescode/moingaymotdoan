@@ -772,6 +772,7 @@
 :root[data-variant="03-thuy-si"] .kt-inline-verses {
   border-radius: 0;
   background: var(--side);
+  color: var(--ink);
   border-left: 3px solid var(--accent);
   border-top: 1px solid var(--rule);
   border-right: 1px solid var(--rule);
@@ -788,7 +789,13 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   color: var(--accent);
+  padding-bottom: 0.4rem;
   margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-variant="03-thuy-si"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
 }
 
 /* Divider between story and notes */
@@ -851,7 +858,8 @@
   color: var(--accent);
 }
 
-:root[data-variant="03-thuy-si"] .kt-note-heading:hover {
+:root[data-variant="03-thuy-si"] .kt-note-heading:hover,
+:root[data-variant="03-thuy-si"] .kt-note[open] > .kt-note-heading {
   color: var(--accent);
 }
 
@@ -905,6 +913,12 @@
   text-transform: uppercase;
   font-size: 0.88em;
   color: var(--accent);
+}
+
+:root[data-variant="03-thuy-si"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
 }
 
 :root[data-variant="03-thuy-si"] .kt-opinion p:last-child span:nth-child(1),
@@ -965,6 +979,11 @@
   padding-top: 0.85rem;
 }
 
+:root[data-variant="03-thuy-si"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 /* ── Clickable references & popover ───────────────────────────────────────── */
 
 :root[data-variant="03-thuy-si"] .kt-ref {
@@ -1016,6 +1035,7 @@
 :root[data-variant="03-thuy-si"] .kt-ref-popover button {
   margin-top: 1rem;
   border: 1px solid var(--ink);
+  background: var(--paper);
   min-height: 2.5rem;
   padding: 0.35rem 0.9rem;
   font-size: 0.75rem;
