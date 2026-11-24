@@ -104,6 +104,10 @@
   color: var(--ink);
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-brand:hover {
+  color: var(--accent);
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-brand span {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
@@ -122,6 +126,11 @@
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-crumbs > span:last-child {
+  color: var(--ink);
+  font-weight: 500;
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-header > span.rounded-full {
@@ -164,6 +173,7 @@
   border-radius: 1.1rem;
   border-color: var(--rule);
   background: var(--card);
+  color: var(--ink);
   box-shadow: 0 20px 50px -16px var(--dawn-shadow), 0 0 0 1px var(--rule);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
@@ -669,6 +679,12 @@
   color: var(--accent);
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-opinion > p + p {
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--rule);
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-byline {
   margin-top: 2.25rem;
   padding-top: 1rem;
@@ -697,6 +713,7 @@
 
 :root[data-variant="29-tinh-thuc"] .kt-ref-popover {
   background: var(--card);
+  color: var(--ink);
   border: 1px solid var(--rule);
   border-top: 2px solid var(--accent);
   border-radius: 1rem;
@@ -723,6 +740,7 @@
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-ref-popover button {
+  margin-top: 0.9rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -735,6 +753,7 @@
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -983,6 +1002,7 @@
     transition-duration: 0.22s;
   }
 
+  :root[data-variant="29-tinh-thuc"] .kt-brand,
   :root[data-variant="29-tinh-thuc"] .kt-hero a,
   :root[data-variant="29-tinh-thuc"] .kt-crumbs a,
   :root[data-variant="29-tinh-thuc"] .kt-start-cta,
