@@ -168,10 +168,26 @@
   }
 }
 
+:root[data-variant="29-tinh-thuc"] .kt-picker nav p {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-picker nav button[aria-pressed="true"] {
   background: var(--side);
   color: var(--accent);
   font-weight: 600;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-picker > div > p {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-picker a {
@@ -580,8 +596,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   border-radius: 9999px;
   border: 1px solid var(--rule);
@@ -778,6 +794,12 @@
   padding-block: 1.5rem 3.5rem;
 }
 
+@media (min-width: 48rem) {
+  :root[data-variant="29-tinh-thuc"] .kt-footer {
+    padding-bottom: 1.5rem;
+  }
+}
+
 :root[data-variant="29-tinh-thuc"] .kt-footer p {
   max-width: 39rem;
   margin-inline: auto;
@@ -786,6 +808,15 @@
   border-top: 1px solid var(--rule);
   text-align: center;
   font-size: 0.8125rem;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-footer a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+:root[data-variant="29-tinh-thuc"] .kt-footer a:hover {
+  color: var(--ink);
 }
 
 :root[data-variant="29-tinh-thuc"] .kt-switcher {
@@ -805,6 +836,7 @@
 
 :root[data-variant="29-tinh-thuc"] .kt-switcher select {
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   background: transparent;
   color: var(--ink);
   font-weight: 500;
@@ -899,13 +931,17 @@
     transition-duration: 0.22s;
   }
 
+  :root[data-variant="29-tinh-thuc"] .kt-hero a,
   :root[data-variant="29-tinh-thuc"] .kt-start-cta,
   :root[data-variant="29-tinh-thuc"] .kt-books-link,
+  :root[data-variant="29-tinh-thuc"] .kt-book > div:first-child a,
   :root[data-variant="29-tinh-thuc"] .kt-chapter-link,
+  :root[data-variant="29-tinh-thuc"] .kt-picker ol a,
   :root[data-variant="29-tinh-thuc"] .kt-toc a,
   :root[data-variant="29-tinh-thuc"] .kt-note-heading,
   :root[data-variant="29-tinh-thuc"] .kt-note-heading > span,
   :root[data-variant="29-tinh-thuc"] .kt-ref,
+  :root[data-variant="29-tinh-thuc"] .kt-ref-popover button,
   :root[data-variant="29-tinh-thuc"] .kt-pager,
   :root[data-variant="29-tinh-thuc"] .kt-header button[popovertarget] {
     transition:
