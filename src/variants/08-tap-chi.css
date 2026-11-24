@@ -48,6 +48,7 @@
   line-height: 1.75;
   font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 :root[data-variant="08-tap-chi"] ::selection {
@@ -188,7 +189,18 @@
   border: 1px solid var(--ink);
   border-top: 3px solid var(--accent);
   background: var(--card);
+  max-height: calc(100dvh - 2rem);
   box-shadow: 0 24px 56px -16px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 639px) {
+  :root[data-variant="08-tap-chi"] .kt-picker nav {
+    max-height: 30dvh;
+  }
+
+  :root[data-variant="08-tap-chi"] .kt-picker > div {
+    max-height: 40dvh;
+  }
 }
 
 :root[data-variant="08-tap-chi"] .kt-picker nav p {
@@ -672,6 +684,8 @@
 :root[data-variant="08-tap-chi"] .kt-toc {
   top: 2.5rem;
   padding-top: 0.35rem;
+  max-height: calc(100dvh - 4rem);
+  overflow-y: auto;
 }
 
 :root[data-variant="08-tap-chi"] .kt-toc > p {
@@ -764,7 +778,12 @@
   margin-top: 1.75rem;
 }
 
-/* Classic Magazine Drop Cap on Opening Paragraph */
+/* Classic Magazine Drop Cap & Small-Caps Lead-In Line */
+:root[data-variant="08-tap-chi"] .kt-scripture > div:first-child > p:first-child::first-line {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
+}
+
 :root[data-variant="08-tap-chi"] .kt-scripture > div:first-child > p:first-child::first-letter {
   font-family: var(--font-display);
   font-weight: 800;
@@ -857,8 +876,8 @@
   font-family: var(--font-serif);
   font-style: normal;
   font-weight: 400;
-  font-size: 0.98rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.72;
   color: var(--muted);
 }
 
@@ -866,6 +885,8 @@
   :root[data-variant="08-tap-chi"] .kt-aside {
     position: sticky;
     top: 2.5rem;
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
     margin-top: 0.35rem;
   }
 }
@@ -902,10 +923,12 @@
   margin-top: 2.25rem;
   border-top: 2px solid var(--ink);
   border-bottom: 2px solid var(--ink);
+  counter-reset: kt-tap-chi-sec;
 }
 
 :root[data-variant="08-tap-chi"] .kt-note {
   border-top: 1px solid var(--rule);
+  counter-increment: kt-tap-chi-sec;
 }
 
 :root[data-variant="08-tap-chi"] .kt-note:first-child {
@@ -921,6 +944,16 @@
   color: var(--ink);
   min-height: 4.25rem;
   padding-block: 1rem;
+}
+
+:root[data-variant="08-tap-chi"] .kt-note-heading::before {
+  content: counter(kt-tap-chi-sec, upper-roman);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9em;
+  color: var(--accent);
+  min-width: 2rem;
+  flex-shrink: 0;
 }
 
 :root[data-variant="08-tap-chi"] .kt-note-heading:hover {
@@ -957,6 +990,13 @@
   color: var(--ink);
 }
 
+:root[data-variant="08-tap-chi"] #nguyen-van .kt-note-body > p {
+  border-top: 3px double var(--rule);
+  border-bottom: 3px double var(--rule);
+  background: var(--card);
+  padding: 1.35rem 1.5rem;
+}
+
 /* Commentator Opinions (.kt-opinion) — Symposium / Critical Note Cards */
 :root[data-variant="08-tap-chi"] .kt-opinion {
   border-radius: 0;
@@ -965,6 +1005,13 @@
   border-left: 2px solid var(--ink);
   background: var(--card);
   padding: 1.25rem 1.45rem;
+}
+
+:root[data-variant="08-tap-chi"] .kt-opinion > p:first-child > strong:first-child,
+:root[data-variant="08-tap-chi"] .kt-opinion > strong:first-child {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--accent);
 }
 
 :root[data-variant="08-tap-chi"] .kt-opinion p:last-child span {
@@ -1040,20 +1087,23 @@
 
 :root[data-variant="08-tap-chi"] .kt-ref-popover button {
   margin-top: 1.15rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.95rem;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 0.15rem;
+  border: 1px solid var(--ink);
+  background: transparent;
 }
 
 :root[data-variant="08-tap-chi"] .kt-ref-popover button:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
 }
 
 /* --------------------------------------------------------------------------
@@ -1118,7 +1168,7 @@
    12. Motion (strictly inside prefers-reduced-motion: no-preference)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes kt-08-tap-chi-rise {
+  @keyframes kt-tap-chi-rise {
     from {
       opacity: 0;
       transform: translateY(10px);
@@ -1131,7 +1181,7 @@
 
   :root[data-variant="08-tap-chi"] .kt-hero,
   :root[data-variant="08-tap-chi"] .kt-chapter > div:first-child {
-    animation: kt-08-tap-chi-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: kt-tap-chi-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   :root[data-variant="08-tap-chi"] .kt-header > button[popovertarget],
