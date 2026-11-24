@@ -812,6 +812,7 @@
 :root[data-variant="14-may-chu"] .kt-inline-verses {
   border-radius: 0;
   background: var(--side);
+  color: var(--ink);
   border: 1px dashed var(--rule);
   border-left: 3px solid var(--accent);
   padding: 1rem 1.15rem;
@@ -828,6 +829,11 @@
   border-bottom: 1px dashed var(--rule);
   padding-bottom: 0.4rem;
   margin-bottom: 0.75rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-inline-verses > p:not(:first-child) {
+  margin-top: 0.45rem;
+  text-indent: 0;
 }
 
 /* Scene break divider */
@@ -911,7 +917,12 @@
 :root[data-variant="14-may-chu"] .kt-note-body {
   font-size: 1rem;
   line-height: 1.95;
+  color: var(--ink);
   padding: 0.5rem 0 1.5rem;
+}
+
+:root[data-variant="14-may-chu"] .kt-note-body > p + p {
+  margin-top: 0.9rem;
 }
 
 :root[data-variant="14-may-chu"] #nguyen-van .kt-note-body::before {
@@ -945,6 +956,7 @@
   border: 1px solid var(--rule);
   border-left: 3px solid var(--ink);
   background: var(--paper);
+  color: var(--ink);
   padding: 1rem 1.1rem;
   box-shadow: 2px 2px 0 var(--kt-shadow);
   line-height: 1.9;
@@ -1018,6 +1030,15 @@
   margin-top: 0.95rem;
   font-size: 1rem;
   line-height: 1.9;
+  color: var(--ink);
+}
+
+:root[data-variant="14-may-chu"] .kt-aside > div strong {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.2em;
 }
 
 :root[data-variant="14-may-chu"] .kt-aside > div p + p {
@@ -1049,6 +1070,7 @@
   border: 1.5px solid var(--ink);
   border-top: 4px solid var(--accent);
   background: var(--card);
+  color: var(--ink);
   box-shadow: 5px 5px 0 var(--kt-shadow-strong);
   padding: 1.25rem 1.35rem;
   font-size: 1rem;
