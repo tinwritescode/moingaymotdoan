@@ -93,6 +93,11 @@
   overflow-x: clip;
 }
 
+:root[data-variant="13-so-tay"] ::selection {
+  background-color: var(--mark);
+  color: var(--ink);
+}
+
 :root[data-variant="13-so-tay"] :is(a, button, summary, select, input):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -256,7 +261,17 @@
   border-left: 3px solid var(--accent);
   border-radius: 0 6px 6px 0;
   color: var(--accent);
+  font-weight: 700;
   box-shadow: 0 1px 3px var(--st-shadow);
+}
+
+:root[data-variant="13-so-tay"] .kt-picker > div > p {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding-bottom: 0.45rem;
+  border-bottom: 1.5px dashed var(--rule);
 }
 
 :root[data-variant="13-so-tay"] .kt-picker ol a {
@@ -381,13 +396,22 @@
 }
 
 :root[data-variant="13-so-tay"] .kt-hero a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--st-mono);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--st-pen);
   background: linear-gradient(to top, var(--st-hl-mint) 40%, transparent 40%);
-  padding: 0.1rem 0.35rem;
-  border-radius: 2px;
+  padding: 0.15rem 0.55rem;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-hero a:hover {
+  background: linear-gradient(to top, var(--st-hl-yellow) 65%, transparent 65%);
+  color: var(--ink);
 }
 
 :root[data-variant="13-so-tay"] .kt-hero > div[aria-hidden="true"] {
@@ -667,11 +691,21 @@
 }
 
 :root[data-variant="13-so-tay"] .kt-book > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
   font-family: var(--st-mono);
   font-size: 0.78rem;
-  padding: 0.2rem 0.55rem;
+  padding: 0.2rem 0.65rem;
   border: 1px dashed var(--rule);
   border-radius: 4px;
+  text-decoration: none;
+}
+
+:root[data-variant="13-so-tay"] .kt-book > div:first-child a:hover {
+  border-color: var(--accent);
+  background-color: var(--st-sticky);
+  color: var(--accent);
 }
 
 /* Chapter list: clean grid instead of CSS columns so hover/underline stay crisp */
@@ -1138,21 +1172,22 @@
 
 :root[data-variant="13-so-tay"] .kt-note-heading > span {
   margin-left: auto;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   display: inline-grid;
   place-items: center;
   border: 1.5px dashed var(--rule);
   border-radius: 50%;
   font-family: var(--st-mono);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--accent);
   background-color: var(--card);
 }
 
 :root[data-variant="13-so-tay"] .kt-note[open] > .kt-note-heading > span {
-  background-color: var(--st-sticky);
+  background-color: var(--accent);
+  color: var(--card);
   border-style: solid;
   border-color: var(--accent);
 }
@@ -1425,6 +1460,7 @@
   border: 1px solid var(--rule);
   border-radius: 3px;
   min-height: 2.25rem;
+  max-width: min(13rem, 52vw);
   padding: 0.1rem 0.3rem;
   font-family: var(--st-mono);
   font-size: 0.78rem;
@@ -1448,11 +1484,15 @@
 
   :root[data-variant="13-so-tay"] .kt-toc a,
   :root[data-variant="13-so-tay"] .kt-start-cta,
+  :root[data-variant="13-so-tay"] .kt-hero a,
+  :root[data-variant="13-so-tay"] .kt-book > div:first-child a,
   :root[data-variant="13-so-tay"] .kt-header > button[popovertarget],
   :root[data-variant="13-so-tay"] a.kt-pager,
   :root[data-variant="13-so-tay"] .kt-aside,
   :root[data-variant="13-so-tay"] .kt-ref,
   :root[data-variant="13-so-tay"] .kt-note-heading > span,
+  :root[data-variant="13-so-tay"] .kt-ref-popover button,
+  :root[data-variant="13-so-tay"] .kt-picker ol a,
   :root[data-variant="13-so-tay"] .kt-chapter-list > li {
     transition:
       transform 160ms ease,
