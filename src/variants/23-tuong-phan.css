@@ -177,7 +177,8 @@
   font-size: 1.125rem;
   font-weight: 900;
   line-height: 1.3;
-  padding: 0.25rem 0;
+  padding: 0.25rem 0.4rem;
+  margin-inline: -0.4rem;
   min-height: 2.75rem;
   display: inline-flex;
   flex-wrap: wrap;
@@ -191,7 +192,6 @@
 :root[data-variant="23-tuong-phan"] .kt-brand:hover {
   background-color: var(--ink);
   color: var(--paper);
-  padding-inline: 0.4rem;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-brand span {
@@ -306,10 +306,12 @@
 @media (max-width: 639px) {
   :root[data-variant="23-tuong-phan"] .kt-picker nav {
     max-height: 30dvh;
+    overflow-y: auto;
   }
 
   :root[data-variant="23-tuong-phan"] .kt-picker > div {
     max-height: 40dvh;
+    overflow-y: auto;
   }
 }
 
@@ -1112,6 +1114,12 @@
   color: var(--tp-focus-ink);
 }
 
+:root[data-variant="23-tuong-phan"] .kt-note[open] > .kt-note-heading:focus-visible > span[aria-hidden="true"] {
+  background-color: var(--tp-focus-bg);
+  color: var(--tp-focus-ink);
+  border-color: var(--tp-focus-ink);
+}
+
 :root[data-variant="23-tuong-phan"] .kt-note-body {
   padding: 1.35rem 1.15rem 1.65rem;
   font-size: 1.125rem;
@@ -1193,6 +1201,7 @@
   background-color: var(--side);
   padding: 1.35rem 1.25rem;
   color: var(--ink);
+  box-shadow: 5px 5px 0 var(--tp-shadow);
 }
 
 :root[data-variant="23-tuong-phan"] .kt-aside h2 {
@@ -1245,6 +1254,7 @@
 }
 
 :root[data-variant="23-tuong-phan"] .kt-switcher {
+  max-width: calc(100vw - 1.5rem);
   border: 3px solid var(--ink);
   border-radius: 0;
   background-color: var(--paper);
@@ -1256,6 +1266,7 @@
 }
 
 :root[data-variant="23-tuong-phan"] .kt-switcher select {
+  max-width: 13rem;
   border: 2px solid var(--ink);
   border-radius: 0;
   background-color: var(--paper);
