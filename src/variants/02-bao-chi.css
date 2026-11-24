@@ -127,8 +127,8 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  min-height: 2.5rem;
-  padding: 0 0.8rem;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
 }
 
 :root[data-variant="02-bao-chi"] .kt-header > button[popovertarget]:hover {
@@ -178,8 +178,8 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  min-height: 2.5rem;
-  padding: 0 0.78rem;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
 }
 
 :root[data-variant="02-bao-chi"] a.kt-pager:hover {
@@ -251,6 +251,8 @@
   border-bottom: 1px dotted var(--rule);
   font-family: var(--font-serif);
   font-size: 0.92rem;
+  color: var(--ink);
+  min-height: 2.75rem;
 }
 
 :root[data-variant="02-bao-chi"] .kt-picker nav button:not(:disabled):not([aria-pressed="true"]):hover {
@@ -273,14 +275,23 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  color: var(--ink);
   border-bottom: 2px solid var(--ink);
   padding-bottom: 0.45rem;
+}
+
+:root[data-variant="02-bao-chi"] .kt-picker > div > p::before {
+  content: "■ ";
+  color: var(--accent);
+  font-size: 0.72em;
+  vertical-align: 0.08em;
 }
 
 :root[data-variant="02-bao-chi"] .kt-picker ol a {
   border-radius: 0;
   border: 1px solid var(--rule);
   background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -381,7 +392,7 @@
 :root[data-variant="02-bao-chi"] .kt-hero > p a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 700;
@@ -572,10 +583,12 @@
   gap: 0.25rem 0.75rem;
   align-items: baseline;
   background: transparent;
+  border-left: 3px solid transparent;
 }
 
 :root[data-variant="02-bao-chi"] .kt-books-link:hover {
   background: var(--side);
+  border-left-color: var(--accent);
 }
 
 :root[data-variant="02-bao-chi"] .kt-books-link > span:first-child {
@@ -634,12 +647,20 @@
 :root[data-variant="02-bao-chi"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+:root[data-variant="02-bao-chi"] .kt-book > div:first-child a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 :root[data-variant="02-bao-chi"] .kt-chapter-list {
