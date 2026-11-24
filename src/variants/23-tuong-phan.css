@@ -372,6 +372,14 @@
   text-decoration: line-through;
 }
 
+:root[data-variant="23-tuong-phan"] .kt-picker > div > p {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 0.45rem;
+}
+
 :root[data-variant="23-tuong-phan"] .kt-picker ol a {
   min-height: 2.75rem;
   border: 2px solid var(--ink);
@@ -804,6 +812,7 @@
     top: 1.25rem;
     max-height: calc(100dvh - 2.5rem);
     overflow-y: auto;
+    padding-inline: 1.35rem;
   }
 }
 
@@ -1016,6 +1025,10 @@
   color: var(--ink);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+:root[data-variant="23-tuong-phan"] .kt-ref-popover > p:not(:first-child) {
+  margin-top: 0.65rem;
 }
 
 :root[data-variant="23-tuong-phan"] .kt-ref-popover button {
@@ -1236,6 +1249,12 @@
   padding-bottom: 4.75rem;
 }
 
+@media (min-width: 48rem) {
+  :root[data-variant="23-tuong-phan"] .kt-footer {
+    padding-bottom: 1.5rem;
+  }
+}
+
 :root[data-variant="23-tuong-phan"] .kt-footer p {
   padding: 1.25rem;
   font-size: 1rem;
@@ -1266,7 +1285,7 @@
 }
 
 :root[data-variant="23-tuong-phan"] .kt-switcher select {
-  max-width: 13rem;
+  max-width: min(13rem, 50vw);
   border: 2px solid var(--ink);
   border-radius: 0;
   background-color: var(--paper);
