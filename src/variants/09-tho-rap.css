@@ -172,8 +172,8 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  min-height: 2.5rem;
-  padding: 0 0.9rem;
+  min-height: 2.75rem;
+  padding: 0 0.95rem;
 }
 
 :root[data-variant="09-tho-rap"] .kt-header > button[popovertarget]:hover {
@@ -231,8 +231,8 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  min-height: 2.5rem;
-  padding: 0 0.85rem;
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
 }
 
 :root[data-variant="09-tho-rap"] a.kt-pager {
@@ -575,7 +575,7 @@
 :root[data-variant="09-tho-rap"] .kt-book > div:first-child a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
+  min-height: 2.75rem;
   font-family: var(--tr-mono);
   font-size: 0.78rem;
   font-weight: 700;
@@ -583,7 +583,7 @@
   text-transform: uppercase;
   color: var(--tr-invert-fg);
   border: 1.5px solid currentColor;
-  padding: 0.25rem 0.65rem;
+  padding: 0.25rem 0.7rem;
   text-decoration: none;
 }
 
@@ -613,6 +613,7 @@
 :root[data-variant="09-tho-rap"] .kt-chapter-link {
   display: flex;
   align-items: stretch;
+  min-height: 2.75rem;
   gap: 0;
   flex: 1;
   text-decoration: none;
@@ -1140,8 +1141,8 @@
 
 :root[data-variant="09-tho-rap"] .kt-ref-popover > button {
   margin: 0.5rem 1.15rem 1rem;
-  padding: 0.35rem 0.9rem;
-  min-height: 2.5rem;
+  padding: 0.4rem 0.95rem;
+  min-height: 2.75rem;
   background: var(--tr-yellow);
   color: #111111;
   border: 2px solid var(--tr-border);
@@ -1160,6 +1161,18 @@
 }
 
 /* Book picker popover */
+@media (max-width: 639px) {
+  :root[data-variant="09-tho-rap"] .kt-picker nav {
+    max-height: 30dvh;
+    overflow-y: auto;
+  }
+
+  :root[data-variant="09-tho-rap"] .kt-picker > div {
+    max-height: 40dvh;
+    overflow-y: auto;
+  }
+}
+
 :root[data-variant="09-tho-rap"] .kt-picker nav {
   border-color: var(--tr-border);
   border-width: 0 0 2.5px 0;
@@ -1181,6 +1194,8 @@
   border-radius: 0;
   font-family: var(--font-sans);
   font-weight: 600;
+  color: var(--ink);
+  min-height: 2.75rem;
   border: 2px solid transparent;
 }
 
@@ -1209,8 +1224,15 @@
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  color: var(--ink);
   padding-bottom: 0.5rem;
   border-bottom: 2.5px solid var(--tr-border);
+}
+
+:root[data-variant="09-tho-rap"] .kt-picker > div > p::before {
+  content: "// ";
+  font-family: var(--tr-mono);
+  color: var(--accent);
 }
 
 :root[data-variant="09-tho-rap"] .kt-picker ol a {
