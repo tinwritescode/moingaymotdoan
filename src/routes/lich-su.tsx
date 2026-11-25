@@ -1,5 +1,5 @@
 import type { RouteDefinition } from "@solidjs/router";
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, Repeat, Show } from "solid-js";
 import {
   formatDateTime,
   formatTime,
@@ -13,6 +13,7 @@ import { FloatingDock } from "../components/floating-dock";
 import { ProgressRing, WeeklyDots } from "../components/progress-ring";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
+import { Bone, Skeleton } from "../components/skeleton";
 import { useUser } from "../components/user-context";
 import { getToc } from "../data";
 import { chapterHref } from "../router";
@@ -151,7 +152,47 @@ export default function LichSuPage() {
 
         <Show
           when={ready()}
-          fallback={<p class="mt-8 font-sans text-sm text-muted">Đang tải lịch sử đọc của bạn…</p>}
+          fallback={
+            <Skeleton label="Đang tải lịch sử đọc của bạn…">
+              <div class="mt-5 grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5">
+                <Bone class="h-[4.5rem] w-[4.5rem]" />
+                <div class="space-y-2">
+                  <Bone class="h-3 w-32" />
+                  <Bone class="h-5 w-3/4" />
+                  <Bone class="h-3.5 w-1/2" />
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-3 gap-2">
+                <Repeat count={3}>
+                  {() => (
+                    <div class="space-y-2 rounded-2xl border border-rule bg-card p-3.5">
+                      <Bone class="h-6 w-10" />
+                      <Bone class="h-3 w-16" />
+                    </div>
+                  )}
+                </Repeat>
+              </div>
+              <div class="mt-6 flex gap-1.5">
+                <Bone class="h-9 w-20" />
+                <Bone class="h-9 w-24" />
+                <Bone class="h-9 w-20" />
+                <Bone class="h-9 w-20" />
+              </div>
+              <div class="mt-6 space-y-4">
+                <Repeat count={4}>
+                  {() => (
+                    <div class="flex items-center gap-3">
+                      <Bone class="h-10 w-10 shrink-0" />
+                      <div class="flex-1 space-y-2">
+                        <Bone class="h-4 w-2/3" />
+                        <Bone class="h-3 w-1/3" />
+                      </div>
+                    </div>
+                  )}
+                </Repeat>
+              </div>
+            </Skeleton>
+          }
         >
           <Show when={latestChapter()}>
             {(latest) => (

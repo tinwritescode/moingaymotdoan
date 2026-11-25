@@ -1,4 +1,5 @@
 import { Loading } from "solid-js";
+import { PageSkeleton } from "./components/skeleton";
 import { UserProvider } from "./components/user-context";
 import { Router } from "./router";
 import "./app.css";
@@ -11,7 +12,7 @@ export default function App() {
         {(props) => (
           <>
             <div class="flex flex-1 flex-col">
-              <Loading fallback={<p class="px-6 py-10 font-sans text-sm text-muted">Đang tải…</p>}>
+              <Loading fallback={<PageSkeleton />}>
                 {props.children}
               </Loading>
             </div>

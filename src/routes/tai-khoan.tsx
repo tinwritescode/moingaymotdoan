@@ -5,6 +5,7 @@ import { FloatingDock } from "../components/floating-dock";
 import { WeeklyDots } from "../components/progress-ring";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
+import { Bone, Skeleton } from "../components/skeleton";
 import { useUser } from "../components/user-context";
 import { getToc } from "../data";
 
@@ -64,9 +65,23 @@ export default function TaiKhoanPage() {
         <Show
           when={ready()}
           fallback={
-            <section class="rounded-3xl border border-rule bg-card p-6 font-sans text-sm text-muted">
-              Đang kiểm tra phiên đăng nhập và đồng bộ lịch sử…
-            </section>
+            <Skeleton
+              label="Đang kiểm tra phiên đăng nhập và đồng bộ lịch sử…"
+              class="rounded-3xl border border-rule bg-card p-6 sm:p-8"
+            >
+              <div class="flex items-center gap-4">
+                <Bone class="h-14 w-14 shrink-0" />
+                <div class="flex-1 space-y-2">
+                  <Bone class="h-3 w-28" />
+                  <Bone class="h-6 w-1/2" />
+                  <Bone class="h-3 w-2/5" />
+                </div>
+              </div>
+              <div class="mt-6 space-y-2.5">
+                <Bone class="h-12 w-full" />
+                <Bone class="h-12 w-full" />
+              </div>
+            </Skeleton>
           }
         >
           <Show
