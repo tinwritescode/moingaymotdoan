@@ -1,5 +1,3 @@
-import { DEFAULT_GUEST_STORAGE_KEY } from "./browser-history-adapters";
-
 export type ThemeMode = "system" | "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
 export type ReadingScale = "sm" | "md" | "lg";
@@ -8,6 +6,8 @@ export type ReadingFontId = "source-serif" | "literata" | "lora" | "newsreader" 
 export const THEME_STORAGE_KEY = "kt:theme:v1";
 export const FONT_STORAGE_KEY = "kt:reading-font:v1";
 export const SCALE_STORAGE_KEY = "kt:reading-scale:v1";
+/** Height (px) of the home page's Continue reading card on its last settled render; absent when it had none. */
+export const CONTINUE_HEIGHT_STORAGE_KEY = "kt:continue-height:v1";
 
 export const THEME_COLOR_LIGHT = "#f4f3ee";
 export const THEME_COLOR_DARK = "#111312";
@@ -218,8 +218,9 @@ export function buildPrefsInitScript(): string {
     "}",
     "}",
     "}",
-    // A reader with a chapter in history gets the "Continue reading" card: let the home page hold its room.
-    `if(/"kind":"chapter"/.test(l.getItem(${safeJson(DEFAULT_GUEST_STORAGE_KEY)})))d.dataset.reader="1";`,
+    // The Continue reading card renders only after hydration (and the cloud fetch when signed in): hold its room.
+    `var c=+l.getItem(${safeJson(CONTINUE_HEIGHT_STORAGE_KEY)});`,
+    'if(c)d.style.setProperty("--kt-continue-h",c+"px");',
     "}catch{}",
   ].join("");
 }

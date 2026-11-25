@@ -1,12 +1,14 @@
-import { createMemo, Show } from "solid-js";
+import { createEffect, createMemo, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
 import { bookFromAnySlug, translateBookSlug } from "../../lib/content/books";
 import { formatDateTime } from "../../lib/history/types";
 import type { Locale } from "../../lib/i18n";
+import { CONTINUE_HEIGHT_STORAGE_KEY } from "../lib/preferences";
 import { accountHref, chapterHref, historyHref, homeHref } from "../router";
 import { useAuth } from "./auth-context";
 import { useHistory } from "./history-context";
 import { useLocale } from "./locale-context";
+import { writeStorage } from "./preferences-context";
 import { ProgressRing, WeeklyDots } from "./progress-ring";
 
 type NextChapter = {
@@ -75,7 +77,7 @@ export function resolveChapterDisplay(
 /** "Continue reading" card + 3 quiet stats cards on the home page when history exists. */
 export function ContinueReading(props: { toc: TocBook[] }) {
   const { user, initialized } = useAuth();
-  const { hydrated, latestChapter, stats, logs, bookSummary } = useHistory();
+  const { hydrated, syncing, latestChapter, stats, logs, bookSummary } = useHistory();
   const { locale, t } = useLocale();
 
   const latestDisplay = createMemo(() => {
@@ -104,10 +106,19 @@ export function ContinueReading(props: { toc: TocBook[] }) {
     return Math.min(100, Math.round((read / display.totalChapters) * 100));
   });
 
+  // Once auth and history settle, remember the card's height (or that there is none) for the next load's init script.
+  let card: HTMLDivElement | undefined;
+  createEffect(
+    () => (hydrated() && initialized() && !syncing() ? Boolean(latestChapter()) : undefined),
+    (shown) => {
+      if (shown !== undefined) writeStorage(CONTINUE_HEIGHT_STORAGE_KEY, shown && card ? String(card.offsetHeight) : null);
+    },
+  );
+
   return (
     <Show when={hydrated() && latestChapter()}>
       {(latest) => (
-        <div class="space-y-2.5">
+        <div ref={card} class="space-y-2.5">
           <section
             aria-labelledby="xem-tiep-heading"
             class="grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5"

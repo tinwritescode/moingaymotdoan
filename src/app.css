@@ -103,10 +103,10 @@ body {
   color: var(--ink);
 }
 
-/* The "Continue reading" card only renders after hydration; the init script flags a returning reader so its room is
-   already there (its guest height, 302px). Once filled, :empty stops matching and the card sizes itself. */
-:root[data-reader] .kt-continue:empty {
-  min-height: 18.875rem;
+/* The "Continue reading" card only renders after hydration; the init script sets --kt-continue-h to the height it had
+   last time, so its room is already there. Once filled, :empty stops matching and the card sizes itself. */
+.kt-continue:empty {
+  min-height: var(--kt-continue-h, 0);
 }
 
 /* A popover hangs under the button that opens it (anchor positioning); without that support it sits centred. */

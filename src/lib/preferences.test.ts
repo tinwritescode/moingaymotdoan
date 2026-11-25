@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import {
+  CONTINUE_HEIGHT_STORAGE_KEY,
   DEFAULT_FONT,
   DEFAULT_SCALE,
   DEFAULT_THEME,
@@ -56,15 +57,16 @@ describe("preferences helpers", () => {
     expect(() => new Function(PREFS_INIT_SCRIPT)).not.toThrow();
   });
 
-  test("early init script marks a returning reader so the home page can hold room for their card", () => {
-    const run = (history: string | null) => {
-      const doc = { documentElement: { dataset: {} as Record<string, string> }, head: {} };
-      const storage = { getItem: (k: string) => (k === "kt:guest-history:v1" ? history : null) };
+  test("early init script holds the room of the Continue reading card the home page showed last time", () => {
+    const run = (stored: string | null) => {
+      const vars: Record<string, string> = {};
+      const doc = { documentElement: { dataset: {}, style: { setProperty: (k: string, v: string) => (vars[k] = v) } } };
+      const storage = { getItem: (k: string) => (k === CONTINUE_HEIGHT_STORAGE_KEY ? stored : null) };
       new Function("document", "localStorage", PREFS_INIT_SCRIPT)(doc, storage);
-      return doc.documentElement.dataset.reader;
+      return vars["--kt-continue-h"];
     };
-    expect(run(JSON.stringify({ progress: [{ kind: "chapter", itemKey: "sang-the-ky/1" }], logs: [] }))).toBe("1");
-    expect(run(JSON.stringify({ progress: [{ kind: "mood", itemKey: "lo-au" }], logs: [] }))).toBeUndefined();
+    expect(run("274")).toBe("274px");
     expect(run(null)).toBeUndefined();
+    expect(run("abc")).toBeUndefined();
   });
 });
