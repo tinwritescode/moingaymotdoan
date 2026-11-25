@@ -1,134 +1,145 @@
-import { createAuthClient } from "@neon/auth";
-import { BetterAuthVanillaAdapter } from "@neon/auth/vanilla/adapters";
+import {
+  createClient,
+  NoSessionError,
+  type OnRefreshResponse,
+  type User as WorkosUser,
+} from "@workos-inc/authkit-js";
+import { safeNextPath } from "../../lib/history/types";
 
 export type AuthUser = {
   id: string;
   email: string;
   name: string;
+  avatarUrl: string | null;
 };
 
-type AuthResult<T = unknown> = Promise<{ data?: T | null; error?: unknown }>;
+type WorkosClient = Awaited<ReturnType<typeof createClient>>;
 
-type TokenResponseData = {
-  token?: string;
-  session?: { token?: string };
-};
-
-/** Các phương thức Managed Better Auth dùng trên trình duyệt (bao gồm plugin jwt `.token()`). */
-export type BrowserAuthClient = {
-  signIn: {
-    email: (args: { email: string; password: string }) => AuthResult;
-  };
-  signUp: {
-    email: (args: { name: string; email: string; password: string }) => AuthResult;
-  };
-  getSession: () => AuthResult<{ session?: { token?: string }; user?: Record<string, unknown> }>;
-  signOut: () => AuthResult;
-  token: (opts?: { fetchOptions?: { headers?: Record<string, string> } }) => AuthResult<TokenResponseData>;
-};
-
-const AUTH_URL = (import.meta.env.VITE_NEON_AUTH_URL ?? "").trim().replace(/\/+$/u, "");
+const CLIENT_ID = (import.meta.env.VITE_WORKOS_CLIENT_ID ?? "").trim();
+const API_HOSTNAME = (import.meta.env.VITE_WORKOS_API_HOSTNAME ?? "")
+  .trim()
+  .replace(/^https?:\/\//u, "")
+  .replace(/\/+$/u, "");
 const HISTORY_API_URL = (import.meta.env.VITE_HISTORY_API_URL ?? "").trim().replace(/\/+$/u, "");
 
-export const isAuthConfigured = (): boolean => AUTH_URL.length > 0;
+export const isAuthConfigured = (): boolean => CLIENT_ID.length > 0;
 export const getHistoryApiUrl = (): string => HISTORY_API_URL;
 
-let client: BrowserAuthClient | null = null;
-let cachedToken: { value: string; expiresAt: number } | null = null;
+let clientPromise: Promise<WorkosClient | null> | null = null;
+let clientInstance: WorkosClient | null = null;
 
-function extractJwt(data: TokenResponseData | null | undefined): string | null {
-  const candidate = data?.token ?? data?.session?.token;
-  return typeof candidate === "string" && candidate.split(".").length === 3 ? candidate : null;
+/** Chuẩn hóa hồ sơ người dùng từ WorkOS User sang AuthUser gọn gàng cho giao diện. */
+export function formatWorkosUser(u: Pick<WorkosUser, "id" | "email" | "firstName" | "lastName" | "profilePictureUrl">): AuthUser {
+  const fullName = [u.firstName, u.lastName].filter((s): s is string => Boolean(s?.trim())).join(" ").trim();
+  return {
+    id: u.id,
+    email: u.email,
+    name: fullName || u.email.split("@")[0] || "Bạn đọc",
+    avatarUrl: u.profilePictureUrl ?? null,
+  };
 }
 
-/** Trả về Neon Auth client ở trình duyệt; luôn null trong SSR / prerender. */
-export function getAuthClient(): BrowserAuthClient | null {
-  if (typeof window === "undefined" || !AUTH_URL) return null;
-  if (!client) {
-    client = createAuthClient(AUTH_URL, {
-      adapter: BetterAuthVanillaAdapter(),
-    }) as unknown as BrowserAuthClient;
-  }
-  return client;
-}
-
-export function clearCachedToken(): void {
-  cachedToken = null;
-}
-
-/** Lấy JWT ngắn hạn từ Neon Auth (hết hạn 15 phút, đệm trong bộ nhớ tối đa 11 phút). */
-export async function getAccessToken(forceRefresh = false): Promise<string | null> {
-  const auth = getAuthClient();
-  if (!auth) return null;
-  if (!forceRefresh && cachedToken && Date.now() < cachedToken.expiresAt) {
-    return cachedToken.value;
-  }
-  try {
-    // @neon/auth@0.8.2 có thể trả cache getSession ({ session: { token } }) khi gọi .token();
-    // dùng extractJwt để đọc cả hai dạng và X-Force-Fetch khi cần làm mới thật sự.
-    const res = forceRefresh
-      ? await auth.token({ fetchOptions: { headers: { "X-Force-Fetch": "1" } } })
-      : await auth.token();
-    let jwt = extractJwt(res.data);
-    if (!jwt && !forceRefresh) {
-      const forced = await auth.token({ fetchOptions: { headers: { "X-Force-Fetch": "1" } } });
-      jwt = extractJwt(forced.data);
-    }
-    if (!jwt) {
-      cachedToken = null;
-      return null;
-    }
-    cachedToken = { value: jwt, expiresAt: Date.now() + 11 * 60 * 1000 };
-    return jwt;
-  } catch {
-    cachedToken = null;
-    return null;
-  }
-}
-
-/** Chuyển lỗi từ Better Auth / HTTP sang thông báo tiếng Việt dễ hiểu. */
+/** Chuyển lỗi OAuth / WorkOS sang thông báo tiếng Việt dễ hiểu. */
 export function translateAuthError(error: unknown): string {
   const raw =
     typeof error === "string"
       ? error
-      : error && typeof error === "object"
-        ? String(
-            ("code" in error && error.code) ||
-              ("message" in error && error.message) ||
-              ("statusText" in error && error.statusText) ||
-              "",
-          )
-        : "";
+      : error instanceof Error
+        ? error.message
+        : error && typeof error === "object"
+          ? String(
+              ("error_description" in error && error.error_description) ||
+                ("error" in error && error.error) ||
+                ("message" in error && error.message) ||
+                "",
+            )
+          : "";
 
-  const upper = raw.toUpperCase();
-  if (
-    upper.includes("INVALID_EMAIL_OR_PASSWORD") ||
-    upper.includes("INVALID_CREDENTIALS") ||
-    upper.includes("INVALID CREDENTIALS") ||
-    upper.includes("INVALID_PASSWORD")
-  ) {
-    return "Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.";
+  const lower = raw.toLowerCase();
+  if (lower.includes("access_denied")) {
+    return "Bạn đã hủy quá trình đăng nhập.";
   }
-  if (upper.includes("USER_ALREADY_EXISTS") || upper.includes("ALREADY EXISTS")) {
-    return "Email này đã được đăng ký. Hãy chuyển sang tab Đăng nhập.";
+  if (lower.includes("invalid_redirect_uri")) {
+    return "Redirect URI chưa được khai báo trong WorkOS Dashboard (cần thêm đường dẫn /tai-khoan).";
   }
-  if (upper.includes("PASSWORD_TOO_SHORT") || upper.includes("TOO SHORT")) {
-    return "Mật khẩu cần có ít nhất 8 ký tự.";
+  if (lower.includes("failed to fetch") || lower.includes("network") || lower.includes("cors")) {
+    return "Không kết nối được máy chủ WorkOS. Hãy kiểm tra kết nối mạng hoặc cấu hình CORS trong WorkOS Dashboard.";
   }
-  if (upper.includes("PASSWORD_TOO_LONG")) {
-    return "Mật khẩu quá dài (tối đa 128 ký tự).";
+  if (lower.includes("login required") || lower.includes("invalid_grant")) {
+    return "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.";
   }
-  if (upper.includes("INVALID_EMAIL")) {
-    return "Địa chỉ email không hợp lệ.";
+  return raw ? `Không thể đăng nhập (${raw}).` : "Đã xảy ra lỗi khi kết nối WorkOS. Vui lòng thử lại.";
+}
+
+export type InitAuthCallbacks = {
+  onRedirectReturnTo?: (path: string) => void;
+  onUserChange?: (user: AuthUser | null) => void;
+};
+
+/**
+ * Khởi tạo singleton WorkOS AuthKit PKCE client trên trình duyệt.
+ * Luôn trả về null khi SSR / prerender hoặc chưa cấu hình VITE_WORKOS_CLIENT_ID.
+ */
+export function initWorkosClient(callbacks: InitAuthCallbacks = {}): Promise<WorkosClient | null> {
+  if (typeof window === "undefined" || !CLIENT_ID) return Promise.resolve(null);
+  if (clientPromise) return clientPromise;
+
+  const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  const redirectUri = `${window.location.origin}/tai-khoan`;
+
+  clientPromise = createClient(CLIENT_ID, {
+    redirectUri,
+    ...(API_HOSTNAME ? { apiHostname: API_HOSTNAME } : {}),
+    // Chỉ dùng HttpOnly cookie (devMode: false) khi có custom Auth API domain cùng gốc tên miền;
+    // với api.workos.com mặc định cần devMode: true để Safari/Chrome không chặn third-party cookie.
+    devMode: !API_HOSTNAME || isLocal,
+    onRedirectCallback: ({ state, user }) => {
+      callbacks.onUserChange?.(formatWorkosUser(user));
+      const rawReturn = state && typeof state.returnTo === "string" ? state.returnTo : null;
+      callbacks.onRedirectReturnTo?.(safeNextPath(rawReturn, "/lich-su"));
+    },
+    onRefresh: (res: OnRefreshResponse) => {
+      callbacks.onUserChange?.(formatWorkosUser(res.user));
+    },
+    onRefreshFailure: () => {
+      callbacks.onUserChange?.(null);
+    },
+  })
+    .then((c) => {
+      clientInstance = c;
+      return c;
+    })
+    .catch((err) => {
+      clientPromise = null;
+      clientInstance = null;
+      throw err;
+    });
+
+  return clientPromise;
+}
+
+/** Lấy JWT access token hiện hành từ WorkOS AuthKit (tự động làm mới khi sắp hết hạn). */
+export async function getAccessToken(forceRefresh = false): Promise<string | null> {
+  if (typeof window === "undefined" || !CLIENT_ID) return null;
+  try {
+    const client = clientInstance ?? (await initWorkosClient());
+    if (!client) return null;
+    const token = await client.getAccessToken(forceRefresh ? { forceRefresh: true } : undefined);
+    return token || null;
+  } catch {
+    return null;
   }
-  if (upper.includes("EMAIL_NOT_VERIFIED")) {
-    return "Email chưa được xác minh. Vui lòng kiểm tra hộp thư của bạn.";
+}
+
+/** Đăng xuất khỏi WorkOS AuthKit tại chỗ mà không bị vướng lỗi Sign-Out Redirect URI. */
+export async function signOutWorkos(): Promise<void> {
+  const client = clientInstance ?? (clientPromise ? await clientPromise.catch(() => null) : null);
+  if (!client) return;
+  try {
+    await client.signOut({ navigate: false });
+  } catch (err) {
+    if (!(err instanceof NoSessionError)) {
+      // Vẫn tiếp tục dọn phiên ở phía trình duyệt.
+    }
   }
-  if (upper.includes("TOO_MANY_REQUESTS") || upper.includes("RATE_LIMIT")) {
-    return "Bạn thử quá nhiều lần. Vui lòng đợi một lát rồi thử lại.";
-  }
-  if (upper.includes("FAILED TO FETCH") || upper.includes("NETWORK")) {
-    return "Không kết nối được máy chủ đăng nhập. Vui lòng kiểm tra mạng và thử lại.";
-  }
-  return raw ? `Không thể thực hiện (${raw}).` : "Đã xảy ra lỗi không xác định. Vui lòng thử lại.";
 }

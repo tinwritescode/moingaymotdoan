@@ -45,17 +45,22 @@ type LogRow = {
 };
 
 const databaseUrl = process.env.DATABASE_URL;
-const jwksUrl = process.env.NEON_AUTH_JWKS_URL;
-const authBaseUrl = process.env.NEON_AUTH_BASE_URL;
+const workosClientId = process.env.WORKOS_CLIENT_ID?.trim();
+const workosApiHostname = (process.env.WORKOS_API_HOSTNAME?.trim() || "api.workos.com")
+  .replace(/^https?:\/\//u, "")
+  .replace(/\/+$/u, "");
 
 if (!databaseUrl) throw new Error("DATABASE_URL is required");
-if (!jwksUrl || !authBaseUrl) throw new Error("NEON_AUTH_JWKS_URL and NEON_AUTH_BASE_URL are required");
+if (!workosClientId) throw new Error("WORKOS_CLIENT_ID is required");
 
 const pool = new Pool({ connectionString: databaseUrl, max: 5 });
 attachDatabasePool(pool);
 
-const jwks = createRemoteJWKSet(new URL(jwksUrl));
-const issuer = new URL(authBaseUrl).origin;
+const jwks = createRemoteJWKSet(new URL(`https://${workosApiHostname}/sso/jwks/${workosClientId}`));
+const issuers = [
+  `https://${workosApiHostname}/user_management/${workosClientId}`,
+  `https://${workosApiHostname}`,
+];
 
 const ALLOWED_ORIGINS = new Set([
   "https://bible.tyvn.online",
@@ -248,7 +253,7 @@ const requireAuth: MiddlewareHandler<{ Variables: { userId: string } }> = async 
     return c.json({ error: "Unauthorized" }, 401);
   }
   try {
-    const { payload } = await jwtVerify(auth.slice(7).trim(), jwks, { issuer });
+    const { payload } = await jwtVerify(auth.slice(7).trim(), jwks, { issuer: issuers });
     if (typeof payload.sub !== "string" || !payload.sub) {
       return c.json({ error: "Unauthorized" }, 401);
     }

@@ -10,6 +10,7 @@ import {
 import {
   computeStreak,
   progressMapKey,
+  safeNextPath,
   type HistoryKind,
   type HistorySnapshot,
   type ReadingLog,
@@ -17,10 +18,11 @@ import {
   type VisitInput,
 } from "../../lib/history/types";
 import {
-  clearCachedToken,
-  getAuthClient,
+  formatWorkosUser,
   getHistoryApiUrl,
+  initWorkosClient,
   isAuthConfigured,
+  signOutWorkos,
   translateAuthError,
   type AuthUser,
 } from "../lib/auth";
@@ -40,8 +42,6 @@ import {
   writeGuestHistory,
 } from "../lib/history-store";
 
-export type AuthActionResult = { ok: true } | { ok: false; error: string };
-
 export type ReadingStats = {
   chaptersRead: number;
   chaptersCompleted: number;
@@ -60,8 +60,10 @@ export type UserContextValue = {
   user: Accessor<AuthUser | null>;
   ready: Accessor<boolean>;
   authLoading: Accessor<boolean>;
+  authError: Accessor<string | null>;
   historyLoading: Accessor<boolean>;
   syncError: Accessor<string | null>;
+  redirectReturnTo: Accessor<string | null>;
   authConfigured: boolean;
   progress: Accessor<ReadingProgress[]>;
   logs: Accessor<ReadingLog[]>;
@@ -69,9 +71,10 @@ export type UserContextValue = {
   stats: Accessor<ReadingStats>;
   progressFor: (kind: HistoryKind, itemKey: string) => ReadingProgress | undefined;
   bookSummary: (bookSlug: string) => BookReadSummary | undefined;
-  signIn: (args: { email: string; password: string }) => Promise<AuthActionResult>;
-  signUp: (args: { name: string; email: string; password: string }) => Promise<AuthActionResult>;
+  signIn: (returnTo?: string) => Promise<void>;
+  signUp: (returnTo?: string) => Promise<void>;
   signOut: () => Promise<void>;
+  clearRedirectReturnTo: () => void;
   recordVisit: (input: VisitInput) => Promise<void>;
   toggleCompleted: (input: VisitInput & { completed: boolean }) => Promise<void>;
   deleteLog: (id: string) => Promise<void>;
@@ -84,8 +87,10 @@ const FALLBACK_USER_CONTEXT: UserContextValue = {
   user: () => null,
   ready: () => false,
   authLoading: () => false,
+  authError: () => null,
   historyLoading: () => false,
   syncError: () => null,
+  redirectReturnTo: () => null,
   authConfigured: false,
   progress: () => [],
   logs: () => [],
@@ -100,9 +105,10 @@ const FALLBACK_USER_CONTEXT: UserContextValue = {
   }),
   progressFor: () => undefined,
   bookSummary: () => undefined,
-  signIn: async () => ({ ok: false, error: "Chưa khởi tạo" }),
-  signUp: async () => ({ ok: false, error: "Chưa khởi tạo" }),
+  signIn: async () => {},
+  signUp: async () => {},
   signOut: async () => {},
+  clearRedirectReturnTo: () => {},
   recordVisit: async () => {},
   toggleCompleted: async () => {},
   deleteLog: async () => {},
@@ -113,28 +119,19 @@ const FALLBACK_USER_CONTEXT: UserContextValue = {
 
 const UserContext = createContext<UserContextValue>(FALLBACK_USER_CONTEXT);
 
-function extractUser(data: unknown): AuthUser | null {
-  if (!data || typeof data !== "object") return null;
-  const user = (data as { user?: Record<string, unknown> }).user;
-  if (!user || typeof user.id !== "string" || typeof user.email !== "string") return null;
-  return {
-    id: user.id,
-    email: user.email,
-    name: typeof user.name === "string" && user.name.trim() ? user.name.trim() : user.email.split("@")[0] || "Bạn đọc",
-  };
-}
-
 /**
- * Quản lý phiên đăng nhập Neon Auth và lịch sử đọc Kinh Thánh xuyên suốt ứng dụng.
+ * Quản lý phiên đăng nhập WorkOS AuthKit và lịch sử đọc Kinh Thánh xuyên suốt ứng dụng.
  * Khi SSR / prerender giữ trạng thái trống đồng nhất để không lệch hydration; sau hydration
- * mới đọc localStorage (chế độ khách) hoặc kiểm tra phiên Neon Auth và đồng bộ đám mây.
+ * mới đọc localStorage (chế độ khách) hoặc khởi tạo WorkOS AuthKit và đồng bộ đám mây.
  */
 export function UserProvider(props: ParentProps) {
   const [user, setUser] = createSignal<AuthUser | null>(null);
   const [ready, setReady] = createSignal(false);
   const [authLoading, setAuthLoading] = createSignal(false);
+  const [authError, setAuthError] = createSignal<string | null>(null);
   const [historyLoading, setHistoryLoading] = createSignal(false);
   const [syncError, setSyncError] = createSignal<string | null>(null);
+  const [redirectReturnTo, setRedirectReturnTo] = createSignal<string | null>(null);
   const [history, setHistory] = createSignal<HistorySnapshot>(EMPTY_HISTORY);
 
   const progress = createMemo(() => history().progress);
@@ -215,8 +212,7 @@ export function UserProvider(props: ParentProps) {
     let active = true;
     const boot = async () => {
       const guest = readGuestHistory();
-      const auth = getAuthClient();
-      if (!auth) {
+      if (!isAuthConfigured()) {
         if (active) {
           setHistory(guest);
           setReady(true);
@@ -224,22 +220,44 @@ export function UserProvider(props: ParentProps) {
         return;
       }
 
+      // Đọc lỗi OAuth nếu WorkOS chuyển hướng về kèm ?error=...
+      const params = new URLSearchParams(window.location.search);
+      const oauthError = params.get("error_description") ?? params.get("error");
+      if (oauthError && active) {
+        setAuthError(translateAuthError(oauthError));
+      }
+
+      let pendingReturnTo: string | null = null;
       setAuthLoading(true);
       try {
-        const res = await auth.getSession();
+        const client = await initWorkosClient({
+          onRedirectReturnTo: (path) => {
+            pendingReturnTo = path;
+          },
+          onUserChange: (nextUser) => {
+            if (!active) return;
+            setUser(nextUser);
+            if (!nextUser) setHistory(readGuestHistory());
+          },
+        });
         if (!active) return;
-        const signedIn = extractUser(res.data);
-        if (signedIn) {
-          setUser(signedIn);
+
+        const rawUser = client?.getUser() ?? null;
+        if (rawUser) {
+          setUser(formatWorkosUser(rawUser));
           await loadCloudAfterAuth(true);
+          if (active && pendingReturnTo) {
+            setRedirectReturnTo(pendingReturnTo);
+          }
         } else {
           setUser(null);
           setHistory(guest);
         }
-      } catch {
+      } catch (err) {
         if (active) {
           setUser(null);
           setHistory(guest);
+          setAuthError(translateAuthError(err));
         }
       } finally {
         if (active) {
@@ -254,63 +272,49 @@ export function UserProvider(props: ParentProps) {
     };
   });
 
-  const signIn = async (args: { email: string; password: string }): Promise<AuthActionResult> => {
-    const auth = getAuthClient();
-    if (!auth) return { ok: false, error: "Tính năng đăng nhập chưa được cấu hình." };
+  const signIn = async (returnTo?: string): Promise<void> => {
+    setAuthError(null);
     setAuthLoading(true);
     try {
-      const res = await auth.signIn.email({ email: args.email.trim(), password: args.password });
-      if (res.error) return { ok: false, error: translateAuthError(res.error) };
-      clearCachedToken();
-      const sessionRes = await auth.getSession();
-      const signedIn = extractUser(sessionRes.data) ?? extractUser(res.data);
-      if (!signedIn) return { ok: false, error: "Đăng nhập thành công nhưng không đọc được phiên làm việc." };
-      setUser(signedIn);
-      await loadCloudAfterAuth(true);
-      return { ok: true };
+      const client = await initWorkosClient();
+      if (!client) {
+        setAuthError("Tính năng đăng nhập WorkOS chưa được cấu hình.");
+        setAuthLoading(false);
+        return;
+      }
+      await client.signIn({ state: { returnTo: safeNextPath(returnTo, "/lich-su") } });
     } catch (err) {
-      return { ok: false, error: translateAuthError(err) };
-    } finally {
+      setAuthError(translateAuthError(err));
       setAuthLoading(false);
     }
   };
 
-  const signUp = async (args: { name: string; email: string; password: string }): Promise<AuthActionResult> => {
-    const auth = getAuthClient();
-    if (!auth) return { ok: false, error: "Tính năng đăng nhập chưa được cấu hình." };
+  const signUp = async (returnTo?: string): Promise<void> => {
+    setAuthError(null);
     setAuthLoading(true);
     try {
-      const email = args.email.trim();
-      const name = args.name.trim() || email.split("@")[0] || "Bạn đọc";
-      const res = await auth.signUp.email({ name, email, password: args.password });
-      if (res.error) return { ok: false, error: translateAuthError(res.error) };
-      clearCachedToken();
-      const sessionRes = await auth.getSession();
-      const signedIn = extractUser(sessionRes.data) ?? extractUser(res.data);
-      if (!signedIn) {
-        return { ok: false, error: "Tạo tài khoản thành công. Vui lòng kiểm tra email hoặc đăng nhập lại." };
+      const client = await initWorkosClient();
+      if (!client) {
+        setAuthError("Tính năng đăng nhập WorkOS chưa được cấu hình.");
+        setAuthLoading(false);
+        return;
       }
-      setUser(signedIn);
-      await loadCloudAfterAuth(true);
-      return { ok: true };
+      await client.signUp({ state: { returnTo: safeNextPath(returnTo, "/lich-su") } });
     } catch (err) {
-      return { ok: false, error: translateAuthError(err) };
-    } finally {
+      setAuthError(translateAuthError(err));
       setAuthLoading(false);
     }
   };
 
   const signOut = async (): Promise<void> => {
-    const auth = getAuthClient();
     setAuthLoading(true);
     try {
-      if (auth) await auth.signOut();
-    } catch {
-      // Vẫn xóa trạng thái phiên ở trình duyệt ngay cả khi mạng trục trặc.
+      await signOutWorkos();
     } finally {
-      clearCachedToken();
       setUser(null);
       setSyncError(null);
+      setAuthError(null);
+      setRedirectReturnTo(null);
       setHistory(readGuestHistory());
       setAuthLoading(false);
     }
@@ -440,8 +444,10 @@ export function UserProvider(props: ParentProps) {
     user,
     ready,
     authLoading,
+    authError,
     historyLoading,
     syncError,
+    redirectReturnTo,
     authConfigured: isAuthConfigured(),
     progress,
     logs,
@@ -452,6 +458,7 @@ export function UserProvider(props: ParentProps) {
     signIn,
     signUp,
     signOut,
+    clearRedirectReturnTo: () => setRedirectReturnTo(null),
     recordVisit,
     toggleCompleted,
     deleteLog,

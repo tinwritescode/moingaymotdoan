@@ -67,15 +67,22 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
           >
             {(u) => (
               <>
-                <span
-                  aria-hidden="true"
-                  class={[
-                    "flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold",
-                    props.section === "tai-khoan" ? "bg-paper text-ink" : "bg-ink text-paper",
-                  ]}
+                <Show
+                  when={u().avatarUrl}
+                  fallback={
+                    <span
+                      aria-hidden="true"
+                      class={[
+                        "flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold",
+                        props.section === "tai-khoan" ? "bg-paper text-ink" : "bg-ink text-paper",
+                      ]}
+                    >
+                      {u().name.slice(0, 1).toUpperCase()}
+                    </span>
+                  }
                 >
-                  {u().name.slice(0, 1).toUpperCase()}
-                </span>
+                  {(url) => <img src={url()} alt="" class="h-5 w-5 rounded-full object-cover" />}
+                </Show>
                 <span class="max-w-24 truncate">{u().name}</span>
               </>
             )}

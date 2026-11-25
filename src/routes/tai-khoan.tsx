@@ -1,8 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { useLocation, useNavigate, type RouteDefinition } from "@solidjs/router";
-import { createMemo, createSignal, Show } from "solid-js";
+import { createEffect, createMemo, Show } from "solid-js";
 import { safeNextPath } from "../../lib/history/types";
-import { ariaState } from "../components/aria";
 import { SiteHeader } from "../components/site-header";
 import { useUser } from "../components/user-context";
 import { getToc } from "../data";
@@ -13,60 +12,40 @@ export const route = {
   },
 } satisfies RouteDefinition;
 
-type AuthMode = "sign-in" | "sign-up";
-
-const INPUT =
-  "mt-1.5 min-h-12 w-full rounded-xl border border-rule bg-paper/60 px-3.5 text-base text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none";
-
-/** Trang đăng nhập, đăng ký và quản lý tài khoản đồng bộ lịch sử đọc Kinh Thánh. */
+/** Trang đăng nhập, tạo tài khoản (WorkOS AuthKit) và quản lý đồng bộ lịch sử đọc Kinh Thánh. */
 export default function TaiKhoanPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, ready, authLoading, authConfigured, stats, signIn, signUp, signOut } = useUser();
-
-  const [mode, setMode] = createSignal<AuthMode>("sign-in");
-  const [name, setName] = createSignal("");
-  const [email, setEmail] = createSignal("");
-  const [password, setPassword] = createSignal("");
-  const [error, setError] = createSignal<string | null>(null);
-  const [submitting, setSubmitting] = createSignal(false);
+  const {
+    user,
+    ready,
+    authLoading,
+    authError,
+    authConfigured,
+    redirectReturnTo,
+    clearRedirectReturnTo,
+    stats,
+    signIn,
+    signUp,
+    signOut,
+  } = useUser();
 
   const nextUrl = createMemo(() => {
     const params = new URLSearchParams(location.search);
     return safeNextPath(params.get("next"), "/lich-su");
   });
 
-  const handleSubmit = async (e: SubmitEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    const trimmedEmail = email().trim();
-    const rawPassword = password();
-    if (!trimmedEmail || !trimmedEmail.includes("@")) {
-      setError("Vui lòng nhập địa chỉ email hợp lệ.");
-      return;
-    }
-    if (rawPassword.length < 8) {
-      setError("Mật khẩu cần có ít nhất 8 ký tự.");
-      return;
-    }
-
-    setSubmitting(true);
-    try {
-      const result =
-        mode() === "sign-in"
-          ? await signIn({ email: trimmedEmail, password: rawPassword })
-          : await signUp({ name: name(), email: trimmedEmail, password: rawPassword });
-      if (!result.ok) {
-        setError(result.error);
-        return;
+  // Sau khi WorkOS AuthKit quay về /tai-khoan?code=... và đồng bộ lịch sử xong, tự chuyển đến trang đích.
+  createEffect(
+    () => redirectReturnTo(),
+    (target) => {
+      if (!target) return;
+      clearRedirectReturnTo();
+      if (target !== "/tai-khoan") {
+        navigate(target, { replace: true });
       }
-      setPassword("");
-      navigate(nextUrl());
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    },
+  );
 
   return (
     <>
@@ -76,7 +55,11 @@ export default function TaiKhoanPage() {
       <main class="mx-auto w-full max-w-lg animate-reveal px-4 pt-8 pb-20 sm:px-6 sm:pt-12 motion-reduce:animate-none">
         <Show
           when={ready()}
-          fallback={<p class="font-sans text-sm text-muted">Đang kiểm tra phiên đăng nhập…</p>}
+          fallback={
+            <section class="rounded-2xl border border-rule bg-card p-6 font-sans text-sm text-muted sm:p-8">
+              Đang kiểm tra phiên đăng nhập và đồng bộ lịch sử…
+            </section>
+          }
         >
           <Show
             when={user()}
@@ -86,18 +69,30 @@ export default function TaiKhoanPage() {
                   Đồng bộ lịch sử đọc
                 </p>
                 <h1 id="auth-heading" class="mt-2 font-display text-3xl font-extrabold sm:text-4xl">
-                  {mode() === "sign-in" ? "Đăng nhập" : "Tạo tài khoản"}
+                  Đăng nhập tài khoản
                 </h1>
                 <p class="mt-2 font-sans text-sm leading-relaxed text-muted">
-                  Lưu lại ngày tháng năm đã xem, đoạn đang đọc dở và các đoạn đã đọc xong để xem tiếp trên mọi thiết bị.
+                  Lưu lại ngày tháng năm đã xem, đoạn đang đọc dở và các đoạn đã đọc xong để mở xem tiếp liền mạch trên
+                  mọi thiết bị.
                 </p>
+
+                <Show when={authError()}>
+                  {(msg) => (
+                    <p
+                      role="alert"
+                      class="mt-5 rounded-xl border border-thap/40 bg-thap/10 px-3.5 py-2.5 font-sans text-sm text-thap"
+                    >
+                      {msg()}
+                    </p>
+                  )}
+                </Show>
 
                 <Show
                   when={authConfigured}
                   fallback={
                     <p class="mt-6 rounded-xl border border-rule bg-side/70 p-4 font-sans text-sm text-muted">
-                      Máy chủ đăng nhập chưa được cấu hình trên môi trường này. Bạn vẫn có thể đọc và lưu lịch sử tạm
-                      trên trình duyệt tại{" "}
+                      Chưa cấu hình WorkOS Client ID trên môi trường này. Bạn vẫn có thể đọc và lưu lịch sử tạm trên
+                      trình duyệt tại{" "}
                       <a href="/lich-su" class="font-medium text-accent underline">
                         trang Lịch sử
                       </a>
@@ -105,121 +100,30 @@ export default function TaiKhoanPage() {
                     </p>
                   }
                 >
-                  <div role="tablist" aria-label="Chọn đăng nhập hoặc đăng ký" class="mt-6 grid grid-cols-2 gap-2 font-sans">
+                  <div class="mt-6 space-y-3 font-sans">
                     <button
                       type="button"
-                      role="tab"
-                      aria-selected={ariaState(mode() === "sign-in")}
-                      onClick={() => {
-                        setMode("sign-in");
-                        setError(null);
-                      }}
-                      class={[
-                        "min-h-11 cursor-pointer rounded-xl border text-sm font-semibold transition-colors",
-                        mode() === "sign-in"
-                          ? "border-ink bg-ink text-paper"
-                          : "border-rule bg-paper/50 text-muted hover:border-accent hover:text-ink",
-                      ]}
+                      disabled={authLoading()}
+                      onClick={() => void signIn(nextUrl())}
+                      class="flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-ink px-5 text-sm font-semibold text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Đăng nhập
+                      {authLoading() ? "Đang chuyển sang trang đăng nhập…" : "Đăng nhập"}
                     </button>
+
                     <button
                       type="button"
-                      role="tab"
-                      aria-selected={ariaState(mode() === "sign-up")}
-                      onClick={() => {
-                        setMode("sign-up");
-                        setError(null);
-                      }}
-                      class={[
-                        "min-h-11 cursor-pointer rounded-xl border text-sm font-semibold transition-colors",
-                        mode() === "sign-up"
-                          ? "border-ink bg-ink text-paper"
-                          : "border-rule bg-paper/50 text-muted hover:border-accent hover:text-ink",
-                      ]}
+                      disabled={authLoading()}
+                      onClick={() => void signUp(nextUrl())}
+                      class="flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl border border-rule bg-paper/60 px-5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Tạo tài khoản
+                      Tạo tài khoản mới
                     </button>
                   </div>
-
-                  <form onSubmit={(e) => void handleSubmit(e)} class="mt-6 font-sans" novalidate>
-                    <fieldset disabled={submitting() || authLoading()} class="space-y-4">
-                      <Show when={mode() === "sign-up"}>
-                        <div>
-                          <label for="auth-name" class="block text-sm font-medium text-ink">
-                            Tên hiển thị
-                          </label>
-                          <input
-                            id="auth-name"
-                            type="text"
-                            autocomplete="name"
-                            placeholder="Ví dụ: Minh Anh"
-                            value={name()}
-                            onInput={(e) => setName(e.currentTarget.value)}
-                            class={INPUT}
-                          />
-                        </div>
-                      </Show>
-
-                      <div>
-                        <label for="auth-email" class="block text-sm font-medium text-ink">
-                          Email
-                        </label>
-                        <input
-                          id="auth-email"
-                          type="email"
-                          autocomplete="email"
-                          required
-                          placeholder="ban@example.com"
-                          value={email()}
-                          onInput={(e) => setEmail(e.currentTarget.value)}
-                          class={INPUT}
-                        />
-                      </div>
-
-                      <div>
-                        <label for="auth-password" class="block text-sm font-medium text-ink">
-                          Mật khẩu
-                        </label>
-                        <input
-                          id="auth-password"
-                          type="password"
-                          autocomplete={mode() === "sign-in" ? "current-password" : "new-password"}
-                          required
-                          placeholder="Ít nhất 8 ký tự"
-                          value={password()}
-                          onInput={(e) => setPassword(e.currentTarget.value)}
-                          class={INPUT}
-                        />
-                      </div>
-
-                      <Show when={error()}>
-                        {(msg) => (
-                          <p
-                            role="alert"
-                            class="rounded-xl border border-thap/40 bg-thap/10 px-3.5 py-2.5 text-sm text-thap"
-                          >
-                            {msg()}
-                          </p>
-                        )}
-                      </Show>
-
-                      <button
-                        type="submit"
-                        class="mt-2 flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-ink px-5 text-sm font-semibold text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
-                      >
-                        {submitting()
-                          ? "Đang xử lý…"
-                          : mode() === "sign-in"
-                            ? "Đăng nhập"
-                            : "Tạo tài khoản & đồng bộ lịch sử"}
-                      </button>
-                    </fieldset>
-                  </form>
                 </Show>
 
-                <p class="mt-6 border-t border-rule pt-4 font-sans text-xs text-muted">
-                  Lịch sử bạn đã đọc trước khi đăng nhập trên trình duyệt này sẽ được tự động gộp vào tài khoản của bạn.
+                <p class="mt-6 border-t border-rule pt-4 font-sans text-xs leading-relaxed text-muted">
+                  Xác thực an toàn qua WorkOS AuthKit. Lịch sử bạn đã đọc trước khi đăng nhập trên trình duyệt này sẽ tự
+                  động được gộp vào tài khoản của bạn.
                 </p>
               </section>
             }
@@ -227,12 +131,25 @@ export default function TaiKhoanPage() {
             {(signedIn) => (
               <section aria-labelledby="profile-heading" class="rounded-2xl border border-rule bg-card p-6 sm:p-8">
                 <div class="flex items-center gap-4">
-                  <div
-                    aria-hidden="true"
-                    class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-ink font-display text-2xl font-bold text-paper"
+                  <Show
+                    when={signedIn().avatarUrl}
+                    fallback={
+                      <div
+                        aria-hidden="true"
+                        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-ink font-display text-2xl font-bold text-paper"
+                      >
+                        {signedIn().name.slice(0, 1).toUpperCase()}
+                      </div>
+                    }
                   >
-                    {signedIn().name.slice(0, 1).toUpperCase()}
-                  </div>
+                    {(url) => (
+                      <img
+                        src={url()}
+                        alt={signedIn().name}
+                        class="h-14 w-14 shrink-0 rounded-full border border-rule object-cover"
+                      />
+                    )}
+                  </Show>
                   <div class="min-w-0">
                     <p class="font-sans text-xs font-semibold tracking-[0.14em] text-cao uppercase">
                       ✓ Đang đồng bộ đám mây
