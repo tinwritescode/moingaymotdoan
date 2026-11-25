@@ -63,7 +63,10 @@ export function HomePage() {
         <Show when={startOf(toc())} fallback={<p class="mt-8 text-muted">{t().home.emptyFallback}</p>}>
           {(start) => (
             <>
-              <ContinueReading toc={toc().books} />
+              {/* app.css holds this slot's room before hydration for a returning reader, so nothing below shifts. */}
+              <div class="kt-continue">
+                <ContinueReading toc={toc().books} />
+              </div>
 
               <p class="mt-4 rounded-2xl border border-rule bg-card/70 px-4 py-3 font-sans text-xs leading-relaxed text-muted">
                 {t().aiNotice}

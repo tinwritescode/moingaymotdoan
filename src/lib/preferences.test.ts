@@ -55,4 +55,16 @@ describe("preferences helpers", () => {
     // Compiles without syntax error
     expect(() => new Function(PREFS_INIT_SCRIPT)).not.toThrow();
   });
+
+  test("early init script marks a returning reader so the home page can hold room for their card", () => {
+    const run = (history: string | null) => {
+      const doc = { documentElement: { dataset: {} as Record<string, string> }, head: {} };
+      const storage = { getItem: (k: string) => (k === "kt:guest-history:v1" ? history : null) };
+      new Function("document", "localStorage", PREFS_INIT_SCRIPT)(doc, storage);
+      return doc.documentElement.dataset.reader;
+    };
+    expect(run(JSON.stringify({ progress: [{ kind: "chapter", itemKey: "sang-the-ky/1" }], logs: [] }))).toBe("1");
+    expect(run(JSON.stringify({ progress: [{ kind: "mood", itemKey: "lo-au" }], logs: [] }))).toBeUndefined();
+    expect(run(null)).toBeUndefined();
+  });
 });

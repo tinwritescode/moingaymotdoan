@@ -1,3 +1,5 @@
+import { DEFAULT_GUEST_STORAGE_KEY } from "./browser-history-adapters";
+
 export type ThemeMode = "system" | "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
 export type ReadingScale = "sm" | "md" | "lg";
@@ -216,6 +218,8 @@ export function buildPrefsInitScript(): string {
     "}",
     "}",
     "}",
+    // A reader with a chapter in history gets the "Continue reading" card: let the home page hold its room.
+    `if(/"kind":"chapter"/.test(l.getItem(${safeJson(DEFAULT_GUEST_STORAGE_KEY)})))d.dataset.reader="1";`,
     "}catch{}",
   ].join("");
 }
