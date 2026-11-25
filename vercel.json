@@ -2,6 +2,12 @@
   "framework": null,
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/client",
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ],
   "rewrites": [
     { "source": "/k7q/static/:path(.*)", "destination": "https://us-assets.i.posthog.com/static/:path" },
     { "source": "/k7q/:path(.*)", "destination": "https://us.i.posthog.com/:path" }
