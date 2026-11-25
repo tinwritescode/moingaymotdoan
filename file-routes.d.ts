@@ -104,6 +104,18 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/index"), Extract<"default", keyof typeof import("./src/routes/index")>>>;
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/index"), Extract<"route", keyof typeof import("./src/routes/index")>>>;
+    },
+    {
+      path: "/lich-su";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/lich-su"), Extract<"default", keyof typeof import("./src/routes/lich-su")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/lich-su"), Extract<"route", keyof typeof import("./src/routes/lich-su")>>>;
+    },
+    {
+      path: "/tai-khoan";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/tai-khoan"), Extract<"default", keyof typeof import("./src/routes/tai-khoan")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/tai-khoan"), Extract<"route", keyof typeof import("./src/routes/tai-khoan")>>>;
     }
   ];
   export default routes;
@@ -135,11 +147,27 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/lich-su";
+      id: "/lich-su";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/lich-su"), Extract<"default", keyof typeof import("./src/routes/lich-su")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/lich-su"), Extract<"route", keyof typeof import("./src/routes/lich-su")>>>;
+      children?: undefined;
+    },
+    {
       path: "/cam-xuc/";
       id: "/cam-xuc/";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/cam-xuc/index"), Extract<"default", keyof typeof import("./src/routes/cam-xuc/index")>>>;
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/cam-xuc/index"), Extract<"route", keyof typeof import("./src/routes/cam-xuc/index")>>>;
+      children?: undefined;
+    },
+    {
+      path: "/tai-khoan";
+      id: "/tai-khoan";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/tai-khoan"), Extract<"default", keyof typeof import("./src/routes/tai-khoan")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/tai-khoan"), Extract<"route", keyof typeof import("./src/routes/tai-khoan")>>>;
       children?: undefined;
     },
     {

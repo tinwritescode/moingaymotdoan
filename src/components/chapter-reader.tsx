@@ -5,6 +5,7 @@ import { verseLabel } from "../../lib/content/refs";
 import { AI_NOTICE } from "../../lib/notice";
 import { InlineText } from "./inline";
 import { InlineVersesContext, type VerseRange } from "./inline-verses";
+import { ChapterProgressBar, ChapterVisitRecorder } from "./reading-tracker";
 import { VerseText } from "./verse-text";
 
 const LEVEL = {
@@ -176,7 +177,10 @@ export function ChapterReader(props: { view: ChapterView }) {
           </section>
         </div>
 
-        <p aria-hidden="true" class="kt-divider mt-14 text-center text-xl tracking-[0.6em] text-muted/60">
+        <ChapterVisitRecorder view={props.view} />
+        <ChapterProgressBar view={props.view} />
+
+        <p aria-hidden="true" class="kt-divider mt-10 text-center text-xl tracking-[0.6em] text-muted/60">
           * * *
         </p>
 

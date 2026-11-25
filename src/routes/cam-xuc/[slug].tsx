@@ -7,6 +7,7 @@ import { AI_NOTICE } from "../../../lib/notice";
 import { ChapterKeys } from "../../components/chapter-keys";
 import { CopyVerseButton } from "../../components/copy-verse-button";
 import { NotFound } from "../../components/not-found";
+import { MoodVisitRecorder } from "../../components/reading-tracker";
 import { SiteHeader } from "../../components/site-header";
 import { VerseText } from "../../components/verse-text";
 import { getMood, getToc } from "../../data";
@@ -62,6 +63,7 @@ export default function CamXucDetailPage(props: RouteProps<typeof route>) {
           </SiteHeader>
 
           <ChapterKeys prev={linkHref(mood().prev)} next={linkHref(mood().next)} />
+          <MoodVisitRecorder slug={mood().slug} title={mood().title} groupName={mood().group.name} />
 
           <main class="mx-auto w-full max-w-3xl animate-reveal px-4 pt-7 pb-20 sm:px-6 sm:pt-10 motion-reduce:animate-none">
             <header class="border-b border-rule pb-8">

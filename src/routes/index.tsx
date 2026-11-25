@@ -4,8 +4,11 @@ import { createMemo, For, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
 import { testamentOf } from "../../lib/content/books";
 import { plainText } from "../../lib/content/note";
+import { formatShortDate } from "../../lib/history/types";
 import { AI_NOTICE } from "../../lib/notice";
+import { ContinueReading } from "../components/continue-reading";
 import { SiteHeader } from "../components/site-header";
+import { useUser } from "../components/user-context";
 import { getChapter, getToc, type Toc } from "../data";
 import { chapterHref } from "../router";
 
@@ -66,6 +69,7 @@ export default function MucLuc() {
         >
           {(start) => (
             <>
+              <ContinueReading toc={toc().books} />
               <StartHere book={start()} />
               <BookIndex toc={toc().books} />
               <For each={toc().books}>{(b) => <BookSection entry={b} />}</For>
@@ -122,6 +126,7 @@ function StartHere(props: { book: TocBook }) {
 }
 
 function BookIndex(props: { toc: TocBook[] }) {
+  const { ready, bookSummary } = useUser();
   return (
     <nav aria-labelledby="cac-sach" class="kt-books border-b border-rule py-10">
       <h2 id="cac-sach" class={KICKER}>
@@ -141,7 +146,16 @@ function BookIndex(props: { toc: TocBook[] }) {
                 <span class="font-sans text-sm text-muted">
                   {testamentOf(t.book) === "cu-uoc" ? "Cựu Ước" : "Tân Ước"}
                 </span>
-                <span class="min-w-24 text-right font-sans font-semibold">{t.chapters.length} đoạn</span>
+                <Show
+                  when={ready() && bookSummary(t.book.slug)}
+                  fallback={<span class="min-w-24 text-right font-sans font-semibold">{t.chapters.length} đoạn</span>}
+                >
+                  {(summary) => (
+                    <span class="min-w-28 text-right font-sans font-semibold text-cao">
+                      Đã xem {summary().read}/{t.chapters.length}
+                    </span>
+                  )}
+                </Show>
               </a>
             </li>
           )}
@@ -152,6 +166,7 @@ function BookIndex(props: { toc: TocBook[] }) {
 }
 
 function BookSection(props: { entry: TocBook }) {
+  const { ready, progressFor } = useUser();
   return (
     <section
       id={props.entry.book.slug}
@@ -168,17 +183,36 @@ function BookSection(props: { entry: TocBook }) {
       </div>
       <ol class="kt-chapter-list mt-5 gap-x-10 sm:columns-2 lg:columns-3">
         <For each={props.entry.chapters}>
-          {(ch) => (
-            <li class="mb-3 break-inside-avoid">
-              <a
-                href={chapterHref({ slug: props.entry.book.slug, number: ch.number })}
-                class="kt-chapter-link group flex gap-3"
-              >
-                <span class="w-7 shrink-0 text-right font-sans text-sm leading-7 text-accent">{ch.number}</span>
-                <span class="leading-snug group-hover:text-accent">{ch.title}</span>
-              </a>
-            </li>
-          )}
+          {(ch) => {
+            const prog = () => (ready() ? progressFor("chapter", `${props.entry.book.slug}/${ch.number}`) : undefined);
+            return (
+              <li class="mb-3 break-inside-avoid">
+                <a
+                  href={chapterHref({ slug: props.entry.book.slug, number: ch.number })}
+                  title={prog() ? `Đã xem ngày ${formatShortDate(prog()!.lastReadAt)}` : undefined}
+                  class="kt-chapter-link group flex gap-3"
+                >
+                  <span class="w-7 shrink-0 text-right font-sans text-sm leading-7 text-accent">{ch.number}</span>
+                  <span class="leading-snug group-hover:text-accent">
+                    {ch.title}
+                    <Show when={prog()}>
+                      {(p) => (
+                        <span
+                          aria-label={p().completed ? "Đã đọc xong" : "Đã xem"}
+                          class={[
+                            "ml-1.5 inline-block align-baseline font-sans text-[11px] font-medium",
+                            p().completed ? "text-cao" : "text-muted",
+                          ]}
+                        >
+                          {p().completed ? "✓" : "• đã xem"}
+                        </span>
+                      )}
+                    </Show>
+                  </span>
+                </a>
+              </li>
+            );
+          }}
         </For>
       </ol>
     </section>
