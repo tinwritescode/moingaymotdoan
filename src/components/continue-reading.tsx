@@ -1,9 +1,13 @@
 import { createMemo, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
+import { bookFromAnySlug, translateBookSlug } from "../../lib/content/books";
 import { formatDateTime } from "../../lib/history/types";
-import { chapterHref } from "../router";
+import type { Locale } from "../../lib/i18n";
+import { accountHref, chapterHref, historyHref, homeHref } from "../router";
+import { useAuth } from "./auth-context";
+import { useHistory } from "./history-context";
+import { useLocale } from "./locale-context";
 import { ProgressRing, WeeklyDots } from "./progress-ring";
-import { useUser } from "./user-context";
 
 type NextChapter = {
   href: string;
@@ -11,10 +15,16 @@ type NextChapter = {
   title: string;
 };
 
-/** Tìm đoạn kế tiếp ngay sau (bookSlug, chapter) theo thứ tự mục lục Kinh Thánh. */
-export function findNextChapter(toc: TocBook[], bookSlug: string | null, chapter: number | null): NextChapter | null {
+/** Finds the chapter immediately following (bookSlug, chapter) in the localized TOC. */
+export function findNextChapter(
+  toc: TocBook[],
+  bookSlug: string | null,
+  chapter: number | null,
+  locale: Locale = "vi",
+): NextChapter | null {
   if (!bookSlug || !chapter) return null;
-  const bookIndex = toc.findIndex((b) => b.book.slug === bookSlug);
+  const localizedSlug = translateBookSlug(bookSlug, locale) ?? bookSlug;
+  const bookIndex = toc.findIndex((b) => b.book.slug === localizedSlug);
   if (bookIndex < 0) return null;
   const book = toc[bookIndex];
   const chIndex = book.chapters.findIndex((c) => c.number === chapter);
@@ -23,7 +33,7 @@ export function findNextChapter(toc: TocBook[], bookSlug: string | null, chapter
   const sameBookNext = book.chapters[chIndex + 1];
   if (sameBookNext) {
     return {
-      href: chapterHref({ slug: book.book.slug, number: sameBookNext.number }),
+      href: chapterHref({ slug: book.book.slug, number: sameBookNext.number, locale }),
       label: `${book.book.name} ${sameBookNext.number}`,
       title: sameBookNext.title,
     };
@@ -33,7 +43,7 @@ export function findNextChapter(toc: TocBook[], bookSlug: string | null, chapter
   const firstNext = nextBook?.chapters[0];
   if (nextBook && firstNext) {
     return {
-      href: chapterHref({ slug: nextBook.book.slug, number: firstNext.number }),
+      href: chapterHref({ slug: nextBook.book.slug, number: firstNext.number, locale }),
       label: `${nextBook.book.name} ${firstNext.number}`,
       title: firstNext.title,
     };
@@ -41,27 +51,61 @@ export function findNextChapter(toc: TocBook[], bookSlug: string | null, chapter
   return null;
 }
 
-/** Khối "Xem tiếp" + 3 thẻ thống kê tĩnh lặng trên trang chủ khi người đọc đã có lịch sử. */
+/** Resolves localized display info (href, subtitle, title) for a history chapter entry. */
+export function resolveChapterDisplay(
+  toc: TocBook[],
+  bookSlug: string | null,
+  chapter: number | null,
+  fallbackSubtitle: string,
+  fallbackTitle: string,
+  locale: Locale,
+) {
+  const localizedBook = bookSlug ? bookFromAnySlug(bookSlug, locale) : undefined;
+  const tocBook = localizedBook ? toc.find((b) => b.book.code === localizedBook.code) : undefined;
+  const tocChapter = chapter ? tocBook?.chapters.find((c) => c.number === chapter) : undefined;
+  const slug = localizedBook?.slug ?? bookSlug ?? "";
+  return {
+    href: chapterHref({ slug, number: chapter ?? 1, locale }),
+    subtitle: localizedBook && chapter ? `${localizedBook.name} ${chapter}` : fallbackSubtitle,
+    title: tocChapter?.title ?? fallbackTitle,
+    totalChapters: tocBook?.chapters.length ?? 0,
+  };
+}
+
+/** "Continue reading" card + 3 quiet stats cards on the home page when history exists. */
 export function ContinueReading(props: { toc: TocBook[] }) {
-  const { ready, latestChapter, stats, logs, bookSummary, user } = useUser();
+  const { user, initialized } = useAuth();
+  const { hydrated, latestChapter, stats, logs, bookSummary } = useHistory();
+  const { locale, t } = useLocale();
+
+  const latestDisplay = createMemo(() => {
+    const latest = latestChapter();
+    if (!latest) return null;
+    return resolveChapterDisplay(
+      props.toc,
+      latest.bookSlug,
+      latest.chapter,
+      latest.subtitle,
+      latest.title,
+      locale(),
+    );
+  });
 
   const nextChapter = createMemo(() => {
     const latest = latestChapter();
-    return latest ? findNextChapter(props.toc, latest.bookSlug, latest.chapter) : null;
+    return latest ? findNextChapter(props.toc, latest.bookSlug, latest.chapter, locale()) : null;
   });
 
   const bookPercent = createMemo(() => {
     const latest = latestChapter();
-    if (!latest?.bookSlug) return 0;
-    const book = props.toc.find((b) => b.book.slug === latest.bookSlug);
-    const total = book?.chapters.length ?? 0;
-    if (total === 0) return 0;
+    const display = latestDisplay();
+    if (!latest?.bookSlug || !display || display.totalChapters === 0) return 0;
     const read = bookSummary(latest.bookSlug)?.read ?? 1;
-    return Math.min(100, Math.round((read / total) * 100));
+    return Math.min(100, Math.round((read / display.totalChapters) * 100));
   });
 
   return (
-    <Show when={ready() && latestChapter()}>
+    <Show when={hydrated() && latestChapter()}>
       {(latest) => (
         <div class="space-y-2.5">
           <section
@@ -77,20 +121,20 @@ export function ContinueReading(props: { toc: TocBook[] }) {
 
             <div class="min-w-0">
               <p id="xem-tiep-heading" class="font-sans text-xs font-medium text-accent">
-                Xem tiếp · {formatDateTime(latest().lastReadAt)}
+                {t().continueReading.heading(formatDateTime(latest().lastReadAt, locale()))}
               </p>
               <h2 class="mt-0.5 truncate font-display text-xl font-normal text-ink sm:text-[1.35rem]">
-                {latest().subtitle}
+                {latestDisplay()?.subtitle ?? latest().subtitle}
               </h2>
-              <p class="truncate text-sm text-muted">{latest().title}</p>
+              <p class="truncate text-sm text-muted">{latestDisplay()?.title ?? latest().title}</p>
             </div>
 
             <div class="col-span-full flex flex-wrap items-center gap-2 font-sans text-sm">
               <a
-                href={chapterHref({ slug: latest().bookSlug ?? "", number: latest().chapter ?? 1 })}
+                href={latestDisplay()?.href ?? chapterHref({ slug: latest().bookSlug ?? "", number: latest().chapter ?? 1, locale: locale() })}
                 class="inline-flex min-h-11 items-center justify-center rounded-full bg-accent px-5 font-medium text-paper transition-opacity hover:opacity-90"
               >
-                {latest().completed ? "Đọc lại đoạn này" : "Tiếp tục đọc"}
+                {latest().completed ? t().continueReading.readAgain : t().continueReading.continueBtn}
               </a>
               <Show when={nextChapter()}>
                 {(next) => (
@@ -99,45 +143,45 @@ export function ContinueReading(props: { toc: TocBook[] }) {
                     title={next().title}
                     class="inline-flex min-h-11 items-center rounded-full bg-side px-4 font-normal text-accent transition-colors hover:bg-accent hover:text-paper"
                   >
-                    Đoạn kế: {next().label} →
+                    {t().continueReading.nextChapter(next().label)}
                   </a>
                 )}
               </Show>
             </div>
           </section>
 
-          <section aria-label="Thống kê đọc" class="grid grid-cols-3 gap-2 font-sans">
+          <section aria-label={t().continueReading.statsAriaLabel} class="grid grid-cols-3 gap-2 font-sans">
             <a
-              href="/lich-su"
+              href={historyHref(locale())}
               class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
             >
               <strong class="block text-2xl leading-none font-light text-ink">{stats().chaptersRead}</strong>
-              <span class="mt-1 block text-[11.5px] text-muted">đoạn đã xem</span>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.chaptersRead}</span>
             </a>
 
             <a
-              href="/lich-su"
+              href={historyHref(locale())}
               class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
             >
               <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
-              <span class="mt-1 block text-[11.5px] text-muted">ngày liên tiếp</span>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.dayStreak}</span>
               <WeeklyDots logs={logs()} />
             </a>
 
             <a
-              href="/lich-su"
+              href={historyHref(locale())}
               class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
             >
               <strong class="block text-2xl leading-none font-light text-ink">{stats().booksOpened}</strong>
-              <span class="mt-1 block text-[11.5px] text-muted">sách đã mở</span>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.booksOpened}</span>
             </a>
           </section>
 
-          <Show when={!user()}>
+          <Show when={initialized() && !user()}>
             <p class="px-1 font-sans text-xs text-muted">
-              Lịch sử đang lưu trên máy này ·{" "}
-              <a href="/tai-khoan?next=/" class="text-accent underline underline-offset-4">
-                Đăng nhập để đồng bộ mọi thiết bị
+              {t().continueReading.localOnlyPrefix} ·{" "}
+              <a href={accountHref(locale(), homeHref(locale()))} class="text-accent underline underline-offset-4">
+                {t().continueReading.signInToSync}
               </a>
             </p>
           </Show>

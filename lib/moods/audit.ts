@@ -1,15 +1,16 @@
 import { testamentOf } from "../content/books";
+import type { Locale } from "../i18n/locale";
 import { normalizeSearch } from "./search";
 import type { MoodView } from "./types";
 
-/** Chuẩn nội dung mỗi chuyên mục: đủ dày, đa dạng, trích đúng nguyên văn Bản Truyền Thống. */
+/** Chuẩn nội dung mỗi chuyên mục: đủ dày, đa dạng, trích đúng nguyên văn Kinh Thánh. */
 export const MOOD_STANDARD = {
   passages: 6,
   minBooks: 4,
   maxVersesPerPassage: 10,
   maxMoodsPerVerse: 3,
-  note: { min: 50, max: 220 },
-  prayer: { min: 80, max: 320 },
+  note: { min: 50, max: 240 },
+  prayer: { min: 80, max: 340 },
 } as const;
 
 export type MoodIssue = { slug: string; groupId: string; message: string };
@@ -21,10 +22,14 @@ const plain = (text: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-/** Các cụm người viết đặt trong ngoặc kép hoặc ngoặc đơn, tách theo dấu "…" nếu trích lược. */
+/**
+ * Extracts double-quoted phrases (and single-quoted phrases in VI; in EN single quotes are often
+ * apostrophes/contractions like "God's" or "don't", so we only match paired single quotes bounded
+ * by non-word characters). Splits omitted segments on "…" or "...".
+ */
 export function quotedPieces(note: string): string[] {
   const pieces: string[] = [];
-  for (const re of [/“([^”]+)”/g, /"([^"]+)"/g, /'([^']+)'/g]) {
+  for (const re of [/“([^”]+)”/g, /"([^"]+)"/g, /(?<!\p{L})'([^']+)'(?!\p{L})/gu]) {
     for (const m of note.matchAll(re)) {
       for (const piece of m[1].split(/…|\.\.\./)) {
         if (plain(piece)) pieces.push(piece.trim());
@@ -35,9 +40,10 @@ export function quotedPieces(note: string): string[] {
 }
 
 /** Kiểm tra từng chuyên mục và cả kho: trả về danh sách lỗi, rỗng nghĩa là đạt chuẩn. */
-export function auditMoods(views: readonly MoodView[]): MoodIssue[] {
+export function auditMoods(views: readonly MoodView[], locale: Locale = "vi"): MoodIssue[] {
   const issues: MoodIssue[] = [];
   const moodsByVerse = new Map<string, Set<string>>();
+  const versionLabel = locale === "en" ? "BSB" : "Bản Truyền Thống";
 
   for (const view of views) {
     const add = (message: string) => issues.push({ slug: view.slug, groupId: view.group.id, message });
@@ -69,7 +75,7 @@ export function auditMoods(views: readonly MoodView[]): MoodIssue[] {
       const verseText = ` ${plain(p.ref.verses.map((v) => v.text).join(" "))} `;
       for (const piece of quotedPieces(p.note)) {
         if (!verseText.includes(` ${plain(piece)} `)) {
-          add(`${label}: trích "${piece}" không khớp nguyên văn Bản Truyền Thống`);
+          add(`${label}: trích "${piece}" không khớp nguyên văn ${versionLabel}`);
         }
       }
       for (const other of view.passages.slice(i + 1)) {

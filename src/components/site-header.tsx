@@ -1,16 +1,19 @@
 import { createMemo, Show, type ParentProps } from "solid-js";
 import type { TocBook } from "../../lib/content";
-import { BOOKS, testamentOf } from "../../lib/content/books";
+import { booksFor, testamentOf } from "../../lib/content/books";
+import type { Locale } from "../../lib/i18n";
 import { getToc } from "../data";
+import { accountHref, homeHref, moodsHref } from "../router";
+import { useAuth } from "./auth-context";
 import { BookPicker, type PickerBook } from "./book-picker";
 import { DisplayMenu, ThemeToggle } from "./display-controls";
-import { useUser } from "./user-context";
+import { useLocale } from "./locale-context";
 
 type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
 
-function pickerBooks(toc: TocBook[]): PickerBook[] {
+export function pickerBooks(toc: TocBook[], locale: Locale = "vi"): PickerBook[] {
   const written = new Map(toc.map((t) => [t.book.code, t.chapters]));
-  return BOOKS.map((b) => ({
+  return booksFor(locale).map((b) => ({
     slug: b.slug,
     name: b.name,
     testament: testamentOf(b),
@@ -19,19 +22,23 @@ function pickerBooks(toc: TocBook[]): PickerBook[] {
 }
 
 /**
- * Thanh trên tối giản kiểu Tĩnh Lặng: dấu chấm rêu + tên trang bên trái;
- * nút chọn Sách, tìm Cảm xúc và hình đại diện tài khoản gọn gàng bên phải.
+ * Minimal quiet top bar: moss dot + site name on the left;
+ * Books picker, theme toggle, display menu, mood search, and account on the right.
  */
 export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderSection }>) {
-  const books = createMemo(async () => pickerBooks((await getToc()).books));
-  const { user, ready } = useUser();
+  const { locale, t } = useLocale();
+  const books = createMemo(async () => pickerBooks((await getToc(locale())).books, locale()));
+  const { user, initialized } = useAuth();
 
   return (
     <header class="kt-header sticky top-0 z-20 border-b border-rule/70 bg-paper/88 backdrop-blur-md">
       <div class="mx-auto flex w-full max-w-[40rem] items-center justify-between gap-2 px-4 py-3 font-sans sm:gap-3 sm:px-5">
-        <a href="/" class="kt-brand inline-flex shrink-0 items-center gap-2 text-[15px] font-medium tracking-tight text-ink sm:gap-2.5">
+        <a
+          href={homeHref(locale())}
+          class="kt-brand inline-flex shrink-0 items-center gap-2 text-[15px] font-medium tracking-tight text-ink sm:gap-2.5"
+        >
           <span aria-hidden="true" class="h-2.5 w-2.5 rounded-full bg-accent" />
-          <span>Kinh Thánh</span>
+          <span>{t().header.brand}</span>
         </a>
 
         <div class="flex items-center gap-1.5 sm:gap-2">
@@ -40,8 +47,8 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
           <DisplayMenu />
 
           <a
-            href="/cam-xuc"
-            aria-label="Tìm theo cảm xúc"
+            href={moodsHref(locale())}
+            aria-label={t().header.searchByMood}
             aria-current={props.section === "cam-xuc" ? "page" : undefined}
             class={[
               "hidden h-10 w-10 items-center justify-center rounded-full border transition-colors sm:inline-flex",
@@ -65,20 +72,20 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
           </a>
 
           <a
-            href="/tai-khoan"
-            aria-label={ready() && user() ? `Tài khoản ${user()!.name}` : "Đăng nhập"}
+            href={accountHref(locale())}
+            aria-label={initialized() && user() ? t().header.accountLabel(user()!.name) : t().header.signInLabel}
             aria-current={props.section === "tai-khoan" ? "page" : undefined}
             class={[
               "inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border text-sm font-medium transition-colors sm:h-10 sm:w-10",
               props.section === "tai-khoan"
                 ? "border-accent bg-accent text-paper"
-                : ready() && user()
+                : initialized() && user()
                   ? "border-accent/30 bg-side text-accent hover:border-accent"
                   : "border-rule bg-card text-muted hover:border-accent hover:text-ink",
             ]}
           >
             <Show
-              when={ready() && user()}
+              when={initialized() && user()}
               fallback={
                 <svg
                   viewBox="0 0 24 24"

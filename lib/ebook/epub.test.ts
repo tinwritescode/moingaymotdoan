@@ -83,3 +83,34 @@ describe("buildEpub", () => {
     expect(bundles(toc).map((b) => b.slug)).toEqual(["tat-ca", "tan-uoc"]);
   });
 });
+
+describe("buildEpub (en)", () => {
+  const enContentDir = mkdtempSync(join(tmpdir(), "ebook-en-"));
+  cpSync(join(ROOT, "content-en", "philemon"), join(enContentDir, "philemon"), { recursive: true });
+  const enContent = createContent({
+    contentDir: enContentDir,
+    bibleDir: join(ROOT, "data", "bible-en"),
+    locale: "en",
+  });
+  const enToc = enContent.toc();
+  const one = bundles(enToc, "en").find((b) => b.slug === "new-testament");
+  if (!one) throw new Error("Philemon missing from content-en/");
+  const files = unzip(
+    buildEpub({ bundle: one, content: enContent, modified: "2026-11-21T00:00:00Z", fullText: true, locale: "en" }),
+  );
+  const file = (name: string) => files.find((f) => f.name === name)?.text ?? "";
+
+  it("emits English metadata, language tag, and BSB chapter heading", () => {
+    expect(file("OEBPS/content.opf")).toContain("<dc:language>en</dc:language>");
+    expect(file("OEBPS/content.opf")).toContain("The Bible in Plain English");
+    expect(file("OEBPS/nav.xhtml")).toContain('href="text/philemon-01.xhtml"');
+    const ch = file("OEBPS/text/philemon-01.xhtml");
+    expect(ch).toContain("<h3>Full Text");
+    expect(ch).toContain('epub:type="noteref"');
+    expect(ch).not.toMatch(/&(?!amp;|lt;|gt;|quot;|#)/);
+  });
+
+  it("uses English bundle slugs for available testaments", () => {
+    expect(bundles(enToc, "en").map((b) => b.slug)).toEqual(["complete", "new-testament"]);
+  });
+});

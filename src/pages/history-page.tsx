@@ -1,0 +1,479 @@
+import { createMemo, createSignal, For, Repeat, Show } from "solid-js";
+import {
+  formatDateTime,
+  formatTime,
+  groupLogsByDate,
+  itemHref,
+  type ReadingLog,
+} from "../../lib/history/types";
+import { moodSlugFor } from "../../lib/i18n";
+import { ariaState } from "../components/aria";
+import { useAuth } from "../components/auth-context";
+import { findNextChapter, resolveChapterDisplay } from "../components/continue-reading";
+import { FloatingDock } from "../components/floating-dock";
+import { useHistory } from "../components/history-context";
+import { useLocale } from "../components/locale-context";
+import { ProgressRing, WeeklyDots } from "../components/progress-ring";
+import { Seo } from "../components/seo";
+import { SiteHeader } from "../components/site-header";
+import { Bone, Skeleton } from "../components/skeleton";
+import { getMoodIndex, getToc } from "../data";
+import { formatSyncError } from "../lib/auth-messages";
+import { accountHref, historyHref, moodsHref } from "../router";
+
+type FilterTab = "tat-ca" | "chapter" | "mood" | "completed";
+
+const TAB =
+  "inline-flex min-h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-rule bg-card px-3.5 font-sans text-xs transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-paper";
+
+/** Shared reading history page for Vietnamese (/lich-su) and English (/en/history). */
+export function HistoryPageView() {
+  const { locale, t } = useLocale();
+  const toc = createMemo(() => getToc(locale()));
+  const moodIndex = createMemo(() => getMoodIndex(locale()));
+  const { user, initialized } = useAuth();
+  const {
+    hydrated,
+    syncing,
+    syncError,
+    progress,
+    logs,
+    latestChapter,
+    stats,
+    progressFor,
+    bookSummary,
+    toggleCompleted,
+    deleteLog,
+    clearAllHistory,
+    refreshHistory,
+  } = useHistory();
+  const syncErrorMessage = createMemo(() => formatSyncError(syncError(), locale()));
+
+  const [tab, setTab] = createSignal<FilterTab>("tat-ca");
+  const [confirmClear, setConfirmClear] = createSignal(false);
+
+  const moodMetaBySlug = createMemo(() => {
+    const idx = moodIndex();
+    const groupById = new Map(idx.groups.map((g) => [g.id, g.name]));
+    const map = new Map<string, { title: string; groupName: string }>();
+    for (const m of idx.moods) {
+      map.set(m.slug, { title: m.title, groupName: groupById.get(m.groupId) ?? "" });
+    }
+    return map;
+  });
+
+  const displayLog = (log: ReadingLog) => {
+    const loc = locale();
+    if (log.kind === "chapter") {
+      const info = resolveChapterDisplay(toc().books, log.bookSlug, log.chapter, log.subtitle, log.title, loc);
+      return { href: info.href, title: info.title, subtitle: info.subtitle };
+    }
+    const locSlug = moodSlugFor(log.itemKey, loc) ?? log.itemKey;
+    const found = moodMetaBySlug().get(locSlug);
+    return {
+      href: itemHref(log, loc),
+      title: found?.title ?? log.title,
+      subtitle: found?.groupName || log.subtitle,
+    };
+  };
+
+  const latestDisplay = createMemo(() => {
+    const latest = latestChapter();
+    if (!latest) return null;
+    return resolveChapterDisplay(
+      toc().books,
+      latest.bookSlug,
+      latest.chapter,
+      latest.subtitle,
+      latest.title,
+      locale(),
+    );
+  });
+
+  const nextChapter = createMemo(() => {
+    const latest = latestChapter();
+    return latest ? findNextChapter(toc().books, latest.bookSlug, latest.chapter, locale()) : null;
+  });
+
+  const bookPercent = createMemo(() => {
+    const latest = latestChapter();
+    const display = latestDisplay();
+    if (!latest?.bookSlug || !display || display.totalChapters === 0) return 0;
+    const read = bookSummary(latest.bookSlug)?.read ?? 1;
+    return Math.min(100, Math.round((read / display.totalChapters) * 100));
+  });
+
+  const filteredLogs = createMemo(() => {
+    const currentTab = tab();
+    const list = logs();
+    if (currentTab === "tat-ca") return list;
+    if (currentTab === "chapter") return list.filter((l) => l.kind === "chapter");
+    if (currentTab === "mood") return list.filter((l) => l.kind === "mood");
+    return list.filter((l) => progressFor(l.kind, l.itemKey)?.completed);
+  });
+
+  const groupedLogs = createMemo(() => groupLogsByDate(filteredLogs(), new Date(), locale()));
+
+  const completedList = createMemo(() =>
+    progress()
+      .filter((p) => p.completed)
+      .sort((a, b) => (b.completedAt ?? b.lastReadAt).localeCompare(a.completedAt ?? a.lastReadAt)),
+  );
+
+  const handleToggle = (log: ReadingLog) => {
+    const isCompleted = progressFor(log.kind, log.itemKey)?.completed ?? false;
+    void toggleCompleted({
+      kind: log.kind,
+      itemKey: log.itemKey,
+      bookSlug: log.bookSlug,
+      chapter: log.chapter,
+      title: log.title,
+      subtitle: log.subtitle,
+      completed: !isCompleted,
+    });
+  };
+
+  return (
+    <>
+      <Seo title={t().seo.historyTitle} description={t().seo.historyDescription} path={historyHref(locale())} />
+      <SiteHeader section="lich-su" />
+
+      <main class="mx-auto w-full max-w-[40rem] animate-reveal px-5 pt-5 pb-12 motion-reduce:animate-none">
+        <header class="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p class="font-sans text-xs font-medium text-accent">{t().history.kicker}</p>
+            <h1 class="mt-1 font-display text-3xl leading-tight font-light tracking-tight text-ink sm:text-[2.15rem]">
+              {t().history.heading}
+            </h1>
+          </div>
+          <Show when={initialized() && user()}>
+            <button
+              type="button"
+              onClick={() => void refreshHistory()}
+              class="min-h-9 cursor-pointer rounded-full border border-rule bg-card px-3.5 font-sans text-xs text-muted transition-colors hover:border-accent hover:text-ink"
+            >
+              {syncing() ? t().history.syncing : t().history.refresh}
+            </button>
+          </Show>
+        </header>
+
+        <Show when={initialized() && !user()}>
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-side px-4 py-3.5 font-sans text-xs">
+            <p class="text-ink/85">
+              {t().history.guestBannerBefore}
+              <strong class="font-medium">{t().history.guestBannerBold}</strong>
+              {t().history.guestBannerAfter}
+            </p>
+            <a
+              href={accountHref(locale(), historyHref(locale()))}
+              class="inline-flex min-h-9 shrink-0 items-center rounded-full bg-accent px-4 font-medium text-paper hover:opacity-90"
+            >
+              {t().history.signInBtn}
+            </a>
+          </div>
+        </Show>
+
+        <Show when={syncErrorMessage()}>
+          {(err) => (
+            <p
+              role="alert"
+              class="mt-4 rounded-2xl border border-thap/40 bg-thap/10 px-4 py-3 font-sans text-xs text-thap"
+            >
+              {err()}
+            </p>
+          )}
+        </Show>
+
+        <Show
+          when={hydrated()}
+          fallback={
+            <Skeleton label={t().history.loadingLabel}>
+              <div class="mt-5 grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5">
+                <Bone class="h-[4.5rem] w-[4.5rem]" />
+                <div class="space-y-2">
+                  <Bone class="h-3 w-32" />
+                  <Bone class="h-5 w-3/4" />
+                  <Bone class="h-3.5 w-1/2" />
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-3 gap-2">
+                <Repeat count={3}>
+                  {() => (
+                    <div class="space-y-2 rounded-2xl border border-rule bg-card p-3.5">
+                      <Bone class="h-6 w-10" />
+                      <Bone class="h-3 w-16" />
+                    </div>
+                  )}
+                </Repeat>
+              </div>
+              <div class="mt-6 flex gap-1.5">
+                <Bone class="h-9 w-20" />
+                <Bone class="h-9 w-24" />
+                <Bone class="h-9 w-20" />
+                <Bone class="h-9 w-20" />
+              </div>
+              <div class="mt-6 space-y-4">
+                <Repeat count={4}>
+                  {() => (
+                    <div class="flex items-center gap-3">
+                      <Bone class="h-10 w-10 shrink-0" />
+                      <div class="flex-1 space-y-2">
+                        <Bone class="h-4 w-2/3" />
+                        <Bone class="h-3 w-1/3" />
+                      </div>
+                    </div>
+                  )}
+                </Repeat>
+              </div>
+            </Skeleton>
+          }
+        >
+          <Show when={latestChapter()}>
+            {(latest) => (
+              <section
+                aria-labelledby="tiep-tuc-doc"
+                class="mt-5 grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5"
+              >
+                <div class="relative h-[4.5rem] w-[4.5rem]">
+                  <ProgressRing radius={30} percent={bookPercent()} />
+                  <span class="absolute inset-0 grid place-items-center font-sans text-sm font-medium text-ink">
+                    {bookPercent()}%
+                  </span>
+                </div>
+                <div class="min-w-0">
+                  <h2 id="tiep-tuc-doc" class="font-sans text-xs font-medium text-accent">
+                    {t().history.continueHeading(formatDateTime(latest().lastReadAt, locale()))}
+                  </h2>
+                  <p class="mt-0.5 truncate font-display text-xl font-normal text-ink">
+                    {latestDisplay()?.subtitle ?? latest().subtitle}
+                  </p>
+                  <p class="truncate text-sm text-muted">{latestDisplay()?.title ?? latest().title}</p>
+                </div>
+                <div class="col-span-full flex flex-wrap gap-2 font-sans text-sm">
+                  <a
+                    href={latestDisplay()?.href ?? itemHref(latest(), locale())}
+                    class="inline-flex min-h-11 items-center rounded-full bg-accent px-5 font-medium text-paper transition-opacity hover:opacity-90"
+                  >
+                    {latest().completed ? t().history.readAgain : t().history.continueBtn}
+                  </a>
+                  <Show when={nextChapter()}>
+                    {(next) => (
+                      <a
+                        href={next().href}
+                        title={next().title}
+                        class="inline-flex min-h-11 items-center rounded-full bg-side px-4 text-accent transition-colors hover:bg-accent hover:text-paper"
+                      >
+                        {t().history.nextChapter(next().label)}
+                      </a>
+                    )}
+                  </Show>
+                </div>
+              </section>
+            )}
+          </Show>
+
+          <section aria-label={t().history.statsAriaLabel} class="mt-3 grid grid-cols-3 gap-2 font-sans">
+            <div class="rounded-2xl border border-rule bg-card p-3.5">
+              <strong class="block text-2xl leading-none font-light text-ink">{stats().chaptersRead}</strong>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().history.ofTotalChapters}</span>
+            </div>
+            <div class="rounded-2xl border border-rule bg-card p-3.5">
+              <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().history.dayStreak}</span>
+              <WeeklyDots logs={logs()} />
+            </div>
+            <div class="rounded-2xl border border-rule bg-card p-3.5">
+              <strong class="block text-2xl leading-none font-light text-accent">{stats().chaptersCompleted}</strong>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().history.completedCount}</span>
+            </div>
+          </section>
+
+          <div class="mt-6 flex flex-wrap items-center justify-between gap-2.5">
+            <div role="group" aria-label={t().history.filterGroupAria} class="flex flex-wrap gap-1.5">
+              <button
+                type="button"
+                aria-pressed={ariaState(tab() === "tat-ca")}
+                onClick={() => setTab("tat-ca")}
+                class={TAB}
+              >
+                <span>{t().history.tabAll}</span>
+                <span class="opacity-75">{logs().length}</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={ariaState(tab() === "chapter")}
+                onClick={() => setTab("chapter")}
+                class={TAB}
+              >
+                <span>{t().history.tabBible}</span>
+                <span class="opacity-75">{logs().filter((l) => l.kind === "chapter").length}</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={ariaState(tab() === "mood")}
+                onClick={() => setTab("mood")}
+                class={TAB}
+              >
+                <span>{t().history.tabMoods}</span>
+                <span class="opacity-75">{logs().filter((l) => l.kind === "mood").length}</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={ariaState(tab() === "completed")}
+                onClick={() => setTab("completed")}
+                class={TAB}
+              >
+                <span>{t().history.tabCompleted}</span>
+                <span class="opacity-75">{completedList().length}</span>
+              </button>
+            </div>
+
+            <Show when={logs().length > 0 || progress().length > 0}>
+              <Show
+                when={confirmClear()}
+                fallback={
+                  <button
+                    type="button"
+                    onClick={() => setConfirmClear(true)}
+                    class="min-h-9 cursor-pointer rounded-full px-2.5 font-sans text-xs text-muted hover:text-thap"
+                  >
+                    {t().history.clearAll}
+                  </button>
+                }
+              >
+                <div class="flex items-center gap-1.5 font-sans text-xs">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setConfirmClear(false);
+                      void clearAllHistory();
+                    }}
+                    class="min-h-8 cursor-pointer rounded-full bg-thap px-3 font-medium text-paper"
+                  >
+                    {t().history.confirmClear}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmClear(false)}
+                    class="min-h-8 cursor-pointer rounded-full border border-rule px-3 text-muted hover:text-ink"
+                  >
+                    {t().history.cancel}
+                  </button>
+                </div>
+              </Show>
+            </Show>
+          </div>
+
+          <Show
+            when={groupedLogs().length > 0}
+            fallback={
+              <div class="mt-7 rounded-3xl border border-rule bg-card p-8 text-center font-sans">
+                <p class="text-base font-medium text-ink">
+                  {logs().length === 0 ? t().history.emptyAll : t().history.emptyFiltered}
+                </p>
+                <p class="mt-2 text-sm text-muted">{t().history.emptyDesc}</p>
+                <div class="mt-5 flex flex-wrap justify-center gap-2.5 text-sm">
+                  <a
+                    href={t().history.startGenesisHref}
+                    class="inline-flex min-h-11 items-center rounded-full bg-accent px-5 font-medium text-paper hover:opacity-90"
+                  >
+                    {t().history.startGenesisCta}
+                  </a>
+                  <a
+                    href={moodsHref(locale())}
+                    class="inline-flex min-h-11 items-center rounded-full bg-side px-5 text-accent hover:bg-accent hover:text-paper"
+                  >
+                    {t().history.browseMoodsCta}
+                  </a>
+                </div>
+              </div>
+            }
+          >
+            <div class="mt-7 space-y-7">
+              <For each={groupedLogs()}>
+                {(group) => (
+                  <section aria-labelledby={`ngay-${group.dateKey}`}>
+                    <div class="flex items-baseline justify-between gap-2 pb-2">
+                      <h2 id={`ngay-${group.dateKey}`} class="font-display text-base font-normal text-ink">
+                        {group.label}
+                      </h2>
+                      <span class="font-sans text-xs text-muted">{t().history.itemsCount(group.items.length)}</span>
+                    </div>
+
+                    <ul class="space-y-2">
+                      <For each={group.items}>
+                        {(log) => {
+                          const prog = () => progressFor(log.kind, log.itemKey);
+                          const isCompleted = () => prog()?.completed ?? false;
+                          const shown = () => displayLog(log);
+                          return (
+                            <li class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-rule bg-card p-4 transition-colors hover:border-accent/60">
+                              <div class="min-w-0 flex-1">
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 font-sans text-xs text-muted">
+                                  <span>{formatTime(log.readAt)}</span>
+                                  <span aria-hidden="true">·</span>
+                                  <span class="text-accent">
+                                    {log.kind === "chapter"
+                                      ? shown().subtitle
+                                      : t().history.moodPrefix(shown().subtitle)}
+                                  </span>
+                                  <Show when={isCompleted()}>
+                                    <span class="rounded-full bg-side px-2 py-0.5 font-medium text-accent">
+                                      {t().history.doneBadge}
+                                    </span>
+                                  </Show>
+                                </div>
+                                <a
+                                  href={shown().href}
+                                  class="mt-1 block font-serif text-[17px] leading-snug font-semibold text-ink hover:text-accent"
+                                >
+                                  {shown().title}
+                                </a>
+                              </div>
+
+                              <div class="flex items-center gap-1.5 font-sans text-xs">
+                                <button
+                                  type="button"
+                                  onClick={() => handleToggle(log)}
+                                  title={isCompleted() ? t().history.unmarkTitle : t().history.markTitle}
+                                  class={[
+                                    "inline-flex min-h-9 cursor-pointer items-center rounded-full px-3 font-medium transition-colors",
+                                    isCompleted()
+                                      ? "bg-side text-accent"
+                                      : "border border-rule bg-paper/50 text-muted hover:border-accent hover:text-ink",
+                                  ]}
+                                >
+                                  {isCompleted() ? t().history.doneBadge : t().history.markBtn}
+                                </button>
+                                <a
+                                  href={shown().href}
+                                  class="inline-flex min-h-9 items-center rounded-full bg-accent px-3.5 font-medium text-paper hover:opacity-90"
+                                >
+                                  {t().history.continueItemBtn}
+                                </a>
+                                <button
+                                  type="button"
+                                  aria-label={t().history.deleteItemAria(shown().title, group.label)}
+                                  onClick={() => void deleteLog(log.id)}
+                                  class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-base text-muted hover:bg-side hover:text-thap"
+                                >
+                                  ×
+                                </button>
+                              </div>
+                            </li>
+                          );
+                        }}
+                      </For>
+                    </ul>
+                  </section>
+                )}
+              </For>
+            </div>
+          </Show>
+        </Show>
+      </main>
+
+      <FloatingDock active="lich-su" />
+    </>
+  );
+}

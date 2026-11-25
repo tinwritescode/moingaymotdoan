@@ -1,12 +1,12 @@
 import { createMemo, createSignal, For, onSettled, Show } from "solid-js";
 import { matchesMood, normalizeSearch } from "../../lib/moods/search";
 import type { MoodGroup, MoodIndex, MoodSummary } from "../../lib/moods/types";
-import { AI_NOTICE } from "../../lib/notice";
 import { moodHref } from "../router";
 import { ariaState } from "./aria";
-import { useUser } from "./user-context";
+import { useHistory } from "./history-context";
+import { useLocale } from "./locale-context";
 
-/** 8 sắc thái dịu mắt tương ứng 8 nhóm cảm xúc (pha mềm vào nền thẻ, không chói). */
+/** 8 muted hues matching the 8 mood groups. */
 const GROUP_HUES = [
   "#c9a227",
   "#6b7fa8",
@@ -18,60 +18,50 @@ const GROUP_HUES = [
   "#4d8a7f",
 ] as const;
 
-/** 8 cảm xúc thường tìm nhất để người đọc mở ngay bằng một chạm không cần cuộn. */
-const QUICK_SLUGS: readonly { slug: string; label: string; hue: string }[] = [
-  { slug: "vui-mung", label: "Vui mừng", hue: "#c9a227" },
-  { slug: "buon-ba", label: "Buồn bã", hue: "#6b7fa8" },
-  { slug: "lo-au-tuong-lai", label: "Lo âu", hue: "#8a6fb0" },
-  { slug: "co-don", label: "Cô đơn", hue: "#c0714f" },
-  { slug: "met-moi-kiet-suc", label: "Mệt mỏi", hue: "#5d8f7b" },
-  { slug: "tuc-gian", label: "Tức giận", hue: "#9b5a6a" },
-  { slug: "kho-tha-thu-nguoi-khac", label: "Khó tha thứ", hue: "#c47a9a" },
-  { slug: "can-su-khon-ngoan", label: "Cần khôn ngoan", hue: "#4d8a7f" },
-];
-
 /**
- * Bộ duyệt 100 chuyên mục cảm xúc theo phong cách Tĩnh Lặng:
- * tìm kiếm không dấu (kể cả tên sách), lối tắt màu dịu, 8 thẻ nhóm mềm mại và mở ngẫu nhiên.
+ * Quiet browser for 100 mood & life-situation guides:
+ * instant accent-insensitive search (including book names), pastel quick shortcuts, 8 group cards, and random pick.
  */
 export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string) => void }) {
+  const { locale, t } = useLocale();
   const [selectedGroup, setSelectedGroup] = createSignal<string>("tat-ca");
   const [search, setSearch] = createSignal("");
-  const { progressFor } = useUser();
-  const isRead = (slug: string) => progressFor("mood", slug) !== undefined;
+  const { hydrated, progressFor } = useHistory();
+  const isRead = (slug: string) => hydrated() && progressFor("mood", slug) !== undefined;
+  const groupParamKey = () => (locale() === "en" ? "group" : "nhom");
 
-  /** Nhóm lấy từ URL chỉ được nhận khi có thật, nếu không thì hiện tất cả. */
+  /** Only accept a group from the URL if it actually exists in the current index. */
   const knownGroup = (id: string | null) => (id && props.index.groups.some((g) => g.id === id) ? id : "tat-ca");
 
-  /** Đổi bộ lọc và ghi vào URL (?q=, ?nhom=) để bấm quay lại hoặc gửi link vẫn giữ đúng kết quả. */
+  /** Updates filters and syncs them into URL (?q=, ?nhom= / ?group=) so Back/sharing keeps the exact view. */
   const updateFilter = (next: { q?: string; group?: string }) => {
-    // Lấy phần còn lại từ URL (ghi đồng bộ), không từ signal: signal chỉ cập nhật sau microtask.
     const url = new URL(window.location.href);
+    const key = groupParamKey();
     const q = next.q ?? url.searchParams.get("q") ?? "";
-    const group = next.group ?? knownGroup(url.searchParams.get("nhom"));
+    const group = next.group ?? knownGroup(url.searchParams.get(key) ?? url.searchParams.get("nhom") ?? url.searchParams.get("group"));
     setSearch(q);
     setSelectedGroup(group);
     if (q.trim()) url.searchParams.set("q", q.trim());
     else url.searchParams.delete("q");
-    if (group !== "tat-ca") url.searchParams.set("nhom", group);
-    else url.searchParams.delete("nhom");
-    // replaceState giữ history.state của router (vị trí cuộn) và không tạo thêm mục lịch sử mỗi lần gõ.
+    url.searchParams.delete("nhom");
+    url.searchParams.delete("group");
+    if (group !== "tat-ca") url.searchParams.set(key, group);
     if (url.href !== window.location.href) window.history.replaceState(window.history.state, "", url);
   };
   const resetFilter = () => updateFilter({ q: "", group: "tat-ca" });
 
-  // Đọc URL sau khi hydrate: trang tĩnh được prerender không có query nên đọc sớm hơn sẽ lệch HTML.
+  // Read query params after hydration so static prerendered HTML never mismatches.
   onSettled(() => {
     const params = new URLSearchParams(window.location.search);
     setSearch(params.get("q") ?? "");
-    setSelectedGroup(knownGroup(params.get("nhom")));
+    setSelectedGroup(knownGroup(params.get(groupParamKey()) ?? params.get("nhom") ?? params.get("group")));
   });
 
   const queryText = createMemo(() => normalizeSearch(search()));
 
   const quickLinks = createMemo(() => {
     const slugs = new Set(props.index.moods.map((m) => m.slug));
-    return QUICK_SLUGS.filter((q) => slugs.has(q.slug));
+    return t().moods.quickShortcuts.filter((q) => slugs.has(q.slug));
   });
 
   const countsByGroup = createMemo(() => {
@@ -115,19 +105,15 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
       class="mx-auto w-full max-w-[40rem] animate-reveal px-5 pt-5 pb-12 motion-reduce:animate-none"
     >
       <header>
-        <p class="font-sans text-xs font-medium text-accent">
-          Đọc theo cảm xúc · {props.index.moods.length} chủ đề
-        </p>
+        <p class="font-sans text-xs font-medium text-accent">{t().moods.kicker(props.index.moods.length)}</p>
         <h1 class="mt-1 font-display text-3xl leading-tight font-light tracking-tight text-ink sm:text-[2.15rem]">
-          Bạn đang cảm thấy thế nào?
+          {t().moods.heading}
         </h1>
-        <p class="mt-2 text-base leading-relaxed text-muted">
-          Chọn tâm trạng hoặc gõ từ khóa. Lời Kinh Thánh Bản Truyền Thống sẽ ở ngay đây.
-        </p>
+        <p class="mt-2 text-base leading-relaxed text-muted">{t().moods.subtitle}</p>
 
         <div class="mt-5 flex flex-wrap items-center gap-2 font-sans">
           <label for="tim-cam-xuc" class="sr-only">
-            Tìm cảm xúc, chủ đề hoặc tên sách Kinh Thánh
+            {t().moods.searchLabel}
           </label>
           <div class="relative min-w-52 flex-1">
             <svg
@@ -145,7 +131,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
             <input
               id="tim-cam-xuc"
               type="search"
-              placeholder="Tìm: vui, buồn, lo âu, Thi-thiên…"
+              placeholder={t().moods.searchPlaceholder}
               value={search()}
               onInput={(e) => updateFilter({ q: e.currentTarget.value })}
               class="min-h-12 w-full rounded-full border border-rule bg-card py-2 pr-10 pl-11 text-[15px] text-ink placeholder:text-muted/80 focus:border-accent focus:outline-none [&::-webkit-search-cancel-button]:hidden"
@@ -153,7 +139,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
             <Show when={search().length > 0}>
               <button
                 type="button"
-                aria-label="Xóa từ khóa tìm kiếm"
+                aria-label={t().moods.clearSearchAria}
                 onClick={() => updateFilter({ q: "" })}
                 class="absolute top-1/2 right-2 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-lg text-muted hover:bg-side hover:text-ink"
               >
@@ -168,7 +154,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
               onClick={resetFilter}
               class="min-h-12 cursor-pointer rounded-full border border-rule bg-card px-4 text-sm text-muted transition-colors hover:border-accent hover:text-ink"
             >
-              Xóa lọc
+              {t().moods.clearFilter}
             </button>
           </Show>
         </div>
@@ -178,7 +164,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
             <For each={quickLinks()}>
               {(item) => (
                 <a
-                  href={moodHref(item.slug)}
+                  href={moodHref(item.slug, locale())}
                   style={{ background: `color-mix(in srgb, ${item.hue} 16%, var(--card))` }}
                   class="inline-flex min-h-9 items-center rounded-full border border-rule/70 px-3.5 text-[13.5px] text-ink transition-colors hover:border-accent"
                 >
@@ -190,7 +176,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
         </Show>
 
         <div class="mt-7 flex flex-wrap items-center justify-between gap-2">
-          <h2 class="font-display text-lg font-normal text-ink">Nhóm chủ đề</h2>
+          <h2 class="font-display text-lg font-normal text-ink">{t().moods.groupsHeading}</h2>
           <div class="flex items-center gap-2 font-sans">
             <Show when={selectedGroup() !== "tat-ca"}>
               <button
@@ -198,7 +184,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
                 onClick={() => updateFilter({ group: "tat-ca" })}
                 class="min-h-9 cursor-pointer rounded-full border border-rule bg-card px-3.5 text-xs text-muted hover:border-accent hover:text-ink"
               >
-                Tất cả ({props.index.moods.length})
+                {t().moods.allCount(props.index.moods.length)}
               </button>
             </Show>
             <Show when={props.onRandom}>
@@ -207,7 +193,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
                 onClick={pickRandom}
                 class="min-h-9 cursor-pointer rounded-full bg-side px-3.5 text-xs font-medium text-accent transition-colors hover:bg-accent hover:text-paper"
               >
-                Lời nhắn ngẫu nhiên
+                {t().moods.randomMessage}
               </button>
             </Show>
           </div>
@@ -215,7 +201,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
 
         <div
           role="group"
-          aria-label="Lọc theo nhóm chủ đề"
+          aria-label={t().moods.filterGroupAria}
           class="-mx-5 mt-2.5 flex gap-2 overflow-x-auto px-5 pb-1 font-sans [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0"
         >
           <For each={props.index.groups}>
@@ -234,7 +220,9 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
                   ]}
                 >
                   <span class="text-[13px] leading-snug text-ink">{g.shortName}</span>
-                  <strong class="text-sm leading-none font-light text-muted sm:text-xl">{countsByGroup().get(g.id) ?? 0}</strong>
+                  <strong class="text-sm leading-none font-light text-muted sm:text-xl">
+                    {countsByGroup().get(g.id) ?? 0}
+                  </strong>
                 </button>
               );
             }}
@@ -243,8 +231,9 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
 
         <Show when={search().trim().length > 0 || selectedGroup() !== "tat-ca"}>
           <p class="mt-3 font-sans text-xs text-muted" aria-live="polite">
-            Đang hiện <strong class="font-medium text-ink">{filteredMoods().length}</strong> /{" "}
-            {props.index.moods.length} chuyên mục.
+            {t().moods.showingCountPrefix}{" "}
+            <strong class="font-medium text-ink">{filteredMoods().length}</strong>{" "}
+            {t().moods.showingCountSuffix(props.index.moods.length)}
           </p>
         </Show>
       </header>
@@ -253,19 +242,19 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
         when={visibleSections().length > 0}
         fallback={
           <div class="mt-8 rounded-3xl border border-rule bg-card p-8 text-center font-sans">
-            <p class="text-base font-medium text-ink">
-              Không tìm thấy chuyên mục nào khớp với &ldquo;{search()}&rdquo;.
-            </p>
+            <p class="text-base font-medium text-ink">{t().moods.emptyTitle(search())}</p>
             <p class="mt-2 text-sm text-muted">
-              Thử tìm bằng từ ngắn hơn như <em>vui</em>, <em>buồn</em>, <em>lo âu</em>, <em>cô đơn</em> hoặc tên sách
-              như <em>Thi-thiên</em>.
+              {t().moods.emptyHintPrefix} <em>{t().moods.emptyHintExamples[0]}</em>,{" "}
+              <em>{t().moods.emptyHintExamples[1]}</em>, <em>{t().moods.emptyHintExamples[2]}</em>,{" "}
+              <em>{t().moods.emptyHintExamples[3]}</em> {t().moods.emptyHintBookPrefix}{" "}
+              <em>{t().moods.emptyHintBookExample}</em>.
             </p>
             <button
               type="button"
               onClick={resetFilter}
               class="mt-5 min-h-11 cursor-pointer rounded-full bg-accent px-5 text-sm font-medium text-paper hover:opacity-90"
             >
-              Xem lại cả {props.index.moods.length} chuyên mục
+              {t().moods.resetAllBtn(props.index.moods.length)}
             </button>
           </div>
         }
@@ -278,7 +267,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
       </Show>
 
       <p class="mt-10 rounded-2xl border border-rule bg-card/70 px-4 py-3 font-sans text-xs leading-relaxed text-muted">
-        {AI_NOTICE}
+        {t().aiNotice}
       </p>
     </main>
   );
@@ -290,6 +279,7 @@ function GroupSection(props: {
   showBackToTop: boolean;
   isRead: (slug: string) => boolean;
 }) {
+  const { locale, t } = useLocale();
   return (
     <section id={props.group.id} aria-labelledby={`${props.group.id}-ten`} class="scroll-mt-20 pt-8">
       <div class="flex flex-wrap items-baseline justify-between gap-2">
@@ -297,11 +287,11 @@ function GroupSection(props: {
           <h2 id={`${props.group.id}-ten`} class="font-display text-lg font-normal text-ink">
             {props.group.name}
           </h2>
-          <span class="font-sans text-xs text-muted">{props.moods.length} chuyên mục</span>
+          <span class="font-sans text-xs text-muted">{t().moods.groupTopicsCount(props.moods.length)}</span>
         </div>
         <Show when={props.showBackToTop}>
           <a href="#dau-trang" class="font-sans text-xs text-muted hover:text-accent">
-            ↑ Đầu trang
+            {t().moods.backToTop}
           </a>
         </Show>
       </div>
@@ -312,7 +302,7 @@ function GroupSection(props: {
           {(m) => (
             <li>
               <a
-                href={moodHref(m.slug)}
+                href={moodHref(m.slug, locale())}
                 class="group block h-full rounded-2xl border border-rule bg-card px-4 py-3.5 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <div class="flex items-baseline justify-between gap-3">
@@ -320,7 +310,7 @@ function GroupSection(props: {
                     {m.title}
                   </h3>
                   <Show when={props.isRead(m.slug)}>
-                    <span class="shrink-0 font-sans text-[11px] font-medium text-accent">✓ Đã đọc</span>
+                    <span class="shrink-0 font-sans text-[11px] font-medium text-accent">{t().moods.readBadge}</span>
                   </Show>
                 </div>
                 <p class="mt-1 text-sm leading-relaxed text-muted">{m.prompt}</p>

@@ -190,3 +190,35 @@ describe("kiểm tra ghi chú khi nạp", () => {
     expect(() => contentWith({ "sang-the-ky/1.md": note({ headings: swapped.slice(1) }) })).toThrow(/đúng thứ tự/);
   });
 });
+
+describe("English content (BSB)", () => {
+  const realEn = createContent({
+    contentDir: join(ROOT, "content-en"),
+    bibleDir: join(ROOT, "data", "bible-en"),
+    locale: "en",
+  });
+
+  it("loads English Genesis 1 with 31 BSB verses", () => {
+    const ch = realEn.chapter({ slug: "genesis", number: 1 });
+    expect(ch?.book.name).toBe("Genesis");
+    expect(ch?.verses).toHaveLength(31);
+    expect(ch?.verses[0]).toEqual({ number: 1, text: "In the beginning God created the heavens and the earth." });
+  });
+
+  it("resolves English cross-book references including Psalm alias", () => {
+    expect(realEn.lookup({ text: "John 1:1" }).verses[0].text).toMatch(/In the beginning was the Word/);
+    expect(realEn.lookup({ text: "Psalm 23:1" }).book.name).toBe("Psalms");
+    expect(realEn.lookup({ text: "2 Corinthians 4:6" }).book.name).toBe("2 Corinthians");
+  });
+
+  it("parses English headings, confidence comments, and low-confidence spans", () => {
+    const ch = realEn.chapter({ slug: "genesis", number: 1 });
+    expect(ch?.sections.map((s) => s.heading)).toEqual([
+      "Story",
+      "Key Takeaways",
+      "Deeper Meaning",
+      "Notes & Nuances",
+    ]);
+    expect(ch?.opinions.length).toBeGreaterThan(0);
+  });
+});

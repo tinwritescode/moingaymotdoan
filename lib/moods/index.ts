@@ -1,4 +1,9 @@
 import { getContent, type Content } from "../content";
+import type { Locale } from "../i18n/locale";
+import { ANXIETY_AND_ANGER } from "./en/groups/anxiety-and-anger";
+import { FAMILY_AND_DIRECTION } from "./en/groups/family-and-direction";
+import { JOY_AND_SORROW } from "./en/groups/joy-and-sorrow";
+import { SIN_AND_TRIALS } from "./en/groups/sin-and-trials";
 import { GIA_DINH_VA_DINH_HUONG } from "./groups/gia-dinh-va-dinh-huong";
 import { LO_AU_VA_TUC_GIAN } from "./groups/lo-au-va-tuc-gian";
 import { NIEM_VUI_VA_NOI_BUON } from "./groups/niem-vui-va-noi-buon";
@@ -77,6 +82,57 @@ export const MOOD_GROUPS: readonly MoodGroup[] = [
   },
 ];
 
+export const MOOD_GROUPS_EN: readonly MoodGroup[] = [
+  {
+    id: "joy",
+    name: "Joy & Gratitude",
+    shortName: "Joy",
+    description: "When your heart feels light, peaceful, thankful, or moved to praise God.",
+  },
+  {
+    id: "sorrow",
+    name: "Sorrow, Loss & Loneliness",
+    shortName: "Sorrow",
+    description: "When your heart aches with grief, heartbreak, loneliness, or quiet heaviness.",
+  },
+  {
+    id: "anxiety",
+    name: "Anxiety, Fear & Pressure",
+    shortName: "Anxiety",
+    description: "When your mind feels restless, stressed, sleepless, or uncertain about tomorrow.",
+  },
+  {
+    id: "anger-and-forgiveness",
+    name: "Anger, Conflict & Forgiveness",
+    shortName: "Conflict & Forgiveness",
+    description: "When you feel wronged, angry, bitter, or struggling to forgive and make peace.",
+  },
+  {
+    id: "temptation-and-repentance",
+    name: "Sin, Temptation & Repentance",
+    shortName: "Temptation & Repentance",
+    description: "When facing temptation, carrying guilt, or longing for a fresh start with God.",
+  },
+  {
+    id: "trials",
+    name: "Exhaustion, Illness & Trials",
+    shortName: "Trials",
+    description: "When body and spirit are drained, facing sickness, hardship, or long seasons of testing.",
+  },
+  {
+    id: "family-and-love",
+    name: "Family, Love & Relationships",
+    shortName: "Family & Love",
+    description: "When nurturing marriage, parenting, loyal friendships, boundaries, and reconciliation.",
+  },
+  {
+    id: "life-direction",
+    name: "Work, Wisdom & Life Direction",
+    shortName: "Life Direction",
+    description: "When seeking clarity, integrity, perseverance, deeper prayer, and purpose.",
+  },
+];
+
 export const MOOD_DEFINITIONS: readonly MoodDefinition[] = [
   ...NIEM_VUI_VA_NOI_BUON,
   ...LO_AU_VA_TUC_GIAN,
@@ -84,7 +140,21 @@ export const MOOD_DEFINITIONS: readonly MoodDefinition[] = [
   ...GIA_DINH_VA_DINH_HUONG,
 ];
 
+export const MOOD_DEFINITIONS_EN: readonly MoodDefinition[] = [
+  ...JOY_AND_SORROW,
+  ...ANXIETY_AND_ANGER,
+  ...SIN_AND_TRIALS,
+  ...FAMILY_AND_DIRECTION,
+];
+
+export const moodGroupsFor = (locale: Locale = "vi"): readonly MoodGroup[] =>
+  locale === "en" ? MOOD_GROUPS_EN : MOOD_GROUPS;
+
+export const moodDefinitionsFor = (locale: Locale = "vi"): readonly MoodDefinition[] =>
+  locale === "en" ? MOOD_DEFINITIONS_EN : MOOD_DEFINITIONS;
+
 export type MoodCatalog = {
+  locale: Locale;
   index(): MoodIndex;
   mood(slug: string): MoodView | null;
 };
@@ -96,14 +166,16 @@ type ResolvedMood = {
   passages: { ref: ReturnType<Content["lookup"]>; note: string }[];
 };
 
-/** Kiểm tra toàn bộ 100 chuyên mục và tra nguyên văn mọi chỗ dẫn Kinh Thánh một lần. */
+/** Validates all 100 mood guides and resolves every Scripture reference once. */
 export function createMoodCatalog(args: {
   content: Content;
+  locale?: Locale;
   groups?: readonly MoodGroup[];
   definitions?: readonly MoodDefinition[];
 }): MoodCatalog {
-  const groups = [...(args.groups ?? MOOD_GROUPS)];
-  const definitions = args.definitions ?? MOOD_DEFINITIONS;
+  const locale = args.locale ?? args.content.locale ?? "vi";
+  const groups = [...(args.groups ?? moodGroupsFor(locale))];
+  const definitions = args.definitions ?? moodDefinitionsFor(locale);
   const groupById = new Map(groups.map((g) => [g.id, g]));
   const seenSlugs = new Set<string>();
   const errors: string[] = [];
@@ -111,33 +183,33 @@ export function createMoodCatalog(args: {
 
   for (const def of definitions) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(def.slug)) {
-      errors.push(`Slug chuyên mục không hợp lệ: "${def.slug}"`);
+      errors.push(`Invalid mood slug: "${def.slug}"`);
     }
     if (seenSlugs.has(def.slug)) {
-      errors.push(`Trùng slug chuyên mục: "${def.slug}"`);
+      errors.push(`Duplicate mood slug: "${def.slug}"`);
     }
     seenSlugs.add(def.slug);
 
     const group = groupById.get(def.groupId);
     if (!group) {
-      errors.push(`${def.slug}: không có nhóm "${def.groupId}"`);
+      errors.push(`${def.slug}: unknown group "${def.groupId}"`);
       continue;
     }
     if (!def.title.trim() || !def.prompt.trim() || !def.intro.trim()) {
-      errors.push(`${def.slug}: thiếu tiêu đề, mô tả ngắn hoặc lời mở đầu`);
+      errors.push(`${def.slug}: missing title, prompt, or intro`);
     }
     if (def.passages.length === 0) {
-      errors.push(`${def.slug}: chưa có câu Kinh Thánh nào`);
+      errors.push(`${def.slug}: has no passages`);
     }
 
     const seenRefs = new Set<string>();
     const passages: ResolvedMood["passages"] = [];
     for (const p of def.passages) {
       if (!p.note.trim()) {
-        errors.push(`${def.slug} (${p.ref}): thiếu lời gợi ý suy ngẫm`);
+        errors.push(`${def.slug} (${p.ref}): missing reflection note`);
       }
       if (seenRefs.has(p.ref)) {
-        errors.push(`${def.slug}: trùng chỗ dẫn "${p.ref}"`);
+        errors.push(`${def.slug}: duplicate reference "${p.ref}"`);
       }
       seenRefs.add(p.ref);
       try {
@@ -179,6 +251,7 @@ export function createMoodCatalog(args: {
     entry ? { slug: entry.def.slug, title: entry.def.title } : null;
 
   return {
+    locale,
     index() {
       return {
         groups,
@@ -228,12 +301,12 @@ export function createMoodCatalog(args: {
   };
 }
 
-let cached: MoodCatalog | undefined;
+const cached: Partial<Record<Locale, MoodCatalog>> = {};
 
-export function getMoodCatalog(): MoodCatalog {
+export function getMoodCatalog(locale: Locale = "vi"): MoodCatalog {
   if (process.env.NODE_ENV !== "production") {
-    return createMoodCatalog({ content: getContent() });
+    return createMoodCatalog({ content: getContent(locale), locale });
   }
-  cached ??= createMoodCatalog({ content: getContent() });
-  return cached;
+  cached[locale] ??= createMoodCatalog({ content: getContent(locale), locale });
+  return cached[locale];
 }

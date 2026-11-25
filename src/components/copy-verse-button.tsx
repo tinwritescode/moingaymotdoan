@@ -1,10 +1,6 @@
 import { createSignal, onCleanup } from "solid-js";
 import type { Verse } from "../../lib/content";
-
-function formatPassage(label: string, verses: Verse[]): string {
-  const body = verses.map((v) => v.text.trim()).join(" ");
-  return `“${body}” — ${label} (Kinh Thánh Bản Truyền Thống)`;
-}
+import { useLocale } from "./locale-context";
 
 export async function copyText(text: string): Promise<boolean> {
   try {
@@ -13,7 +9,7 @@ export async function copyText(text: string): Promise<boolean> {
       return true;
     }
   } catch {
-    // Rơi xuống phương án dự phòng nếu trình duyệt chặn clipboard API.
+    // Fallback if Clipboard API is unavailable or blocked.
   }
   try {
     const area = document.createElement("textarea");
@@ -31,8 +27,9 @@ export async function copyText(text: string): Promise<boolean> {
   }
 }
 
-/** Nút sao chép nhanh nguyên văn câu Kinh Thánh kèm chỗ dẫn để lưu hoặc gửi cho người khác. */
+/** One-tap button to copy formatted Scripture verses with citation. */
 export function CopyVerseButton(props: { label: string; verses: Verse[] }) {
+  const { t } = useLocale();
   const [copied, setCopied] = createSignal(false);
   let timer: ReturnType<typeof setTimeout> | undefined;
 
@@ -41,7 +38,8 @@ export function CopyVerseButton(props: { label: string; verses: Verse[] }) {
   });
 
   const handleCopy = async () => {
-    const ok = await copyText(formatPassage(props.label, props.verses));
+    const body = props.verses.map((v) => v.text.trim()).join(" ");
+    const ok = await copyText(t().copyVerse.formatPassage(props.label, body));
     if (!ok) return;
     setCopied(true);
     if (timer !== undefined) clearTimeout(timer);
@@ -52,13 +50,13 @@ export function CopyVerseButton(props: { label: string; verses: Verse[] }) {
     <button
       type="button"
       onClick={() => void handleCopy()}
-      aria-label={`Sao chép ${props.label}`}
+      aria-label={t().copyVerse.ariaLabel(props.label)}
       class={[
         "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full px-3.5 font-sans text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
         copied() ? "bg-accent text-paper" : "bg-side text-accent hover:bg-accent hover:text-paper",
       ]}
     >
-      <span aria-live="polite">{copied() ? "Đã chép ✓" : "Sao chép"}</span>
+      <span aria-live="polite">{copied() ? t().copyVerse.copied : t().copyVerse.copy}</span>
     </button>
   );
 }

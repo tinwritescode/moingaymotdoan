@@ -1,4 +1,5 @@
 import type { ParentProps } from "solid-js";
+import { useLocale } from "./locale-context";
 
 /** One grey placeholder shape; its size and rounding come from `class`. */
 export function Bone(props: { class: string }) {
@@ -17,8 +18,9 @@ export function Skeleton(props: ParentProps<{ label: string; class?: string }>) 
 
 /** A page-shaped placeholder: eyebrow, title, then a few lines of text. */
 export function PageSkeleton() {
+  const { t } = useLocale();
   return (
-    <Skeleton label="Đang tải…" class="mx-auto w-full max-w-[40rem] px-5 pt-7 pb-12">
+    <Skeleton label={t().skeleton.loading} class="mx-auto w-full max-w-[40rem] px-5 pt-7 pb-12">
       <Bone class="h-3 w-28" />
       <Bone class="mt-3 h-8 w-2/3" />
       <div class="mt-8 space-y-3">

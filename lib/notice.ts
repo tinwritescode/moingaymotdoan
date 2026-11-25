@@ -1,3 +1,8 @@
+import { messagesFor, type Locale } from "./i18n";
+
 /** Thông báo nguồn biên soạn hiện nhất quán trên trang chủ, từng đoạn, trang cảm xúc và ebook. */
-export const AI_NOTICE =
-  "Nội dung được tạo bởi Opus 5.5 (15%) và Gemini Neon 4 (phần còn lại). Một ít nơi có thể sai sót, xin hãy double check hoặc hỏi ý kiến mục sư để hiểu đúng.";
+export const AI_NOTICE = messagesFor("vi").aiNotice;
+
+export function aiNotice(locale: Locale = "vi"): string {
+  return messagesFor(locale).aiNotice;
+}

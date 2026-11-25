@@ -3,6 +3,7 @@ import type { Ref } from "../../lib/content";
 import { verseLabel } from "../../lib/content/refs";
 import { ariaState } from "./aria";
 import { InlineVersesContext } from "./inline-verses";
+import { useLocale } from "./locale-context";
 import { Popover } from "./popover";
 import { VerseText } from "./verse-text";
 
@@ -10,11 +11,12 @@ const LINK =
   "kt-ref mx-0.5 inline-flex cursor-pointer items-center rounded-full bg-side px-2 py-0.5 align-[0.12em] font-sans text-[0.65em] font-medium text-accent transition-colors hover:bg-accent hover:text-paper aria-expanded:bg-accent aria-expanded:text-paper";
 
 /**
- * A chỗ dẫn the reader can tap. Into the chapter being read: opens those verses under the paragraph.
+ * A scripture reference the reader can tap. Into the chapter being read: opens those verses under the paragraph.
  * Elsewhere: shows the verses in a popover anchored under the words.
  */
 export function RefButton(props: { reference: Ref }) {
   const inline = useContext(InlineVersesContext);
+  const { t } = useLocale();
   const range = () => ({
     from: props.reference.verses[0].number,
     to: props.reference.verses[props.reference.verses.length - 1].number,
@@ -45,7 +47,7 @@ export function RefButton(props: { reference: Ref }) {
                 onClick={close}
                 class="mt-3 cursor-pointer font-sans text-sm text-muted underline hover:text-accent"
               >
-                Đóng
+                {t().chapter.closePopover}
               </button>
             </>
           )}

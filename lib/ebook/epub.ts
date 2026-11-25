@@ -1,16 +1,61 @@
 import { createHash } from "node:crypto";
-import { testamentOf } from "../content/books";
 import type { ChapterView, Content, Inline, Ref, TocBook, Verse } from "../content";
+import { testamentOf } from "../content/books";
 import { verseLabel } from "../content/refs";
-import { AI_NOTICE } from "../notice";
+import type { Locale } from "../i18n/locale";
+import { aiNotice } from "../notice";
 import type { Bundle } from "./bundles";
 import { zip } from "./zip";
 
 export { bundles, type Bundle } from "./bundles";
 
-const TITLE = "Kinh Thánh bằng lời thường";
+const EPUB_COPY = {
+  vi: {
+    lang: "vi",
+    bookTitle: "Kinh Thánh bằng lời thường",
+    coverMain: "Kinh Thánh",
+    coverSub: "bằng lời thường",
+    fullTextSuffix: " (kèm nguyên văn)",
+    editionSuffix: "-nguyen-van",
+    commentators: "Các nhà giải kinh nói gì",
+    fullTextHeading: "Nguyên văn · Bản Truyền Thống",
+    oldTestament: "Cựu Ước",
+    newTestament: "Tân Ước",
+    chaptersCount: (n: number) => `${n} đoạn`,
+    coverDesc: (fullText: boolean) =>
+      `Mỗi đoạn Kinh Thánh, kể lại bằng lời thường${fullText ? ", kèm nguyên văn Bản Truyền Thống 1926" : ""}. <em>Đoạn</em> nghĩa là chương.`,
+    coverTapHint: "Chạm vào chỗ dẫn như (1:26) để xem câu Kinh Thánh.",
+    coverLabel: "Trang đầu",
+    tocLabel: "Mục lục",
+    startReading: "Bắt đầu đọc",
+    siteDomain: "moingaymotdoan.xyz",
+    loadErr: (name: string, n: number) => `Không tải được ${name} ${n}`,
+  },
+  en: {
+    lang: "en",
+    bookTitle: "The Bible in Plain English",
+    coverMain: "The Bible",
+    coverSub: "in plain English",
+    fullTextSuffix: " (with full text)",
+    editionSuffix: "-full-text",
+    commentators: "What Commentators Say",
+    fullTextHeading: "Full Text · Berean Standard Bible",
+    oldTestament: "Old Testament",
+    newTestament: "New Testament",
+    chaptersCount: (n: number) => `${n} ${n === 1 ? "chapter" : "chapters"}`,
+    coverDesc: (fullText: boolean) =>
+      `Every chapter of the Bible retold in clear everyday English${fullText ? ", with full Berean Standard Bible (BSB) scripture" : ""}.`,
+    coverTapHint: "Tap any citation such as (1:26) to view the Scripture passage in a pop-up.",
+    coverLabel: "Title Page",
+    tocLabel: "Table of Contents",
+    startReading: "Start Reading",
+    siteDomain: "moingaymotdoan.xyz/en",
+    loadErr: (name: string, n: number) => `Could not load ${name} ${n}`,
+  },
+} as const;
 
-const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const esc = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const pad = (n: number) => String(n).padStart(2, "0");
 const chapterFile = (slug: string, n: number) => `${slug}-${pad(n)}`;
 
@@ -18,7 +63,7 @@ function verses(vs: Verse[]): string {
   return vs.map((v) => `<sup>${v.number}</sup>${esc(v.text)}`).join(" ");
 }
 
-/** Renders inline nodes; each chỗ dẫn becomes a noteref whose pop-up holds the verses. */
+/** Renders inline nodes; each reference becomes a noteref whose pop-up holds the verses. */
 function inline(nodes: Inline[], notes: string[]): string {
   return nodes
     .map((n) => {
@@ -51,10 +96,10 @@ function noteref(ref: Ref, notes: string[]): string {
   return `<a epub:type="noteref" href="#fn${k}" id="fr${k}">${esc(ref.label)}</a>`;
 }
 
-function page(title: string, body: string): string {
+function page(title: string, body: string, lang: string): string {
   return `<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="vi" xml:lang="vi">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="${lang}" xml:lang="${lang}">
 <head><meta charset="utf-8"/><title>${esc(title)}</title><link rel="stylesheet" type="text/css" href="../style.css"/></head>
 <body>
 ${body}
@@ -63,7 +108,8 @@ ${body}
 `;
 }
 
-function chapterPage(ch: ChapterView, fullText: boolean): string {
+function chapterPage(ch: ChapterView, fullText: boolean, locale: Locale): string {
+  const copy = EPUB_COPY[locale];
   const notes: string[] = [];
   const para = (nodes: Inline[], cls?: string) => `<p${cls ? ` class="${cls}"` : ""}>${inline(nodes, notes)}</p>`;
   const prose = ch.sections
@@ -71,39 +117,46 @@ function chapterPage(ch: ChapterView, fullText: boolean): string {
     .map((s) => `<h3>${esc(s.heading)}</h3>\n${s.paragraphs.map((p) => para(p)).join("\n")}`);
   const opinions = ch.opinions.map((o) => o.body);
   const commentators =
-    opinions.length > 0 ? [`<h3>Các nhà giải kinh nói gì</h3>\n${opinions.map((o) => para(o, "op")).join("\n")}`] : [];
+    opinions.length > 0 ? [`<h3>${copy.commentators}</h3>\n${opinions.map((o) => para(o, "op")).join("\n")}`] : [];
   const body = [
     `<section epub:type="chapter">`,
     `<h2><span class="so">${esc(ch.book.name)} ${ch.number}</span> ${esc(ch.title)}</h2>`,
     ...prose,
     ...commentators,
-    ...(fullText ? [`<h3>Nguyên văn · Bản Truyền Thống</h3>\n<p class="kt">${verses(ch.verses)}</p>`] : []),
+    ...(fullText ? [`<h3>${copy.fullTextHeading}</h3>\n<p class="kt">${verses(ch.verses)}</p>`] : []),
     `</section>`,
     ...notes,
   ].join("\n");
-  return page(`${ch.book.name} ${ch.number} — ${ch.title}`, body);
+  return page(`${ch.book.name} ${ch.number} — ${ch.title}`, body, copy.lang);
 }
 
-function bookPage(b: TocBook): string {
+function bookPage(b: TocBook, locale: Locale): string {
+  const copy = EPUB_COPY[locale];
   const items = b.chapters
     .map((c) => `<li><a href="${chapterFile(b.book.slug, c.number)}.xhtml">${c.number}. ${esc(c.title)}</a></li>`)
     .join("\n");
-  const testament = testamentOf(b.book) === "cu-uoc" ? "Cựu Ước" : "Tân Ước";
-  return page(b.book.name, `<section epub:type="part">\n<h1>${esc(b.book.name)}</h1>\n<p class="kicker">${testament} · ${b.chapters.length} đoạn</p>\n<ol class="ds">\n${items}\n</ol>\n</section>`);
+  const testament = testamentOf(b.book) === "cu-uoc" ? copy.oldTestament : copy.newTestament;
+  return page(
+    b.book.name,
+    `<section epub:type="part">\n<h1>${esc(b.book.name)}</h1>\n<p class="kicker">${testament} · ${copy.chaptersCount(b.chapters.length)}</p>\n<ol class="ds">\n${items}\n</ol>\n</section>`,
+    copy.lang,
+  );
 }
 
-function titlePage(bundle: Bundle, date: string, fullText: boolean): string {
+function titlePage(bundle: Bundle, date: string, fullText: boolean, locale: Locale): string {
+  const copy = EPUB_COPY[locale];
   return page(
-    TITLE,
+    copy.bookTitle,
     `<section epub:type="titlepage" class="bia">
-<h1>Kinh Thánh</h1>
-<p class="sub">bằng lời thường</p>
+<h1>${copy.coverMain}</h1>
+<p class="sub">${copy.coverSub}</p>
 <p class="kicker">${esc(bundle.name)}</p>
-<p class="center">Mỗi đoạn Kinh Thánh, kể lại bằng lời thường${fullText ? ", kèm nguyên văn Bản Truyền Thống 1926" : ""}. <em>Đoạn</em> nghĩa là chương.</p>
-<p class="center">Chạm vào chỗ dẫn như (1:26) để xem câu Kinh Thánh.</p>
-<p class="note">${esc(AI_NOTICE)}</p>
-<p class="center small">moingaymotdoan.xyz · ${esc(date)}</p>
+<p class="center">${copy.coverDesc(fullText)}</p>
+<p class="center">${copy.coverTapHint}</p>
+<p class="note">${esc(aiNotice(locale))}</p>
+<p class="center small">${copy.siteDomain} · ${esc(date)}</p>
 </section>`,
+    copy.lang,
   );
 }
 
@@ -132,46 +185,55 @@ p.small { font-size: 0.8em; margin-top: 3em; }
 `;
 
 /** A stable id per edition, so a re-sent ebook is recognised as the same book. */
-function uuid(slug: string): string {
-  const h = createHash("sha1").update(`bible.tyvn.online/ebook/${slug}`).digest("hex");
+function uuid(slug: string, locale: Locale): string {
+  const key = locale === "en" ? `moingaymotdoan.xyz/en/ebook/${slug}` : `bible.tyvn.online/ebook/${slug}`;
+  const h = createHash("sha1").update(key).digest("hex");
   return `${h.slice(0, 8)}-${h.slice(8, 12)}-5${h.slice(13, 16)}-a${h.slice(17, 20)}-${h.slice(20, 32)}`;
 }
 
 /**
- * Builds an EPUB 3 (with an EPUB 2 NCX for older Kindles): one file per book page and per đoạn.
- * `fullText` adds each đoạn's whole Bản Truyền Thống text; without it the book is about half as long,
- * and the verses a chỗ dẫn points to still pop up.
+ * Builds an EPUB 3 (with an EPUB 2 NCX for older Kindles): one file per book page and per chapter.
+ * `fullText` adds each chapter's complete Scripture text; without it the book is about half as long,
+ * and the verses each citation points to still pop up.
  */
 export function buildEpub(args: {
   bundle: Bundle;
   content: Content;
   modified: string;
   fullText: boolean;
+  locale?: Locale;
 }): Uint8Array<ArrayBuffer> {
   const { bundle, content, modified, fullText } = args;
-  const edition = fullText ? `${bundle.slug}-nguyen-van` : bundle.slug;
-  const title = `${TITLE} — ${bundle.name}${fullText ? " (kèm nguyên văn)" : ""}`;
+  const locale = args.locale ?? content.locale ?? "vi";
+  const copy = EPUB_COPY[locale];
+  const edition = fullText ? `${bundle.slug}${copy.editionSuffix}` : bundle.slug;
+  const title = `${copy.bookTitle} — ${bundle.name}${fullText ? copy.fullTextSuffix : ""}`;
   const date = modified.slice(0, 10);
 
   type Item = { id: string; href: string; html: string; label: string; children?: Item[] };
   const books: Item[] = bundle.books.map((b) => ({
-    // XML ids may not start with a digit, and slugs like "1-giang" do.
+    // XML ids may not start with a digit, and slugs like "1-giang" / "1-john" do.
     id: `b-${b.book.slug}`,
     href: `text/${b.book.slug}.xhtml`,
-    html: bookPage(b),
+    html: bookPage(b, locale),
     label: b.book.name,
     children: b.chapters.map((c) => {
       const ch = content.chapter({ slug: b.book.slug, number: c.number });
-      if (!ch) throw new Error(`Không tải được ${b.book.name} ${c.number}`);
+      if (!ch) throw new Error(copy.loadErr(b.book.name, c.number));
       return {
         id: `c-${chapterFile(b.book.slug, c.number)}`,
         href: `text/${chapterFile(b.book.slug, c.number)}.xhtml`,
-        html: chapterPage(ch, fullText),
+        html: chapterPage(ch, fullText, locale),
         label: `${c.number}. ${c.title}`,
       };
     }),
   }));
-  const cover: Item = { id: "bia", href: "text/bia.xhtml", html: titlePage(bundle, date, fullText), label: "Trang đầu" };
+  const cover: Item = {
+    id: "bia",
+    href: "text/bia.xhtml",
+    html: titlePage(bundle, date, fullText, locale),
+    label: copy.coverLabel,
+  };
   const all = [cover, ...books.flatMap((b) => [b, ...(b.children ?? [])])];
 
   const navList = (items: Item[]): string =>
@@ -180,15 +242,15 @@ export function buildEpub(args: {
       .join("\n")}\n</ol>`;
   const nav = `<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="vi" xml:lang="vi">
-<head><meta charset="utf-8"/><title>Mục lục</title><link rel="stylesheet" type="text/css" href="style.css"/></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="${copy.lang}" xml:lang="${copy.lang}">
+<head><meta charset="utf-8"/><title>${copy.tocLabel}</title><link rel="stylesheet" type="text/css" href="style.css"/></head>
 <body>
-<nav epub:type="toc" id="toc"><h1>Mục lục</h1>
+<nav epub:type="toc" id="toc"><h1>${copy.tocLabel}</h1>
 ${navList([cover, ...books])}
 </nav>
 <nav epub:type="landmarks" hidden=""><ol>
-<li><a epub:type="toc" href="nav.xhtml#toc">Mục lục</a></li>
-<li><a epub:type="bodymatter" href="${books[0].href}">Bắt đầu đọc</a></li>
+<li><a epub:type="toc" href="nav.xhtml#toc">${copy.tocLabel}</a></li>
+<li><a epub:type="bodymatter" href="${books[0].href}">${copy.startReading}</a></li>
 </ol></nav>
 </body>
 </html>
@@ -202,9 +264,9 @@ ${navList([cover, ...books])}
           `<navPoint id="np-${i.id}" playOrder="${++order}"><navLabel><text>${esc(i.label)}</text></navLabel><content src="${i.href}"/>${i.children ? navPoints(i.children) : ""}</navPoint>`,
       )
       .join("\n");
-  const id = `urn:uuid:${uuid(edition)}`;
+  const id = `urn:uuid:${uuid(edition, locale)}`;
   const ncx = `<?xml version="1.0" encoding="utf-8"?>
-<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="vi">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="${copy.lang}">
 <head><meta name="dtb:uid" content="${id}"/><meta name="dtb:depth" content="2"/></head>
 <docTitle><text>${esc(title)}</text></docTitle>
 <navMap>
@@ -214,12 +276,12 @@ ${navPoints([cover, ...books])}
 `;
 
   const opf = `<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="vi">
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="${copy.lang}">
 <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
 <dc:identifier id="uid">${id}</dc:identifier>
 <dc:title>${esc(title)}</dc:title>
-<dc:language>vi</dc:language>
-<dc:creator>moingaymotdoan.xyz</dc:creator>
+<dc:language>${copy.lang}</dc:language>
+<dc:creator>${copy.siteDomain}</dc:creator>
 <dc:date>${date}</dc:date>
 <meta property="dcterms:modified">${modified}</meta>
 </metadata>
@@ -238,8 +300,8 @@ ${all
   .join("\n")}
 </spine>
 <guide>
-<reference type="toc" title="Mục lục" href="nav.xhtml"/>
-<reference type="text" title="Bắt đầu đọc" href="${books[0].href}"/>
+<reference type="toc" title="${copy.tocLabel}" href="nav.xhtml"/>
+<reference type="text" title="${copy.startReading}" href="${books[0].href}"/>
 </guide>
 </package>
 `;

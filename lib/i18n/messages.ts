@@ -1,0 +1,1024 @@
+import type { Locale } from "./locale";
+
+export type QuickMoodShortcut = {
+  slug: string;
+  label: string;
+  hue: string;
+};
+
+export type Messages = {
+  locale: Locale;
+  htmlLang: string;
+  ogLocale: string;
+  ogLocaleAlternate: string;
+  bibleVersionName: string;
+  bibleVersionShort: string;
+  bibleSourceUrl: string;
+  aiNotice: string;
+  seo: {
+    siteName: string;
+    defaultTitle: string;
+    defaultDescription: string;
+    ogImageAlt: string;
+    chapterTitle: (book: string, chapter: number, title: string) => string;
+    chapterFallbackDesc: (book: string, chapter: number, title: string) => string;
+    moodsTitle: string;
+    moodsDescription: string;
+    moodDetailTitle: (title: string) => string;
+    ebookTitle: string;
+    ebookDescription: string;
+    historyTitle: string;
+    historyDescription: string;
+    accountTitle: string;
+    accountDescription: string;
+    notFoundTitle: string;
+    notFoundDescription: string;
+  };
+  header: {
+    brand: string;
+    booksButton: string;
+    pickBookAndChapter: string;
+    booksNavLabel: string;
+    oldTestament: string;
+    newTestament: string;
+    chaptersOfBook: (book: string) => string;
+    backToToc: string;
+    searchByMood: string;
+    accountLabel: (name: string) => string;
+    signInLabel: string;
+    switchLanguageLabel: string;
+    switchLanguageShort: string;
+  };
+  dock: {
+    navLabel: string;
+    read: string;
+    moods: string;
+    history: string;
+    me: string;
+  };
+  footer: {
+    scripturePrefix: string;
+    sourceWord: string;
+    downloadEbook: string;
+  };
+  display: {
+    switchToLight: string;
+    switchToDark: string;
+    triggerLabel: string;
+    title: string;
+    colorMode: string;
+    readingSize: string;
+    readingFont: string;
+    previewLabel: string;
+    previewVerse: string;
+    themes: { system: string; light: string; dark: string };
+    scales: { sm: string; md: string; lg: string };
+    fonts: Record<
+      "source-serif" | "literata" | "lora" | "newsreader" | "be-vietnam" | "lexend",
+      { tag: string; description: string }
+    >;
+  };
+  home: {
+    weekdays: readonly [string, string, string, string, string, string, string];
+    months: readonly [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+    ];
+    formatDateLine: (now: Date) => string;
+    morning: string;
+    afternoon: string;
+    evening: string;
+    fallbackKicker: string;
+    fallbackHeadline: string;
+    subtitle: string;
+    emptyFallback: string;
+    startReading: (book: string, chapter: number) => string;
+    readThisChapter: string;
+    moodsLink: string;
+    ebookLink: string;
+    booksHeading: string;
+    chooseTestamentLabel: string;
+    filterAll: string;
+    filterOld: (count: number) => string;
+    filterNew: (count: number) => string;
+    chaptersCount: (count: number) => string;
+    readOfTotal: (read: number, total: number) => string;
+    backToBooks: string;
+    legendCompleted: string;
+    legendSeen: string;
+    legendUnread: string;
+    chapterDisplayLabel: string;
+    viewDots: string;
+    viewTitles: string;
+    chapterTitleAttr: (chapter: number, title: string, lastReadDate?: string) => string;
+    chapterAriaLabel: (chapter: number, title: string) => string;
+    seenBadge: string;
+  };
+  continueReading: {
+    heading: (dateTime: string) => string;
+    readAgain: string;
+    continueBtn: string;
+    nextChapter: (label: string) => string;
+    statsAriaLabel: string;
+    chaptersRead: string;
+    dayStreak: string;
+    booksOpened: string;
+    localOnlyPrefix: string;
+    signInToSync: string;
+  };
+  chapter: {
+    kicker: (book: string, number: number) => string;
+    lead: (versesCount: number, minutes: number) => string;
+    storyAriaLabel: string;
+    keyTakeaways: string;
+    deeperMeaning: string;
+    notesAndNuances: string;
+    commentatorsHeading: (count: number) => string;
+    fullTextHeading: (versesCount: number) => string;
+    inlineScriptureHeading: (book: string, verseLabel: string) => string;
+    confidencePrefix: string;
+    confidence: { cao: string; vua: string; thap: string };
+    lowConfidencePrefix: string;
+    closePopover: string;
+    bottomNavLabel: string;
+    progressRegionLabel: string;
+    prevChapterAria: (book: string, number: number) => string;
+    nextChapterAria: (book: string, number: number) => string;
+    completedLabel: string;
+    markCompleteLabel: string;
+  };
+  moods: {
+    kicker: (count: number) => string;
+    heading: string;
+    subtitle: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+    clearSearchAria: string;
+    clearFilter: string;
+    groupsHeading: string;
+    allCount: (count: number) => string;
+    randomMessage: string;
+    filterGroupAria: string;
+    showingCountPrefix: string;
+    showingCountSuffix: (total: number) => string;
+    emptyTitle: (query: string) => string;
+    emptyHintPrefix: string;
+    emptyHintExamples: readonly [string, string, string, string];
+    emptyHintBookPrefix: string;
+    emptyHintBookExample: string;
+    resetAllBtn: (count: number) => string;
+    groupTopicsCount: (count: number) => string;
+    backToTop: string;
+    readBadge: string;
+    quickShortcuts: readonly QuickMoodShortcut[];
+    detail: {
+      backToAll: string;
+      scriptureHeading: (count: number) => string;
+      belongsToChapter: (book: string, chapter: number) => string;
+      readFullChapter: (book: string, chapter: number) => string;
+      prayerHeading: string;
+      relatedHeading: string;
+      bottomNavLabel: string;
+    };
+  };
+  copyVerse: {
+    copy: string;
+    copied: string;
+    ariaLabel: (label: string) => string;
+    formatPassage: (label: string, body: string) => string;
+  };
+  share: {
+    share: string;
+    copiedLink: string;
+  };
+  ebook: {
+    kicker: string;
+    heading: string;
+    intro: string;
+    editionGroupLabel: string;
+    conciseEdition: string;
+    fullTextEdition: string;
+    conciseHint: string;
+    fullTextHint: string;
+    bundlesHeading: string;
+    bundleInfo: (books: number, chapters: number) => string;
+    downloadPrefix: string;
+    kindleHeading: string;
+    kindleSteps: {
+      step1: string;
+      step2Before: string;
+      step2After: string;
+      step2Path: string;
+      step3: string;
+    };
+  };
+  history: {
+    kicker: string;
+    heading: string;
+    syncing: string;
+    refresh: string;
+    guestBannerBefore: string;
+    guestBannerBold: string;
+    guestBannerAfter: string;
+    signInBtn: string;
+    loadingLabel: string;
+    continueHeading: (dateTime: string) => string;
+    readAgain: string;
+    continueBtn: string;
+    nextChapter: (label: string) => string;
+    statsAriaLabel: string;
+    ofTotalChapters: string;
+    dayStreak: string;
+    completedCount: string;
+    filterGroupAria: string;
+    tabAll: string;
+    tabBible: string;
+    tabMoods: string;
+    tabCompleted: string;
+    clearAll: string;
+    confirmClear: string;
+    cancel: string;
+    emptyAll: string;
+    emptyFiltered: string;
+    emptyDesc: string;
+    startGenesisCta: string;
+    startGenesisHref: string;
+    browseMoodsCta: string;
+    itemsCount: (count: number) => string;
+    moodPrefix: (subtitle: string) => string;
+    doneBadge: string;
+    unmarkTitle: string;
+    markTitle: string;
+    markBtn: string;
+    continueItemBtn: string;
+    deleteItemAria: (title: string, dateLabel: string) => string;
+    today: string;
+    yesterday: string;
+    atWord: string;
+  };
+  account: {
+    loadingLabel: string;
+    syncKicker: string;
+    signInHeading: string;
+    signInDesc: string;
+    notConfiguredBefore: string;
+    notConfiguredLink: string;
+    notConfiguredAfter: string;
+    redirecting: string;
+    signInBtn: string;
+    signUpBtn: string;
+    securityFootnote: string;
+    syncingBadge: string;
+    chaptersSeen: string;
+    chaptersCompleted: string;
+    dayStreak: string;
+    openHistoryBtn: string;
+    signOutBtn: string;
+    defaultUserName: string;
+    errors: {
+      accessDenied: string;
+      invalidRedirectUri: string;
+      network: string;
+      sessionExpired: string;
+      genericWithReason: (raw: string) => string;
+      generic: string;
+      notConfigured: string;
+      syncFailed: string;
+      visitSyncFailed: string;
+      completeSyncFailed: string;
+      deleteLogFailed: string;
+      deleteItemFailed: string;
+      clearFailed: string;
+    };
+  };
+  notFound: {
+    heading: string;
+    description: string;
+    backHome: string;
+  };
+  skeleton: {
+    loading: string;
+  };
+};
+
+const VI: Messages = {
+  locale: "vi",
+  htmlLang: "vi",
+  ogLocale: "vi_VN",
+  ogLocaleAlternate: "en_US",
+  bibleVersionName: "Kinh Thánh Bản Truyền Thống",
+  bibleVersionShort: "Bản Truyền Thống",
+  bibleSourceUrl: "https://ebible.org/find/details.php?id=vie1934",
+  aiNotice:
+    "Nội dung được tạo bởi Opus 5.5 (15%) và Gemini Neon 4 (phần còn lại). Một ít nơi có thể sai sót, xin hãy double check hoặc hỏi ý kiến mục sư để hiểu đúng.",
+  seo: {
+    siteName: "Mỗi Ngày Một Đoạn — Kinh Thánh",
+    defaultTitle: "Mỗi Ngày Một Đoạn — Kinh Thánh ghi chú từng đoạn",
+    defaultDescription:
+      "Đọc trọn bộ 66 sách, 1.189 đoạn Kinh Thánh bằng lời thường — chạm chỗ dẫn xem ngay nguyên văn Bản Truyền Thống 1926, 100 chủ đề cảm xúc, ebook Kindle và lịch sử đọc đồng bộ. Luôn phi lợi nhuận & mã nguồn mở.",
+    ogImageAlt:
+      "Mỗi Ngày Một Đoạn — Đọc trọn bộ 66 sách Kinh Thánh bằng lời thường kèm nguyên văn Bản Truyền Thống 1926",
+    chapterTitle: (book, chapter, title) => `${book} ${chapter} — ${title} | Mỗi Ngày Một Đoạn`,
+    chapterFallbackDesc: (book, chapter, title) =>
+      `Đọc ${book} đoạn ${chapter} (${title}) bằng lời thường, kèm nguyên văn Bản Truyền Thống 1926.`,
+    moodsTitle: "Đọc Kinh Thánh theo cảm xúc — 100 chủ đề | Mỗi Ngày Một Đoạn",
+    moodsDescription:
+      "Chọn tâm trạng hiện tại (lo âu, buồn bã, vui mừng, biết ơn, cần khôn ngoan...) để đọc ngay Lời Kinh Thánh Bản Truyền Thống 1926 và sao chép câu gốc.",
+    moodDetailTitle: (title) => `${title} — Đọc Kinh Thánh theo cảm xúc | Mỗi Ngày Một Đoạn`,
+    ebookTitle: "Tải Ebook EPUB cho Kindle & Apple Books | Mỗi Ngày Một Đoạn",
+    ebookDescription:
+      "Tải miễn phí trọn bộ Kinh Thánh ghi chú từng đoạn định dạng EPUB cho Kindle, Apple Books, Google Play Sách — bản gọn hoặc kèm nguyên văn Bản Truyền Thống 1926.",
+    historyTitle: "Lịch sử đọc Kinh Thánh | Mỗi Ngày Một Đoạn",
+    historyDescription:
+      "Theo dõi ngày tháng năm đã xem, chuỗi ngày đọc liên tiếp, vòng tiến độ từng sách và mở Xem tiếp nhanh chóng trên mọi thiết bị.",
+    accountTitle: "Tài khoản & Đồng bộ lịch sử | Mỗi Ngày Một Đoạn",
+    accountDescription:
+      "Đăng nhập để đồng bộ lịch sử đọc Kinh Thánh và tiến độ từng sách trên điện thoại và máy tính.",
+    notFoundTitle: "Không tìm thấy trang này | Mỗi Ngày Một Đoạn",
+    notFoundDescription: "Đoạn Kinh Thánh hoặc đường dẫn bạn mở hiện không tồn tại.",
+  },
+  header: {
+    brand: "Kinh Thánh",
+    booksButton: "Sách",
+    pickBookAndChapter: "Chọn sách và đoạn",
+    booksNavLabel: "Các sách",
+    oldTestament: "Cựu Ước",
+    newTestament: "Tân Ước",
+    chaptersOfBook: (book) => `Các đoạn ${book}`,
+    backToToc: "Mục lục",
+    searchByMood: "Tìm theo cảm xúc",
+    accountLabel: (name) => `Tài khoản ${name}`,
+    signInLabel: "Đăng nhập",
+    switchLanguageLabel: "Switch to English",
+    switchLanguageShort: "EN",
+  },
+  dock: {
+    navLabel: "Điều hướng chính",
+    read: "Đọc",
+    moods: "Cảm xúc",
+    history: "Lịch sử",
+    me: "Tôi",
+  },
+  footer: {
+    scripturePrefix: "Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn",
+    sourceWord: "eBible.org",
+    downloadEbook: "Tải ebook",
+  },
+  display: {
+    switchToLight: "Chuyển sang chế độ sáng",
+    switchToDark: "Chuyển sang chế độ tối",
+    triggerLabel: "Tùy chỉnh phông chữ, cỡ chữ và chế độ tối",
+    title: "Hiển thị & Phông chữ",
+    colorMode: "Chế độ màu",
+    readingSize: "Cỡ chữ đọc",
+    readingFont: "Phông chữ đọc",
+    previewLabel: "Xem trước phông chữ",
+    previewVerse: "Đức Giê-hô-va là Đấng chăn giữ tôi: tôi sẽ chẳng thiếu thốn gì.",
+    themes: { system: "Hệ thống", light: "Sáng", dark: "Tối" },
+    scales: { sm: "Nhỏ", md: "Vừa", lg: "Lớn" },
+    fonts: {
+      "source-serif": {
+        tag: "Serif cổ điển",
+        description: "Cân đối, sắc nét như bản in Kinh Thánh — mặc định của trang.",
+      },
+      literata: {
+        tag: "Kiểu sách · Kindle",
+        description: "Chế tác cho đọc sách dài trên màn hình (Google Play Books).",
+      },
+      lora: {
+        tag: "Serif mềm mại",
+        description: "Nét chữ ấm áp, uyển chuyển — hợp đọc Thi-thiên và suy ngẫm.",
+      },
+      newsreader: {
+        tag: "Serif thanh mảnh",
+        description: "Thanh lịch kiểu ấn phẩm văn chương, thoáng mắt ở cỡ chữ lớn.",
+      },
+      "be-vietnam": {
+        tag: "Không chân · Thuần Việt",
+        description: "Thiết kế riêng cho dấu tiếng Việt, hiện đại và rõ trên di động.",
+      },
+      lexend: {
+        tag: "Không chân · Dễ đọc",
+        description: "Giãn chữ thoáng, giúp giảm mỏi mắt khi đọc liên tục.",
+      },
+    },
+  },
+  home: {
+    weekdays: ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"],
+    months: [
+      "tháng 1",
+      "tháng 2",
+      "tháng 3",
+      "tháng 4",
+      "tháng 5",
+      "tháng 6",
+      "tháng 7",
+      "tháng 8",
+      "tháng 9",
+      "tháng 10",
+      "tháng 11",
+      "tháng 12",
+    ],
+    formatDateLine: (now) => {
+      const day = VI.home.weekdays[now.getDay()];
+      return `${day}, ${now.getDate()} tháng ${now.getMonth() + 1}`;
+    },
+    morning: "Chào buổi sáng.",
+    afternoon: "Chào buổi chiều.",
+    evening: "Chào buổi tối.",
+    fallbackKicker: "Kinh Thánh Bản Truyền Thống · 66 sách · 1.189 đoạn",
+    fallbackHeadline: "Kinh Thánh bằng lời thường.",
+    subtitle: "Mỗi đoạn Kinh Thánh kể lại bằng lời thường, kèm nguyên văn Bản Truyền Thống.",
+    emptyFallback: "Chưa có đoạn nào. Mời bạn quay lại sau.",
+    startReading: (book, chapter) => `Bắt đầu đọc · ${book} ${chapter}`,
+    readThisChapter: "Đọc đoạn này →",
+    moodsLink: "100 cảm xúc",
+    ebookLink: "Tải ebook",
+    booksHeading: "Các sách",
+    chooseTestamentLabel: "Chọn giao ước",
+    filterAll: "Tất cả",
+    filterOld: (count) => `Cựu Ước · ${count}`,
+    filterNew: (count) => `Tân Ước · ${count}`,
+    chaptersCount: (count) => `${count} đoạn`,
+    readOfTotal: (read, total) => `${read} / ${total} đã xem`,
+    backToBooks: "↑ Các sách",
+    legendCompleted: "đã đọc xong",
+    legendSeen: "đã xem",
+    legendUnread: "chưa đọc",
+    chapterDisplayLabel: "Kiểu hiển thị các đoạn",
+    viewDots: "Lưới chấm",
+    viewTitles: "Tiêu đề",
+    chapterTitleAttr: (chapter, title, lastReadDate) =>
+      lastReadDate ? `Đoạn ${chapter}: ${title} (đã xem ${lastReadDate})` : `Đoạn ${chapter}: ${title}`,
+    chapterAriaLabel: (chapter, title) => `Đoạn ${chapter}: ${title}`,
+    seenBadge: "• đã xem",
+  },
+  continueReading: {
+    heading: (dateTime) => `Xem tiếp · ${dateTime}`,
+    readAgain: "Đọc lại đoạn này",
+    continueBtn: "Tiếp tục đọc",
+    nextChapter: (label) => `Đoạn kế: ${label} →`,
+    statsAriaLabel: "Thống kê đọc",
+    chaptersRead: "đoạn đã xem",
+    dayStreak: "ngày liên tiếp",
+    booksOpened: "sách đã mở",
+    localOnlyPrefix: "Lịch sử đang lưu trên máy này",
+    signInToSync: "Đăng nhập để đồng bộ mọi thiết bị",
+  },
+  chapter: {
+    kicker: (book, number) => `${book} · Đoạn ${number}`,
+    lead: (versesCount, minutes) => `${versesCount} câu · khoảng ${minutes} phút đọc · chạm chỗ dẫn để đọc nguyên văn`,
+    storyAriaLabel: "Câu chuyện",
+    keyTakeaways: "Điều cần nhớ",
+    deeperMeaning: "Ý nghĩa sâu xa",
+    notesAndNuances: "Lưu ý",
+    commentatorsHeading: (count) => `Các nhà giải kinh nói gì (${count})`,
+    fullTextHeading: (versesCount) => `Nguyên văn cả đoạn · ${versesCount} câu`,
+    inlineScriptureHeading: (book, verseLabel) => `Nguyên văn · ${book} ${verseLabel}`,
+    confidencePrefix: "Tin cậy:",
+    confidence: { cao: "Cao", vua: "Vừa", thap: "Thấp" },
+    lowConfidencePrefix: "Mức Thấp:",
+    closePopover: "Đóng",
+    bottomNavLabel: "Chuyển đoạn cuối bài",
+    progressRegionLabel: "Tiến độ đọc đoạn này",
+    prevChapterAria: (book, number) => `Đoạn trước: ${book} ${number}`,
+    nextChapterAria: (book, number) => `Đoạn kế: ${book} ${number}`,
+    completedLabel: "✓ Đã đọc xong",
+    markCompleteLabel: "Đánh dấu xong",
+  },
+  moods: {
+    kicker: (count) => `Đọc theo cảm xúc · ${count} chủ đề`,
+    heading: "Bạn đang cảm thấy thế nào?",
+    subtitle: "Chọn tâm trạng hoặc gõ từ khóa. Lời Kinh Thánh Bản Truyền Thống sẽ ở ngay đây.",
+    searchLabel: "Tìm cảm xúc, chủ đề hoặc tên sách Kinh Thánh",
+    searchPlaceholder: "Tìm: vui, buồn, lo âu, Thi-thiên…",
+    clearSearchAria: "Xóa từ khóa tìm kiếm",
+    clearFilter: "Xóa lọc",
+    groupsHeading: "Nhóm chủ đề",
+    allCount: (count) => `Tất cả (${count})`,
+    randomMessage: "Lời nhắn ngẫu nhiên",
+    filterGroupAria: "Lọc theo nhóm chủ đề",
+    showingCountPrefix: "Đang hiện",
+    showingCountSuffix: (total) => `/ ${total} chuyên mục.`,
+    emptyTitle: (query) => `Không tìm thấy chuyên mục nào khớp với “${query}”.`,
+    emptyHintPrefix: "Thử tìm bằng từ ngắn hơn như",
+    emptyHintExamples: ["vui", "buồn", "lo âu", "cô đơn"],
+    emptyHintBookPrefix: "hoặc tên sách như",
+    emptyHintBookExample: "Thi-thiên",
+    resetAllBtn: (count) => `Xem lại cả ${count} chuyên mục`,
+    groupTopicsCount: (count) => `${count} chuyên mục`,
+    backToTop: "↑ Đầu trang",
+    readBadge: "✓ Đã đọc",
+    quickShortcuts: [
+      { slug: "vui-mung", label: "Vui mừng", hue: "#c9a227" },
+      { slug: "buon-ba", label: "Buồn bã", hue: "#6b7fa8" },
+      { slug: "lo-au-tuong-lai", label: "Lo âu", hue: "#8a6fb0" },
+      { slug: "co-don", label: "Cô đơn", hue: "#c0714f" },
+      { slug: "met-moi-kiet-suc", label: "Mệt mỏi", hue: "#5d8f7b" },
+      { slug: "tuc-gian", label: "Tức giận", hue: "#9b5a6a" },
+      { slug: "kho-tha-thu-nguoi-khac", label: "Khó tha thứ", hue: "#c47a9a" },
+      { slug: "can-su-khon-ngoan", label: "Cần khôn ngoan", hue: "#4d8a7f" },
+    ],
+    detail: {
+      backToAll: "‹ 100 cảm xúc",
+      scriptureHeading: (count) => `Lời Kinh Thánh dành cho bạn · ${count} đoạn`,
+      belongsToChapter: (book, chapter) => `Thuộc đoạn ${book} ${chapter}`,
+      readFullChapter: (book, chapter) => `Đọc cả đoạn ${book} ${chapter}`,
+      prayerHeading: "Lời cầu nguyện",
+      relatedHeading: "Có thể bạn cũng đang tìm",
+      bottomNavLabel: "Điều hướng cuối trang",
+    },
+  },
+  copyVerse: {
+    copy: "Sao chép",
+    copied: "Đã chép ✓",
+    ariaLabel: (label) => `Sao chép ${label}`,
+    formatPassage: (label, body) => `“${body}” — ${label} (Kinh Thánh Bản Truyền Thống)`,
+  },
+  share: {
+    share: "Chia sẻ",
+    copiedLink: "Đã chép link ✓",
+  },
+  ebook: {
+    kicker: "Đọc ngoại tuyến",
+    heading: "Tải ebook cho Kindle",
+    intro:
+      "File EPUB, đọc được trên Kindle, Apple Books, Google Play Sách. Mỗi đoạn một trang, có mục lục theo sách và đoạn; chạm vào chỗ dẫn như (1:26) để xem câu Kinh Thánh ngay tại chỗ.",
+    editionGroupLabel: "Phiên bản",
+    conciseEdition: "Bản gọn",
+    fullTextEdition: "Kèm nguyên văn cả đoạn",
+    conciseHint: "Chỉ có ghi chú. Chạm vào chỗ dẫn vẫn hiện câu Kinh Thánh.",
+    fullTextHint: "Sau ghi chú của mỗi đoạn là toàn văn đoạn đó theo Bản Truyền Thống. Dài gần gấp đôi.",
+    bundlesHeading: "Theo bộ",
+    bundleInfo: (books, chapters) => `${books} sách · ${chapters} đoạn`,
+    downloadPrefix: "kinh-thanh-",
+    kindleHeading: "Đưa vào Kindle",
+    kindleSteps: {
+      step1: "Tải file EPUB ở trên về máy.",
+      step2Before: "Mở ",
+      step2After: ", đăng nhập, kéo file vào. Hoặc gửi email kèm file tới địa chỉ Kindle của bạn (xem trong Amazon: ",
+      step2Path: "Manage Your Content and Devices → Preferences → Personal Document Settings",
+      step3: "Vài phút sau sách hiện trong thư viện Kindle. Ebook cập nhật mỗi khi site có đoạn mới: tải và gửi lại.",
+    },
+  },
+  history: {
+    kicker: "Nhật ký đọc Kinh Thánh",
+    heading: "Lịch sử đã xem",
+    syncing: "Đang đồng bộ…",
+    refresh: "Làm mới",
+    guestBannerBefore: "Lịch sử đang lưu trên thiết bị này. ",
+    guestBannerBold: "Đăng nhập",
+    guestBannerAfter: " để đồng bộ đám mây.",
+    signInBtn: "Đăng nhập",
+    loadingLabel: "Đang tải lịch sử đọc của bạn…",
+    continueHeading: (dateTime) => `Xem tiếp · ${dateTime}`,
+    readAgain: "Đọc lại đoạn này",
+    continueBtn: "Tiếp tục đọc",
+    nextChapter: (label) => `Đoạn kế: ${label} →`,
+    statsAriaLabel: "Thống kê tiến độ đọc",
+    ofTotalChapters: "/ 1.189 đoạn",
+    dayStreak: "ngày liên tiếp",
+    completedCount: "đã đọc xong",
+    filterGroupAria: "Lọc lịch sử đọc",
+    tabAll: "Tất cả",
+    tabBible: "Kinh Thánh",
+    tabMoods: "Cảm xúc",
+    tabCompleted: "Đã xong",
+    clearAll: "Xóa hết",
+    confirmClear: "Xác nhận xóa",
+    cancel: "Hủy",
+    emptyAll: "Chưa có lịch sử đọc nào.",
+    emptyFiltered: "Không có mục nào trong bộ lọc này.",
+    emptyDesc:
+      "Khi bạn mở một đoạn Kinh Thánh hoặc chủ đề cảm xúc, trang sẽ tự lưu lại ngày giờ để bạn quay lại xem tiếp.",
+    startGenesisCta: "Đọc Sáng-thế Ký 1",
+    startGenesisHref: "/sang-the-ky/1",
+    browseMoodsCta: "Đọc theo cảm xúc",
+    itemsCount: (count) => `${count} mục`,
+    moodPrefix: (subtitle) => `Cảm xúc · ${subtitle}`,
+    doneBadge: "✓ Xong",
+    unmarkTitle: "Bỏ đánh dấu đã đọc xong",
+    markTitle: "Đánh dấu đã đọc xong",
+    markBtn: "Đánh dấu",
+    continueItemBtn: "Xem tiếp",
+    deleteItemAria: (title, dateLabel) => `Xóa ${title} khỏi lịch sử ngày ${dateLabel}`,
+    today: "Hôm nay",
+    yesterday: "Hôm qua",
+    atWord: "lúc",
+  },
+  account: {
+    loadingLabel: "Đang kiểm tra phiên đăng nhập và đồng bộ lịch sử…",
+    syncKicker: "Đồng bộ lịch sử đọc",
+    signInHeading: "Đăng nhập tài khoản",
+    signInDesc:
+      "Lưu lại ngày tháng năm đã xem, đoạn đang đọc dở và chuỗi ngày đọc để mở xem tiếp liền mạch trên mọi thiết bị.",
+    notConfiguredBefore: "Chưa cấu hình WorkOS Client ID trên môi trường này. Bạn vẫn có thể xem lịch sử tạm tại ",
+    notConfiguredLink: "trang Lịch sử",
+    notConfiguredAfter: ".",
+    redirecting: "Đang chuyển sang trang đăng nhập…",
+    signInBtn: "Đăng nhập",
+    signUpBtn: "Tạo tài khoản mới",
+    securityFootnote:
+      "Xác thực an toàn qua WorkOS AuthKit. Lịch sử bạn đã đọc trên trình duyệt này sẽ tự động gộp vào tài khoản sau khi đăng nhập.",
+    syncingBadge: "✓ Đang đồng bộ đám mây",
+    chaptersSeen: "đoạn đã xem",
+    chaptersCompleted: "đã đọc xong",
+    dayStreak: "ngày liên tiếp",
+    openHistoryBtn: "Mở lịch sử đọc →",
+    signOutBtn: "Đăng xuất",
+    defaultUserName: "Bạn đọc",
+    errors: {
+      accessDenied: "Bạn đã hủy quá trình đăng nhập.",
+      invalidRedirectUri: "Redirect URI chưa được khai báo trong WorkOS Dashboard (cần thêm đường dẫn /tai-khoan).",
+      network: "Không kết nối được máy chủ WorkOS. Hãy kiểm tra kết nối mạng hoặc cấu hình CORS trong WorkOS Dashboard.",
+      sessionExpired: "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.",
+      genericWithReason: (raw) => `Không thể đăng nhập (${raw}).`,
+      generic: "Đã xảy ra lỗi khi kết nối WorkOS. Vui lòng thử lại.",
+      notConfigured: "Tính năng đăng nhập WorkOS chưa được cấu hình.",
+      syncFailed: "Không đồng bộ được lịch sử từ đám mây lúc này.",
+      visitSyncFailed: "Lượt đọc vừa mở chưa kịp đồng bộ lên máy chủ.",
+      completeSyncFailed: "Không cập nhật được trạng thái đã đọc xong lên máy chủ.",
+      deleteLogFailed: "Không xóa được mục lịch sử trên máy chủ.",
+      deleteItemFailed: "Không xóa được mục khỏi đám mây.",
+      clearFailed: "Không xóa được lịch sử trên máy chủ.",
+    },
+  },
+  notFound: {
+    heading: "Không tìm thấy trang này",
+    description: "Có thể đoạn này chưa có ghi chú, hoặc đường dẫn bị gõ sai.",
+    backHome: "Về trang chủ",
+  },
+  skeleton: {
+    loading: "Đang tải…",
+  },
+};
+
+const EN: Messages = {
+  locale: "en",
+  htmlLang: "en",
+  ogLocale: "en_US",
+  ogLocaleAlternate: "vi_VN",
+  bibleVersionName: "Berean Standard Bible (BSB)",
+  bibleVersionShort: "BSB",
+  bibleSourceUrl: "https://ebible.org/find/details.php?id=engbsb",
+  aiNotice:
+    "Study notes were drafted with AI assistance (Opus 5.5 ~15% and Gemini Neon 4 for the remainder). Occasional inaccuracies may occur — please verify directly against Scripture or consult a pastor.",
+  seo: {
+    siteName: "One Chapter a Day — Plain-Language Bible",
+    defaultTitle: "One Chapter a Day — Plain-Language Bible Study",
+    defaultDescription:
+      "Read all 66 books and 1,189 chapters of the Bible in clear everyday English — tap any citation for Berean Standard Bible (BSB) scripture inline, 100 mood guides, Kindle EPUBs, and cloud-synced reading history. Always free, non-profit & open source.",
+    ogImageAlt:
+      "One Chapter a Day — Plain-language Bible study across all 66 books with Berean Standard Bible (BSB) inline Scripture",
+    chapterTitle: (book, chapter, title) => `${book} ${chapter} — ${title} | One Chapter a Day`,
+    chapterFallbackDesc: (book, chapter, title) =>
+      `Read ${book} chapter ${chapter} (${title}) in clear everyday English with Berean Standard Bible (BSB) Scripture inline.`,
+    moodsTitle: "Read the Bible by Mood — 100 Guides | One Chapter a Day",
+    moodsDescription:
+      "Choose how you are feeling right now (anxious, grieving, grateful, needing wisdom...) to read Berean Standard Bible passages with reflection notes and prayers.",
+    moodDetailTitle: (title) => `${title} — Bible by Mood | One Chapter a Day`,
+    ebookTitle: "Download EPUB Ebooks for Kindle & Apple Books | One Chapter a Day",
+    ebookDescription:
+      "Free offline EPUB editions of plain-language Bible chapter notes for Kindle, Apple Books, and Google Play Books — concise or with full Berean Standard Bible text.",
+    historyTitle: "Bible Reading History | One Chapter a Day",
+    historyDescription:
+      "Track reading dates, daily streaks, per-book progress rings, and pick up right where you left off across devices.",
+    accountTitle: "Account & Cloud Sync | One Chapter a Day",
+    accountDescription:
+      "Sign in to sync your Bible reading history and chapter progress across phone and computer.",
+    notFoundTitle: "Page Not Found | One Chapter a Day",
+    notFoundDescription: "The chapter or link you opened does not exist.",
+  },
+  header: {
+    brand: "Bible",
+    booksButton: "Books",
+    pickBookAndChapter: "Choose book and chapter",
+    booksNavLabel: "Bible books",
+    oldTestament: "Old Testament",
+    newTestament: "New Testament",
+    chaptersOfBook: (book) => `Chapters of ${book}`,
+    backToToc: "Contents",
+    searchByMood: "Browse by mood",
+    accountLabel: (name) => `Account: ${name}`,
+    signInLabel: "Sign in",
+    switchLanguageLabel: "Chuyển sang Tiếng Việt",
+    switchLanguageShort: "VI",
+  },
+  dock: {
+    navLabel: "Main navigation",
+    read: "Read",
+    moods: "Moods",
+    history: "History",
+    me: "Me",
+  },
+  footer: {
+    scripturePrefix: "Scripture: Berean Standard Bible (public domain), via",
+    sourceWord: "eBible.org",
+    downloadEbook: "Download ebooks",
+  },
+  display: {
+    switchToLight: "Switch to light mode",
+    switchToDark: "Switch to dark mode",
+    triggerLabel: "Customize font, text size, and color theme",
+    title: "Display & Typography",
+    colorMode: "Color mode",
+    readingSize: "Text size",
+    readingFont: "Reading font",
+    previewLabel: "Font preview",
+    previewVerse: "The LORD is my shepherd; I shall not want.",
+    themes: { system: "System", light: "Light", dark: "Dark" },
+    scales: { sm: "Small", md: "Medium", lg: "Large" },
+    fonts: {
+      "source-serif": {
+        tag: "Classic serif",
+        description: "Balanced and crisp like a printed study Bible — site default.",
+      },
+      literata: {
+        tag: "Book · Kindle style",
+        description: "Crafted for long-form screen reading (Google Play Books).",
+      },
+      lora: {
+        tag: "Warm serif",
+        description: "Soft, expressive strokes — well suited for Psalms and reflection.",
+      },
+      newsreader: {
+        tag: "Editorial serif",
+        description: "Refined literary proportion that stays airy at larger sizes.",
+      },
+      "be-vietnam": {
+        tag: "Clean sans",
+        description: "Crisp modern sans-serif designed for sharp mobile legibility.",
+      },
+      lexend: {
+        tag: "Easy-read sans",
+        description: "Generous letter spacing to reduce eye fatigue during long reads.",
+      },
+    },
+  },
+  home: {
+    weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    months: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    formatDateLine: (now) => {
+      const day = EN.home.weekdays[now.getDay()];
+      const month = EN.home.months[now.getMonth()];
+      return `${day}, ${month} ${now.getDate()}`;
+    },
+    morning: "Good morning.",
+    afternoon: "Good afternoon.",
+    evening: "Good evening.",
+    fallbackKicker: "Berean Standard Bible · 66 books · 1,189 chapters",
+    fallbackHeadline: "The Bible in plain English.",
+    subtitle: "Every chapter retold in clear everyday English, with Berean Standard Bible scripture inline.",
+    emptyFallback: "No chapters available yet. Please check back soon.",
+    startReading: (book, chapter) => `Start reading · ${book} ${chapter}`,
+    readThisChapter: "Read this chapter →",
+    moodsLink: "100 mood guides",
+    ebookLink: "Download ebooks",
+    booksHeading: "Books",
+    chooseTestamentLabel: "Filter by testament",
+    filterAll: "All",
+    filterOld: (count) => `Old Testament · ${count}`,
+    filterNew: (count) => `New Testament · ${count}`,
+    chaptersCount: (count) => `${count} ${count === 1 ? "chapter" : "chapters"}`,
+    readOfTotal: (read, total) => `${read} / ${total} read`,
+    backToBooks: "↑ Books",
+    legendCompleted: "completed",
+    legendSeen: "visited",
+    legendUnread: "unread",
+    chapterDisplayLabel: "Chapter display mode",
+    viewDots: "Grid",
+    viewTitles: "Titles",
+    chapterTitleAttr: (chapter, title, lastReadDate) =>
+      lastReadDate ? `Chapter ${chapter}: ${title} (read ${lastReadDate})` : `Chapter ${chapter}: ${title}`,
+    chapterAriaLabel: (chapter, title) => `Chapter ${chapter}: ${title}`,
+    seenBadge: "• visited",
+  },
+  continueReading: {
+    heading: (dateTime) => `Continue reading · ${dateTime}`,
+    readAgain: "Read chapter again",
+    continueBtn: "Continue reading",
+    nextChapter: (label) => `Next: ${label} →`,
+    statsAriaLabel: "Reading statistics",
+    chaptersRead: "chapters read",
+    dayStreak: "day streak",
+    booksOpened: "books opened",
+    localOnlyPrefix: "History is saved on this device",
+    signInToSync: "Sign in to sync across devices",
+  },
+  chapter: {
+    kicker: (book, number) => `${book} · Chapter ${number}`,
+    lead: (versesCount, minutes) =>
+      `${versesCount} ${versesCount === 1 ? "verse" : "verses"} · ~${minutes} min read · tap citations for Scripture`,
+    storyAriaLabel: "Story",
+    keyTakeaways: "Key Takeaways",
+    deeperMeaning: "Deeper Meaning",
+    notesAndNuances: "Notes & Nuances",
+    commentatorsHeading: (count) => `What Commentators Say (${count})`,
+    fullTextHeading: (versesCount) => `Full chapter text · ${versesCount} ${versesCount === 1 ? "verse" : "verses"}`,
+    inlineScriptureHeading: (book, verseLabel) => `BSB · ${book} ${verseLabel}`,
+    confidencePrefix: "Confidence:",
+    confidence: { cao: "High", vua: "Medium", thap: "Low" },
+    lowConfidencePrefix: "Low confidence:",
+    closePopover: "Close",
+    bottomNavLabel: "Chapter navigation",
+    progressRegionLabel: "Reading progress for this chapter",
+    prevChapterAria: (book, number) => `Previous chapter: ${book} ${number}`,
+    nextChapterAria: (book, number) => `Next chapter: ${book} ${number}`,
+    completedLabel: "✓ Completed",
+    markCompleteLabel: "Mark complete",
+  },
+  moods: {
+    kicker: (count) => `Read by mood · ${count} guides`,
+    heading: "How are you feeling today?",
+    subtitle: "Pick a mood or search a keyword. Berean Standard Bible passages are right here.",
+    searchLabel: "Search moods, topics, or Bible book names",
+    searchPlaceholder: "Search: joy, anxiety, grief, Psalms…",
+    clearSearchAria: "Clear search query",
+    clearFilter: "Clear filter",
+    groupsHeading: "Topic groups",
+    allCount: (count) => `All (${count})`,
+    randomMessage: "Random guide",
+    filterGroupAria: "Filter by topic group",
+    showingCountPrefix: "Showing",
+    showingCountSuffix: (total) => `of ${total} guides.`,
+    emptyTitle: (query) => `No guides matched “${query}”.`,
+    emptyHintPrefix: "Try a shorter word like",
+    emptyHintExamples: ["joy", "sadness", "anxiety", "loneliness"],
+    emptyHintBookPrefix: "or a Bible book like",
+    emptyHintBookExample: "Psalms",
+    resetAllBtn: (count) => `View all ${count} guides`,
+    groupTopicsCount: (count) => `${count} ${count === 1 ? "guide" : "guides"}`,
+    backToTop: "↑ Top",
+    readBadge: "✓ Read",
+    quickShortcuts: [
+      { slug: "joy", label: "Joy", hue: "#c9a227" },
+      { slug: "sadness", label: "Sadness", hue: "#6b7fa8" },
+      { slug: "anxiety-about-the-future", label: "Anxiety", hue: "#8a6fb0" },
+      { slug: "loneliness", label: "Loneliness", hue: "#c0714f" },
+      { slug: "exhaustion-and-burnout", label: "Exhaustion", hue: "#5d8f7b" },
+      { slug: "anger", label: "Anger", hue: "#9b5a6a" },
+      { slug: "struggling-to-forgive", label: "Forgiveness", hue: "#c47a9a" },
+      { slug: "needing-wisdom", label: "Wisdom", hue: "#4d8a7f" },
+    ],
+    detail: {
+      backToAll: "‹ 100 moods",
+      scriptureHeading: (count) => `Scripture for you · ${count} passages`,
+      belongsToChapter: (book, chapter) => `From ${book} ${chapter}`,
+      readFullChapter: (book, chapter) => `Read full chapter ${book} ${chapter}`,
+      prayerHeading: "A Short Prayer",
+      relatedHeading: "You may also be looking for",
+      bottomNavLabel: "Bottom navigation",
+    },
+  },
+  copyVerse: {
+    copy: "Copy",
+    copied: "Copied ✓",
+    ariaLabel: (label) => `Copy ${label}`,
+    formatPassage: (label, body) => `“${body}” — ${label} (BSB)`,
+  },
+  share: {
+    share: "Share",
+    copiedLink: "Link copied ✓",
+  },
+  ebook: {
+    kicker: "Offline reading",
+    heading: "Download ebooks for Kindle",
+    intro:
+      "EPUB files compatible with Kindle, Apple Books, and Google Play Books. One page per chapter with a full book-and-chapter table of contents; tap any citation like (1:26) to view verses in a pop-up.",
+    editionGroupLabel: "Edition",
+    conciseEdition: "Concise edition",
+    fullTextEdition: "With full chapter text",
+    conciseHint: "Study notes only. Tapping any citation still opens the BSB verses.",
+    fullTextHint: "Includes the complete Berean Standard Bible chapter text after each chapter's notes. Roughly twice as long.",
+    bundlesHeading: "Editions",
+    bundleInfo: (books, chapters) =>
+      `${books} ${books === 1 ? "book" : "books"} · ${chapters} ${chapters === 1 ? "chapter" : "chapters"}`,
+    downloadPrefix: "bible-",
+    kindleHeading: "Send to Kindle",
+    kindleSteps: {
+      step1: "Download an EPUB file above to your device.",
+      step2Before: "Open ",
+      step2After: ", sign in, and drag the file in. Or email the EPUB to your Send-to-Kindle address (find it in Amazon under ",
+      step2Path: "Manage Your Content and Devices → Preferences → Personal Document Settings",
+      step3: "Within a few minutes it appears in your Kindle library. Re-download anytime as new updates are published.",
+    },
+  },
+  history: {
+    kicker: "Bible reading journal",
+    heading: "Reading history",
+    syncing: "Syncing…",
+    refresh: "Refresh",
+    guestBannerBefore: "History is currently saved on this device. ",
+    guestBannerBold: "Sign in",
+    guestBannerAfter: " to sync across devices.",
+    signInBtn: "Sign in",
+    loadingLabel: "Loading your reading history…",
+    continueHeading: (dateTime) => `Continue reading · ${dateTime}`,
+    readAgain: "Read again",
+    continueBtn: "Continue reading",
+    nextChapter: (label) => `Next: ${label} →`,
+    statsAriaLabel: "Reading progress summary",
+    ofTotalChapters: "/ 1,189 chapters",
+    dayStreak: "day streak",
+    completedCount: "completed",
+    filterGroupAria: "Filter reading history",
+    tabAll: "All",
+    tabBible: "Bible",
+    tabMoods: "Moods",
+    tabCompleted: "Completed",
+    clearAll: "Clear all",
+    confirmClear: "Confirm clear",
+    cancel: "Cancel",
+    emptyAll: "No reading history yet.",
+    emptyFiltered: "No entries match this filter.",
+    emptyDesc: "Whenever you open a Bible chapter or mood guide, your reading dates and progress are saved automatically.",
+    startGenesisCta: "Read Genesis 1",
+    startGenesisHref: "/en/genesis/1",
+    browseMoodsCta: "Browse by mood",
+    itemsCount: (count) => `${count} ${count === 1 ? "entry" : "entries"}`,
+    moodPrefix: (subtitle) => `Mood · ${subtitle}`,
+    doneBadge: "✓ Done",
+    unmarkTitle: "Remove completed mark",
+    markTitle: "Mark as completed",
+    markBtn: "Mark done",
+    continueItemBtn: "Open",
+    deleteItemAria: (title, dateLabel) => `Remove ${title} from history on ${dateLabel}`,
+    today: "Today",
+    yesterday: "Yesterday",
+    atWord: "at",
+  },
+  account: {
+    loadingLabel: "Checking your session and syncing history…",
+    syncKicker: "Cloud reading sync",
+    signInHeading: "Sign in",
+    signInDesc:
+      "Save your reading dates, current chapter, and daily streak so you can pick up seamlessly on any device.",
+    notConfiguredBefore: "WorkOS Client ID is not configured in this environment. You can still view local history on the ",
+    notConfiguredLink: "History page",
+    notConfiguredAfter: ".",
+    redirecting: "Redirecting to sign in…",
+    signInBtn: "Sign in",
+    signUpBtn: "Create account",
+    securityFootnote:
+      "Secured by WorkOS AuthKit. Reading history stored in this browser merges automatically into your account on sign-in.",
+    syncingBadge: "✓ Cloud sync active",
+    chaptersSeen: "chapters read",
+    chaptersCompleted: "completed",
+    dayStreak: "day streak",
+    openHistoryBtn: "Open reading history →",
+    signOutBtn: "Sign out",
+    defaultUserName: "Reader",
+    errors: {
+      accessDenied: "Sign-in was canceled.",
+      invalidRedirectUri: "Redirect URI is not registered in the WorkOS Dashboard (add /tai-khoan).",
+      network: "Could not reach WorkOS. Please check your connection or CORS settings in the WorkOS Dashboard.",
+      sessionExpired: "Your session has expired. Please sign in again.",
+      genericWithReason: (raw) => `Unable to sign in (${raw}).`,
+      generic: "Something went wrong connecting to WorkOS. Please try again.",
+      notConfigured: "WorkOS authentication is not configured.",
+      syncFailed: "Could not sync history from the cloud right now.",
+      visitSyncFailed: "Your latest visit could not sync to the cloud yet.",
+      completeSyncFailed: "Could not update completion status in the cloud.",
+      deleteLogFailed: "Could not remove this history entry from the cloud.",
+      deleteItemFailed: "Could not remove this item from the cloud.",
+      clearFailed: "Could not clear cloud history.",
+    },
+  },
+  notFound: {
+    heading: "Page not found",
+    description: "This chapter may not be written yet, or the link may have a typo.",
+    backHome: "Back to home",
+  },
+  skeleton: {
+    loading: "Loading…",
+  },
+};
+
+export const MESSAGES: Record<Locale, Messages> = { vi: VI, en: EN };
+
+export function messagesFor(locale: Locale = "vi"): Messages {
+  return MESSAGES[locale];
+}

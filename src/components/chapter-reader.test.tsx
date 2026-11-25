@@ -5,6 +5,8 @@ import { describe, expect, test } from "vitest";
 import type { ChapterView } from "../../lib/content";
 import { BOOKS } from "../../lib/content/books";
 import { ChapterReader } from "./chapter-reader";
+import { LocaleProvider } from "./locale-context";
+import { BOOKS_EN } from "../../lib/content/books";
 
 const [GEN, EXO] = BOOKS;
 const verse = (number: number) => ({ number, text: `Câu ${number}.` });
@@ -73,5 +75,54 @@ describe("<ChapterReader />", () => {
     // implicitly closes </p> before the popover and orphans the closing ")" on a new line.
     expect(popover?.tagName).toBe("SPAN");
     expect(container.querySelector("p div")).toBeNull();
+  });
+
+  test("renders English labels and BSB inline verse header under LocaleProvider('en')", async () => {
+    const [GEN_EN] = BOOKS_EN;
+    const enView: ChapterView = {
+      book: GEN_EN,
+      number: 1,
+      title: "In the Beginning",
+      verses: [
+        { number: 1, text: "In the beginning God created the heavens and the earth." },
+        { number: 2, text: "Now the earth was formless and void." },
+      ],
+      sections: [
+        {
+          key: "story",
+          heading: "Story",
+          paragraphs: [
+            [
+              { kind: "text", text: "God created the world " },
+              {
+                kind: "refs",
+                parts: [{ lead: "", ref: { label: "1:1", book: GEN_EN, chapter: 1, verses: [{ number: 1, text: "In the beginning God created the heavens and the earth." }] } }],
+              },
+            ],
+          ],
+        },
+        { key: "takeaways", heading: "Key Takeaways", paragraphs: [[{ kind: "text", text: "God is Creator." }]] },
+      ],
+      opinions: [],
+      prev: null,
+      next: null,
+    };
+
+    const { artifact } = await captureArtifact(
+      () => {
+        const { container, getByRole } = render(() => (
+          <LocaleProvider locale="en">
+            <ChapterReader view={enView} />
+          </LocaleProvider>
+        ));
+        expect(container.textContent).toContain("Genesis · Chapter 1");
+        expect(container.textContent).toContain("Key Takeaways");
+        fireEvent.click(getByRole("button", { name: "1:1" }));
+        flush();
+        expect(story(container).textContent).toContain("BSB · Genesis 1:1");
+      },
+      { scenario: "en-inline-verses-toggle" },
+    );
+    expectNoDiagnostics(artifact);
   });
 });

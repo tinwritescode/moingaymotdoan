@@ -1,13 +1,13 @@
 import type { RouteDefinition } from "@solidjs/router";
 import { httpStatus } from "@solidjs/web";
+import { localeFromPath } from "../../lib/i18n";
 import { NotFound } from "../components/not-found";
 import { getToc } from "../data";
 
-// Set in preload, so the status is in place before the response head flushes.
 export const route = {
-  preload: () => {
+  preload: ({ location }) => {
     httpStatus(404);
-    void getToc();
+    void getToc(localeFromPath(location.pathname));
   },
 } satisfies RouteDefinition;
 

@@ -1,5 +1,5 @@
-// Turns the server build into a static site: renders every page, data file and ebook through the
-// built request handler and writes them into dist/client, which is what gets deployed.
+// Turns the server build into a static site: renders every page, data file and ebook (VI + EN)
+// through the built request handler and writes them into dist/client, which is what gets deployed.
 //   node scripts/prerender.mjs   (run by `pnpm build`, after `vite build`, from the repo root)
 import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -20,14 +20,16 @@ async function save(file, res, text) {
 }
 
 /**
- * Moves Solid's deferred `[data-dh]` meta/link tags (description, canonical, og:*, twitter:*)
+ * Moves Solid's deferred `[data-dh]` meta/link tags (description, canonical, hreflang, og:*, twitter:*)
  * from after the inline hydration script to the start of `<head>`, so Facebook/X/Zalo scrapers
  * read them within the first few KB. Matches Solid 2.0's hydrate() leading `[data-dh]` relocation.
  */
-function hoistHeadMeta(html) {
-  const headEnd = html.indexOf("</head>");
-  if (headEnd === -1) return html;
-  const head = html.slice(0, headEnd);
+function hoistHeadMeta(html, path) {
+  const withLang =
+    path === "/en" || path.startsWith("/en/") ? html.replace(/<html\s+lang="vi"/, '<html lang="en"') : html;
+  const headEnd = withLang.indexOf("</head>");
+  if (headEnd === -1) return withLang;
+  const head = withLang.slice(0, headEnd);
   const hoisted = [];
   const cleanedHead = head.replace(
     /<(?:meta|link)\b(?:[^>"']|"[^"]*"|'[^']*')*\bdata-dh="[^"]*"(?:[^>"']|"[^"]*"|'[^']*')*>/g,
@@ -36,8 +38,8 @@ function hoistHeadMeta(html) {
       return "";
     },
   );
-  if (hoisted.length === 0) return html;
-  return cleanedHead.replace("<head>", `<head>${hoisted.join("")}`) + html.slice(headEnd);
+  if (hoisted.length === 0) return withLang;
+  return cleanedHead.replace("<head>", `<head>${hoisted.join("")}`) + withLang.slice(headEnd);
 }
 
 /** Built assets and public/ files; vite build already put them in dist/client. Anything else is rendered, even if a stale copy is there. */
@@ -47,17 +49,24 @@ const isStatic = (path) => path.startsWith("/assets/") || existsSync(join(import
 const linksIn = (html) =>
   [...html.matchAll(/href="(\/(?!\/)[^"#?]*)/g)].map((m) => m[1]).filter((p) => p === "/" || !isStatic(p));
 
-const toc = await (await fetchPath("/data/toc.json")).json();
-const moodIndex = await (await fetchPath("/data/cam-xuc.json")).json();
+const tocVi = await (await fetchPath("/data/toc.json")).json();
+const moodIndexVi = await (await fetchPath("/data/cam-xuc.json")).json();
+const tocEn = await (await fetchPath("/data/en/toc.json")).json();
+const moodIndexEn = await (await fetchPath("/data/en/moods.json")).json();
+
 // Pages read these in the browser; no page links to them, so they are listed here.
 const data = [
   "/data/toc.json",
   "/data/cam-xuc.json",
-  ...moodIndex.moods.map((m) => `/data/cam-xuc/${m.slug}.json`),
-  ...toc.books.flatMap((b) => b.chapters.map((c) => `/data/${b.book.slug}/${c.number}.json`)),
+  ...moodIndexVi.moods.map((m) => `/data/cam-xuc/${m.slug}.json`),
+  ...tocVi.books.flatMap((b) => b.chapters.map((c) => `/data/${b.book.slug}/${c.number}.json`)),
+  "/data/en/toc.json",
+  "/data/en/moods.json",
+  ...moodIndexEn.moods.map((m) => `/data/en/moods/${m.slug}.json`),
+  ...tocEn.books.flatMap((b) => b.chapters.map((c) => `/data/en/${b.book.slug}/${c.number}.json`)),
 ];
 
-const seen = new Set(["/", ...data]);
+const seen = new Set(["/", "/en", ...data]);
 const queue = [...seen];
 for (const path of queue) {
   const res = await fetchPath(path);
@@ -66,7 +75,7 @@ for (const path of queue) {
   if (html) {
     const text = await res.text();
     for (const link of linksIn(text)) if (!seen.has(link)) (seen.add(link), queue.push(link));
-    await save(fileFor(path, html), res, hoistHeadMeta(text));
+    await save(fileFor(path, html), res, hoistHeadMeta(text, path));
   } else {
     await save(fileFor(path, html), res);
   }
@@ -75,6 +84,6 @@ for (const path of queue) {
 // A static host serves this for every path not written above.
 const missing = await fetchPath("/khong-co-trang-nay");
 if (missing.status !== 404) throw new Error(`/khong-co-trang-nay: expected 404, got ${missing.status}`);
-await save(join(OUT, "404.html"), missing, hoistHeadMeta(await missing.text()));
+await save(join(OUT, "404.html"), missing, hoistHeadMeta(await missing.text(), "/khong-co-trang-nay"));
 
 console.log(`Prerendered ${queue.length} files and 404.html into dist/client.`);

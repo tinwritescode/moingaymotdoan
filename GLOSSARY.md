@@ -51,3 +51,13 @@ _Avoid_: public, live
 **Nháp**:
 Những gì chỉ chủ dự án thấy khi soạn và duyệt, gồm cả ghi chú chưa duyệt và mức tin cậy.
 _Avoid_: draft, bản thử
+
+## Lịch sử đọc
+
+**Tiến độ**:
+Trạng thái đã mở, số lần xem và dấu đã đọc xong của từng đoạn Kinh Thánh hoặc chủ đề cảm xúc.
+_Avoid_: progress, trạng thái đọc
+
+**Nhật ký**:
+Bản ghi theo từng ngày lịch địa phương cho biết người đọc đã mở đoạn hay chủ đề cảm xúc nào và vào lúc mấy giờ.
+_Avoid_: log, lịch sử chi tiết

@@ -12,6 +12,7 @@ import {
   THEME_STORAGE_KEY,
 } from "../lib/preferences";
 import { DisplayMenu, ThemeToggle } from "./display-controls";
+import { LocaleProvider } from "./locale-context";
 import { PreferencesProvider, usePreferences } from "./preferences-context";
 
 function openPopover(trigger: HTMLElement): HTMLElement {
@@ -130,5 +131,29 @@ describe("<ThemeToggle /> & <DisplayMenu />", () => {
     const link = document.head.querySelector('link[data-kt-font="be-vietnam"]');
     expect(link?.getAttribute("href")).toContain("Be+Vietnam+Pro");
     expect(link?.getAttribute("href")).toContain("&display=swap");
+  });
+
+  test("renders English labels and BSB Psalm 23:1 preview under LocaleProvider('en')", async () => {
+    const { artifact } = await captureArtifact(
+      () => {
+        const { getByRole } = render(() => (
+          <LocaleProvider locale="en">
+            <PreferencesProvider>
+              <ThemeToggle />
+              <DisplayMenu />
+            </PreferencesProvider>
+          </LocaleProvider>
+        ));
+        flush();
+
+        expect(getByRole("button", { name: "Switch to dark mode" })).toBeTruthy();
+        const trigger = getByRole("button", { name: "Customize font, text size, and color theme" });
+        const popup = openPopover(trigger);
+        expect(popup.textContent).toContain("Display & Typography");
+        expect(popup.textContent).toContain("The LORD is my shepherd; I shall not want.");
+      },
+      { scenario: "en-display-controls" },
+    );
+    expectNoDiagnostics(artifact);
   });
 });
