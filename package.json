@@ -1,6 +1,13 @@
 {
-  "name": "kinh-thanh",
+  "name": "moingaymotdoan",
   "version": "0.1.0",
+  "description": "Mỗi Ngày Một Đoạn — Đọc trọn bộ 66 sách, 1.189 đoạn Kinh Thánh bằng lời thường, kèm nguyên văn Bản Truyền Thống 1926, 100 chủ đề cảm xúc, ebook Kindle và lịch sử đọc đồng bộ. Luôn phi lợi nhuận & mã nguồn mở.",
+  "license": "MIT",
+  "homepage": "https://moingaymotdoan.xyz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tinwritescode/moingaymotdoan.git"
+  },
   "private": true,
   "type": "module",
   "scripts": {

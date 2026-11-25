@@ -17,13 +17,13 @@ export function Popover(props: {
 }) {
   const id = createUniqueId();
   const [open, setOpen] = createSignal(false);
-  let popup!: HTMLDivElement;
+  let popup!: HTMLSpanElement;
   return (
     <>
       <button type="button" popovertarget={id} class={props.triggerClass} style={{ "anchor-name": `--${id}` }}>
         {props.trigger}
       </button>
-      <div
+      <span
         ref={popup}
         id={id}
         popover
@@ -33,18 +33,18 @@ export function Popover(props: {
         // oxlint-disable-next-line solid/style-prop -- CSS anchor positioning; the rule's property list predates it.
         style={{ "position-anchor": `--${id}` }}
         class={[
-          "anchored rounded-2xl border border-rule bg-card text-ink shadow-xl outline-none",
+          "anchored whitespace-normal rounded-2xl border border-rule bg-card text-ink shadow-xl outline-none",
           "transition-[opacity,scale] duration-150 starting:open:scale-[0.98] starting:open:opacity-0 motion-reduce:transition-none",
           props.class,
         ]}
       >
         <Show when={open()}>
-          <p id={`${id}-title`} class={props.titleClass}>
+          <span id={`${id}-title`} class={["block", props.titleClass]}>
             {props.title}
-          </p>
+          </span>
           {props.children(() => popup.hidePopover())}
         </Show>
-      </div>
+      </span>
     </>
   );
 }

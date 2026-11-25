@@ -1,4 +1,3 @@
-import { Title } from "@solidjs/meta";
 import type { RouteDefinition } from "@solidjs/router";
 import { createMemo, createSignal, For, onSettled, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
@@ -9,6 +8,7 @@ import { AI_NOTICE } from "../../lib/notice";
 import { ariaState } from "../components/aria";
 import { ContinueReading } from "../components/continue-reading";
 import { FloatingDock } from "../components/floating-dock";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
 import { useUser } from "../components/user-context";
 import { getChapter, getToc, type Toc } from "../data";
@@ -55,7 +55,7 @@ export default function MucLuc() {
 
   return (
     <>
-      <Title>Kinh Thánh — ghi chú từng đoạn</Title>
+      <Seo title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION} path="/" />
       <SiteHeader />
       <main class="kt-home mx-auto w-full max-w-[40rem] animate-reveal px-5 pt-5 pb-12 motion-reduce:animate-none">
         <header class="mb-5">

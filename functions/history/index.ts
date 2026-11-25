@@ -63,6 +63,8 @@ const issuers = [
 ];
 
 const ALLOWED_ORIGINS = new Set([
+  "https://moingaymotdoan.xyz",
+  "https://www.moingaymotdoan.xyz",
   "https://bible.tyvn.online",
   "https://www.bible.tyvn.online",
   "http://localhost:3000",

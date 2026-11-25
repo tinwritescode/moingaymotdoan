@@ -102,7 +102,7 @@ function titlePage(bundle: Bundle, date: string, fullText: boolean): string {
 <p class="center">Mỗi đoạn Kinh Thánh, kể lại bằng lời thường${fullText ? ", kèm nguyên văn Bản Truyền Thống 1926" : ""}. <em>Đoạn</em> nghĩa là chương.</p>
 <p class="center">Chạm vào chỗ dẫn như (1:26) để xem câu Kinh Thánh.</p>
 <p class="note">${esc(AI_NOTICE)}</p>
-<p class="center small">bible.tyvn.online · ${esc(date)}</p>
+<p class="center small">moingaymotdoan.xyz · ${esc(date)}</p>
 </section>`,
   );
 }
@@ -219,7 +219,7 @@ ${navPoints([cover, ...books])}
 <dc:identifier id="uid">${id}</dc:identifier>
 <dc:title>${esc(title)}</dc:title>
 <dc:language>vi</dc:language>
-<dc:creator>bible.tyvn.online</dc:creator>
+<dc:creator>moingaymotdoan.xyz</dc:creator>
 <dc:date>${date}</dc:date>
 <meta property="dcterms:modified">${modified}</meta>
 </metadata>

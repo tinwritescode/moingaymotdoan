@@ -1,4 +1,3 @@
-import { Title } from "@solidjs/meta";
 import type { RouteDefinition } from "@solidjs/router";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import {
@@ -12,6 +11,7 @@ import { ariaState } from "../components/aria";
 import { findNextChapter } from "../components/continue-reading";
 import { FloatingDock } from "../components/floating-dock";
 import { ProgressRing, WeeklyDots } from "../components/progress-ring";
+import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
 import { useUser } from "../components/user-context";
 import { getToc } from "../data";
@@ -98,7 +98,11 @@ export default function LichSuPage() {
 
   return (
     <>
-      <Title>Lịch sử đọc — Kinh Thánh</Title>
+      <Seo
+        title="Lịch sử đọc Kinh Thánh | Mỗi Ngày Một Đoạn"
+        description="Theo dõi ngày tháng năm đã xem, chuỗi ngày đọc liên tiếp, vòng tiến độ từng sách và mở Xem tiếp nhanh chóng trên mọi thiết bị."
+        path="/lich-su"
+      />
       <SiteHeader section="lich-su" />
 
       <main class="mx-auto w-full max-w-[40rem] animate-reveal px-5 pt-5 pb-12 motion-reduce:animate-none">

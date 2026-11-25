@@ -27,7 +27,7 @@ function node(n: Inline): JSX.Element {
       );
     case "refs":
       return (
-        <span>
+        <span class={n.parts.length === 1 && !n.parts[0].lead ? "whitespace-nowrap" : undefined}>
           (
           <For each={n.parts}>
             {(p, j) => (

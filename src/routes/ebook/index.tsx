@@ -1,10 +1,10 @@
-import { Title } from "@solidjs/meta";
 import type { RouteDefinition } from "@solidjs/router";
 import { createMemo, createSignal, For } from "solid-js";
 import { bundles, ebookFile } from "../../../lib/ebook/bundles";
 import { AI_NOTICE } from "../../../lib/notice";
 import { ariaState } from "../../components/aria";
 import { FloatingDock } from "../../components/floating-dock";
+import { Seo } from "../../components/seo";
 import { SiteHeader } from "../../components/site-header";
 import { getToc } from "../../data";
 
@@ -27,7 +27,11 @@ export default function EbookPage() {
 
   return (
     <>
-      <Title>Tải ebook cho Kindle — Kinh Thánh</Title>
+      <Seo
+        title="Tải Ebook EPUB cho Kindle & Apple Books | Mỗi Ngày Một Đoạn"
+        description="Tải miễn phí trọn bộ Kinh Thánh ghi chú từng đoạn định dạng EPUB cho Kindle, Apple Books, Google Play Sách — bản gọn hoặc kèm nguyên văn Bản Truyền Thống 1926."
+        path="/ebook"
+      />
       <SiteHeader />
       <main class="mx-auto w-full max-w-[40rem] animate-reveal px-5 pt-5 pb-12 motion-reduce:animate-none">
         <p class="font-sans text-xs font-medium text-accent">Đọc ngoại tuyến</p>

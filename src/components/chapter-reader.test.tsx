@@ -65,9 +65,13 @@ describe("<ChapterReader />", () => {
   });
 
   test("a chỗ dẫn into another chapter opens a popover instead", () => {
-    const { getByRole } = render(() => <ChapterReader view={VIEW} />);
+    const { container, getByRole } = render(() => <ChapterReader view={VIEW} />);
     const ref = getByRole("button", { name: "Xuất 3:14" });
     const popover = document.getElementById(ref.getAttribute("popovertarget")!);
     expect(popover?.hasAttribute("popover")).toBe(true);
+    // Popover inside <p> must use phrasing content (<span>), otherwise HTML5 SSR parsing
+    // implicitly closes </p> before the popover and orphans the closing ")" on a new line.
+    expect(popover?.tagName).toBe("SPAN");
+    expect(container.querySelector("p div")).toBeNull();
   });
 });

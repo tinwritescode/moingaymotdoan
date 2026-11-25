@@ -1,11 +1,15 @@
-import { Title } from "@solidjs/meta";
 import { FloatingDock } from "./floating-dock";
+import { Seo } from "./seo";
 import { SiteHeader } from "./site-header";
 
 export function NotFound() {
   return (
     <>
-      <Title>Không tìm thấy trang này — Kinh Thánh</Title>
+      <Seo
+        title="Không tìm thấy trang này | Mỗi Ngày Một Đoạn"
+        description="Đoạn Kinh Thánh hoặc đường dẫn bạn mở hiện không tồn tại."
+        noindex
+      />
       <SiteHeader />
       <main class="mx-auto w-full max-w-[40rem] px-5 pt-12 pb-8">
         <div class="rounded-3xl border border-rule bg-card p-7 text-center shadow-[var(--shadow-soft)]">

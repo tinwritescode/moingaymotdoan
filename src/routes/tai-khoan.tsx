@@ -1,9 +1,9 @@
-import { Title } from "@solidjs/meta";
 import { useLocation, useNavigate, type RouteDefinition } from "@solidjs/router";
 import { createEffect, createMemo, Show } from "solid-js";
 import { safeNextPath } from "../../lib/history/types";
 import { FloatingDock } from "../components/floating-dock";
 import { WeeklyDots } from "../components/progress-ring";
+import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
 import { useUser } from "../components/user-context";
 import { getToc } from "../data";
@@ -52,7 +52,12 @@ export default function TaiKhoanPage() {
 
   return (
     <>
-      <Title>Tài khoản — Kinh Thánh</Title>
+      <Seo
+        title="Tài khoản & Đồng bộ lịch sử | Mỗi Ngày Một Đoạn"
+        description="Đăng nhập để đồng bộ lịch sử đọc Kinh Thánh và tiến độ từng sách trên điện thoại và máy tính."
+        path="/tai-khoan"
+        noindex
+      />
       <SiteHeader section="tai-khoan" />
 
       <main class="mx-auto w-full max-w-[34rem] animate-reveal px-5 pt-7 pb-12 motion-reduce:animate-none">

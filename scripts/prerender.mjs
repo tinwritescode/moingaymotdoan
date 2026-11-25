@@ -14,9 +14,30 @@ const fetchPath = (path) => handleRequest(new Request(`http://prerender${path}`)
 /** Where a path's response is served from on a static host. */
 const fileFor = (path, html) => (html ? join(OUT, path, "index.html") : join(OUT, path));
 
-async function save(file, res) {
+async function save(file, res, text) {
   await mkdir(dirname(file), { recursive: true });
-  await writeFile(file, Buffer.from(await res.arrayBuffer()));
+  await writeFile(file, text !== undefined ? Buffer.from(text, "utf8") : Buffer.from(await res.arrayBuffer()));
+}
+
+/**
+ * Moves Solid's deferred `[data-dh]` meta/link tags (description, canonical, og:*, twitter:*)
+ * from after the inline hydration script to the start of `<head>`, so Facebook/X/Zalo scrapers
+ * read them within the first few KB. Matches Solid 2.0's hydrate() leading `[data-dh]` relocation.
+ */
+function hoistHeadMeta(html) {
+  const headEnd = html.indexOf("</head>");
+  if (headEnd === -1) return html;
+  const head = html.slice(0, headEnd);
+  const hoisted = [];
+  const cleanedHead = head.replace(
+    /<(?:meta|link)\b(?:[^>"']|"[^"]*"|'[^']*')*\bdata-dh="[^"]*"(?:[^>"']|"[^"]*"|'[^']*')*>/g,
+    (tag) => {
+      hoisted.push(tag);
+      return "";
+    },
+  );
+  if (hoisted.length === 0) return html;
+  return cleanedHead.replace("<head>", `<head>${hoisted.join("")}`) + html.slice(headEnd);
 }
 
 /** Built assets and public/ files; vite build already put them in dist/client. Anything else is rendered, even if a stale copy is there. */
@@ -43,15 +64,17 @@ for (const path of queue) {
   if (!res.ok) throw new Error(`${path}: ${res.status} (linked from a prerendered page)`);
   const html = res.headers.get("content-type")?.includes("text/html") ?? false;
   if (html) {
-    const text = await res.clone().text();
+    const text = await res.text();
     for (const link of linksIn(text)) if (!seen.has(link)) (seen.add(link), queue.push(link));
+    await save(fileFor(path, html), res, hoistHeadMeta(text));
+  } else {
+    await save(fileFor(path, html), res);
   }
-  await save(fileFor(path, html), res);
 }
 
 // A static host serves this for every path not written above.
 const missing = await fetchPath("/khong-co-trang-nay");
 if (missing.status !== 404) throw new Error(`/khong-co-trang-nay: expected 404, got ${missing.status}`);
-await save(join(OUT, "404.html"), missing);
+await save(join(OUT, "404.html"), missing, hoistHeadMeta(await missing.text()));
 
 console.log(`Prerendered ${queue.length} files and 404.html into dist/client.`);

@@ -1,13 +1,14 @@
-import { Title } from "@solidjs/meta";
 import type { RouteProps } from "@solidjs/router";
 import { defineFileRoute } from "@solidjs/router/fs";
 import { createMemo, createSignal, isPending, onSettled, Show } from "solid-js";
-import type { ChapterLink, TocBook } from "../../../lib/content";
+import type { ChapterLink, ChapterView, TocBook } from "../../../lib/content";
 import { BOOKS, testamentOf } from "../../../lib/content/books";
+import { plainText } from "../../../lib/content/note";
 import { BookPicker, type PickerBook } from "../../components/book-picker";
 import { ChapterKeys } from "../../components/chapter-keys";
 import { ChapterReader, type ReadingScale } from "../../components/chapter-reader";
 import { NotFound } from "../../components/not-found";
+import { Seo } from "../../components/seo";
 import { getChapter, getToc } from "../../data";
 import { chapterHref } from "../../router";
 
@@ -34,6 +35,12 @@ function pickerBooks(toc: TocBook[]): PickerBook[] {
 }
 
 const linkHref = (l: ChapterLink | null) => (l ? chapterHref({ slug: l.book.slug, number: l.number }) : null);
+
+function chapterSummary(ch: ChapterView): string {
+  const story = ch.sections.find((s) => s.heading === "Câu chuyện")?.paragraphs[0];
+  if (story) return plainText(story);
+  return `Đọc ${ch.book.name} đoạn ${ch.number} (${ch.title}) bằng lời thường, kèm nguyên văn Bản Truyền Thống 1926.`;
+}
 
 /** Only đoạn with a ghi chú exist; anything else is the not-found page. */
 export default function ChapterPage(props: RouteProps<typeof route>) {
@@ -65,7 +72,12 @@ export default function ChapterPage(props: RouteProps<typeof route>) {
       {(ch) => (
         // Keeps the đoạn on screen, dimmed, while the next one loads.
         <div class={["flex flex-1 flex-col transition-opacity", { "opacity-60": isPending(view) }]}>
-          <Title>{`${ch().book.name} ${ch().number} — ${ch().title}`}</Title>
+          <Seo
+            title={`${ch().book.name} ${ch().number} — ${ch().title} | Mỗi Ngày Một Đoạn`}
+            description={chapterSummary(ch())}
+            path={chapterHref({ slug: ch().book.slug, number: ch().number })}
+            type="article"
+          />
 
           <header class="sticky top-0 z-20 border-b border-rule/70 bg-paper/88 backdrop-blur-md font-sans">
             <div class="mx-auto flex w-full max-w-[38rem] items-center justify-between gap-2 px-4 py-2 text-sm text-muted sm:px-5">

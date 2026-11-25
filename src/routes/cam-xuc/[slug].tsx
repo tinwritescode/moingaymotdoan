@@ -1,4 +1,3 @@
-import { Title } from "@solidjs/meta";
 import type { RouteProps } from "@solidjs/router";
 import { defineFileRoute } from "@solidjs/router/fs";
 import { createMemo, For, isPending, Show } from "solid-js";
@@ -9,6 +8,7 @@ import { CopyVerseButton } from "../../components/copy-verse-button";
 import { FloatingDock } from "../../components/floating-dock";
 import { NotFound } from "../../components/not-found";
 import { MoodVisitRecorder } from "../../components/reading-tracker";
+import { Seo } from "../../components/seo";
 import { SiteHeader } from "../../components/site-header";
 import { VerseText } from "../../components/verse-text";
 import { getMood, getToc } from "../../data";
@@ -31,7 +31,12 @@ export default function CamXucDetailPage(props: RouteProps<typeof route>) {
     <Show when={view()} fallback={<NotFound />}>
       {(mood) => (
         <div class={["flex flex-1 flex-col transition-opacity", { "opacity-60": isPending(view) }]}>
-          <Title>{`${mood().title} — Đọc Kinh Thánh theo cảm xúc`}</Title>
+          <Seo
+            title={`${mood().title} — Đọc Kinh Thánh theo cảm xúc | Mỗi Ngày Một Đoạn`}
+            description={`${mood().prompt} ${mood().intro}`}
+            path={moodHref(mood().slug)}
+            type="article"
+          />
           <SiteHeader section="cam-xuc" />
 
           <ChapterKeys prev={linkHref(mood().prev)} next={linkHref(mood().next)} />

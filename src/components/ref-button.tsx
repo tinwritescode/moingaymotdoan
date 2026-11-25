@@ -37,9 +37,9 @@ export function RefButton(props: { reference: Ref }) {
         >
           {(close) => (
             <>
-              <p>
+              <span class="block">
                 <VerseText verses={props.reference.verses} />
-              </p>
+              </span>
               <button
                 type="button"
                 onClick={close}
