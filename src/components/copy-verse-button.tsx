@@ -6,7 +6,7 @@ function formatPassage(label: string, verses: Verse[]): string {
   return `“${body}” — ${label} (Kinh Thánh Bản Truyền Thống)`;
 }
 
-async function copyText(text: string): Promise<boolean> {
+export async function copyText(text: string): Promise<boolean> {
   try {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(text);

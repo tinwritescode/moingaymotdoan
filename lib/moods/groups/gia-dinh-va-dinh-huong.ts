@@ -28,7 +28,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Truyền-đạo 4:9–10",
         note: "Một tình yêu lành mạnh là nơi hai người nâng đỡ nhau đứng dậy khi một người vấp ngã.",
       },
+      {
+        ref: "1 Giăng 3:18",
+        note: "Trong giai đoạn hẹn hò, tình yêu lành mạnh không chỉ dừng ở những lời ngọt ngào mà được kiểm chứng qua từng việc làm chân thành và lẽ thật giữa hai bạn.",
+      },
+      {
+        ref: "Hê-bơ-rơ 13:4",
+        note: "Tôn trọng ranh giới trong sạch từ lúc tìm hiểu là cách bạn bày tỏ sự trân quý dành cho người mình yêu và xây nền vững chắc cho hôn nhân mai sau.",
+      },
     ],
+    prayer:
+      "Lạy Cha của tình yêu chân thật, con tạ ơn Ngài vì những rung động ấm áp trong hành trình tìm hiểu này. Xin giữ tấm lòng hai chúng con luôn trong sạch, tỉnh táo và biết yêu nhau bằng hành động chân thành, tôn trọng dưới sự dẫn dắt của Chúa. A-men.",
   },
   {
     slug: "hon-nhan-vo-chong",
@@ -55,7 +65,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "1 Phi-e-rơ 3:7",
         note: "Sống chung với nhau bằng sự hiểu biết, dịu dàng và tôn trọng người bạn đời như người cùng hưởng ơn sự sống.",
       },
+      {
+        ref: "Cô-lô-se 3:18–19",
+        note: "Phao-lô trao cho vợ và chồng mỗi người một phần, đặt cả hai dưới chữ “theo Chúa”, và dặn người chồng “chớ hề ở cay nghiệt với người”. Hôn nhân bền khi cả hai cùng sống dưới Chúa.",
+      },
+      {
+        ref: "Châm-ngôn 31:10–12",
+        note: "Hôn nhân bền vững được nuôi dưỡng bằng sự tin cậy lẫn nhau và tấm lòng luôn tìm điều ích lợi cho người bạn đời suốt chặng đường chung đôi của bạn.",
+      },
     ],
+    prayer:
+      "Chúa ơi, tạ ơn Ngài đã kết nối vợ chồng con bước chung một mái nhà. Xin Ngài luôn làm sợi dây thứ ba bền chặt ở giữa gia đình con, dạy chúng con biết yêu thương hy sinh, nói lời dịu dàng và giữ trọn lòng thủy chung với nhau qua từng năm tháng. A-men.",
   },
   {
     slug: "hon-nhan-ran-nut",
@@ -82,7 +102,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "1 Phi-e-rơ 4:8",
         note: "Tình yêu thương bền bỉ có sức che lấp và chữa lành vô số va chạm, thiếu sót hằng ngày.",
       },
+      {
+        ref: "Thi-thiên 127:1",
+        note: "Khi sức người dường như không còn đủ để hàn gắn vết nứt dưới mái nhà mình, lời Thi-thiên mời bạn đặt lại hôn nhân mình trong bàn tay xây dựng và gìn giữ của Chúa.",
+      },
+      {
+        ref: "Châm-ngôn 24:3–4",
+        note: "Xây lại một mái ấm đang tổn thương cần nhiều hơn cảm xúc nhất thời; hãy xin Chúa ban cho bạn sự khôn ngoan, thông sáng và kiên nhẫn để từng bước chữa lành.",
+      },
     ],
+    prayer:
+      "Lạy Cha thương xót, mái ấm của con lúc này đang đầy căng thẳng, tổn thương và khoảng cách khiến lòng con mỏi mệt lắm. Con chẳng đủ sức tự mình hàn gắn mọi rạn nứt; xin Chúa bước vào giữa gia đình con, ban lòng khiêm nhường, sự khôn ngoan và ơn chữa lành dịu dàng cho cả hai chúng con. A-men.",
   },
   {
     slug: "lam-cha-me",
@@ -109,7 +139,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 22:6",
         note: "Kiên trì uốn nắn con theo đường ngay thẳng ngay từ nhỏ sẽ đặt nền móng tốt cho cả hành trình trưởng thành.",
       },
+      {
+        ref: "2 Ti-mô-thê 1:5",
+        note: "Đức tin chân thành truyền lại qua nếp sống dịu dàng mỗi ngày — như bà và mẹ của Ti-mô-thê đã gieo hạt giống đức tin, đời sống bạn cũng là bài học sống động nhất cho con.",
+      },
+      {
+        ref: "Mác 10:13–16",
+        note: "Giữa những lúc bận rộn dễ mất kiên nhẫn với con, hình ảnh Chúa Jêsus trìu mến bồng ẵm và chúc phước cho con trẻ nhắc bạn rằng mỗi đứa trẻ đều vô cùng quý giá trước mặt Ngài.",
+      },
     ],
+    prayer:
+      "Kính lạy Cha trên trời, vai trò làm cha mẹ mang lại cho con nhiều niềm vui nhưng cũng lắm lúc bối rối và thiếu kiên nhẫn. Cảm ơn Chúa đã trao con cái như cơ nghiệp quý giá cho nhà con; xin ban cho con tình yêu dịu dàng, sự khôn ngoan và đời sống làm gương tốt đẹp mỗi ngày. A-men.",
   },
   {
     slug: "hieu-kinh-cha-me",
@@ -136,7 +176,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "1 Ti-mô-thê 5:4",
         note: "Chăm sóc và đền đáp ơn sinh thành trong gia đình chính là biểu hiện đẹp lòng Đức Chúa Trời nhất.",
       },
+      {
+        ref: "Ru-tơ 1:16–17",
+        note: "Tấm lòng thủy chung của Ru-tơ khi chọn ở lại chăm sóc mẹ chồng lúc khó khăn là gương sáng ấm áp nhắc bạn biết yêu thương cha mẹ không chỉ lúc thuận lợi.",
+      },
+      {
+        ref: "Giăng 19:26–27",
+        note: "Ngay trong giờ phút đau đớn nhất trên thập tự giá, Chúa Jêsus vẫn chu đáo gửi gắm mẹ mình cho môn đồ chăm lo — gương hiếu thảo ấy chạm sâu vào trái tim bạn.",
+      },
     ],
+    prayer:
+      "Tạ ơn Chúa đã ban cho con đấng sinh thành để con có mặt trên đời hôm nay. Dù đôi lúc khoảng cách thế hệ khiến con thiếu kiên nhẫn, xin dạy con biết lắng nghe, nói lời tôn trọng và thể hiện lòng hiếu kính cha mẹ bằng sự chăm sóc chân thành mỗi ngày. A-men.",
   },
   {
     slug: "lo-cho-con-cai",
@@ -163,7 +213,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Phi-líp 4:6–7",
         note: "Thay vì chìm trong lo âu và cằn nhằn vô ích, hãy trao con cái vào tay Đấng yêu chúng còn hơn cả cha mẹ trần gian.",
       },
+      {
+        ref: "1 Sa-mu-ên 1:27–28",
+        note: "Khi bạn thấy mình không thể kiểm soát mọi lựa chọn của con, gương bà An-ne dâng con cho Chúa nhắc bạn rằng bàn tay Ngài luôn rộng và bền bỉ hơn bàn tay cha mẹ.",
+      },
+      {
+        ref: "Ma-thi-ơ 15:22–28",
+        note: "Tình thương của người mẹ Ca-na-an không bỏ cuộc khi nài xin Chúa cho con mình khích lệ bạn tiếp tục bền lòng cầu thay — ngay cả khi trước mắt chưa thấy con thay đổi.",
+      },
     ],
+    prayer:
+      "Ôi Chúa yêu thương con cái con hơn cả chính con yêu chúng, nhìn con cái mình đi lạc hướng khiến lòng làm cha mẹ của con đau nhói từng ngày. Khi lời khuyên của con chẳng còn đến được tai con mình, xin Chúa chạm đến tấm lòng con trẻ và dắt nó quay về trong bình an của Ngài. A-men.",
   },
   {
     slug: "tinh-ban-chan-thanh",
@@ -190,7 +250,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Giăng 15:13",
         note: "Đỉnh cao của tình bạn là lòng sẵn sàng đặt lợi ích của bạn mình lên trên sự ích kỷ cá nhân.",
       },
+      {
+        ref: "1 Sa-mu-ên 23:16",
+        note: "Giữa lúc Đa-vít trốn chạy đơn độc trong rừng, người bạn thân Giô-na-than đã tìm đến giúp ông vững lòng nơi Chúa — đó là hình mẫu đẹp nhất của một tình bạn nâng đỡ mà bạn có thể vừa tìm kiếm vừa trao đi.",
+      },
+      {
+        ref: "Rô-ma 12:10",
+        note: "Tình bạn sâu bền được xây trên sự chân thành, ấm áp và thái độ tôn trọng lẫn nhau — bắt đầu từ chính cách bạn chủ động yêu thương người quanh mình.",
+      },
     ],
+    prayer:
+      "Thưa Cha, cảm ơn Ngài vì những người bạn chân thành Ngài đặt vào cuộc đời con để cùng sẻ chia lúc vui cũng như khi gian nan. Xin dạy con trước hết biết trở thành một người bạn trung tín, biết lắng nghe và nâng đỡ người khác vững lòng hơn nơi Chúa. A-men.",
   },
   {
     slug: "song-trong-cong-dong",
@@ -217,7 +287,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Công-vụ các Sứ-đồ 2:42–47",
         note: "Hình ảnh ấm áp của cộng đồng đầu tiên: cùng học lời Chúa, chia sẻ bữa ăn, cầu nguyện và quan tâm người thiếu thốn.",
       },
+      {
+        ref: "Truyền-đạo 4:9–10",
+        note: "Đức tin không được dựng nên để đi một mình: “Nếu người này sa ngã, thì người kia sẽ đỡ bạn mình lên”. Tìm một cộng đồng là cho mình chỗ được đỡ dậy và cơ hội đỡ người khác.",
+      },
+      {
+        ref: "Cô-lô-se 3:16",
+        note: "Khi cùng anh chị em học Lời Chúa, khích lệ nhau và chung tiếng hát ngợi khen, đức tin của bạn được nuôi dưỡng sâu hơn rất nhiều so với việc đi một mình.",
+      },
     ],
+    prayer:
+      "Lạy Chúa là Đầu của Hội Thánh, con biết mình không được dựng nên để bước đi đức tin một mình. Xin dẫn con đến một cộng đồng chân thành, giúp con mở lòng đón nhận anh chị em dù ai cũng có bất toàn, để chúng con cùng nhau gây dựng trong tình yêu thương Ngài. A-men.",
   },
   {
     slug: "dat-ranh-gioi",
@@ -238,13 +318,23 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "Ma-thi-ơ 5:37",
-        note: "Nói rõ ràng 'có' là 'có', 'không' là 'không' giúp ta sống thẳng thắn mà không rơi vào vòng luẩn quẩn cả nể.",
+        note: "Chúa dạy nói thẳng thắn “phải, phải; không, không” — sự rõ ràng, chân thật ấy giúp bạn đặt ranh giới lành mạnh mà không rơi vào vòng cả nể.",
       },
       {
         ref: "Lu-ca 5:15–16",
         note: "Dù nhu cầu của đám đông rất lớn, Chúa Jêsus vẫn chủ động rút lui vào nơi thanh vắng để cầu nguyện và giữ quân bình.",
       },
+      {
+        ref: "Nê-hê-mi 6:2–3",
+        note: "Khi bị lôi kéo rời khỏi điều quan trọng, Nê-hê-mi không né tránh hay giải thích dài dòng mà từ chối rất dứt khoát — bạn cũng có quyền nói không để bảo vệ sứ mạng và sự bình an của mình.",
+      },
+      {
+        ref: "Ga-la-ti 6:5",
+        note: "Kinh Thánh dạy nâng đỡ nhau lúc ngã gục, nhưng cũng nhắc mỗi người phải chịu trách nhiệm cho phần đời riêng mình — nhận rõ ranh giới ấy giúp bạn giúp người đúng cách mà không tự kiệt sức.",
+      },
     ],
+    prayer:
+      "Xin Chúa ban cho con sự sáng suốt và can đảm để biết nhận lời với điều đúng đắn và thẳng thắn từ chối những đòi hỏi làm kiệt sức hay kéo lòng con đi lệch hướng. Xin giúp con gìn giữ tấm lòng mình bằng những ranh giới lành mạnh, dịu dàng mà vững vàng. A-men.",
   },
   {
     slug: "doc-than-cho-doi",
@@ -271,7 +361,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Thi-thiên 84:11",
         note: "Đức Giê-hô-va không bao giờ giữ lại điều tốt lành nào cho những người bước đi ngay thẳng.",
       },
+      {
+        ref: "1 Cô-rinh-tô 7:7",
+        note: "Độc thân hay có đôi đều không phải hạng nhì trước mặt Chúa: “mỗi người đã được ban riêng cho mình bởi Đức Chúa Trời”. Mùa hiện tại của bạn có giá trị riêng, dù bạn còn đang chờ đợi.",
+      },
+      {
+        ref: "1 Ti-mô-thê 4:12",
+        note: "Mùa độc thân hôm nay không phải quãng thời gian bị bỏ trống; bạn có thể sống thật trọn vẹn, trưởng thành trong tình yêu thương, đức tin và nếp sống trong sạch.",
+      },
     ],
+    prayer:
+      "Cha ơi, sống một mình đôi lúc khiến con thấy chạnh lòng, nhất là khi xung quanh ai cũng có đôi có cặp. Xin giúp con không nóng vội tìm kiếm sai chỗ, nhưng biết tận hưởng sự tự do trong mùa hiện tại, trau dồi đời sống đẹp ý Ngài và tin cậy kỳ định tốt lành của Chúa. A-men.",
   },
   {
     slug: "lam-nguoi-hoa-giai",
@@ -298,7 +398,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 12:20",
         note: "Người khuyên giải đem lại bình an luôn gặt hái niềm vui sâu bền trong lòng.",
       },
+      {
+        ref: "Sáng-thế Ký 13:8–9",
+        note: "Để giữ tình thân khỏi đổ vỡ, Áp-ram sẵn sàng nhường quyền chọn trước cho Lót — đôi khi bước đầu tiên để bạn hàn gắn một mối quan hệ chính là chịu thiệt một chút về mình.",
+      },
+      {
+        ref: "Rô-ma 14:19",
+        note: "Hòa giải không tự xảy ra khi hai bên cứ ngồi đợi nhau mở lời trước; Phao-lô khích lệ bạn chủ động tìm kiếm điều xây dựng hòa thuận và gây dựng nhau.",
+      },
     ],
+    prayer:
+      "Lạy Cha đã làm hòa lại với con nhờ Đấng Christ, con mong được trở thành nhịp cầu mang sự bình an đến giữa những rạn nứt quanh mình. Xin ban cho con tấm lòng khiêm nhường biết nhường nhịn, lời nói chín chắn và can đảm để chủ động hàn gắn điều đã đổ vỡ. A-men.",
   },
   {
     slug: "an-ui-nguoi-dau-kho",
@@ -325,7 +435,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 16:24",
         note: "Lời nói dịu dàng, chân thành giống như mật ngọt êm tai và đem lại sức sống cho tinh thần người mệt mỏi.",
       },
+      {
+        ref: "Ê-sai 50:4",
+        note: "Trước khi vội nói điều gì để an ủi người thương đang đau khổ, bạn có thể lắng nghe Chúa dạy dỗ trước để biết trao ra đúng lời dịu dàng nâng đỡ kẻ mệt mỏi.",
+      },
+      {
+        ref: "1 Tê-sa-lô-ni-ca 5:11",
+        note: "Đôi khi bạn không cần giải quyết hộ mọi vấn đề của bạn mình; chỉ cần sự hiện diện kiên trì và lời nâng đỡ chân thành cũng đủ tiếp thêm hơi ấm cho họ đi qua ngày khó.",
+      },
     ],
+    prayer:
+      "Chúa của mọi sự yên ủi ơi, thấy người con thương đang chịu đau buồn mà con lúng túng chẳng biết nói gì cho phải. Xin dạy con biết ngồi lắng nghe cách kiên nhẫn, biết khóc cùng họ và đặt vào môi miệng con lời dịu dàng, đúng lúc để nâng đỡ tâm hồn họ. A-men.",
   },
   {
     slug: "nguoi-than-chua-tin",
@@ -352,7 +472,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Ma-thi-ơ 5:16",
         note: "Hãy để những việc lành bình dị hằng ngày tỏa sáng tự nhiên ngay trong mái nhà mình.",
       },
+      {
+        ref: "Châm-ngôn 3:3–4",
+        note: "Sống giữa gia đình chưa cùng niềm tin, chính sự nhân từ và chân thật nhất quán trong cách ăn ở của bạn sẽ mở cánh cửa cảm tình tự nhiên hơn mọi lời tranh luận.",
+      },
+      {
+        ref: "1 Sa-mu-ên 12:23",
+        note: "Khi chưa có cơ hội chia sẻ nhiều bằng lời nói, bạn vẫn có thể âm thầm yêu thương người thân bằng sự cầu nguyện bền bỉ và không ngừng nghỉ trước mặt Chúa.",
+      },
     ],
+    prayer:
+      "Lạy Chúa giàu ân điển, con rất yêu thương gia đình mình và ao ước người thân cũng nếm biết tình yêu bình an của Ngài. Xin giúp con không tranh cãi nóng vội, mà biết kiên trì cầu nguyện, sống nhân từ chân thật mỗi ngày để ánh sáng Chúa tỏa ra tự nhiên ngay trong nhà con. A-men.",
   },
   {
     slug: "chia-ly-tien-biet",
@@ -379,7 +509,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Thi-thiên 121:7–8",
         note: "Gửi gắm từng bước đi và về của người thương trong sự bảo vệ bình an của Chúa.",
       },
+      {
+        ref: "Công-vụ các Sứ-đồ 20:32",
+        note: "Khi đến lúc không thể đi cạnh nhau trên cùng một con đường nữa, lời tiễn biệt sâu lắng nhất của Phao-lô nhắc bạn trao gửi người thương vào tay Đức Chúa Trời và ân điển Ngài.",
+      },
+      {
+        ref: "2 Cô-rinh-tô 13:11",
+        note: "Lời chào tiễn biệt ấm áp để bạn gửi theo người lên đường: dù cách xa phương trời, Đức Chúa Trời của tình yêu thương và bình an vẫn đồng hành cùng cả hai bên.",
+      },
     ],
+    prayer:
+      "Lạy Cha gìn giữ mọi nẻo đường, phút chia tay tiễn người thương đi xa khiến lòng con bịn rịn và lo lắng nhiều điều. Con xin giao phó người con yêu quý vào bàn tay che chở của Ngài; xin chiếu sáng mặt Chúa trên từng bước họ đi và giữ tình thân chúng con luôn ấm áp dù cách xa. A-men.",
   },
 
   // === 8. Công việc, khôn ngoan & định hướng sống (14) ===
@@ -408,7 +548,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Gia-cơ 3:17",
         note: "Dấu hiệu nhận ra sự khôn ngoan thật từ trời: trước hết là thanh sạch, sau lại hòa thuận, nhân từ, đầy lòng thương xót và không giả dối.",
       },
+      {
+        ref: "1 Các Vua 3:9",
+        note: "Khi đứng trước quyết định lớn vượt quá tầm hiểu biết của mình, Sa-lô-môn không xin giàu sang mà xin một tấm lòng khôn sáng để phân biệt điều lành dữ — bạn cũng có thể xin đúng điều ấy.",
+      },
+      {
+        ref: "Thi-thiên 90:12",
+        note: "Ý thức rõ thời gian đời người có hạn giúp bạn gạn lọc điều thật sự đáng chọn, thay vì bị cuốn theo những bận tâm ngắn hạn.",
+      },
     ],
+    prayer:
+      "Lạy Cha giàu sự khôn ngoan, trước bài toán khó này con thấy tầm nhìn của mình còn hạn hẹp quá. Con khiêm nhường cầu xin Ngài ban tấm lòng sáng suốt để phân biệt điều phải lẽ, biết lắng nghe lời khuyên chín chắn và chọn con đường bình an lâu dài. A-men.",
   },
   {
     slug: "tim-muc-dich-song",
@@ -435,7 +585,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Rô-ma 12:1–2",
         note: "Đổi mới tâm trí để nhận biết ý muốn tốt lành, đẹp lòng và trọn vẹn của Chúa trên chính đời sống thường ngày.",
       },
+      {
+        ref: "1 Cô-rinh-tô 10:31",
+        note: "Mục đích sống không chỉ nằm ở những việc thật to lớn; ngay cả bữa ăn, công việc thường ngày hay cử chỉ nhỏ của bạn đều trở nên đầy ý nghĩa khi làm để tôn vinh Đức Chúa Trời.",
+      },
+      {
+        ref: "Thi-thiên 138:8",
+        note: "Bạn không phải tự vẽ ra ý nghĩa cho đời mình từ con số không; tác giả Thi-thiên tin chắc chính Đức Giê-hô-va sẽ làm trọn công việc Ngài đã định cho đời bạn.",
+      },
     ],
+    prayer:
+      "Đức Chúa Trời dựng nên đời con ơi, có những lúc con dừng lại tự hỏi mình đang sống vì điều gì và điều nào thật sự bền vững. Xin soi sáng tâm trí con để con thấy rõ mục đích Ngài đặt trong đời con, sống hết lòng yêu Chúa và yêu người quanh con mỗi ngày. A-men.",
   },
   {
     slug: "chan-nan-cong-viec",
@@ -462,7 +622,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Thi-thiên 90:17",
         note: "Lời cầu nguyện mỗi sáng thứ Hai: xin Chúa làm vững bền và đặt ý nghĩa lâu dài trên công việc tay bạn làm.",
       },
+      {
+        ref: "Sáng-thế Ký 2:15",
+        note: "Công việc vốn không phải hình phạt nhàm chán; ngay từ vườn Ê-đen, Chúa đã trao việc trồng và giữ cho con người — nhắc bạn rằng lao động chân chính luôn mang phẩm giá đẹp đẽ.",
+      },
+      {
+        ref: "2 Tê-sa-lô-ni-ca 3:13",
+        note: "Giữa những ngày làm việc lặp đi lặp lại dễ khiến bạn ngán ngẩm, lời nhắn ngắn gọn này tiếp thêm động lực để bạn không nản lòng trong việc làm điều ích lợi mỗi ngày.",
+      },
     ],
+    prayer:
+      "Chúa ơi, nhịp công việc lặp đi lặp lại và áp lực nơi làm việc khiến con thấy cạn hứng thú và chỉ muốn cho qua ngày. Xin đổi mới tấm lòng con để con biết làm mọi việc lương thiện bằng sự tận tâm như đang làm cho Chúa, và tìm lại niềm vui trong công khó hôm nay. A-men.",
   },
   {
     slug: "buoc-ra-vung-an-toan",
@@ -489,7 +659,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "2 Ti-mô-thê 1:7",
         note: "Vượt qua sự rụt rè bằng tinh thần mạnh mẽ, tình yêu thương và sự tỉnh táo Chúa ban.",
       },
+      {
+        ref: "Sáng-thế Ký 12:1–2",
+        note: "Chúa không đưa cho Áp-ram tấm bản đồ chi tiết trước khi ông lên đường, chỉ trao lời hứa sẽ làm ông thành nguồn phước — bước chân tin cậy đầu tiên của bạn cũng mở ra những chân trời mới như thế.",
+      },
+      {
+        ref: "Ma-thi-ơ 14:28–31",
+        note: "Phi-e-rơ dám bước xuống khi nghe Chúa gọi; lúc thấy gió mà chao đảo, ông kêu “Chúa ơi, xin cứu lấy tôi!” và Chúa “giơ tay ra nắm lấy người”. Bước ra không đòi bạn chẳng bao giờ chao đảo.",
+      },
     ],
+    prayer:
+      "Lạy Chúa là Đấng kêu gọi con bước tới, đứng trước cơ hội và thay đổi mới lòng con vừa háo hức vừa e ngại không dám rời chỗ quen thuộc. Xin cất đi sự rụt rè trong con, ban tinh thần sáng suốt cùng lòng can đảm để con đặt bước chân tin cậy đầu tiên theo sự dẫn dắt của Ngài. A-men.",
   },
   {
     slug: "quan-ly-tien-bac",
@@ -516,7 +696,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 11:24–25",
         note: "Nghịch lý đẹp của sự hào phóng: người biết chia sẻ và tưới mát người khác chính mình cũng sẽ được tươi mát.",
       },
+      {
+        ref: "Thi-thiên 24:1",
+        note: "Mọi tài sản bạn đang nắm giữ rút cuộc đều thuộc về Đức Chúa Trời; sống với tâm thế người quản gia trung tín giúp bạn vừa trân trọng đồng tiền vừa sẵn lòng sẻ chia.",
+      },
+      {
+        ref: "1 Ti-mô-thê 6:17–19",
+        note: "Tiền bạc vốn bấp bênh không thể làm chỗ dựa tuyệt đối cho bạn; học cách chi tiêu chừng mực và rộng tay làm việc lành mới tạo nên nền tảng bền vững thật sự.",
+      },
     ],
+    prayer:
+      "Thưa Chúa là Chủ của muôn vật, con tạ ơn Ngài đã ban cho con sức lực và phương tiện để mưu sinh. Xin dạy con quản lý từng khoản thu chi cách ngay thẳng, có kế hoạch, không lệ thuộc vào tiền bạc nhưng luôn giữ tấm lòng rộng rãi vui vẻ sẻ chia với người cần giúp. A-men.",
   },
   {
     slug: "lam-lanh-dao",
@@ -543,7 +733,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 11:14",
         note: "Người lãnh đạo khôn ngoan biết lắng nghe cố vấn đáng tin để dẫn cả tập thể đi vững vàng.",
       },
+      {
+        ref: "Xuất Ê-díp-tô Ký 18:21–22",
+        note: "Lãnh đạo khôn ngoan không phải tự ôm đồm hết mọi việc rồi kiệt sức; lời khuyên cho Môi-se nhắc bạn biết tin tưởng trao quyền và chia sẻ gánh nặng với những người ngay thật xung quanh.",
+      },
+      {
+        ref: "Giăng 13:14–15",
+        note: "Hình ảnh Chúa Jêsus cúi xuống rửa chân cho môn đồ thay đổi tận gốc cách bạn nhìn về vị trí đứng đầu: uy tín lớn nhất đến từ sự khiêm nhường và tấm lòng sẵn sàng phục vụ.",
+      },
     ],
+    prayer:
+      "Lạy Chúa Jêsus là gương mẫu lãnh đạo phục vụ, trọng trách dẫn dắt người khác nhiều lúc làm con lo lắng và dễ nóng nảy. Xin ban cho con tấm lòng ngay thật, đôi tay khôn khéo, biết lắng nghe góp ý và dùng ảnh hưởng mình để nâng đỡ mọi người cùng trưởng thành. A-men.",
   },
   {
     slug: "song-chinh-truc",
@@ -570,7 +770,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 22:1",
         note: "Danh tiếng ngay thẳng và lòng kính trọng thật sự quý giá hơn nhiều so với vàng bạc giàu sang.",
       },
+      {
+        ref: "2 Cô-rinh-tô 8:21",
+        note: "Phao-lô chọn cách làm việc minh bạch đến mức không ai bắt bẻ được; giữ sự rõ ràng, ngay thẳng cả trước mặt Chúa lẫn con người là lá chắn tốt nhất cho bạn giữa môi trường nhiều cám dỗ.",
+      },
+      {
+        ref: "Hê-bơ-rơ 13:18",
+        note: "Khi xung quanh ai cũng bảo thỏa hiệp một chút có sao đâu, giữ được một lương tâm trong sạch và nếp sống ngay thẳng trong mọi việc vẫn là tài sản vô giá không gì mua đổi được của bạn.",
+      },
     ],
+    prayer:
+      "Ôi Đức Chúa Trời công chính, giữ sự ngay thẳng giữa môi trường nhiều gian dối và áp lực thỏa hiệp thật không hề dễ dàng. Xin làm vững lòng con để con không đánh đổi lương tâm sạch lấy lợi ích nhất thời, nhưng cứ bước đi minh bạch và vững vàng trước mặt Ngài. A-men.",
   },
   {
     slug: "giu-mieng-luoi",
@@ -597,7 +807,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Thi-thiên 141:3",
         note: "Lời cầu nguyện ngắn mỗi sáng: lạy Chúa, xin đặt người canh giữ miệng tôi và coi sóc cửa môi tôi.",
       },
+      {
+        ref: "Lu-ca 6:45",
+        note: "Muốn giữ miệng khỏi lời cay nghiệt, bạn không chỉ kìm lại bề ngoài mà cần nuôi lòng mình đầy điều thiện, vì “do sự đầy dẫy trong lòng mà miệng nói ra”.",
+      },
+      {
+        ref: "Châm-ngôn 10:19",
+        note: "Thói bình phẩm nhanh và nói nhiều dễ để lại lỗi lầm; “ai cầm giữ miệng mình là khôn ngoan”. Chậm lại một nhịp giúp lời bạn nói ra chín chắn và đáng tin hơn.",
+      },
     ],
+    prayer:
+      "Kính lạy Chúa, con nhiều lần hối hận vì những lời nói vội vàng, buôn chuyện hay vô tâm làm đau người khác. Xin Ngài thanh lọc tấm lòng con từ bên trong, đặt người canh giữ cửa môi con mỗi ngày để lời nói của con chỉ mang lại sự gây dựng và bình an. A-men.",
   },
   {
     slug: "kien-tri-khong-bo-cuoc",
@@ -624,7 +844,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Rô-ma 5:3–4",
         note: "Sự bền bỉ đi qua thử thách tôi luyện nên bản lĩnh vững vàng và niềm hy vọng không dễ gãy.",
       },
+      {
+        ref: "A-ghê 2:4",
+        note: "Khi nhìn công trình còn dang dở mà muốn buông xuôi vì thấy sức mình quá nhỏ, lời Chúa qua tiên tri A-ghê vực bạn dậy: hãy can đảm tiếp tục làm việc vì Ngài đang ở cùng bạn.",
+      },
+      {
+        ref: "Nê-hê-mi 6:9",
+        note: "Giữa bao trở ngại khiến đôi tay gần như rã rời, lời cầu nguyện cực ngắn của Nê-hê-mi rất hợp cho lúc này của bạn: xin Chúa làm cho tay tôi mạnh mẽ để đi tiếp.",
+      },
     ],
+    prayer:
+      "Chúa ơi, chặng đường trước mắt con còn dài mà kết quả chưa thấy đâu khiến lòng con thấm mệt và muốn buông tay bỏ cuộc. Xin làm mạnh đôi tay mỏi mệt của con hôm nay, giúp con giữ mắt nhìn lên Chúa Jêsus và bền bỉ bước thêm một bước nhỏ với niềm tin chẳng lay chuyển. A-men.",
   },
   {
     slug: "hoc-tinh-khiem-nhuong",
@@ -651,7 +881,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Mi-chê 6:8",
         note: "Bước đi cách khiêm nhường với Đức Chúa Trời giữ cho tâm hồn luôn sáng trong và biết ơn.",
       },
+      {
+        ref: "Thi-thiên 131:1–2",
+        note: "Tấm lòng khiêm nhường không phải là tự ti chán ghét bản thân, mà là sự bình an êm dịu như đứa trẻ tựa vào mẹ — khi bạn không còn cố gồng mình tỏ ra vĩ đại hơn sự thật.",
+      },
+      {
+        ref: "Gia-cơ 4:10",
+        note: "Bạn không cần tự nâng mình lên hay tranh chỗ trước mặt người đời; cứ thật lòng hạ mình sống ngay thẳng trước mặt Chúa, chính Ngài biết cách tôn trọng bạn đúng lúc.",
+      },
     ],
+    prayer:
+      "Lạy Chúa Jêsus nhu mì và khiêm nhường trong lòng, cái tôi của con vẫn hay đòi được chú ý, khen ngợi và giành phần đúng về mình. Xin dạy con học nơi gương hạ mình của Ngài, để lòng con được êm dịu an tịnh, biết lắng nghe và thật lòng tôn trọng những người quanh con. A-men.",
   },
   {
     slug: "hoc-long-kien-nhan",
@@ -678,7 +918,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Rô-ma 12:12",
         note: "Vui mừng trong trông cậy, kiên nhẫn trong hoạn nạn và bền lòng trong sự cầu nguyện.",
       },
+      {
+        ref: "Thi-thiên 103:8",
+        note: "Sự kiên nhẫn bạn đang tập luyện bắt nguồn từ chính bản tính của Đức Chúa Trời — Đấng vẫn hằng chậm nóng giận và đầy lòng thương xót đối với từng thiếu sót của bạn.",
+      },
+      {
+        ref: "Cô-lô-se 1:11",
+        note: "Kiên nhẫn không có nghĩa là cắn răng chịu đựng trong ấm ức; Phao-lô cầu nguyện để bạn nhận sức mạnh từ Chúa mà nhịn nhục với một tấm lòng bình tĩnh và vui vẻ.",
+      },
     ],
+    prayer:
+      "Cha chậm nóng giận và giàu lòng thương xót ơi, con nhận ra mình vẫn hay vội vàng, dễ bực dọc khi mọi việc và mọi người không theo kịp ý mình. Xin Thánh Linh Ngài nuôi dưỡng trái nhịn nhục trong con, giúp con tập chậm lại, bao dung với người khác và dịu dàng hơn với chính mình. A-men.",
   },
   {
     slug: "thang-su-luoi-bieng",
@@ -705,7 +955,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Ê-phê-sô 5:15–16",
         note: "Biết quý trọng và tận dụng từng thì giờ hiện tại cách khôn ngoan để ngày sống trôi qua không uổng phí.",
       },
+      {
+        ref: "Truyền-đạo 11:4–6",
+        note: "Chờ đến lúc mọi điều kiện thật hoàn hảo rồi mới làm chính là cái bẫy quen thuộc của sự trì hoãn; Kinh Thánh khuyên bạn cứ bắt tay gieo từ việc nhỏ ngay sáng nay.",
+      },
+      {
+        ref: "Rô-ma 12:11",
+        note: "Kỷ luật bản thân trở nên nhẹ nhàng và đầy sinh khí hơn khi bạn làm việc không vì sợ bị nhắc nhở, mà bằng tấm lòng siêng năng, sốt sắng như đang phục vụ chính Chúa.",
+      },
     ],
+    prayer:
+      "Thưa Chúa, sự chần chừ và thói quen trì hoãn cứ làm ngày sống của con trôi qua trong áy náy và phân tâm. Xin ban cho con tinh thần tự chủ, lòng siêng năng và sự sáng suốt để bắt đầu ngay việc cần làm hôm nay, biết quý trọng từng giờ Ngài giao phó. A-men.",
   },
   {
     slug: "cau-nguyen-sau-sac",
@@ -732,7 +992,17 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "Thi-thiên 145:18",
         note: "Đức Giê-hô-va ở gần hết thảy những ai thành thật kêu cầu danh Ngài.",
       },
+      {
+        ref: "Mác 1:35",
+        note: "Giữa lịch trình bận rộn nhất, chính Chúa Jêsus vẫn chọn dậy sớm tìm một khoảng lặng riêng để trò chuyện với Cha — một thói quen giản dị mà bạn có thể tập từng ngày.",
+      },
+      {
+        ref: "1 Giăng 5:14–15",
+        note: "Lời hứa đem lại sự dạn dĩ ấm áp mỗi khi bạn bước vào phòng kín: cầu nguyện không phải nói vào khoảng không, mà là trò chuyện với Đấng thật sự lắng nghe bạn.",
+      },
     ],
+    prayer:
+      "Lạy Cha luôn ở gần người kêu cầu Ngài, con ao ước đời sống cầu nguyện của mình không còn qua loa hay vội vã nữa. Xin đánh thức trong con niềm vui tìm kiếm mặt Chúa mỗi sáng, dạy con biết lắng nghe tiếng Ngài và trò chuyện với Cha bằng cả tấm lòng chân thật. A-men.",
   },
   {
     slug: "khat-khao-gan-chua",
@@ -759,6 +1029,16 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
         ref: "2 Ti-mô-thê 3:16–17",
         note: "Cả Kinh Thánh có ích cho sự dạy dỗ, sửa trị và rèn luyện để đời sống người tin được trọn vẹn trong mọi việc lành.",
       },
+      {
+        ref: "Giô-suê 1:8",
+        note: "Đọc Kinh Thánh không phải để chạy cho đủ chương rồi quên ngay; suy gẫm từng đoạn nhỏ và đem ra sống trong ngày mới thật sự nuôi dưỡng con đường của bạn.",
+      },
+      {
+        ref: "Giăng 6:68",
+        note: "Câu thưa chân thành của Phi-e-rơ nói hộ tấm lòng đang khao khát gần Chúa của bạn: giữa muôn vàn tiếng nói ồn ào quanh mình, chỉ nơi Chúa Jêsus mới có lời đem lại sự sống thật.",
+      },
     ],
+    prayer:
+      "Chỉ nơi Chúa Jêsus mới có lời của sự sống đời đời mà linh hồn con đang khao khát. Xin mở lòng và mở mắt con mỗi khi con đọc Kinh Thánh, để Lời Ngài trở nên ngọt ngào hơn mật ong, soi sáng từng bước chân con và kéo con lại thật gần bên Chúa mỗi ngày. A-men.",
   },
 ];

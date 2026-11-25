@@ -1,7 +1,14 @@
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { createContent } from "../content";
-import { createMoodCatalog, matchesMood, MOOD_DEFINITIONS, MOOD_GROUPS, normalizeSearch } from "./index";
+import {
+  auditMoods,
+  createMoodCatalog,
+  matchesMood,
+  MOOD_DEFINITIONS,
+  MOOD_GROUPS,
+  normalizeSearch,
+} from "./index";
 
 const ROOT = join(import.meta.dirname, "..", "..");
 const content = createContent({
@@ -51,5 +58,15 @@ describe("chuyên mục đọc Kinh Thánh theo cảm xúc", () => {
     expect(buon).toBeDefined();
     expect(matchesMood(buon!, normalizeSearch("thi-thien"))).toBe(true);
     expect(matchesMood(buon!, normalizeSearch("buon"))).toBe(true);
+  });
+});
+
+// Cổng chất lượng nội dung: chạy riêng một nhóm bằng `pnpm vitest run lib/moods -t "<groupId>"`.
+describe("chuẩn chất lượng nội dung", () => {
+  const views = catalog.index().moods.flatMap((m) => catalog.mood(m.slug) ?? []);
+  const issues = auditMoods(views);
+
+  it.each(MOOD_GROUPS.map((g) => g.id))("nhóm %s đạt chuẩn (6 đoạn, cầu nguyện, trích đúng nguyên văn)", (groupId) => {
+    expect(issues.filter((i) => i.groupId === groupId).map((i) => `${i.slug}: ${i.message}`)).toEqual([]);
   });
 });

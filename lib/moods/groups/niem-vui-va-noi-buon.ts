@@ -28,7 +28,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 17:22",
         note: "Một tấm lòng vui vẻ giữ cho cả thân thể lẫn tinh thần luôn tươi mới như phương thuốc lành.",
       },
+      {
+        ref: "Giăng 15:11",
+        note: "Chúa Jêsus không muốn niềm vui của bạn chỉ thoáng qua theo cảm hứng, mà muốn niềm vui từ chính Ngài ở trong bạn và trở nên trọn vẹn.",
+      },
+      {
+        ref: "1 Phi-e-rơ 1:8–9",
+        note: "Dù mắt thường chưa nhìn thấy Chúa, lòng tin yêu Ngài vẫn thắp lên trong bạn một niềm vui sâu thẳm và bền lâu hơn mọi hoàn cảnh.",
+      },
     ],
+    prayer:
+      "Lạy Cha vui mừng, hôm nay lòng con nhẹ nhõm và rạng rỡ quá, con muốn dừng lại để chung vui trước mặt Ngài. Xin giữ niềm vui này bắt rễ sâu trong Chúa và cho con biết lan tỏa sự ấm áp ấy đến những người con gặp. A-men.",
   },
   {
     slug: "biet-on",
@@ -55,7 +65,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 136:1",
         note: "Lời cảm tạ giản dị nhất cũng là lời bền vững nhất: Chúa vốn là thiện và sự thương xót Ngài còn đến đời đời.",
       },
+      {
+        ref: "Cô-lô-se 3:17",
+        note: "Lòng biết ơn không chỉ nằm ở những dịp đặc biệt; ngay trong lời nói và công việc thường nhật, bạn đều có thể dâng lời tạ ơn Cha qua Chúa Jêsus.",
+      },
+      {
+        ref: "1 Sử-ký 29:13–14",
+        note: "Lời cảm tạ khiêm nhường của Đa-vít nhắc bạn rằng mọi điều tốt đẹp ta đang giữ trên tay vốn đều từ Chúa mà đến.",
+      },
     ],
+    prayer:
+      "Con cảm tạ Chúa vì từng hơi thở, từng bữa ăn và biết bao ơn phước âm thầm Ngài đặt vào đời con mỗi ngày. Xin cho lòng con không bao giờ chai sạn hay quên ơn, nhưng luôn mở rộng để tri ân và sẻ chia với người quanh con. A-men.",
   },
   {
     slug: "hanh-phuc",
@@ -82,7 +102,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Ma-thi-ơ 5:3–8",
         note: "Chúa Jêsus đảo ngược định nghĩa hạnh phúc của thế gian: phước thật nằm nơi tấm lòng khiêm nhường, hiền hòa và trong sạch.",
       },
+      {
+        ref: "Châm-ngôn 16:20",
+        note: "Châm-ngôn chỉ ra bí quyết đơn sơ cho một đời sống có phước: “giữ theo đạo lý” và đặt lòng tin cậy nơi Đức Giê-hô-va thay vì nơi sức riêng mình.",
+      },
+      {
+        ref: "Lu-ca 11:28",
+        note: "Chúa Jêsus chỉ rõ nguồn hạnh phúc bền vững nhất nằm trong tầm tay bạn mỗi ngày: lắng nghe và sống theo Lời Đức Chúa Trời.",
+      },
     ],
+    prayer:
+      "Thưa Chúa nhân lành, lòng con thật ấm áp khi nếm trải những điều ngọt ngào Ngài ban trong hiện tại. Xin giúp con trân trọng niềm hạnh phúc đơn sơ hôm nay, và giữ rễ đời mình cắm sâu trong Lời Chúa để niềm vui ấy bền lâu. A-men.",
   },
   {
     slug: "binh-an",
@@ -109,7 +139,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Cô-lô-se 3:15",
         note: "Hãy để sự bình an của Đấng Christ làm trọng tài cai trị trong lòng và giữ gìn mọi suy nghĩ hằng ngày.",
       },
+      {
+        ref: "Dân-số Ký 6:24–26",
+        note: "Lời chúc phước cổ xưa của A-rôn gợi hình ảnh thật dịu êm: mặt Chúa chiếu sáng và đoái nhìn trên bạn để ban sự bình an trọn vẹn.",
+      },
+      {
+        ref: "2 Tê-sa-lô-ni-ca 3:16",
+        note: "Phao-lô cầu chúc bạn không chỉ bình an lúc yên ả, mà được chính Chúa của sự bình an ở cùng và giữ lòng yên tĩnh trong mọi lúc, mọi cách.",
+      },
     ],
+    prayer:
+      "Lạy Chúa của sự bình an, con tạ ơn Ngài vì giây phút lòng con được lắng dịu và thanh thản hôm nay. Xin ánh sáng mặt Ngài tiếp tục chiếu soi trên con, giữ sự bình an của Đấng Christ làm chủ mọi suy nghĩ trong ngày mới. A-men.",
   },
   {
     slug: "hy-vong",
@@ -136,7 +176,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Ê-sai 40:31",
         note: "Những ai trông đợi Đức Giê-hô-va sẽ luôn nhận được sức mới để cất cánh vượt qua chặng đường dài.",
       },
+      {
+        ref: "1 Phi-e-rơ 1:3–4",
+        note: "Hy vọng của bạn không dựa trên may rủi mong manh, mà là sự trông cậy sống động đặt trên sự sống lại của Chúa Jêsus và cơ nghiệp chẳng hề suy tàn.",
+      },
+      {
+        ref: "Thi-thiên 33:20–22",
+        note: "Đợi chờ Chúa không phải là chờ trong trống rỗng; khi bạn tin cậy danh thánh Ngài, lòng bạn có thể vui mừng trước cả khi kết quả hiện ra.",
+      },
     ],
+    prayer:
+      "Ôi Đức Chúa Trời của sự trông cậy, tạ ơn Ngài vì tia sáng hy vọng đang nảy mầm trong lòng con. Xin giữ sự trông cậy nơi Chúa như chiếc neo vững chắc cho linh hồn con, để con bước tới ngày mai bằng niềm tin thanh thản. A-men.",
   },
   {
     slug: "tu-tin",
@@ -163,7 +213,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 27:1",
         note: "Khi Đức Giê-hô-va là ánh sáng và đồn lũy của đời sống, chẳng còn thế lực nào khiến ta phải run sợ.",
       },
+      {
+        ref: "Phục-truyền Luật-lệ Ký 31:6",
+        note: "Sự vững lòng của bạn không cần dựa vào việc tự chứng tỏ mình giỏi giang, mà đứng trên lời hứa chính Chúa đi cùng và chẳng hề lìa bỏ bạn.",
+      },
+      {
+        ref: "Ê-phê-sô 6:10",
+        note: "Thay vì gồng mình bằng sức riêng chóng cạn, Phao-lô nhắc bạn tìm sự mạnh dạn trong Chúa và nương dựa vào sức toàn năng của Ngài.",
+      },
     ],
+    prayer:
+      "Chúa là ánh sáng và đồn lũy của con, xin giữ lòng con vững vàng mà không kiêu ngạo, mạnh mẽ mà vẫn khiêm nhường. Cảm ơn Ngài đi cùng con trong từng bước chân, ban cho con sự sáng suốt và can đảm để sống trọn vẹn hôm nay. A-men.",
   },
   {
     slug: "khoi-dau-moi",
@@ -190,7 +250,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Ca-thương 3:22–23",
         note: "Mỗi buổi sáng thức dậy đều là một trang mới với lòng thương xót hoàn toàn mới mẻ từ Đức Chúa Trời.",
       },
+      {
+        ref: "Phi-líp 1:6",
+        note: "Bạn có thể bước vào chặng đường mới với lòng an tâm, vì chính Đấng đã khởi làm việc lành trong đời bạn cũng là Đấng thành tín đưa nó đến trọn vẹn.",
+      },
+      {
+        ref: "Giô-suê 3:4–5",
+        note: "Đứng trước con đường bạn chưa từng đi qua bao giờ, điều quan trọng nhất là giữ lòng trong sạch và chăm chú đi theo sự dẫn dắt của Chúa từng bước một.",
+      },
     ],
+    prayer:
+      "Lạy Chúa là Đấng làm mới lại muôn vật, con mang theo cả niềm háo hức lẫn chút bỡ ngỡ trước chặng đường mới sắp mở ra. Xin đi trước dẫn lối cho con trên con đường con chưa từng qua, và làm thành những dự định đẹp ý Ngài. A-men.",
   },
   {
     slug: "hai-long-du-day",
@@ -217,7 +287,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 23:1",
         note: "Khi biết mình có Đấng Chăn giữ, cảm giác thiếu thốn không ngừng trong tâm hồn dần được lấp đầy.",
       },
+      {
+        ref: "Châm-ngôn 15:16–17",
+        note: "Châm-ngôn nhắc bạn điều mà bảng so sánh đời thường dễ làm mờ đi: một bữa ăn giản dị đầy yêu thương và lòng kính sợ Chúa quý hơn kho báu chất đầy bối rối.",
+      },
+      {
+        ref: "Truyền-đạo 4:6",
+        note: "Một nắm tay đầy nhưng lòng bình an đáng quý hơn hai tay ôm chật mà cả đời chạy đuổi theo gió — biết dừng lại đúng lúc là tự do thật của bạn.",
+      },
     ],
+    prayer:
+      "Kính lạy Cha, cảm ơn Ngài cho con cảm nhận được sự nhẹ nhõm của một tấm lòng biết đủ hôm nay. Xin gìn giữ con khỏi vòng xoáy so sánh và hơn thua, để con luôn quý trọng bữa cơm giản dị, sự bình an và tình thương Ngài ban. A-men.",
   },
   {
     slug: "nhe-nhom-sau-bao",
@@ -241,10 +321,20 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         note: "Từ vũng bùn lầy của hoạn nạn, Chúa kéo ta lên đặt chân trên vầng đá vững chắc và đặt bài ca mới trong miệng.",
       },
       {
-        ref: "Thi-thiên 116:7–8",
-        note: "Sau bao giằng co mệt nhoài, hãy nhủ lòng trở về nơi yên nghỉ vì Chúa đã lau nước mắt và giữ chân khỏi vấp ngã.",
+        ref: "Xuất Ê-díp-tô Ký 15:1–2",
+        note: "Vừa đi qua Biển Đỏ an toàn, Môi-se và dân sự lập tức cất tiếng hát — sau cơn bão dài, lòng bạn cũng xứng đáng dừng lại tạ ơn Đấng đã giải cứu mình.",
+      },
+      {
+        ref: "2 Cô-rinh-tô 1:9–10",
+        note: "Phao-lô từng tưởng như đã nhận án tử, rồi được Chúa cứu khỏi; nhìn lại, ông tin chắc “Ngài sẽ cứu chúng tôi” nữa. Ơn cứu bạn vừa nhận cũng là chỗ tựa cho chặng đường tới.",
+      },
+      {
+        ref: "Giăng 16:20–22",
+        note: "Như cơn đau sinh nở qua đi nhường chỗ cho niềm vui đón con chào đời, Chúa Jêsus hứa nỗi lo buồn của bạn sẽ đổi thành niềm vui bền vững chẳng ai cướp mất.",
       },
     ],
+    prayer:
+      "Cảm tạ Đức Chúa Trời đã kéo con ra khỏi cơn giông bão vừa qua và cho con thở phào nhẹ nhõm hôm nay. Xin khắc ghi ơn giải cứu này vào ký ức con, để mai này gặp sóng gió con vẫn nhớ Ngài luôn thành tín ở cùng. A-men.",
   },
   {
     slug: "kinh-ngac-truoc-tao-vat",
@@ -271,7 +361,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Rô-ma 1:20",
         note: "Ngay qua những gì mắt thấy tai nghe trong thế giới tự nhiên, quyền năng và sự kỳ diệu của Chúa hiện ra rõ ràng.",
       },
+      {
+        ref: "Gióp 12:7–10",
+        note: "Từ cánh chim trên trời đến loài cá dưới biển đều như những người thầy lặng lẽ nhắc bạn rằng hơi thở của mọi sự sống đều ở trong bàn tay Đức Chúa Trời.",
+      },
+      {
+        ref: "Cô-lô-se 1:16–17",
+        note: "Vẻ đẹp khiến bạn lặng người ngắm nhìn không phải sự tình cờ vô hồn; muôn vật đều được dựng nên bởi Đấng Christ và đứng vững trong Ngài từng giây phút.",
+      },
     ],
+    prayer:
+      "Lạy Đấng Tạo Hóa diệu kỳ, ngắm nhìn bầu trời, thiên nhiên và nhịp thở của sự sống hôm nay khiến lòng con lặng đi vì kinh ngạc. Con tôn vinh sự khôn ngoan vô biên của Ngài và tạ ơn vì giữa vũ trụ bao la ấy, Chúa vẫn đoái nhớ đến con. A-men.",
   },
   {
     slug: "muon-ca-ngoi",
@@ -298,7 +398,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Khải-huyền 4:11",
         note: "Bài ca trên trời quy mọi vinh hiển, tôn quý và quyền phép về Đấng đã dựng nên muôn vật.",
       },
+      {
+        ref: "1 Sử-ký 29:11–12",
+        note: "Lời tôn vinh hùng tráng của Đa-vít giúp bạn quy mọi sự cao cả, quyền năng và vinh quang về một mình Đức Giê-hô-va, Đấng tể trị muôn vật.",
+      },
+      {
+        ref: "Hê-bơ-rơ 13:15",
+        note: "Lời ngợi khen cất lên từ tấm lòng biết ơn của bạn không hề nhỏ bé; Kinh Thánh gọi đó là của lễ đẹp lòng Đức Chúa Trời dâng lên qua Chúa Jêsus.",
+      },
     ],
+    prayer:
+      "Hỡi Đức Giê-hô-va là Vua muôn đời, lòng con dâng tràn niềm kính yêu và chỉ muốn cất tiếng tôn vinh danh thánh Ngài. Mọi vinh quang, quyền năng và oai nghi đều thuộc về Chúa; nguyện cả đời con trở nên bài ca ngợi khen Ngài. A-men.",
   },
   {
     slug: "duoc-chua-yeu",
@@ -325,7 +435,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Ê-phê-sô 3:17–19",
         note: "Phao-lô cầu nguyện để ta cảm nhận được bề rộng, bề dài, bề cao, bề sâu của tình yêu vượt quá mọi hiểu biết.",
       },
+      {
+        ref: "Giăng 15:9",
+        note: "Chúa Jêsus đo tình yêu Ngài dành cho bạn bằng chính tình yêu Đức Chúa Cha dành cho Ngài — một tình yêu trọn vẹn mời bạn cứ yên nghỉ ở trong đó.",
+      },
+      {
+        ref: "Thi-thiên 36:7",
+        note: "Sự nhân từ của Đức Chúa Trời quý báu đến nỗi bạn có thể nương náu mình dưới bóng cánh Ngài như đứa trẻ được che chở an toàn tuyệt đối.",
+      },
     ],
+    prayer:
+      "Cha yêu thương ơi, thật diệu kỳ khi con được gọi là con cái Ngài và biết chẳng điều gì có thể tách con khỏi tình yêu Chúa. Xin giúp con lắng sâu trong vòng tay ân điển ấy hôm nay và học yêu người khác như Ngài đã yêu con. A-men.",
   },
 
   // === 2. Nỗi buồn, mất mát & cô đơn (14) ===
@@ -354,7 +474,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 30:5",
         note: "Đêm tối của nỗi buồn có thể kéo dài, nhưng buổi sáng của niềm vui chắc chắn sẽ trở lại.",
       },
+      {
+        ref: "2 Cô-rinh-tô 7:6",
+        note: "Chúa là Đấng yên ủi kẻ ngã lòng, và Ngài cũng hay dùng sự hiện diện ấm áp của một người bạn tin cậy để sẻ chia nỗi buồn cùng bạn.",
+      },
+      {
+        ref: "Giê-rê-mi 31:13",
+        note: "Dẫu hôm nay lòng bạn còn trĩu nặng, Chúa hứa Ngài có quyền đổi sự sầu thảm thành vui mừng và dịu dàng yên ủi bạn qua ngày buồn.",
+      },
     ],
+    prayer:
+      "Chúa ơi, hôm nay lòng con nặng trĩu một nỗi buồn chẳng dễ nói ra thành lời. Con không cố gượng cười trước mặt Ngài; xin Chúa ở sát bên lòng đang chùng xuống của con và dịu dàng yên ủi con trong sự hiện diện Ngài. A-men.",
   },
   {
     slug: "co-don",
@@ -381,7 +511,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Ma-thi-ơ 28:20",
         note: "Lời hứa cuối cùng của Chúa Jêsus trước khi về trời: Ngài ở cùng ta luôn luôn cho đến tận thế.",
       },
+      {
+        ref: "Giăng 16:32",
+        note: "Chính Chúa Jêsus từng cảm nhận nỗi lẻ loi khi người thân cận tản lạc, nên Ngài hiểu lòng bạn — và nhắc bạn rằng Cha vẫn đang ở cùng bạn.",
+      },
+      {
+        ref: "Ê-sai 41:13",
+        note: "Giữa cảm giác trơ trọi tưởng như chẳng ai kề bên, Đức Chúa Trời hứa chính Ngài nắm lấy tay phải bạn và âm thầm nâng đỡ bạn.",
+      },
     ],
+    prayer:
+      "Lạy Cha luôn ở cùng con, cảm giác lẻ loi lúc này khiến căn phòng quanh con như rộng và lặng hơn mọi ngày. Xin nắm lấy tay con, cho con cảm nhận thật rõ rằng con không hề trơ trọi, và dẫn đến những người bạn chân thành để cùng sẻ chia. A-men.",
   },
   {
     slug: "mat-nguoi-than",
@@ -408,7 +548,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 23:4",
         note: "Ngay cả khi phải bước đi qua thung lũng bóng tối của sự chết, Ngài vẫn ở cùng và an ủi bạn.",
       },
+      {
+        ref: "Ê-sai 25:8",
+        note: "Nỗi đau chia ly hôm nay là thật, nhưng Kinh Thánh giữ cho bạn lời hứa êm dịu: chính Chúa Giê-hô-va sẽ lau nước mắt khỏi mọi khuôn mặt và sự chết không còn tiếng nói cuối cùng.",
+      },
+      {
+        ref: "Rô-ma 14:8",
+        note: "Cả trong sự sống lẫn khi chia lìa, người tin Chúa đều thuộc về vòng tay Ngài — bạn không phải bước qua khoảng trống tang chế này một mình.",
+      },
     ],
+    prayer:
+      "Thưa Chúa Jêsus từng rơi nước mắt bên mộ bạn mình, khoảng trống khi người thương ra đi khiến lòng con đau thắt và nghẹn lời. Xin Ngài lặng lẽ ngồi bên con trong những ngày tang chế này, ôm ấp nỗi mất mát của gia đình con và giữ hy vọng sống lại cháy sáng trong lòng con. A-men.",
   },
   {
     slug: "tan-vo-that-tinh",
@@ -435,7 +585,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Rô-ma 8:28",
         note: "Ngay cả từ những mảnh vỡ tưởng như không thể cứu vãn, Chúa vẫn có thể dệt nên điều tốt lành cho chặng đường phía sau.",
       },
+      {
+        ref: "Ga-la-ti 2:20",
+        note: "Khi một mối tình đổ vỡ khiến bạn thấy mình không còn đáng được yêu, câu này nhắc bạn một tình yêu lớn hơn mọi đổi thay: Con Đức Chúa Trời đã yêu bạn và phó chính mình Ngài vì bạn.",
+      },
+      {
+        ref: "Hê-bơ-rơ 4:15–16",
+        note: "Giữa lúc trái tim rạn nứt và yếu đuối nhất, bạn không cần che giấu vết đau; hãy chạy đến ngôi ơn phước nơi Chúa Jêsus luôn cảm thông và tiếp sức đúng lúc.",
+      },
     ],
+    prayer:
+      "Lạy Cha nhân từ, trái tim con đang rạn nứt và đau nhói sau cuộc đổ vỡ này. Xin bàn tay Ngài nhẹ nhàng băng bó từng vết thương sâu kín trong lòng con, giữ con không đánh mất giá trị mình trong tình yêu bất biến của Đấng Christ. A-men.",
   },
   {
     slug: "tuyet-vong",
@@ -462,7 +622,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 34:17",
         note: "Khi người kêu cứu không còn tự cứu nổi mình, Đức Giê-hô-va lắng nghe và giải cứu họ khỏi mọi gian truân.",
       },
+      {
+        ref: "Giô-na 2:2–7",
+        note: "Ngay từ đáy vực sâu tối tăm nhất khi linh hồn gần như mòn mỏi, tiếng kêu cứu yếu ớt của Giô-na vẫn thấu tới Chúa — bạn cũng không bao giờ rơi xa quá tầm nghe của Ngài.",
+      },
+      {
+        ref: "Ma-thi-ơ 12:20",
+        note: "Khi sức lực bạn mỏng manh như cây sậy đã gãy và niềm hy vọng chỉ còn là ngọn đèn gần tàn, Chúa Jêsus không dập tắt hay chê bỏ, mà nâng niu giữ gìn bạn.",
+      },
     ],
+    prayer:
+      "Đức Chúa Trời ơi, lúc này con thấy mình như đang ở tận đáy vực và chẳng còn nhìn thấy lối ra nào trước mắt. Con chỉ biết cất tiếng kêu yếu ớt lên cùng Ngài; xin Chúa lắng nghe, gìn giữ ngọn đèn gần tàn trong lòng con và nâng con qua đêm tối này. A-men.",
   },
   {
     slug: "trong-rong-vo-nghia",
@@ -489,7 +659,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Giăng 4:13–14",
         note: "Những niềm vui trần gian khiến ta uống rồi lại khát, còn nguồn nước Chúa ban trở thành suối tuôn tràn từ bên trong.",
       },
+      {
+        ref: "Thi-thiên 107:9",
+        note: "Cảm giác trống rỗng báo hiệu linh hồn bạn đang đói khát điều bền vững thật sự; chỉ Đức Chúa Trời mới có thể làm lòng khao khát ấy được thỏa thích.",
+      },
+      {
+        ref: "Cô-lô-se 2:9–10",
+        note: "Thay vì chạy mãi từ việc này sang việc khác mà vẫn thấy nhạt nhòa, bạn được mời tìm sự đầy dẫy đích thực nơi chính Đấng Christ.",
+      },
     ],
+    prayer:
+      "Mọi thứ quanh con vẫn xoay vần mà bên trong con lại thấy trống rỗng và nhạt nhòa quá, lạy Chúa Jêsus. Xin tưới vào linh hồn đang khát của con nguồn nước sống của Ngài, để con tìm lại ý nghĩa thật và sự sống tràn đầy nơi Chúa. A-men.",
   },
   {
     slug: "chan-nan-mat-dong-luc",
@@ -516,7 +696,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Ê-sai 41:10",
         note: "Ngài không đòi bạn phải tự gồng lên thật mạnh, mà hứa chính tay phải công bình của Ngài sẽ nâng đỡ bạn.",
       },
+      {
+        ref: "Hê-bơ-rơ 12:3",
+        note: "Lúc lòng uể oải chỉ muốn bỏ dở mọi thứ, nhìn lên Chúa Jêsus — Đấng đã kiên trì đi trọn con đường đầy gian nan — giúp bạn có thêm sức để không sờn lòng.",
+      },
+      {
+        ref: "2 Sử-ký 15:7",
+        note: "Khi chưa thấy trái ngọt trước mắt, lời nhắc này tiếp sức cho đôi tay mỏi mệt của bạn: những nỗ lực trung tín của bạn không hề trôi vào hư không.",
+      },
     ],
+    prayer:
+      "Xin Chúa ghé thăm tấm lòng đang uể oải và cạn động lực của con hôm nay. Con chẳng có sức để tự ép mình bước tiếp; xin Ngài cho con được thở một hơi nhẹ nhõm, rồi thêm lại chút lửa ấm để con bền bỉ làm trọn phần việc nhỏ trước mắt. A-men.",
   },
   {
     slug: "nho-nha-xa-que",
@@ -543,7 +733,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Hê-bơ-rơ 11:13–16",
         note: "Nỗi nhớ quê hương trong lòng con người cũng nhắc ta về một quê hương tốt hơn mà Chúa đã sắm sẵn.",
       },
+      {
+        ref: "Giê-rê-mi 29:7",
+        note: "Khi phải sống xa quê nhà, Chúa dạy dân Ngài đừng khép mình cô lập mà hãy cầu bình an cho nơi mình đang ở — lòng bạn cũng sẽ tìm thấy sự ấm áp khi gắn bó với hiện tại.",
+      },
+      {
+        ref: "Giăng 14:2–3",
+        note: "Dẫu ở đất khách đôi lúc thấy chênh vênh như người ở trọ, bạn vẫn có một mái nhà vĩnh cửu mà chính Chúa Jêsus đang sắm sẵn dành riêng cho mình.",
+      },
     ],
+    prayer:
+      "Lạy Cha là mái nhà bình yên của con, sống xa gia đình khiến lòng con hôm nay cồn cào nhớ quê hương và người thân quá. Xin gìn giữ từng bước con đi nơi đất khách, che chở những người con yêu ở quê nhà, và làm chỗ nương náu ấm áp cho lòng con. A-men.",
   },
   {
     slug: "bi-bo-roi",
@@ -570,7 +770,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Hê-bơ-rơ 13:5–6",
         note: "Lời cam kết hai lần chắc chắn: ta sẽ chẳng lìa ngươi đâu, chẳng bỏ ngươi đâu.",
       },
+      {
+        ref: "1 Sa-mu-ên 12:22",
+        note: "Con người có thể quay lưng khi hết lợi ích hay tình cảm đổi thay, nhưng sự thành tín của Đức Chúa Trời gắn liền với chính danh Ngài nên Ngài chẳng bao giờ bỏ rơi bạn.",
+      },
+      {
+        ref: "Lu-ca 15:4–6",
+        note: "Bạn không phải một cái tên bị gạch bỏ giữa đám đông; trong mắt Đấng Chăn Hiền Lành, bạn quý giá đến mức Ngài đích thân đi tìm và vui mừng đón bạn về.",
+      },
     ],
+    prayer:
+      "Ôi Chúa không hề quên con, cảm giác bị người mình tin cậy quay lưng và bỏ lại phía sau thật đau buốt. Xin nhắc lòng con nhớ rằng tên con được khắc trong lòng bàn tay Ngài, và ôm ấp con bằng sự hiện diện chẳng bao giờ lìa bỏ của Chúa. A-men.",
   },
   {
     slug: "khong-duoc-yeu-thuong",
@@ -597,7 +807,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "1 Giăng 4:9–10",
         note: "Thước đo tình yêu thật không nằm ở cảm xúc bất chợt của người đời, mà ở việc Chúa đã yêu ta trước.",
       },
+      {
+        ref: "Ê-phê-sô 2:4–5",
+        note: "Tình yêu Chúa dành cho bạn không hề nhỏ giọt hay dè xẻn; Ngài giàu lòng thương xót và đã yêu bạn bằng một tình yêu lớn lao từ lúc bạn chẳng có gì đáng tự hào.",
+      },
+      {
+        ref: "Thi-thiên 86:15",
+        note: "Khi thấy xung quanh lạnh lẽo và tủi thân, bạn có thể tựa vào bản tính không đổi của Đức Chúa Trời: Đấng hay thương xót, làm ơn và dư dật sự nhân từ.",
+      },
     ],
+    prayer:
+      "Lạy Cha giàu lòng thương xót, lòng con lúc này thấy tủi thân và khát khao được quan tâm yêu thương biết bao. Xin tình yêu đời đời của Ngài sưởi ấm trái tim con, để con biết mình luôn quý giá trong mắt Chúa và không tìm kiếm giá trị nơi sự công nhận mong manh. A-men.",
   },
   {
     slug: "tu-ti-vo-gia-tri",
@@ -624,7 +844,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "1 Cô-rinh-tô 1:27–29",
         note: "Chúa thường chọn chính những điều thế gian coi là nhỏ bé, yếu đuối để làm nên những việc lớn lao.",
       },
+      {
+        ref: "Sáng-thế Ký 1:27",
+        note: "Giá trị của bạn không bắt đầu từ bằng cấp, ngoại hình hay thành tích; ngay từ nguồn gốc, bạn đã được Đức Chúa Trời dựng nên mang hình ảnh quý trọng của Ngài.",
+      },
+      {
+        ref: "1 Phi-e-rơ 2:9",
+        note: "Tiếng nói tự ti hay chê bạn kém cỏi và vô dụng, nhưng Đức Chúa Trời gọi người thuộc về Ngài là dân được lựa chọn và thuộc quyền sở hữu quý báu của Ngài.",
+      },
     ],
+    prayer:
+      "Kính lạy Đấng dựng nên con, những tiếng nói tự chê bai trong đầu cứ khiến con thấy mình nhỏ bé và chẳng ra gì. Xin cho con nghe rõ tiếng Ngài hơn tiếng tự ti, biết trân trọng sự sống Chúa đã dệt nên nơi con và bước đi vững vàng hơn mỗi ngày. A-men.",
   },
   {
     slug: "that-vong",
@@ -651,7 +881,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Thi-thiên 62:5–8",
         note: "Hãy đổ hết nỗi hụt hẫng ra trước mặt Chúa; Ngài là vầng đá đủ vững để tiếp nhận mọi tâm sự của bạn.",
       },
+      {
+        ref: "Hê-bơ-rơ 10:23",
+        note: "Kỳ vọng riêng của bạn có thể vỡ tan, nhưng Đấng bạn tin cậy vẫn vẹn nguyên sự thành tín — bạn có thể đặt lại chiếc neo hy vọng nơi chính Ngài.",
+      },
+      {
+        ref: "Gia-cơ 5:7–8",
+        note: "Khi điều bạn mong chờ chưa thành như ý, hình ảnh người làm ruộng nhẫn nại chờ mưa nhắc bạn giữ lòng bền vững và đừng vội buông mất niềm tin.",
+      },
     ],
+    prayer:
+      "Lạy Chúa thành tín, điều con dốc lòng trông đợi đã không thành như ý khiến tim con hụt hẫng và chưng hửng quá. Con dốc đổ hết nỗi thất vọng này trước mặt Ngài; xin giúp con tin rằng đường lối Chúa cao hơn suy tính ngắn hạn của con và kiên nhẫn bước tiếp. A-men.",
   },
   {
     slug: "ton-thuong-sau-sac",
@@ -678,7 +918,17 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "2 Cô-rinh-tô 1:3–4",
         note: "Đức Chúa Trời của mọi sự yên ủi ở bên an ủi ta trong từng cơn đau, để rồi mai này ta cũng biết nâng đỡ người khác.",
       },
+      {
+        ref: "Giê-rê-mi 30:17",
+        note: "Dù lời nói hay hành động của người khác làm lòng bạn đau nhói và cảm thấy bị bỏ mặc, Chúa vẫn đoái nhìn và sẵn sàng chữa lành từng vết thương ấy.",
+      },
+      {
+        ref: "1 Phi-e-rơ 2:23–24",
+        note: "Chúa Jêsus từng bị đối xử cay nghiệt mà “chẳng rủa lại”, nhưng “cứ phó mình cho Đấng xử đoán công bình”. Bạn cũng có thể trao nỗi oan ức này cho Ngài, Đấng hiểu thấu vết thương của bạn.",
+      },
     ],
+    prayer:
+      "Chúa ơi, vết đau trong lòng con lúc này thật sâu và nhức nhối vì những lời nói, việc làm vừa qua. Con mang vết thương còn rỉ máu này đặt trước mặt Ngài; xin Chúa lau khô nước mắt, giữ lòng con khỏi hóa cay đắng và chữa lành con từng bước dịu dàng. A-men.",
   },
   {
     slug: "khoc-loc-dau-long",
@@ -705,6 +955,16 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
         ref: "Truyền-đạo 3:1–4",
         note: "Cuộc đời có kỳ cười và cũng có kỳ khóc; cho phép mình khóc đúng lúc là bước đầu để lòng được chữa lành.",
       },
+      {
+        ref: "Hê-bơ-rơ 5:7",
+        note: "Chính Chúa Jêsus cũng từng khóc lóc kêu xin tha thiết khi ở giữa đời này, nên bạn đừng ngại rơi nước mắt trước mặt Chúa như một lời cầu nguyện chân thật.",
+      },
+      {
+        ref: "Khải-huyền 7:17",
+        note: "Hôm nay bạn cứ để nước mắt tuôn ra cho nhẹ lòng, đồng thời nhớ rằng Đấng Chăn giữ bạn rồi sẽ dẫn bạn đến suối nước sống và tự tay lau sạch mọi giọt lệ.",
+      },
     ],
+    prayer:
+      "Lạy Cha biết đếm từng giọt nước mắt của con, lòng con lúc này nghẹn ứ và chỉ muốn khóc thật lớn trước mặt Ngài. Cảm ơn Chúa không hề chê trách sự yếu đuối của con; xin lắng nghe tiếng khóc không thành lời này và nhẹ nhàng vỗ về tâm hồn con. A-men.",
   },
 ];

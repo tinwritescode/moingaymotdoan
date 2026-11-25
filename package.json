@@ -18,7 +18,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "db:migrate": "node --env-file=.env.local scripts/db-migrate.mjs",
-    "import-bible": "node scripts/import-bible.mjs"
+    "import-bible": "node scripts/import-bible.mjs",
+    "mood:review": "MOOD_REVIEW_OUT=${MOOD_REVIEW_OUT:-mood-review.md} vitest run lib/moods/review.export.test.ts"
   },
   "dependencies": {
     "@neon/config": "^1.14.6",

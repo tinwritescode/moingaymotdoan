@@ -2,7 +2,7 @@
 
 Dự án **Kinh Thánh — ghi chú từng đoạn** rất trân trọng mọi góp ý về thần học, dịch thuật, chính tả, cách diễn đạt cũng như cải tiến kỹ thuật từ anh chị em, mục sư và cộng đồng.
 
-Vì toàn bộ ghi chú giải kinh được biên soạn với sự hỗ trợ của AI (**Opus 5.5** ~15% và **Gemini Neon 5** phần còn lại), sự kiểm chứng và hiệu đính từ con người là điều vô cùng quý giá.
+Vì toàn bộ ghi chú giải kinh được biên soạn với sự hỗ trợ của AI (**Opus 5.5** ~15% và **Gemini Neon 4** phần còn lại), sự kiểm chứng và hiệu đính từ con người là điều vô cùng quý giá.
 
 ---
 

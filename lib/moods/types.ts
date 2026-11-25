@@ -26,6 +26,8 @@ export type MoodDefinition = {
   /** Từ khóa bổ sung hỗ trợ tìm kiếm nhanh. */
   keywords: readonly string[];
   passages: readonly MoodPassageDef[];
+  /** Lời cầu nguyện ngắn (1–3 câu) khép lại trang, xưng "con" với Chúa. */
+  prayer: string;
 };
 
 export type MoodSummary = {
@@ -64,6 +66,7 @@ export type MoodView = {
   intro: string;
   keywords: string[];
   passages: MoodPassageView[];
+  prayer: string;
   related: MoodSummary[];
   prev: MoodNavLink | null;
   next: MoodNavLink | null;

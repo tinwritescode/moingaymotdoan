@@ -75,4 +75,25 @@ describe("<MoodBrowser />", () => {
     );
     expectNoDiagnostics(artifact);
   });
+
+  test("giữ từ khóa và nhóm trên URL để bấm quay lại không mất bộ lọc", async () => {
+    window.history.replaceState(null, "", "/cam-xuc?q=buon");
+    const { artifact } = await captureArtifact(
+      () => {
+        const { container, getByRole } = render(() => <MoodBrowser index={SAMPLE} />);
+        flush();
+        expect(container.querySelectorAll("section a[href^='/cam-xuc/']")).toHaveLength(1);
+        expect((getByRole("searchbox") as HTMLInputElement).value).toBe("buon");
+
+        fireEvent.input(getByRole("searchbox"), { target: { value: "" } });
+        fireEvent.click(getByRole("button", { name: /Nỗi buồn/ }));
+        flush();
+        expect(window.location.search).toBe("?nhom=noi-buon");
+        expect(container.querySelectorAll("section a[href^='/cam-xuc/']")).toHaveLength(2);
+      },
+      { scenario: "mood-browser-url" },
+    );
+    expectNoDiagnostics(artifact);
+    window.history.replaceState(null, "", "/");
+  });
 });

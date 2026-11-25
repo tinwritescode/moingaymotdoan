@@ -1,9 +1,10 @@
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, onSettled, Show } from "solid-js";
 import { matchesMood, normalizeSearch } from "../../lib/moods/search";
 import type { MoodGroup, MoodIndex, MoodSummary } from "../../lib/moods/types";
 import { AI_NOTICE } from "../../lib/notice";
 import { moodHref } from "../router";
 import { ariaState } from "./aria";
+import { useUser } from "./user-context";
 
 /** 8 sắc thái dịu mắt tương ứng 8 nhóm cảm xúc (pha mềm vào nền thẻ, không chói). */
 const GROUP_HUES = [
@@ -36,6 +37,35 @@ const QUICK_SLUGS: readonly { slug: string; label: string; hue: string }[] = [
 export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string) => void }) {
   const [selectedGroup, setSelectedGroup] = createSignal<string>("tat-ca");
   const [search, setSearch] = createSignal("");
+  const { progressFor } = useUser();
+  const isRead = (slug: string) => progressFor("mood", slug) !== undefined;
+
+  /** Nhóm lấy từ URL chỉ được nhận khi có thật, nếu không thì hiện tất cả. */
+  const knownGroup = (id: string | null) => (id && props.index.groups.some((g) => g.id === id) ? id : "tat-ca");
+
+  /** Đổi bộ lọc và ghi vào URL (?q=, ?nhom=) để bấm quay lại hoặc gửi link vẫn giữ đúng kết quả. */
+  const updateFilter = (next: { q?: string; group?: string }) => {
+    // Lấy phần còn lại từ URL (ghi đồng bộ), không từ signal: signal chỉ cập nhật sau microtask.
+    const url = new URL(window.location.href);
+    const q = next.q ?? url.searchParams.get("q") ?? "";
+    const group = next.group ?? knownGroup(url.searchParams.get("nhom"));
+    setSearch(q);
+    setSelectedGroup(group);
+    if (q.trim()) url.searchParams.set("q", q.trim());
+    else url.searchParams.delete("q");
+    if (group !== "tat-ca") url.searchParams.set("nhom", group);
+    else url.searchParams.delete("nhom");
+    // replaceState giữ history.state của router (vị trí cuộn) và không tạo thêm mục lịch sử mỗi lần gõ.
+    if (url.href !== window.location.href) window.history.replaceState(window.history.state, "", url);
+  };
+  const resetFilter = () => updateFilter({ q: "", group: "tat-ca" });
+
+  // Đọc URL sau khi hydrate: trang tĩnh được prerender không có query nên đọc sớm hơn sẽ lệch HTML.
+  onSettled(() => {
+    const params = new URLSearchParams(window.location.search);
+    setSearch(params.get("q") ?? "");
+    setSelectedGroup(knownGroup(params.get("nhom")));
+  });
 
   const queryText = createMemo(() => normalizeSearch(search()));
 
@@ -71,7 +101,9 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
   });
 
   const pickRandom = () => {
-    const pool = filteredMoods().length > 0 ? filteredMoods() : props.index.moods;
+    const shown = filteredMoods().length > 0 ? filteredMoods() : props.index.moods;
+    const unread = shown.filter((m) => !isRead(m.slug));
+    const pool = unread.length > 0 ? unread : shown;
     if (pool.length === 0) return;
     const pick = pool[Math.floor(Math.random() * pool.length)];
     props.onRandom?.(pick.slug);
@@ -115,14 +147,14 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
               type="search"
               placeholder="Tìm: vui, buồn, lo âu, Thi-thiên…"
               value={search()}
-              onInput={(e) => setSearch(e.currentTarget.value)}
+              onInput={(e) => updateFilter({ q: e.currentTarget.value })}
               class="min-h-12 w-full rounded-full border border-rule bg-card py-2 pr-10 pl-11 text-[15px] text-ink placeholder:text-muted/80 focus:border-accent focus:outline-none [&::-webkit-search-cancel-button]:hidden"
             />
             <Show when={search().length > 0}>
               <button
                 type="button"
                 aria-label="Xóa từ khóa tìm kiếm"
-                onClick={() => setSearch("")}
+                onClick={() => updateFilter({ q: "" })}
                 class="absolute top-1/2 right-2 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-lg text-muted hover:bg-side hover:text-ink"
               >
                 ×
@@ -133,10 +165,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
           <Show when={search().trim().length > 0 || selectedGroup() !== "tat-ca"}>
             <button
               type="button"
-              onClick={() => {
-                setSearch("");
-                setSelectedGroup("tat-ca");
-              }}
+              onClick={resetFilter}
               class="min-h-12 cursor-pointer rounded-full border border-rule bg-card px-4 text-sm text-muted transition-colors hover:border-accent hover:text-ink"
             >
               Xóa lọc
@@ -166,7 +195,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
             <Show when={selectedGroup() !== "tat-ca"}>
               <button
                 type="button"
-                onClick={() => setSelectedGroup("tat-ca")}
+                onClick={() => updateFilter({ group: "tat-ca" })}
                 class="min-h-9 cursor-pointer rounded-full border border-rule bg-card px-3.5 text-xs text-muted hover:border-accent hover:text-ink"
               >
                 Tất cả ({props.index.moods.length})
@@ -187,7 +216,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
         <div
           role="group"
           aria-label="Lọc theo nhóm chủ đề"
-          class="mt-2.5 grid grid-cols-2 gap-2 font-sans sm:grid-cols-4"
+          class="-mx-5 mt-2.5 flex gap-2 overflow-x-auto px-5 pb-1 font-sans [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0"
         >
           <For each={props.index.groups}>
             {(g, idx) => {
@@ -197,15 +226,15 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
                 <button
                   type="button"
                   aria-pressed={ariaState(active())}
-                  onClick={() => setSelectedGroup(active() ? "tat-ca" : g.id)}
+                  onClick={() => updateFilter({ group: active() ? "tat-ca" : g.id })}
                   style={{ background: `color-mix(in srgb, ${hue()} 11%, var(--card))` }}
                   class={[
-                    "flex min-h-[5.25rem] cursor-pointer flex-col justify-between gap-2 rounded-2xl border p-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+                    "flex min-h-10 shrink-0 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-left whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-[5.25rem] sm:flex-col sm:items-start sm:justify-between sm:rounded-2xl sm:p-3 sm:whitespace-normal",
                     active() ? "border-accent ring-1 ring-accent" : "border-rule hover:border-accent/60",
                   ]}
                 >
                   <span class="text-[13px] leading-snug text-ink">{g.shortName}</span>
-                  <strong class="text-xl leading-none font-light text-muted">{countsByGroup().get(g.id) ?? 0}</strong>
+                  <strong class="text-sm leading-none font-light text-muted sm:text-xl">{countsByGroup().get(g.id) ?? 0}</strong>
                 </button>
               );
             }}
@@ -233,10 +262,7 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
             </p>
             <button
               type="button"
-              onClick={() => {
-                setSearch("");
-                setSelectedGroup("tat-ca");
-              }}
+              onClick={resetFilter}
               class="mt-5 min-h-11 cursor-pointer rounded-full bg-accent px-5 text-sm font-medium text-paper hover:opacity-90"
             >
               Xem lại cả {props.index.moods.length} chuyên mục
@@ -245,7 +271,9 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
         }
       >
         <For each={visibleSections()}>
-          {(section, i) => <GroupSection group={section.group} moods={section.moods} showBackToTop={i() > 0} />}
+          {(section, i) => (
+            <GroupSection group={section.group} moods={section.moods} showBackToTop={i() > 0} isRead={isRead} />
+          )}
         </For>
       </Show>
 
@@ -256,7 +284,12 @@ export function MoodBrowser(props: { index: MoodIndex; onRandom?: (slug: string)
   );
 }
 
-function GroupSection(props: { group: MoodGroup; moods: MoodSummary[]; showBackToTop: boolean }) {
+function GroupSection(props: {
+  group: MoodGroup;
+  moods: MoodSummary[];
+  showBackToTop: boolean;
+  isRead: (slug: string) => boolean;
+}) {
   return (
     <section id={props.group.id} aria-labelledby={`${props.group.id}-ten`} class="scroll-mt-20 pt-8">
       <div class="flex flex-wrap items-baseline justify-between gap-2">
@@ -280,15 +313,17 @@ function GroupSection(props: { group: MoodGroup; moods: MoodSummary[]; showBackT
             <li>
               <a
                 href={moodHref(m.slug)}
-                class="group flex h-full flex-col justify-between rounded-2xl border border-rule bg-card p-4 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                class="group block h-full rounded-2xl border border-rule bg-card px-4 py-3.5 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
-                <div>
+                <div class="flex items-baseline justify-between gap-3">
                   <h3 class="font-serif text-[17px] leading-snug font-semibold text-ink group-hover:text-accent">
                     {m.title}
                   </h3>
-                  <p class="mt-1 text-sm leading-relaxed text-muted">{m.prompt}</p>
+                  <Show when={props.isRead(m.slug)}>
+                    <span class="shrink-0 font-sans text-[11px] font-medium text-accent">✓ Đã đọc</span>
+                  </Show>
                 </div>
-                <p class="mt-2.5 font-sans text-xs font-medium text-accent">{m.passageCount} đoạn Kinh Thánh →</p>
+                <p class="mt-1 text-sm leading-relaxed text-muted">{m.prompt}</p>
               </a>
             </li>
           )}

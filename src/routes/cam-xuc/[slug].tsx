@@ -9,6 +9,7 @@ import { FloatingDock } from "../../components/floating-dock";
 import { NotFound } from "../../components/not-found";
 import { MoodVisitRecorder } from "../../components/reading-tracker";
 import { Seo } from "../../components/seo";
+import { ShareButton } from "../../components/share-button";
 import { SiteHeader } from "../../components/site-header";
 import { VerseText } from "../../components/verse-text";
 import { getMood, getToc } from "../../data";
@@ -55,7 +56,10 @@ export default function CamXucDetailPage(props: RouteProps<typeof route>) {
               <h1 class="mt-2 font-display text-3xl leading-tight font-light tracking-tight text-ink sm:text-[2.2rem]">
                 {mood().title}
               </h1>
-              <p class="mt-1.5 font-sans text-sm text-muted">{mood().prompt}</p>
+              <div class="mt-1.5 flex items-start justify-between gap-3">
+                <p class="font-sans text-sm text-muted">{mood().prompt}</p>
+                <ShareButton title={mood().title} text={mood().prompt} />
+              </div>
               <p class="mt-5 border-l-[3px] border-accent py-1 pl-4 text-base leading-[1.75] text-ink/90">
                 {mood().intro}
               </p>
@@ -113,6 +117,13 @@ export default function CamXucDetailPage(props: RouteProps<typeof route>) {
                   )}
                 </For>
               </ol>
+            </section>
+
+            <section aria-labelledby="loi-cau-nguyen" class="mt-8 rounded-3xl bg-side px-5 py-5">
+              <h2 id="loi-cau-nguyen" class="font-sans text-xs font-medium text-accent">
+                Lời cầu nguyện
+              </h2>
+              <p class="mt-2 font-serif text-[1.075rem] leading-[1.8] text-ink italic">{mood().prayer}</p>
             </section>
 
             <Show when={mood().related.length > 0}>

@@ -3,6 +3,7 @@ import { GIA_DINH_VA_DINH_HUONG } from "./groups/gia-dinh-va-dinh-huong";
 import { LO_AU_VA_TUC_GIAN } from "./groups/lo-au-va-tuc-gian";
 import { NIEM_VUI_VA_NOI_BUON } from "./groups/niem-vui-va-noi-buon";
 import { TOI_LOI_VA_THU_THACH } from "./groups/toi-loi-va-thu-thach";
+export { auditMoods, MOOD_STANDARD, quotedPieces, type MoodIssue } from "./audit";
 export { matchesMood, normalizeSearch } from "./search";
 import type {
   MoodDefinition,
@@ -218,6 +219,7 @@ export function createMoodCatalog(args: {
         intro: entry.def.intro,
         keywords: [...entry.def.keywords],
         passages,
+        prayer: entry.def.prayer,
         related,
         prev: navLink(resolved[idx - 1]),
         next: navLink(resolved[idx + 1]),

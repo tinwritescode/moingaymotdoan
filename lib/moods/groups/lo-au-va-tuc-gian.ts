@@ -28,7 +28,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 12:25",
         note: "Sự lo lắng đè nặng làm lòng sờn xuống, còn một lời lành và sự sẻ chia nâng lòng đứng dậy.",
       },
+      {
+        ref: "Thi-thiên 94:19",
+        note: "Những lúc đầu óc bạn bộn bề hàng loạt suy nghĩ rối rắm về tương lai, sự an ủi của Chúa có thể làm dịu lại và vui vẻ linh hồn bạn.",
+      },
+      {
+        ref: "Giăng 14:1",
+        note: "Lời khuyên ngắn gọn mà vững chãi của Chúa Jêsus: thay vì để kịch bản ngày mai làm lòng bối rối, bạn có thể neo niềm tin vào Đức Chúa Trời và vào chính Ngài.",
+      },
     ],
+    prayer:
+      "Lạy Cha nắm giữ ngày mai, đầu óc con đang quay cuồng với biết bao kịch bản lo lắng chưa hề xảy ra. Xin giúp con trút hết mọi gánh nặng tương lai xuống trước mặt Ngài, thở chậm lại và sống trọn vẹn bình an trong ngày hôm nay. A-men.",
   },
   {
     slug: "so-hai",
@@ -55,7 +65,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "1 Giăng 4:18",
         note: "Tình yêu trọn vẹn của Đức Chúa Trời từng bước đẩy lùi nỗi sợ hãi ra khỏi lòng.",
       },
+      {
+        ref: "Rô-ma 8:15",
+        note: "Bạn không phải sống như kẻ tôi mọi luôn co rúm trong sợ hãi; nhờ Thánh Linh, bạn là con yêu dấu có thể cất tiếng gọi Đức Chúa Trời là Cha ngay lúc bất an.",
+      },
+      {
+        ref: "Châm-ngôn 3:25–26",
+        note: "Trước những nỗi sợ ập đến bất ngờ làm bạn chùn bước, Đức Giê-hô-va là chỗ nương cậy vững vàng giúp gìn giữ từng bước chân bạn.",
+      },
     ],
+    prayer:
+      "A-ba Cha ơi, nỗi sợ hãi và bất an lúc này khiến tim con đập nhanh và chẳng dám bước tới. Con chạy vào dưới bóng cánh của Đấng Toàn năng; xin tình yêu trọn vẹn của Ngài đẩy lùi sự kinh hãi và cho con bước đi dạn dĩ hơn. A-men.",
   },
   {
     slug: "cang-thang-qua-tai",
@@ -82,7 +102,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Xuất Ê-díp-tô Ký 33:14",
         note: "Trước áp lực khổng lồ dẫn dắt cả một dân tộc, Chúa hứa với Môi-se: chính mặt Ta sẽ đi cùng và ban sự yên nghỉ cho ngươi.",
       },
+      {
+        ref: "Ê-sai 30:15",
+        note: "Khi guồng quay áp lực thúc bạn chạy nhanh hơn nữa, Chúa lại chỉ hướng ngược lại: sức mạnh thật đến với bạn từ việc dừng lại yên lặng và trông cậy nơi Ngài.",
+      },
+      {
+        ref: "Lu-ca 10:41–42",
+        note: "Như lời Chúa Jêsus dịu dàng gọi tên Ma-thê giữa lúc tất bật rối bời, Ngài nhắc bạn giữa trăm việc dồn dập vẫn có một điều cần nhất: ngồi yên bên chân Chúa.",
+      },
     ],
+    prayer:
+      "Công việc và trách nhiệm chất chồng khiến con thấy căng thẳng và ngộp thở quá, lạy Chúa. Xin dạy con biết đặt những gánh nặng quá sức xuống dưới chân Ngài, chọn phần tốt nhất là lắng lòng bên Chúa và nhận lại sự yên nghỉ thật. A-men.",
   },
   {
     slug: "mat-ngu-dem-khuya",
@@ -109,7 +139,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 3:24",
         note: "Khi lòng tựa nương vào sự khôn ngoan của Chúa, nằm xuống sẽ chẳng kinh sợ và giấc ngủ trở nên êm dịu.",
       },
+      {
+        ref: "Phi-líp 4:8",
+        note: "Khi tâm trí cứ tua đi tua lại những chuyện rối ren lúc nửa đêm, bạn có thể nhẹ nhàng chuyển hướng suy nghĩ sang những điều chân thật, tốt lành và đáng biết ơn.",
+      },
+      {
+        ref: "Ê-sai 26:3",
+        note: "Khi đầu óc cứ chạy mãi lúc nửa đêm, bạn có thể đặt từng ý nghĩ vào tay Chúa: ai “để trí mình nương dựa nơi Ngài” thì được Ngài gìn giữ trong sự bình yên.",
+      },
     ],
+    prayer:
+      "Đêm đã khuya lắm rồi, lạy Chúa là Đấng chẳng hề ngủ gật, mà mắt con vẫn mở trừng với bao suy nghĩ ngổn ngang. Con giao hết mọi việc chưa xong của ngày hôm nay vào tay Ngài; xin dỗ dịu tâm trí con để con được nằm xuống và ngủ một giấc bình yên. A-men.",
   },
   {
     slug: "hoang-mang-nga-re",
@@ -136,7 +176,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Ê-sai 30:21",
         note: "Khi sắp rẽ sang phải hay sang trái, lắng lòng sẽ nghe tiếng dẫn đường: đây là con đường, hãy đi theo nó.",
       },
+      {
+        ref: "Giăng 10:3–4",
+        note: "Bạn không cần tự vẽ hết bản đồ đường dài khi đứng trước ngã rẽ; Đấng Chăn Hiền Lành luôn đi trước, gọi đích danh và dẫn bạn từng bước một.",
+      },
+      {
+        ref: "Cô-lô-se 1:9–10",
+        note: "Lời cầu nguyện của Phao-lô cũng là điều bạn có thể thưa với Chúa lúc phân vân: xin Ngài ban sự khôn ngoan để nhận biết ý muốn Ngài và bước đi vững vàng.",
+      },
     ],
+    prayer:
+      "Lạy Đấng Chăn dắt đời con, đứng trước ngã rẽ này con thật hoang mang và sợ mình chọn sai hướng. Xin Lời Ngài làm ngọn đèn soi rõ ngay dưới bàn chân con hôm nay, mở tai con nghe rõ tiếng Chúa và ban sự sáng suốt cho quyết định trước mắt. A-men.",
   },
   {
     slug: "so-that-bai",
@@ -163,7 +213,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Rô-ma 8:31",
         note: "Khi Đức Chúa Trời đứng về phía bạn, nỗi sợ thất bại không còn tiếng nói cuối cùng trên đời bạn nữa.",
       },
+      {
+        ref: "1 Sử-ký 28:20",
+        note: "Trước nhiệm vụ lớn khiến bạn run tay sợ làm hỏng, lời khích lệ Đa-vít trao cho Sa-lô-môn cũng nhắc bạn: hãy mạnh dạn bắt tay làm vì Chúa đồng hành cho đến trọn việc.",
+      },
+      {
+        ref: "Ma-thi-ơ 25:21",
+        note: "Chúa không đòi hỏi bạn phải hoàn hảo không một vết xước; điều Ngài trân trọng và khen ngợi nơi bạn là tấm lòng ngay lành và trung tín từng việc nhỏ.",
+      },
     ],
+    prayer:
+      "Thưa Cha, nỗi sợ làm hỏng việc và không đủ giỏi đang khiến con chùn chân ngay trước vạch xuất phát. Xin cất đi nỗi ám ảnh phải hoàn hảo, cho con can đảm bước tới bằng lòng trung tín và tin rằng sức mạnh Ngài luôn nâng đỡ ngay trong sự yếu đuối của con. A-men.",
   },
   {
     slug: "so-bi-tu-choi",
@@ -190,7 +250,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "1 Phi-e-rơ 2:4",
         note: "Chính Chúa Jêsus cũng từng bị loài người loại bỏ, nhưng trước mặt Đức Chúa Trời Ngài là viên đá được chọn và quý báu.",
       },
+      {
+        ref: "1 Sa-mu-ên 16:7",
+        note: "Ánh mắt đánh giá của người đời thường chỉ dừng ở vẻ bề ngoài chóng thay đổi, còn Đức Chúa Trời nhìn thấu và trân trọng tấm lòng chân thật bên trong bạn.",
+      },
+      {
+        ref: "Rô-ma 15:7",
+        note: "Nỗi lo bị khước từ sẽ nhẹ đi nhiều khi bạn nhớ rằng chính Đấng Christ đã rộng vòng tay tiếp nhận bạn trước hết — bạn không cần gồng mình mua lấy sự công nhận.",
+      },
     ],
+    prayer:
+      "Lạy Chúa thấu suốt lòng con, con thật mệt mỏi khi cứ sống căng thẳng theo ánh mắt khen chê của người xung quanh. Cảm ơn Ngài đã tiếp nhận con cách trọn vẹn trong Đấng Christ; xin giải phóng con khỏi chiếc bẫy sợ loài người để con sống chân thật và đẹp ý Ngài. A-men.",
   },
   {
     slug: "so-benh-tat",
@@ -217,7 +287,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Giê-rê-mi 17:14",
         note: "Lời cầu nguyện thẳng thắn, bình dị dâng lên Đấng duy nhất có quyền chữa lành và cứu rỗi thật sự.",
       },
+      {
+        ref: "Ma-thi-ơ 10:29–31",
+        note: "Khi chờ kết quả khám hay lo lắng về thân thể mong manh, Chúa Jêsus nhắc bạn rằng ngay cả từng sợi tóc trên đầu bạn Cha cũng đếm hết — bạn đang ở trong sự chăm sóc rất sát sao.",
+      },
+      {
+        ref: "Rô-ma 8:11",
+        note: "Dù thân thể con người có giới hạn và dễ suy yếu, Thánh Linh sự sống đang ngự trong bạn giữ cho bạn niềm hy vọng vững vàng vượt trên nỗi lo bệnh tật.",
+      },
     ],
+    prayer:
+      "Lạy Đức Chúa Trời nắm giữ từng nhịp thở của con, nỗi lo về sức khỏe và sự mong manh của thân thể khiến lòng con bất an lắm. Con phó thác thân xác mình trong sự chăm sóc dịu dàng của Ngài; xin giữ tâm trí con bình tĩnh và lòng con luôn được đổi mới trong Chúa. A-men.",
   },
   {
     slug: "so-cai-chet",
@@ -244,7 +324,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Thi-thiên 116:15",
         note: "Trước mặt Đức Giê-hô-va, ngày qua đời của người thuộc về Ngài không phải sự bỏ quên, mà là điều vô cùng quý giá.",
       },
+      {
+        ref: "Khải-huyền 1:17–18",
+        note: "Chính Đấng cầm “chìa khóa của sự chết và âm phủ” đặt tay trên bạn mà phán “Đừng sợ chi” — Ngài đã đi qua sự chết trước bạn và nay sống đời đời.",
+      },
+      {
+        ref: "Thi-thiên 48:14",
+        note: "Bạn không phải bước vào bóng tối cuối cùng một mình; Đức Chúa Trời đời đời hứa chính Ngài sẽ dẫn dắt bạn xuyên suốt cuộc đời cho đến tận phút sau cùng.",
+      },
     ],
+    prayer:
+      "Chúa Jêsus là Đấng Sống đời đời ơi, nghĩ đến sự hữu hạn của kiếp người đôi lúc vẫn làm lòng con rùng mình bất an. Tạ ơn Ngài đã chiến thắng sự chết và nắm giữ chìa khóa sự sống; xin dắt tay con suốt những ngày trên đất và giữ con bình yên trong niềm hy vọng đời sau. A-men.",
   },
   {
     slug: "khong-biet-cau-nguyen",
@@ -271,7 +361,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Thi-thiên 62:8",
         note: "Cầu nguyện đơn giản là dốc đổ nguyên vẹn tấm lòng mình ra trước mặt Chúa — cả nỗi buồn lẫn sự rối ren.",
       },
+      {
+        ref: "Thi-thiên 139:4",
+        note: "Bạn không cần sắp câu chữ cho trôi chảy mới dám đến với Chúa: “lời chưa ở trên lưỡi tôi”, Ngài đã biết trọn hết rồi. Cứ thưa với Ngài bằng những lời vụng về nhất.",
+      },
+      {
+        ref: "Lu-ca 11:1–4",
+        note: "Ngay cả các môn đồ đi sát bên Chúa Jêsus cũng từng phải thưa rằng xin dạy chúng tôi cầu nguyện — bài cầu nguyện mẫu rất ngắn gọn của Ngài là điểm khởi đầu dịu dàng cho bạn hôm nay.",
+      },
     ],
+    prayer:
+      "Cha ơi, lúc này lòng con ngổn ngang quá đến nỗi chẳng biết phải bắt đầu cầu nguyện từ đâu hay nói thế nào cho phải. Con chỉ xin ngồi im trước mặt Ngài, nhờ Đức Thánh Linh chuyển thấu những tiếng thở dài chưa thành lời của con lên cùng Cha. A-men.",
   },
   {
     slug: "mat-kiem-soat",
@@ -298,7 +398,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 19:21",
         note: "Giữa bao dự tính thay đổi của con người, mục đích tốt lành của Đức Giê-hô-va vẫn đứng vững bền.",
       },
+      {
+        ref: "Đa-ni-ên 2:20–21",
+        note: "Khi mọi dự tính tuột khỏi tay bạn, lời ngợi khen của Đa-ni-ên nhắc bạn rằng thời cuộc, mùa màng và lịch sử vẫn đang nằm gọn trong sự khôn ngoan và quyền năng của Chúa.",
+      },
+      {
+        ref: "Gia-cơ 4:13–15",
+        note: "Gia-cơ nhẹ nhàng giúp bạn buông bỏ áp lực phải tự kiểm soát mọi chuyện ngày mai, và tập phó thác từng kế hoạch trong sự dẫn dắt của Chúa.",
+      },
     ],
+    prayer:
+      "Lạy Chúa tể trị muôn vật, mọi kế hoạch con vạch ra bỗng đổ bể và mọi thứ vượt khỏi tầm tay làm con chới với quá. Con xin mở đôi tay đang cố gồng giữ ra để trao quyền điều khiển đời con lại cho Ngài, xin giữ lòng con bình tĩnh giữa sóng gió. A-men.",
   },
   {
     slug: "cho-doi-moi-mon",
@@ -325,7 +435,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Ha-ba-cúc 2:3",
         note: "Lời hứa của Chúa luôn có thời điểm đã định sẵn; dẫu thấy dường như chậm trễ, nó nhất định sẽ đến đúng lúc.",
       },
+      {
+        ref: "Hê-bơ-rơ 10:35–36",
+        note: "Chờ đợi dài ngày rất dễ làm bạn nản chí và muốn bỏ dở, nhưng thư Hê-bơ-rơ khuyên bạn giữ lòng dạn dĩ cùng sự nhịn nhục để bước tiếp theo ý Chúa.",
+      },
+      {
+        ref: "Rô-ma 8:24–25",
+        note: "Hy vọng thật chỉ hiện rõ khi kết quả chưa nằm trong tầm mắt; sự chờ đợi kiên nhẫn lúc này chính là cách đức tin của bạn được rèn sâu hơn.",
+      },
     ],
+    prayer:
+      "Thưa Chúa, chờ đợi mãi mà bước ngoặt vẫn chưa tới khiến lòng con sốt ruột và mỏi mòn lắm rồi. Xin ban cho con sự nhịn nhục bình tĩnh trong khoảng lặng này, giúp con tin vào kỳ định khôn ngoan của Ngài và tiếp tục trung tín làm điều phải hôm nay. A-men.",
   },
 
   // === 4. Tức giận, xung đột & tha thứ (12) ===
@@ -354,7 +474,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 16:32",
         note: "Người kìm giữ được cơn nóng giận của chính mình còn bản lĩnh hơn cả vị tướng đánh chiếm được một thành trì.",
       },
+      {
+        ref: "Truyền-đạo 7:9",
+        note: "Cơn giận bốc lên quá nhanh thường che mờ sự sáng suốt của bạn; dừng lại một nhịp giúp bạn không để sự nóng nảy dẫn dắt hành động mình.",
+      },
+      {
+        ref: "Cô-lô-se 3:8",
+        note: "Phao-lô khuyên bạn dứt khoát cởi bỏ cơn thịnh nộ và lời nặng nề như cởi bỏ chiếc áo cũ, để lời nói của bạn không gây thêm vết thương mới.",
+      },
     ],
+    prayer:
+      "Chúa ơi, cơn nóng giận lúc này đang bốc lên trong lòng con và khiến con muốn bật ra những lời gay gắt. Xin ghìm giữ miệng môi con lại, cho con chậm nói, chậm giận và đủ bình tĩnh để đáp lời cách khôn ngoan, êm dịu. A-men.",
   },
   {
     slug: "cay-dang-oan-han",
@@ -381,7 +511,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Châm-ngôn 14:30",
         note: "Một tấm lòng bình tĩnh nuôi dưỡng sức sống cho thân thể, còn lòng ghen tức cay đắng làm héo mòn từ bên trong.",
       },
+      {
+        ref: "Lê-vi Ký 19:18",
+        note: "Ngay từ Cựu Ước, Chúa đã căn dặn bạn đừng giữ mãi mối hận trong lòng; buông sự oán giận chính là cách bạn bảo vệ tâm hồn mình khỏi khô héo.",
+      },
+      {
+        ref: "1 Phi-e-rơ 2:1–2",
+        note: "Cởi bỏ lòng độc ác, ghen ghét hay nói hành chưa đủ; Phi-e-rơ mời bạn lấp đầy lại khoảng trống ấy bằng Lời Chúa tinh sạch để tâm hồn được lớn lên lành mạnh.",
+      },
     ],
+    prayer:
+      "Lạy Cha hay thương xót, vết đau cũ ở lại lâu quá đã dần hóa thành nỗi cay đắng gặm nhấm lòng con mỗi ngày. Con không muốn giữ rễ đắng này thêm nữa; xin ân điển Ngài nhẹ nhàng nhổ bỏ sự oán hận và thay vào đó sự dịu dàng, bình an của Chúa. A-men.",
   },
   {
     slug: "bi-phan-boi",
@@ -408,7 +548,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "2 Ti-mô-thê 4:16–17",
         note: "Khi mọi người quanh Phao-lô bỏ mặc ông giữa tòa án, chính Chúa đứng sát bên thêm sức và gìn giữ ông.",
       },
+      {
+        ref: "Lu-ca 22:47–48",
+        note: "Chính Chúa Jêsus cũng từng bị một người trong nhóm thân cận nhất phản bội bằng nụ hôn — Ngài thấu rõ nỗi choáng váng và đau buốt bạn đang mang.",
+      },
+      {
+        ref: "Mi-chê 7:7",
+        note: "Khi lòng tin nơi người thân cận bị rạn vỡ, tiên tri Mi-chê chỉ cho bạn chỗ đứng duy nhất không bao giờ phản bội bạn: ngước trông Đức Chúa Trời.",
+      },
     ],
+    prayer:
+      "Thưa Chúa Jêsus từng bị người thân cận phản bội, nỗi đau bị chính người mình tin cậy quay lưng khiến lòng con tan nát và bàng hoàng quá. Xin Ngài ở gần an ủi con, giữ trái tim con khỏi hóa lạnh băng và giúp con đặt trọn niềm tin nơi Đấng thành tín duy nhất. A-men.",
   },
   {
     slug: "bi-vu-khong-hieu-lam",
@@ -435,7 +585,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Thi-thiên 31:20",
         note: "Chúa có nơi kín đáo để che chở người ngay thẳng khỏi mưu gian và những lời tranh cãi cay nghiệt của lưỡi người đời.",
       },
+      {
+        ref: "1 Cô-rinh-tô 4:3–5",
+        note: "Khi lời thanh minh của bạn không ai chịu nghe, Phao-lô nhắc bạn rằng tòa án sau cùng thuộc về Chúa — Đấng sẽ đưa mọi sự thật ra ánh sáng đúng kỳ.",
+      },
+      {
+        ref: "Ê-sai 54:17",
+        note: "Những lời đặt điều hay xét đoán oan uổng có thể làm bạn đau lòng hôm nay, nhưng Chúa là Đấng bảo vệ sự công bình của bạn và không lời vu khống nào đứng vững mãi.",
+      },
     ],
+    prayer:
+      "Lạy Đấng xét đoán công bình, mang tiếng oan và bị hiểu lầm khiến lòng con bức bối và chỉ muốn phân bua cho bằng được. Xin cho con sự bình tĩnh để phó thác thanh danh mình trong tay Chúa, giữ lòng ngay sạch và tin Ngài sẽ làm sáng tỏ sự thật đúng lúc. A-men.",
   },
   {
     slug: "ghen-ti-so-sanh",
@@ -462,7 +622,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Giăng 21:21–22",
         note: "Khi Phi-e-rơ quay sang so sánh số phận mình với Giăng, Chúa Jêsus nhẹ nhàng kéo ông lại: việc người ấy có can gì đến ngươi, ngươi hãy theo Ta.",
       },
+      {
+        ref: "Truyền-đạo 4:4",
+        note: "Chạy đua chỉ vì lòng ganh tị với thành công của người khác rút cuộc chỉ để lại sự mệt mỏi hư không; bạn có thể bước ra khỏi cuộc đua vô nghĩa ấy hôm nay.",
+      },
+      {
+        ref: "1 Cô-rinh-tô 13:4–6",
+        note: "Tình yêu thương thật không ghen tị trước niềm vui của người khác; khi bạn thôi so đo hơn thua, lòng bạn mới đủ rộng để thật sự mừng cho họ và yên vui với phần mình.",
+      },
     ],
+    prayer:
+      "Cha ơi, con thú nhận lòng mình hay chạnh lòng và ghen tị mỗi khi thấy người khác thuận lợi hơn con. Xin kéo mắt con khỏi bàn cân so đo ấy, giúp con biết ơn con đường riêng Chúa trao cho con và tập thật lòng mừng vui cùng người bên cạnh. A-men.",
   },
   {
     slug: "muon-tra-thu",
@@ -489,7 +659,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "1 Phi-e-rơ 3:9",
         note: "Đáp lại lời sỉ nhục bằng sự điềm tĩnh và chúc phước là dấu hiệu của sức mạnh tinh thần thật sự.",
       },
+      {
+        ref: "1 Sa-mu-ên 24:12",
+        note: "Ngay khi có cơ hội hạ gục người đang săn đuổi mình, Đa-vít vẫn chọn dừng tay lại và trao việc xét xử cho Đức Giê-hô-va — đó cũng là tự do dành cho bạn.",
+      },
+      {
+        ref: "Ma-thi-ơ 5:38–39",
+        note: "Chúa Jêsus bẻ gãy quy luật ăn miếng trả miếng để bạn không bị kéo vào vòng xoáy trả đũa bất tận, mà giữ được phẩm giá và sự tự chủ trong ân điển Ngài.",
+      },
     ],
+    prayer:
+      "Lạy Chúa công chính, khi bị đối xử tệ bạc, trong con chỉ muốn đáp trả ngay cho bõ tức. Xin giữ đôi tay và lời nói con khỏi chạy theo cơn trả đũa, giúp con nhường quyền xét xử lại cho Ngài và lấy điều thiện thắng điều ác. A-men.",
   },
   {
     slug: "kho-tha-thu-nguoi-khac",
@@ -516,7 +696,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Lu-ca 23:34",
         note: "Ngay trên thập tự giá giữa cơn đau cực độ, Chúa Jêsus cầu xin Cha tha thứ cho kẻ đóng đinh mình — mẫu gương vượt trên sức người.",
       },
+      {
+        ref: "Sáng-thế Ký 45:5–8",
+        note: "Bị chính anh ruột bán làm nô lệ, Giô-sép vẫn tha thứ được không phải vì xem nhẹ lỗi họ, mà vì ông tin Đức Chúa Trời lớn hơn mưu hại của con người — góc nhìn ấy cũng giúp lòng bạn nhẹ dần.",
+      },
+      {
+        ref: "Châm-ngôn 19:11",
+        note: "Tha thứ không phải là dấu hiệu bạn yếu đuối hay chịu thua; Kinh Thánh gọi sự khôn ngoan biết bỏ qua lỗi phạm là danh dự của một tấm lòng lớn.",
+      },
     ],
+    prayer:
+      "Chúa Jêsus ơi, con biết mình nên tha thứ nhưng vết thương trong lòng con vẫn còn đau lắm, tự sức con không sao buông nổi. Xin nhắc con nhớ Ngài đã tha thứ con nhiều nhường nào, và từng bước giúp con trao món nợ này vào tay Chúa để lòng con được tự do. A-men.",
   },
   {
     slug: "kho-tha-thu-chinh-minh",
@@ -543,7 +733,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Phi-líp 3:13–14",
         note: "Phao-lô từng có quá khứ rất nặng nề, nhưng ông chọn quên lửng điều ở đằng sau để bươn tới điều ở đằng trước.",
       },
+      {
+        ref: "Ê-sai 43:25",
+        note: "Nếu chính Đức Chúa Trời đã xóa sạch lỗi phạm và chọn không nhắc lại tội cũ của bạn nữa, bạn cũng có thể nhẹ nhàng buông xuống chiếc búa tự kết án mình.",
+      },
+      {
+        ref: "Hê-bơ-rơ 8:12",
+        note: "Giao ước mới của Chúa bảo đảm sự tha thứ trọn vẹn chứ không nửa vời — khi bạn đã ăn năn quay về, đừng tiếp tục giam mình trong bản án Chúa đã xé bỏ.",
+      },
     ],
+    prayer:
+      "Lạy Cha hay tha thứ, dù con đã xưng tội và ăn năn rồi nhưng lòng con vẫn cứ tự dằn vặt và kết án mình mãi về sai lầm cũ. Xin giúp con tin nhận trọn vẹn ơn tha thứ Ngài đã tuyên bố trong Đấng Christ, để con thôi nhìn lại quá khứ mà bước tiếp bình an. A-men.",
   },
   {
     slug: "cai-va-bat-hoa",
@@ -570,7 +770,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Ma-thi-ơ 5:23–24",
         note: "Chúa đặt việc chủ động làm hòa với anh em mình lên vị trí rất quan trọng, ngay trước cả nghi lễ thờ phượng.",
       },
+      {
+        ref: "2 Ti-mô-thê 2:24–25",
+        note: "Giữa lúc căng thẳng muốn tranh cho bằng được phần thắng, Phao-lô nhắc bạn đừng ưa tranh cạnh, mà chọn thái độ tử tế, nhịn nhục và mềm mại để mở lối đối thoại.",
+      },
+      {
+        ref: "Gia-cơ 3:17–18",
+        note: "Sự khôn ngoan từ Chúa không châm ngòi cho cuộc cãi vã gay gắt hơn, mà giúp bạn chọn lời hòa thuận, nhu mì để gieo lại bình an cho mối quan hệ.",
+      },
     ],
+    prayer:
+      "Lạy Chúa của sự hòa bình, cuộc tranh cãi vừa rồi làm bầu không khí trở nên nặng nề và cả hai bên đều mệt mỏi. Xin hạ cái tôi đang muốn thắng thua của con xuống, ban cho con lời nói dịu dàng và lòng khiêm nhường để chủ động giữ sự hòa thuận. A-men.",
   },
   {
     slug: "chiu-bat-cong",
@@ -597,7 +807,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "1 Phi-e-rơ 2:19–20",
         note: "Chịu thiệt thòi oan ức vì chọn làm điều ngay thẳng là điều được Đức Chúa Trời ghi nhận và trân quý.",
       },
+      {
+        ref: "Ê-sai 30:18",
+        note: "Khi thấy sự bất công kéo dài mà chưa được giải quyết, lời này nhắc bạn rằng Đức Giê-hô-va là Đức Chúa Trời công nghĩa và Ngài không hề làm ngơ trước người trông đợi Ngài.",
+      },
+      {
+        ref: "A-mốt 5:24",
+        note: "Nỗi bất bình của bạn trước điều bất công chạm đúng tấm lòng Đức Chúa Trời — Đấng mong thấy sự chánh trực và công bình tuôn chảy mạnh mẽ như dòng sông chẳng cạn.",
+      },
     ],
+    prayer:
+      "Ôi Đức Chúa Trời công nghĩa, chứng kiến sự bất công và chịu thiệt thòi vô lý khiến lòng con bức xúc và tủi hờn lắm. Xin giữ con khỏi chai sạn hay thỏa hiệp với cái sai, thêm sức cho con tiếp tục sống ngay thẳng và tin cậy công lý sau cùng ở nơi Ngài. A-men.",
   },
   {
     slug: "mat-niem-tin-con-nguoi",
@@ -624,7 +844,17 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "1 Cô-rinh-tô 13:7",
         note: "Tình yêu thương chân thật không mù quáng, nhưng vẫn kiên trì giữ lòng tin tưởng vào điều tốt lành Chúa có thể làm nơi con người.",
       },
+      {
+        ref: "Ma-thi-ơ 10:16",
+        note: "Chúa Jêsus không bảo bạn ngây thơ để bị lợi dụng mãi, cũng không muốn bạn chai cứng hoài nghi — Ngài dạy bạn sống vừa tỉnh táo khôn khéo vừa giữ tấm lòng đơn sơ.",
+      },
+      {
+        ref: "Hê-bơ-rơ 13:8",
+        note: "Lòng người nay thế này mai thế khác dễ làm bạn muốn đóng cửa tim lại, nhưng Chúa Jêsus trước sau như một vẫn là điểm tựa đáng tin cậy tuyệt đối cho bạn.",
+      },
     ],
+    prayer:
+      "Kính lạy Chúa không hề thay đổi, sau những lần thất vọng vì người đời, con thấy mình chỉ muốn khép chặt cửa lòng để khỏi bị tổn thương nữa. Xin làm điểm tựa vững chắc cho niềm tin của con, dạy con vừa tỉnh táo khôn ngoan vừa giữ được trái tim ấm áp. A-men.",
   },
   {
     slug: "doi-dien-nguoi-kho-tinh",
@@ -651,6 +881,16 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
         ref: "Rô-ma 12:14",
         note: "Chọn chúc phước thay vì rủa sả giữ cho tâm trí bạn luôn sáng sủa và thanh thản.",
       },
+      {
+        ref: "Truyền-đạo 10:4",
+        note: "Khi gặp cấp trên hay người xung quanh hay nổi giận và gây khó dễ, giữ sự điềm tĩnh mềm mại giúp bạn đứng vững mà không khiến mâu thuẫn bùng lớn thêm.",
+      },
+      {
+        ref: "Cô-lô-se 4:6",
+        note: "Trước những lời cay nghiệt dễ làm bạn phản ứng gay gắt lại, hãy xin Chúa cho lời đáp của bạn luôn có sự ân hậu và khôn khéo đúng mực.",
+      },
     ],
+    prayer:
+      "Lạy Cha dịu dàng, mỗi ngày phải tiếp xúc với người hay gây khó dễ và nói lời cay nghiệt thật sự làm con kiệt sức. Xin giữ lòng con khỏi trở nên gay gắt giống họ, cho con lời đáp ân hậu, sự mềm mại vững vàng và đủ ơn để cầu nguyện cho chính họ. A-men.",
   },
 ];

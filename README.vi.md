@@ -40,7 +40,7 @@ Nhiều anh chị em — nhất là người mới tin Chúa hoặc bận rộn 
 > Nền tảng **Mỗi Ngày Một Đoạn** sẽ **luôn phi lợi nhuận, hoàn toàn miễn phí trọn đời, không quảng cáo, không bán dữ liệu người dùng và luôn duy trì mã nguồn mở (MIT License)** để phục vụ cộng đồng Cơ Đốc Việt Nam lâu dài.
 
 > [!NOTE]
-> **Minh bạch nguồn biên soạn:** Phần ghi chú diễn giải được biên soạn với sự hỗ trợ của AI (**Opus 5.5 ~15%** và **Gemini Neon 5** phần còn lại). Một ít nơi có thể còn sai sót — xin hãy đối chiếu trực tiếp với nguyên văn Kinh Thánh hoặc trao đổi thêm với mục sư để hiểu đúng. Mọi góp ý hiệu đính từ anh chị em và các mục sư đều rất quý giá tại [GitHub Issues](https://github.com/tinwritescode/moingaymotdoan/issues) và [CONTRIBUTING.md](./CONTRIBUTING.md).
+> **Minh bạch nguồn biên soạn:** Phần ghi chú diễn giải được biên soạn với sự hỗ trợ của AI (**Opus 5.5 ~15%** và **Gemini Neon 4** phần còn lại). Một ít nơi có thể còn sai sót — xin hãy đối chiếu trực tiếp với nguyên văn Kinh Thánh hoặc trao đổi thêm với mục sư để hiểu đúng. Mọi góp ý hiệu đính từ anh chị em và các mục sư đều rất quý giá tại [GitHub Issues](https://github.com/tinwritescode/moingaymotdoan/issues) và [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

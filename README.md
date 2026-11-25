@@ -40,7 +40,7 @@ Many readers — especially new believers and busy young adults — want to buil
 > **Mỗi Ngày Một Đoạn** will **always remain non-profit, completely free, ad-free, privacy-respecting, and open source under the MIT License** to serve the Vietnamese Christian community for the long term.
 
 > [!NOTE]
-> **AI Attribution Transparency:** The chapter study notes were drafted with AI assistance (**Opus 5.5 ~15%** and **Gemini Neon 5** for the remainder). Some passages may still contain imperfections — please verify directly against Scripture or consult a pastor when in doubt. Theological, editorial, and technical contributions are warmly welcomed via [GitHub Issues](https://github.com/tinwritescode/moingaymotdoan/issues) and [CONTRIBUTING.md](./CONTRIBUTING.md).
+> **AI Attribution Transparency:** The chapter study notes were drafted with AI assistance (**Opus 5.5 ~15%** and **Gemini Neon 4** for the remainder). Some passages may still contain imperfections — please verify directly against Scripture or consult a pastor when in doubt. Theological, editorial, and technical contributions are warmly welcomed via [GitHub Issues](https://github.com/tinwritescode/moingaymotdoan/issues) and [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
