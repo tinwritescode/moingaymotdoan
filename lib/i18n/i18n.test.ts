@@ -13,6 +13,7 @@ import {
   moodHref,
   moodSlugFor,
 } from "./index";
+import { LEGAL } from "./legal";
 
 describe("i18n locale, books, and route mapping", () => {
   it("detects locale from pathname", () => {
@@ -75,6 +76,8 @@ describe("i18n locale, books, and route mapping", () => {
       ["/lich-su", "/en/history"],
       ["/tai-khoan", "/en/account"],
       ["/ebook", "/en/ebook"],
+      ["/quyen-rieng-tu", "/en/privacy"],
+      ["/dieu-khoan", "/en/terms"],
     ];
 
     for (const [vi, en] of pairs) {
@@ -86,6 +89,24 @@ describe("i18n locale, books, and route mapping", () => {
 
     expect(chapterHref({ slug: "psalms", number: 23, locale: "en" })).toBe("/en/psalms/23");
     expect(moodHref("joy", "en")).toBe("/en/moods/joy");
+  });
+
+  it("ships complete privacy and terms copy with matching sections in both locales", () => {
+    for (const kind of ["privacy", "terms"] as const) {
+      const vi = LEGAL.vi[kind];
+      const en = LEGAL.en[kind];
+      for (const doc of [vi, en]) {
+        expect(doc.description.length).toBeGreaterThan(0);
+        expect(doc.description.length).toBeLessThanOrEqual(160);
+        expect(doc.sections.length).toBeGreaterThan(0);
+        for (const s of doc.sections) {
+          expect(s.heading.length).toBeGreaterThan(0);
+          expect(s.paragraphs.every((p) => p.length > 0)).toBe(true);
+        }
+      }
+      expect(vi.sections.length).toBe(en.sections.length);
+      expect(vi.updated).toBe(en.updated);
+    }
   });
 
   it("provides complete localized UI dictionaries for both locales", () => {

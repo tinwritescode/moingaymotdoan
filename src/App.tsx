@@ -5,7 +5,7 @@ import { LanguageSwitcher } from "./components/language-switcher";
 import { RouterLocaleProvider, useLocale } from "./components/locale-context";
 import { PreferencesProvider } from "./components/preferences-context";
 import { PageSkeleton } from "./components/skeleton";
-import { ebookHref, Router } from "./router";
+import { ebookHref, privacyHref, Router, termsHref } from "./router";
 import "./app.css";
 
 function SiteFooter() {
@@ -21,6 +21,14 @@ function SiteFooter() {
           {" · "}
           <a href={ebookHref(locale())} class="underline hover:text-accent">
             {t().footer.downloadEbook}
+          </a>
+          {" · "}
+          <a href={privacyHref(locale())} class="underline hover:text-accent">
+            {t().footer.privacy}
+          </a>
+          {" · "}
+          <a href={termsHref(locale())} class="underline hover:text-accent">
+            {t().footer.terms}
           </a>
         </p>
         <p>

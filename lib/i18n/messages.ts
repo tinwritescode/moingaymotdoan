@@ -60,6 +60,13 @@ export type Messages = {
     scripturePrefix: string;
     sourceWord: string;
     downloadEbook: string;
+    privacy: string;
+    terms: string;
+  };
+  legal: {
+    updatedLabel: string;
+    contactPrompt: string;
+    contactLink: string;
   };
   display: {
     switchToLight: string;
@@ -373,6 +380,13 @@ const VI: Messages = {
     scripturePrefix: "Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn",
     sourceWord: "eBible.org",
     downloadEbook: "Tải ebook",
+    privacy: "Quyền riêng tư",
+    terms: "Điều khoản",
+  },
+  legal: {
+    updatedLabel: "Cập nhật lần cuối:",
+    contactPrompt: "Câu hỏi hoặc yêu cầu về dữ liệu của bạn:",
+    contactLink: "liên hệ qua GitHub",
   },
   display: {
     switchToLight: "Chuyển sang chế độ sáng",
@@ -725,6 +739,13 @@ const EN: Messages = {
     scripturePrefix: "Scripture: Berean Standard Bible (public domain), via",
     sourceWord: "eBible.org",
     downloadEbook: "Download ebooks",
+    privacy: "Privacy",
+    terms: "Terms",
+  },
+  legal: {
+    updatedLabel: "Last updated:",
+    contactPrompt: "Questions or requests about your data:",
+    contactLink: "contact us on GitHub",
   },
   display: {
     switchToLight: "Switch to light mode",

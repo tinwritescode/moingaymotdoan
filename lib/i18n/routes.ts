@@ -21,6 +21,10 @@ export const accountHref = (locale: Locale = "vi", next?: string): string => {
 
 export const ebookHref = (locale: Locale = "vi"): string => (locale === "en" ? "/en/ebook" : "/ebook");
 
+export const privacyHref = (locale: Locale = "vi"): string => (locale === "en" ? "/en/privacy" : "/quyen-rieng-tu");
+
+export const termsHref = (locale: Locale = "vi"): string => (locale === "en" ? "/en/terms" : "/dieu-khoan");
+
 export const ebookFileHref = (file: string, locale: Locale = "vi"): string =>
   locale === "en" ? `/en/ebook/${file}` : `/ebook/${file}`;
 
@@ -38,6 +42,8 @@ export function alternatePath(pathname: string, targetLocale: Locale): string {
   if (rest === "/lich-su" || rest === "/history") return historyHref(targetLocale);
   if (rest === "/tai-khoan" || rest === "/account") return accountHref(targetLocale);
   if (rest === "/ebook") return ebookHref(targetLocale);
+  if (rest === "/quyen-rieng-tu" || rest === "/privacy") return privacyHref(targetLocale);
+  if (rest === "/dieu-khoan" || rest === "/terms") return termsHref(targetLocale);
 
   const moodMatch = /^\/(?:cam-xuc|moods)\/([a-z0-9-]+)$/u.exec(rest);
   if (moodMatch) {

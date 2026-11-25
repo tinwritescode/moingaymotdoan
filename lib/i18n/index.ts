@@ -18,4 +18,6 @@ export {
   homeHref,
   moodHref,
   moodsHref,
+  privacyHref,
+  termsHref,
 } from "./routes";

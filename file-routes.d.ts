@@ -115,6 +115,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/dieu-khoan";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/dieu-khoan"), Extract<"default", keyof typeof import("./src/routes/dieu-khoan")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/dieu-khoan"), Extract<"route", keyof typeof import("./src/routes/dieu-khoan")>>>;
+    },
+    {
       path: "/ebook/:file";
       page: false;
       $GET: FileRouteLazyRef<Pick<typeof import("./src/routes/ebook/[file]"), Extract<"GET", keyof typeof import("./src/routes/ebook/[file]")>>>;
@@ -177,6 +183,18 @@ declare module "virtual:file-routes" {
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/moods/index"), Extract<"route", keyof typeof import("./src/routes/en/moods/index")>>>;
     },
     {
+      path: "/en/privacy";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/privacy"), Extract<"default", keyof typeof import("./src/routes/en/privacy")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/privacy"), Extract<"route", keyof typeof import("./src/routes/en/privacy")>>>;
+    },
+    {
+      path: "/en/terms";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/terms"), Extract<"default", keyof typeof import("./src/routes/en/terms")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/terms"), Extract<"route", keyof typeof import("./src/routes/en/terms")>>>;
+    },
+    {
       path: "/";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/index"), Extract<"default", keyof typeof import("./src/routes/index")>>>;
@@ -187,6 +205,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/lich-su"), Extract<"default", keyof typeof import("./src/routes/lich-su")>>>;
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/lich-su"), Extract<"route", keyof typeof import("./src/routes/lich-su")>>>;
+    },
+    {
+      path: "/quyen-rieng-tu";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/quyen-rieng-tu"), Extract<"default", keyof typeof import("./src/routes/quyen-rieng-tu")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/quyen-rieng-tu"), Extract<"route", keyof typeof import("./src/routes/quyen-rieng-tu")>>>;
     },
     {
       path: "/tai-khoan";
@@ -248,6 +272,14 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/en/terms";
+      id: "/en/terms";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/terms"), Extract<"default", keyof typeof import("./src/routes/en/terms")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/terms"), Extract<"route", keyof typeof import("./src/routes/en/terms")>>>;
+      children?: undefined;
+    },
+    {
       path: "/en/ebook/";
       id: "/en/ebook/";
       page: true;
@@ -272,6 +304,14 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/dieu-khoan";
+      id: "/dieu-khoan";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/dieu-khoan"), Extract<"default", keyof typeof import("./src/routes/dieu-khoan")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/dieu-khoan"), Extract<"route", keyof typeof import("./src/routes/dieu-khoan")>>>;
+      children?: undefined;
+    },
+    {
       path: "/en/account";
       id: "/en/account";
       page: true;
@@ -285,6 +325,14 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/history"), Extract<"default", keyof typeof import("./src/routes/en/history")>>>;
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/history"), Extract<"route", keyof typeof import("./src/routes/en/history")>>>;
+      children?: undefined;
+    },
+    {
+      path: "/en/privacy";
+      id: "/en/privacy";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/privacy"), Extract<"default", keyof typeof import("./src/routes/en/privacy")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/privacy"), Extract<"route", keyof typeof import("./src/routes/en/privacy")>>>;
       children?: undefined;
     },
     {
@@ -309,6 +357,14 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/moods/[slug]"), Extract<"default", keyof typeof import("./src/routes/en/moods/[slug]")>>>;
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/en/moods/[slug]"), Extract<"route", keyof typeof import("./src/routes/en/moods/[slug]")>>>;
+      children?: undefined;
+    },
+    {
+      path: "/quyen-rieng-tu";
+      id: "/quyen-rieng-tu";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/quyen-rieng-tu"), Extract<"default", keyof typeof import("./src/routes/quyen-rieng-tu")>>>;
+      $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/quyen-rieng-tu"), Extract<"route", keyof typeof import("./src/routes/quyen-rieng-tu")>>>;
       children?: undefined;
     },
     {
