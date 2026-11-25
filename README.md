@@ -2,169 +2,173 @@
 
 # Mỗi Ngày Một Đoạn
 
-### Kinh Thánh — ghi chú từng đoạn bằng lời thường
+### Plain-Language Vietnamese Bible Study — Chapter by Chapter
 
-**Trọn bộ 66 sách · 1.189 đoạn Kinh Thánh kể lại dễ hiểu, chạm chỗ dẫn mở ngay nguyên văn Bản Truyền Thống 1926, 100 chủ đề theo cảm xúc, ebook Kindle và lịch sử đọc đồng bộ.**
+**English** · [Tiếng Việt](./README.vi.md)
 
-[![Truy cập](https://img.shields.io/badge/Truy%20c%E1%BA%ADp-moingaymotdoan.xyz-4d7059?style=for-the-badge)](https://moingaymotdoan.xyz)
-[![Phi lợi nhuận](https://img.shields.io/badge/Phi%20l%E1%BB%A3i%20nhu%E1%BA%ADn-100%25%20Mi%E1%BB%85n%20ph%C3%AD-4d7059?style=for-the-badge)](#cam-kết-cộng-đồng)
+<br />
+
+**A calm, ad-free web app covering all 66 books and 1,189 chapters of the Bible in clear everyday Vietnamese — with tap-to-open 1926 Vietnamese Union Version scripture inline, 100 mood-based reading guides, offline Kindle EPUBs, and cloud-synced reading history.**
+
+[![Live Site](https://img.shields.io/badge/Live%20Site-moingaymotdoan.xyz-4d7059?style=for-the-badge)](https://moingaymotdoan.xyz)
+[![Non-Profit](https://img.shields.io/badge/Non--Profit-100%25%20Free%20Forever-4d7059?style=for-the-badge)](#community-commitment)
 [![License: MIT](https://img.shields.io/badge/License-MIT-6e756d?style=for-the-badge)](./LICENSE)
 [![Solid 2.0](https://img.shields.io/badge/Solid-2.0-4d7059?style=for-the-badge)](https://www.solidjs.com/)
-[![Static Pages](https://img.shields.io/badge/Prerendered-2.591%20t%E1%BB%87p-4d7059?style=for-the-badge)](#kiến-trúc--công-nghệ)
+[![Prerendered](https://img.shields.io/badge/Prerendered-2%2C591%20files-4d7059?style=for-the-badge)](#architecture--tech-stack)
 
 <br />
 
-<img src="./docs/images/hero-showcase.png" alt="Mỗi Ngày Một Đoạn — Kinh Thánh ghi chú từng đoạn trên máy tính và điện thoại" width="100%" />
+<img src="./docs/images/hero-showcase.png" alt="Mỗi Ngày Một Đoạn — Desktop light mode and mobile dark mode preview" width="100%" />
 
 <br />
 
-[Trải nghiệm ngay](https://moingaymotdoan.xyz) · [Đọc thử Thi-thiên 23](https://moingaymotdoan.xyz/thi-thien/23) · [100 chủ đề cảm xúc](https://moingaymotdoan.xyz/cam-xuc) · [Tải Ebook Kindle](https://moingaymotdoan.xyz/ebook) · [Hướng dẫn đóng góp](./CONTRIBUTING.md)
+[Open Live App](https://moingaymotdoan.xyz) · [Read Psalm 23](https://moingaymotdoan.xyz/thi-thien/23) · [100 Mood Guides](https://moingaymotdoan.xyz/cam-xuc) · [Kindle EPUBs](https://moingaymotdoan.xyz/ebook) · [Contributing](./CONTRIBUTING.md)
 
 </div>
 
 ---
 
-## Vấn đề đặt ra
+## Why This Exists
 
-Nhiều anh chị em — nhất là người mới tin Chúa hoặc bận rộn hằng ngày — rất muốn đọc hết Kinh Thánh mỗi ngày, nhưng dễ chững lại khi gặp những sách dài, bối cảnh lịch sử xa lạ hoặc ngôn ngữ cổ trang trọng. Ngược lại, nếu chỉ đọc tóm tắt bên ngoài thì lại dễ rời xa nguyên văn Lời Chúa.
+Many readers — especially new believers and busy young adults — want to build a daily habit of reading through the whole Bible, yet often stall when encountering long books, unfamiliar historical context, or formal archaic wording. On the other hand, reading standalone summaries elsewhere can easily drift away from Scripture itself.
 
-**Mỗi Ngày Một Đoạn** được tạo ra như một không gian đọc **dịu mắt và tĩnh lặng**: bạn đọc nhanh mạch câu chuyện của từng đoạn bằng lời thường trước, rồi chỉ cần **chạm nhẹ vào bất kỳ chỗ dẫn nào** như `(23:1)` để đối chiếu ngay với nguyên văn **Bản Truyền Thống 1926** tại chỗ mà không phải chuyển trang.
+**Mỗi Ngày Một Đoạn** (*One Chapter a Day*) creates a quiet, distraction-free reading space: you first grasp the flow of each chapter in warm, everyday Vietnamese, and with a single tap on any inline citation like `(23:1)`, the original **1926 Vietnamese Union Version (Bản Truyền Thống)** opens right beside the text — keeping you anchored to Scripture without ever losing your place.
 
-## Cam kết cộng đồng
+## Community Commitment
 
 > [!IMPORTANT]
-> Nền tảng **Mỗi Ngày Một Đoạn** sẽ **luôn phi lợi nhuận, hoàn toàn miễn phí trọn đời, không quảng cáo, không bán dữ liệu người dùng và luôn duy trì mã nguồn mở (MIT License)** để phục vụ cộng đồng Cơ Đốc Việt Nam lâu dài.
+> **Mỗi Ngày Một Đoạn** will **always remain non-profit, completely free, ad-free, privacy-respecting, and open source under the MIT License** to serve the Vietnamese Christian community for the long term.
 
 > [!NOTE]
-> **Minh bạch nguồn biên soạn:** Phần ghi chú diễn giải được biên soạn với sự hỗ trợ của AI (**Opus 5.5 ~15%** và **Gemini Neon 5** phần còn lại). Một ít nơi có thể còn sai sót — xin hãy đối chiếu trực tiếp với nguyên văn Kinh Thánh hoặc trao đổi thêm với mục sư để hiểu đúng. Mọi góp ý hiệu đính từ anh chị em và các mục sư đều rất quý giá tại [GitHub Issues](https://github.com/tinwritescode/moingaymotdoan/issues) và [CONTRIBUTING.md](./CONTRIBUTING.md).
+> **AI Attribution Transparency:** The chapter study notes were drafted with AI assistance (**Opus 5.5 ~15%** and **Gemini Neon 5** for the remainder). Some passages may still contain imperfections — please verify directly against Scripture or consult a pastor when in doubt. Theological, editorial, and technical contributions are warmly welcomed via [GitHub Issues](https://github.com/tinwritescode/moingaymotdoan/issues) and [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
-## Trải nghiệm nhanh (30 giây)
+## 30-Second Quick Tour
 
-- **Đọc thử một đoạn quen thuộc:** Mở [Thi-thiên 23](https://moingaymotdoan.xyz/thi-thien/23), bấm thử thẻ `(23:1)` để xem nguyên văn mở ngay trong mạch đọc và bấm nút `Aa` để đổi cỡ chữ.
-- **Đọc theo tâm trạng hiện tại:** Mở [100 chủ đề cảm xúc](https://moingaymotdoan.xyz/cam-xuc), gõ thử *"lo âu"*, *"biết ơn"* hoặc bấm *Lời nhắn ngẫu nhiên*.
-- **Đọc ngoại tuyến trên Kindle / điện thoại:** Tải sẵn [Ebook EPUB](https://moingaymotdoan.xyz/ebook) (bản gọn hoặc kèm nguyên văn cả đoạn).
-- **Theo dõi thói quen đọc hằng ngày:** Xem [Lịch sử đã đọc](https://moingaymotdoan.xyz/lich-su) theo ngày tháng năm, chuỗi ngày đọc liên tiếp và nút *Xem tiếp*.
-
----
-
-## Tính năng nổi bật
-
-- **Trọn bộ 66 sách · 1.189 đoạn Kinh Thánh**: Mỗi đoạn có cấu trúc nhất quán gồm *Câu chuyện* (kể bằng lời thường), *Điều cần nhớ*, *Ý nghĩa sâu xa*, *Lưu ý* và *Các nhà giải kinh nói gì* (kèm nhãn mức độ tin cậy minh bạch).
-- **Chạm chỗ dẫn mở nguyên văn tại chỗ**: Bấm vào bất kỳ dẫn chứng nào như `(23:1)` hay `(Giăng 3:16)` để xem nguyên văn **Bản Truyền Thống 1926** ngay trong bài đọc; mọi chỗ dẫn đều được bộ test kiểm chứng tự động so với dữ liệu Kinh Thánh gốc.
-- **100 chủ đề đọc theo cảm xúc & hoàn cảnh**: Chia thành 8 nhóm tâm trạng (*Niềm vui*, *Nỗi buồn*, *Lo âu*, *Xung đột & tha thứ*, *Cám dỗ & ăn năn*, *Thử thách*, *Gia đình & tình yêu*, *Định hướng sống*), tìm kiếm tiếng Việt không dấu tức thì và sao chép nhanh câu Kinh Thánh.
-- **Lưu lịch sử đọc & đồng bộ đa thiết bị**: Ghi nhận ngày tháng năm đã xem, số đoạn đã hoàn thành, chuỗi ngày liên tiếp, vòng tiến độ từng sách và thẻ **Xem tiếp**. Dùng ngay không cần tài khoản (lưu `localStorage`) hoặc đăng nhập qua **WorkOS AuthKit** để đồng bộ lên **Neon Postgres** (tự động gộp lịch sử khách).
-- **Xuất sẵn Ebook EPUB cho Kindle / Apple Books**: 3 bộ (*Trọn bộ*, *Cựu Ước*, *Tân Ước*) × 2 phiên bản (*Bản gọn* và *Kèm nguyên văn cả đoạn*), có mục lục và chú thích bật câu Kinh Thánh ngay trên máy đọc sách.
-- **Thiết kế Tĩnh Lặng (Quiet)**: Bảng màu *Sage & Stone* êm mắt, tự động hỗ trợ **Sáng & Tối**, typography tiếng Việt (`Lexend` + `Source Serif 4`), tùy chỉnh cỡ chữ `Aa` và thanh điều hướng nổi tối ưu cho thao tác một tay trên điện thoại.
+- **Read a familiar chapter:** Visit [Psalm 23 (`Thi-thiên 23`)](https://moingaymotdoan.xyz/thi-thien/23), tap `(23:1)` to expand the original verse inline, and click `Aa` to adjust reading font size.
+- **Read by mood & life season:** Open [100 Mood Guides (`/cam-xuc`)](https://moingaymotdoan.xyz/cam-xuc), search for *"lo âu"* (anxiety) or *"biết ơn"* (gratitude), or try *Random Message*.
+- **Read offline on Kindle or Apple Books:** Download ready-made [EPUB editions (`/ebook`)](https://moingaymotdoan.xyz/ebook) (concise notes or full-text editions).
+- **Track your daily habit:** Check [Reading History (`/lich-su`)](https://moingaymotdoan.xyz/lich-su) for calendar-grouped history, reading streaks, book progress rings, and one-tap *Continue Reading*.
 
 ---
 
-## Giao diện thực tế
+## Key Features
 
-| Trang chủ, Xem tiếp & chuỗi ngày đọc | Trang đọc đoạn & mở nguyên văn tại chỗ |
+- **All 66 Books · 1,189 Chapters**: Consistent chapter structure with *Story* (plain-language retelling), *Key Takeaways* (*Điều cần nhớ*), *Deeper Meaning*, *Notes & Nuances*, and *What Commentators Say* (each labeled with a transparent confidence rating).
+- **Inline Scripture Verification (1926 Public Domain)**: Tap any citation such as `(23:1)` or `(Giăng 3:16)` to view exact verses in place without navigating away. Automated tests verify every single citation across all 1,189 Markdown files against the canonical Bible dataset.
+- **100 Mood & Life-Situation Guides**: Organized into 8 pastel-tinted groups (*Joy*, *Sorrow*, *Anxiety*, *Conflict & Forgiveness*, *Temptation & Repentance*, *Trials*, *Family & Love*, *Life Direction*), with instant accent-insensitive Vietnamese search and one-tap verse copying.
+- **Reading History & Cloud Sync**: Automatically tracks reading dates, streaks, completed chapters, per-book progress rings, and *Continue Reading*. Works immediately without an account (`localStorage`), with optional **WorkOS AuthKit** sign-in to sync across devices via **Neon Postgres** (seamlessly merging guest history on sign-in).
+- **Offline Kindle / EPUB Downloads**: Pre-generated EPUB 3 (+ EPUB 2 NCX) bundles for the *Full Bible*, *Old Testament*, and *New Testament* in both *Concise* and *With Full Chapter Text* editions, complete with tap-to-view footnote verses.
+- **Quiet ("Tĩnh Lặng") Design System**: Soft *Sage & Stone* light and dark themes, Vietnamese-optimized typography (`Lexend` + `Source Serif 4`), customizable `Aa` reading scale, and a thumb-friendly floating bottom dock on mobile.
+
+---
+
+## Screenshots
+
+| Home, Continue Reading & Streaks | Chapter Reader & Inline 1926 Scripture |
 | :---: | :---: |
-| <img src="./docs/images/home-light.png" alt="Trang chủ Mỗi Ngày Một Đoạn với thẻ Xem tiếp, vòng tiến độ và chuỗi ngày đọc" width="100%" /> | <img src="./docs/images/chapter-reader.png" alt="Trang đọc Thi-thiên 23 với nguyên văn mở tại chỗ và thanh tiến độ nổi" width="100%" /> |
+| <img src="./docs/images/home-light.png" alt="Home screen with Continue Reading ring, 7-day streak dots, and floating dock" width="100%" /> | <img src="./docs/images/chapter-reader.png" alt="Psalm 23 reader with expanded inline verse 23:1 and floating progress bar" width="100%" /> |
 
-| Đọc theo 100 chủ đề cảm xúc | Nhật ký lịch sử đọc theo ngày tháng năm |
+| 100 Mood & Life Guides | Date-Grouped Reading History |
 | :---: | :---: |
-| <img src="./docs/images/moods-explorer.png" alt="Trang 100 chủ đề đọc Kinh Thánh theo cảm xúc" width="100%" /> | <img src="./docs/images/reading-history.png" alt="Nhật ký lịch sử đọc Kinh Thánh theo ngày, bộ lọc và trạng thái đã đọc xong" width="100%" /> |
+| <img src="./docs/images/moods-explorer.png" alt="100 mood-based Bible reading guides" width="100%" /> | <img src="./docs/images/reading-history.png" alt="Reading history timeline grouped by date with completion filters" width="100%" /> |
 
-### Giao diện Chế độ tối (Dark Mode) trên điện thoại
+### Mobile Dark Mode
 
 <p align="center">
-  <img src="./docs/images/mobile-dark-home.png" alt="Trang chủ chế độ tối trên điện thoại" width="42%" />
+  <img src="./docs/images/mobile-dark-home.png" alt="Mobile dark mode home screen" width="42%" />
   &nbsp;&nbsp;&nbsp;
-  <img src="./docs/images/mobile-dark-reader.png" alt="Trang đọc Thi-thiên 23 chế độ tối trên điện thoại" width="42%" />
+  <img src="./docs/images/mobile-dark-reader.png" alt="Mobile dark mode Psalm 23 reader" width="42%" />
 </p>
 
 ---
 
-## Kiến trúc & Công nghệ
+## Architecture & Tech Stack
 
-| Thành phần | Công nghệ |
+| Layer | Technology |
 | --- | --- |
-| **Giao diện & Routing** | [Solid 2.0](https://www.solidjs.com/) (`solid-js`, `@solidjs/web`, `@solidjs/router` 2), file-based routing |
+| **UI & Routing** | [Solid 2.0](https://www.solidjs.com/) (`solid-js`, `@solidjs/web`, `@solidjs/router` 2) with file-based routing |
 | **Styling & Typography** | [Tailwind CSS v4](https://tailwindcss.com/), Google Fonts (`Lexend` + `Source Serif 4`) |
-| **Build & Static Hosting** | Vite 8 + prerender toàn bộ **2.591 tệp tĩnh** + `404.html` (`scripts/prerender.mjs`), triển khai trên Vercel |
-| **Xác thực (tùy chọn)** | [WorkOS AuthKit](https://workos.com/) (`@workos-inc/authkit-js`, PKCE SPA + xác thực JWT RS256 qua JWKS) |
-| **API & Cơ sở dữ liệu (tùy chọn)** | [Neon Functions](https://neon.tech/) (Hono + `jose`) kết nối Lakebase Postgres (`db/schema.sql`) |
-| **Ebook Generator** | Bộ tạo EPUB 3/NCX thuần TypeScript (`lib/ebook/epub.ts`), sinh sẵn trong bước prerender |
-| **Kiểm thử & Chất lượng** | Vitest (`@solidjs/testing-library` + `@solidjs/diagnostics`), TypeScript, Oxlint (`eslint-plugin-solid`) |
+| **Build & Static Delivery** | Vite 8 + custom static prerenderer (`scripts/prerender.mjs` generating **2,591 static files** + `404.html`), hosted on Vercel |
+| **Authentication (Optional)** | [WorkOS AuthKit](https://workos.com/) (`@workos-inc/authkit-js`, PKCE SPA + RS256 JWKS verification) |
+| **History API & DB (Optional)** | [Neon Functions](https://neon.tech/) (Hono + `jose`) backed by Lakebase Postgres (`db/schema.sql`) |
+| **EPUB Generator** | Zero-dependency TypeScript EPUB 3/NCX builder (`lib/ebook/epub.ts`), built during prerender |
+| **Testing & Quality** | Vitest (`@solidjs/testing-library` + `@solidjs/diagnostics`), TypeScript, Oxlint (`eslint-plugin-solid`) |
 
-### Cấu trúc thư mục
+### Repository Structure
 
 ```text
-├── content/                # 66 thư mục sách, 1.189 file Markdown ghi chú từng đoạn
-├── data/bible/             # Nguyên văn Kinh Thánh Bản Truyền Thống 1926 (public domain)
+├── content/                # 66 book folders, 1,189 chapter study note Markdown files
+├── data/bible/             # 1926 Vietnamese Union Version Bible text (public domain)
 ├── lib/
-│   ├── content/            # Parser Markdown, bộ kiểm tra chỗ dẫn Kinh Thánh, mục lục 66 sách
-│   ├── ebook/              # Bộ tạo file EPUB cho Kindle / Apple Books
-│   ├── history/            # Kiểu dữ liệu và hàm tính chuỗi ngày đọc, thống kê lịch sử
-│   └── moods/              # 100 chủ đề cảm xúc (8 nhóm) và tìm kiếm tiếng Việt không dấu
+│   ├── content/            # Markdown parser, scripture citation validator, 66-book TOC
+│   ├── ebook/              # Pure TypeScript EPUB generator for Kindle / Apple Books
+│   ├── history/            # Reading streak, stats, and progress types/helpers
+│   └── moods/              # 100 mood topics (8 groups) + accent-insensitive Vietnamese search
 ├── src/
 │   ├── routes/             # File routes: /, /[book]/[chapter], /cam-xuc, /lich-su, /tai-khoan, /ebook
 │   ├── components/         # UI components (ChapterReader, FloatingDock, ProgressRing, MoodBrowser, Seo...)
-│   └── lib/                # WorkOS client (auth.ts) & store lịch sử đọc (history-store.ts)
-├── functions/history/      # Neon Function (Hono API) lưu và đồng bộ lịch sử đọc trên Postgres
-├── db/schema.sql           # Schema bảng reading_progress và reading_logs
-├── public/                 # Favicon, og-image.png (1200×630), robots.txt
-└── scripts/                # Prerender tĩnh, import Kinh Thánh, migrate database
+│   └── lib/                # WorkOS client (auth.ts) & local/cloud history store (history-store.ts)
+├── functions/history/      # Neon Function (Hono API) for authenticated cloud reading history
+├── db/schema.sql           # Postgres schema for reading_progress and reading_logs
+├── public/                 # Favicon, 1200×630 og-image.png, robots.txt
+└── scripts/                # Static prerenderer, Bible importer, DB migration script
 ```
 
 ---
 
-## Cài đặt & Chạy trên máy (Local)
+## Local Development
 
-**Yêu cầu:** Node.js `>= 22` và `pnpm`.
+**Prerequisites:** Node.js `>= 22` and `pnpm`.
 
 ```bash
-# 1. Clone repository
+# 1. Clone the repository
 git clone https://github.com/tinwritescode/moingaymotdoan.git
 cd moingaymotdoan
 
-# 2. Cài đặt dependencies
+# 2. Install dependencies
 pnpm install
 
-# 3. Chạy môi trường phát triển (không cần database hay đăng nhập)
+# 3. Start the dev server (no database or auth keys required!)
 pnpm dev
 ```
 
-Mở trình duyệt tại địa chỉ Vite hiển thị. Khi chưa cấu hình WorkOS/Neon, toàn bộ tính năng đọc, tìm cảm xúc, tải ebook và lưu lịch sử cục bộ (`localStorage`) vẫn hoạt động đầy đủ.
+Without any environment variables configured, every reading feature, mood search, EPUB download, and browser-local reading history (`localStorage`) works out of the box.
 
-### Các lệnh thường dùng
+### Useful Scripts
 
 ```bash
-pnpm dev        # Chạy dev server
-pnpm build      # Build client/SSR và prerender toàn bộ 2.591 tệp tĩnh vào dist/client
-pnpm preview    # Xem trước bản build
-pnpm test       # Chạy toàn bộ unit & component tests (kèm kiểm tra chỗ dẫn Kinh Thánh)
-pnpm lint       # Kiểm tra mã nguồn với Oxlint + eslint-plugin-solid
-pnpm typecheck  # Kiểm tra kiểu TypeScript
+pnpm dev        # Start local Vite dev server
+pnpm build      # Build client/SSR and prerender all 2,591 static files into dist/client
+pnpm preview    # Preview the production build locally
+pnpm test       # Run all unit & component tests (including full Bible citation validation)
+pnpm lint       # Run Oxlint with eslint-plugin-solid
+pnpm typecheck  # Run TypeScript type checks
 ```
 
-### Bật đăng nhập & đồng bộ đám mây (tùy chọn khi tự triển khai)
+### Enabling Optional Cloud Sync (Self-Hosting)
 
 ```bash
 cp .env.example .env.local
 ```
 
-1. **WorkOS AuthKit**: Tạo ứng dụng trên [WorkOS Dashboard](https://dashboard.workos.com/), bật AuthKit (PKCE / Public Client), khai báo Redirect URI (`/tai-khoan`) và CORS Origin cho tên miền của bạn, rồi điền `VITE_WORKOS_CLIENT_ID` (và `WORKOS_CLIENT_ID`).
-2. **Neon Postgres & Function**: Tạo dự án trên [Neon](https://neon.tech/), điền `DATABASE_URL` vào `.env.local`, chạy `pnpm db:migrate` để áp dụng [`db/schema.sql`](./db/schema.sql), cập nhật `ALLOWED_ORIGINS` trong [`functions/history/index.ts`](./functions/history/index.ts), triển khai bằng `neon deploy --env .env.local` và điền URL vào `VITE_HISTORY_API_URL`.
+1. **WorkOS AuthKit**: Create an app in the [WorkOS Dashboard](https://dashboard.workos.com/), enable AuthKit (PKCE / Public Client), register your Redirect URI (`/tai-khoan`) and CORS origin, then set `VITE_WORKOS_CLIENT_ID` (and `WORKOS_CLIENT_ID`).
+2. **Neon Postgres & Function**: Create a project on [Neon](https://neon.tech/), set `DATABASE_URL` in `.env.local`, run `pnpm db:migrate` to apply [`db/schema.sql`](./db/schema.sql), add your domain to `ALLOWED_ORIGINS` in [`functions/history/index.ts`](./functions/history/index.ts), deploy via `neon deploy --env .env.local`, and set `VITE_HISTORY_API_URL`.
 
 ---
 
-## Đóng góp & Hiệu đính
+## Contributing
 
-Dự án luôn trân trọng mọi đóng góp từ cộng đồng — dù là sửa một lỗi chính tả nhỏ, góp ý thần học cho một đoạn giải kinh, hay gửi Pull Request cải tiến giao diện.
+Contributions of all kinds are deeply appreciated — whether fixing a typo, reviewing theological accuracy, refining a chapter retelling, or improving UI and accessibility.
 
-- Báo lỗi hoặc góp ý nội dung: [Mở GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues)
-- Quy chuẩn biên soạn Markdown, quy ước dẫn câu Kinh Thánh và hướng dẫn PR: xem **[CONTRIBUTING.md](./CONTRIBUTING.md)**
+- Report a content issue or suggestion: [Open a GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues)
+- Vietnamese editorial spec, citation rules, and PR checklist: see **[CONTRIBUTING.md](./CONTRIBUTING.md)**
 
 ---
 
-## Bản quyền & Nguồn tài liệu
+## License & Public Domain Sources
 
-- **Mã nguồn dự án**: Phát hành theo giấy phép **[MIT License](./LICENSE)** — bạn có thể tự do sử dụng, tùy biến và triển khai lại cho hội thánh, nhóm nhỏ hoặc dự án Cơ Đốc của riêng mình.
-- **Lời Kinh Thánh tiếng Việt**: **Bản Truyền Thống 1926** (*public domain*), nguồn [eBible.org (vie1934)](https://ebible.org/find/details.php?id=vie1934).
-- **Phần tóm tắt giải kinh**: Tổng hợp ý chính (không sao chép nguyên văn có bản quyền), luôn ghi tên sách để đối chiếu. Các tác phẩm giải kinh cổ điển công cộng (Matthew Henry, John Calvin, Augustine, Charles Spurgeon) có thể đọc toàn văn miễn phí tại [ccel.org](https://www.ccel.org/) và [spurgeongems.org](https://www.spurgeongems.org/).
+- **Source Code**: Licensed under the **[MIT License](./LICENSE)** — feel free to use, adapt, or self-host for your church, small group, or ministry.
+- **Vietnamese Scripture**: **1926 Vietnamese Union Version (Bản Truyền Thống)** (*public domain*), sourced from [eBible.org (`vie1934`)](https://ebible.org/find/details.php?id=vie1934).
+- **Classic Commentaries**: Summarized in original wording with book attributions (no copyrighted excerpts copied). Full public-domain classics (Matthew Henry, John Calvin, Augustine, Charles Spurgeon) can be read free at [ccel.org](https://www.ccel.org/) and [spurgeongems.org](https://www.spurgeongems.org/).
