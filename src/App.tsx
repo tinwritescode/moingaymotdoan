@@ -1,5 +1,4 @@
 import { Loading } from "solid-js";
-import { VariantSwitcher } from "./components/variant-switcher";
 import { Router } from "./router";
 import "./app.css";
 
@@ -21,7 +20,6 @@ export default function App() {
               .
             </p>
           </footer>
-          <VariantSwitcher />
         </>
       )}
     </Router>
