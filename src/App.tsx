@@ -14,7 +14,10 @@ if (!import.meta.env.SSR && posthogKey) {
   // Cookieless and no replay: anonymous counts only, as the privacy policy promises.
   void import("posthog-js").then(({ default: posthog }) =>
     posthog.init(posthogKey, {
-      api_host: "https://us.i.posthog.com",
+      // Same-origin path proxied to PostHog (vercel.json rewrites, vite server.proxy in dev),
+      // so ad blockers that block *.posthog.com let the events through.
+      api_host: "/k7q",
+      ui_host: "https://us.posthog.com",
       defaults: "2026-05-30",
       cookieless_mode: "always",
       disable_session_recording: true,

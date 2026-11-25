@@ -18,7 +18,14 @@ export default defineConfig({
     fileRoutes({ httpMethods: true, types: true }),
     tailwindcss(),
   ],
-  server: { port: 3000 },
+  server: {
+    port: 3000,
+    // Mirrors the PostHog rewrites in vercel.json; the first matching key wins, so static goes first.
+    proxy: {
+      "/k7q/static": { target: "https://us-assets.i.posthog.com", changeOrigin: true, rewrite: (p) => p.replace(/^\/k7q/, "") },
+      "/k7q": { target: "https://us.i.posthog.com", changeOrigin: true, rewrite: (p) => p.replace(/^\/k7q/, "") },
+    },
+  },
   build: { target: "esnext" },
   test: {
     projects: [
