@@ -5,7 +5,6 @@ import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
-// Công bố unless CONTENT_MODE=nhap; lib/content reads NODE_ENV to decide.
 process.env.NODE_ENV = "production";
 const { handleRequest } = await import("../dist/server/server.js");
 
@@ -55,4 +54,4 @@ const missing = await fetchPath("/khong-co-trang-nay");
 if (missing.status !== 404) throw new Error(`/khong-co-trang-nay: expected 404, got ${missing.status}`);
 await save(join(OUT, "404.html"), missing);
 
-console.log(`Prerendered ${queue.length} files and 404.html into dist/client (${toc.mode}).`);
+console.log(`Prerendered ${queue.length} files and 404.html into dist/client.`);

@@ -21,15 +21,7 @@ export default function CamXucPage() {
   return (
     <>
       <Title>Đọc Kinh Thánh theo cảm xúc — 100 chuyên mục</Title>
-      <SiteHeader>
-        <nav aria-label="Vị trí" class="kt-crumbs flex gap-2 text-sm text-muted">
-          <a href="/" class="hover:text-accent">
-            Mục lục
-          </a>
-          <span aria-hidden="true">/</span>
-          <span class="text-ink">Theo cảm xúc</span>
-        </nav>
-      </SiteHeader>
+      <SiteHeader section="cam-xuc" />
       <MoodBrowser index={index()} onRandom={(slug) => navigate(moodHref(slug))} />
     </>
   );

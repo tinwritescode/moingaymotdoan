@@ -1,7 +1,8 @@
 import { Title } from "@solidjs/meta";
 import type { RouteDefinition } from "@solidjs/router";
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For } from "solid-js";
 import { bundles, ebookFile } from "../../../lib/ebook/bundles";
+import { AI_NOTICE } from "../../../lib/notice";
 import { ariaState } from "../../components/aria";
 import { SiteHeader } from "../../components/site-header";
 import { getToc } from "../../data";
@@ -83,16 +84,12 @@ export default function EbookPage() {
             <li>Tải file EPUB ở trên về máy.</li>
             <li>
               Mở <span class="font-semibold">amazon.com/sendtokindle</span>, đăng nhập, kéo file vào. Hoặc gửi email kèm
-              file tới địa chỉ Kindle của ngài (xem trong Amazon:{" "}
+              file tới địa chỉ Kindle của bạn (xem trong Amazon:{" "}
               <em>Manage Your Content and Devices → Preferences → Personal Document Settings</em>).
             </li>
             <li>Vài phút sau sách hiện trong thư viện Kindle. Ebook cập nhật mỗi khi site có đoạn mới: tải và gửi lại.</li>
           </ol>
-          <Show when={toc().mode === "nhap"}>
-            <p class="mt-4 font-sans text-sm text-muted">
-              Đây là bản nháp: ghi chú do AI soạn, ý kiến các nhà giải kinh chưa được đối chiếu với sách gốc.
-            </p>
-          </Show>
+          <p class="mt-4 font-sans text-sm text-muted">{AI_NOTICE}</p>
         </section>
       </main>
     </>

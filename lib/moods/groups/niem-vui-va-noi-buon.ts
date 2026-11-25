@@ -9,7 +9,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "niem-vui",
     prompt: "Khi lòng rạng rỡ, nhẹ nhõm và tràn ngập niềm vui.",
     intro:
-      "Niềm vui thật không chỉ đến từ một ngày suôn sẻ, mà sâu bền hơn khi ta nhận ra mọi điều tốt lành đều là quà tặng từ Đức Chúa Trời. Những lời Kinh Thánh dưới đây giúp ngài giữ gìn niềm vui ấy và chia sẻ nó cho người quanh mình.",
+      "Niềm vui thật không chỉ đến từ một ngày suôn sẻ, mà sâu bền hơn khi ta nhận ra mọi điều tốt lành đều là quà tặng từ Đức Chúa Trời. Những lời Kinh Thánh dưới đây giúp bạn giữ gìn niềm vui ấy và chia sẻ nó cho người quanh mình.",
     keywords: ["vui", "hân hoan", "phấn khởi", "mừng rỡ", "lạc quan"],
     passages: [
       {
@@ -90,7 +90,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "niem-vui",
     prompt: "Khi lòng lắng dịu, thanh thản và muốn gìn giữ sự tĩnh lặng ấy.",
     intro:
-      "Sự bình an trong Kinh Thánh không chỉ là vắng bóng tiếng ồn, mà là sự vẹn toàn sâu thẳm khi biết mình đang ở trong tay Đấng chăn giữ. Hãy để những câu dưới đây neo chặt lòng ngài vào sự bình an lâu dài.",
+      "Sự bình an trong Kinh Thánh không chỉ là vắng bóng tiếng ồn, mà là sự vẹn toàn sâu thẳm khi biết mình đang ở trong tay Đấng chăn giữ. Hãy để những câu dưới đây neo chặt lòng bạn vào sự bình an lâu dài.",
     keywords: ["an bình", "yên tĩnh", "thanh thản", "tĩnh lặng", "yên lòng"],
     passages: [
       {
@@ -122,7 +122,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Rô-ma 15:13",
-        note: "Đức Chúa Trời của sự trông cậy có thể làm lòng ngài đầy dẫy mọi niềm vui, bình an và hy vọng dư dật.",
+        note: "Đức Chúa Trời của sự trông cậy có thể làm lòng bạn đầy dẫy mọi niềm vui, bình an và hy vọng dư dật.",
       },
       {
         ref: "Giê-rê-mi 29:11",
@@ -225,7 +225,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "niem-vui",
     prompt: "Khi vừa bước qua giai đoạn khó khăn và cảm thấy được giải cứu.",
     intro:
-      "Không gì ngọt ngào bằng hơi thở nhẹ nhõm sau một chặng đường dài nặng nề. Những lời Thi-thiên cảm tạ này giúp ngài nhìn lại dấu vết bình an sau cơn giông và ghi nhớ sự giải cứu của Chúa.",
+      "Không gì ngọt ngào bằng hơi thở nhẹ nhõm sau một chặng đường dài nặng nề. Những lời Thi-thiên cảm tạ này giúp bạn nhìn lại dấu vết bình an sau cơn giông và ghi nhớ sự giải cứu của Chúa.",
     keywords: ["giải cứu", "vượt qua", "thoát nạn", "nhẹ lòng", "sau cơn mưa"],
     passages: [
       {
@@ -279,7 +279,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "niem-vui",
     prompt: "Khi lòng dâng trào sự kính yêu và muốn cất lời ngợi khen.",
     intro:
-      "Ngợi khen là cách tự nhiên nhất để lòng đầy ắp niềm vui cất thành lời. Từ Thi-thiên đến sách Khải-huyền, đây là những khúc ca sáng trong nhất để ngài hòa giọng tôn vinh Đức Chúa Trời.",
+      "Ngợi khen là cách tự nhiên nhất để lòng đầy ắp niềm vui cất thành lời. Từ Thi-thiên đến sách Khải-huyền, đây là những khúc ca sáng trong nhất để bạn hòa giọng tôn vinh Đức Chúa Trời.",
     keywords: ["ngợi khen", "thờ phượng", "tôn vinh", "ca hát", "chúc tụng"],
     passages: [
       {
@@ -306,7 +306,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "niem-vui",
     prompt: "Khi muốn lắng lòng trong tình yêu vô điều kiện và sâu rộng của Chúa.",
     intro:
-      "Nền tảng bình an sâu nhất của con người là biết mình được yêu không phải vì hoàn hảo, mà vì tình yêu bền bỉ của Đức Chúa Trời. Những đoạn Kinh Thánh này bày tỏ trọn vẹn trái tim Ngài dành cho ngài.",
+      "Nền tảng bình an sâu nhất của con người là biết mình được yêu không phải vì hoàn hảo, mà vì tình yêu bền bỉ của Đức Chúa Trời. Những đoạn Kinh Thánh này bày tỏ trọn vẹn trái tim Ngài dành cho bạn.",
     keywords: ["tình yêu", "được yêu", "ân điển", "thương xót", "con cái Chúa"],
     passages: [
       {
@@ -335,12 +335,12 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi lòng chùng xuống, nặng trĩu nỗi buồn không dễ nói thành lời.",
     intro:
-      "Kinh Thánh chưa bao giờ bảo người buồn phải gượng cười giả vờ ổn. Trái lại, Đức Chúa Trời đến thật gần những tấm lòng tan vỡ và lắng nghe từng tiếng thở dài của ngài.",
+      "Kinh Thánh chưa bao giờ bảo người buồn phải gượng cười giả vờ ổn. Trái lại, Đức Chúa Trời đến thật gần những tấm lòng tan vỡ và lắng nghe từng tiếng thở dài của bạn.",
     keywords: ["buồn", "u sầu", "sầu muộn", "nặng lòng", "tâm trạng xấu"],
     passages: [
       {
         ref: "Thi-thiên 34:18",
-        note: "Khi lòng đau thương và tan vỡ nhất, đó lại chính là lúc Đức Giê-hô-va đứng sát bên ngài nhất.",
+        note: "Khi lòng đau thương và tan vỡ nhất, đó lại chính là lúc Đức Giê-hô-va đứng sát bên bạn nhất.",
       },
       {
         ref: "Thi-thiên 42:11",
@@ -367,7 +367,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Phục-truyền Luật-lệ Ký 31:8",
-        note: "Đức Giê-hô-va không chỉ đi bên cạnh mà còn đi trước mở đường; Ngài sẽ không lìa bỏ hay từ bỏ ngài.",
+        note: "Đức Giê-hô-va không chỉ đi bên cạnh mà còn đi trước mở đường; Ngài sẽ không lìa bỏ hay từ bỏ bạn.",
       },
       {
         ref: "Thi-thiên 25:16",
@@ -375,7 +375,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 139:7–10",
-        note: "Dù ở đâu hay vào lúc tâm trạng chạm đáy nhất, bàn tay Chúa vẫn đang nắm giữ và dẫn dắt ngài.",
+        note: "Dù ở đâu hay vào lúc tâm trạng chạm đáy nhất, bàn tay Chúa vẫn đang nắm giữ và dẫn dắt bạn.",
       },
       {
         ref: "Ma-thi-ơ 28:20",
@@ -389,7 +389,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi vừa tiễn biệt người thương và lòng trống hoác vì mất mát.",
     intro:
-      "Không lời nào xóa ngay được khoảng trống khi người mình yêu quý ra đi. Trước ngôi mộ bạn mình là La-xa-rơ, chính Chúa Jêsus cũng đã rơi nước mắt. Mong những lời này nhẹ nhàng ôm ấp nỗi đau của ngài.",
+      "Không lời nào xóa ngay được khoảng trống khi người mình yêu quý ra đi. Trước ngôi mộ bạn mình là La-xa-rơ, chính Chúa Jêsus cũng đã rơi nước mắt. Mong những lời này nhẹ nhàng ôm ấp nỗi đau của bạn.",
     keywords: ["tang chế", "mất mát", "người thân qua đời", "đau buồn", "sinh ly tử biệt"],
     passages: [
       {
@@ -406,7 +406,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 23:4",
-        note: "Ngay cả khi phải bước đi qua thung lũng bóng tối của sự chết, Ngài vẫn ở cùng và an ủi ngài.",
+        note: "Ngay cả khi phải bước đi qua thung lũng bóng tối của sự chết, Ngài vẫn ở cùng và an ủi bạn.",
       },
     ],
   },
@@ -416,7 +416,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi một mối quan hệ yêu thương đổ vỡ và trái tim rạn nứt.",
     intro:
-      "Sự đổ vỡ trong tình cảm để lại vết thương rất thật, khiến ta nghi ngờ cả giá trị của chính mình. Nhưng vết thương lòng không nằm ngoài tầm chữa lành của Đấng biết rõ từng mảnh vỡ trong trái tim ngài.",
+      "Sự đổ vỡ trong tình cảm để lại vết thương rất thật, khiến ta nghi ngờ cả giá trị của chính mình. Nhưng vết thương lòng không nằm ngoài tầm chữa lành của Đấng biết rõ từng mảnh vỡ trong trái tim bạn.",
     keywords: ["thất tình", "chia tay", "tan vỡ", "đổ vỡ", "đau tình"],
     passages: [
       {
@@ -425,7 +425,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Ê-sai 54:10",
-        note: "Tình cảm con người có thể đổi thay như núi đồi rung chuyển, nhưng lòng nhân từ của Chúa dành cho ngài không bao giờ dời đổi.",
+        note: "Tình cảm con người có thể đổi thay như núi đồi rung chuyển, nhưng lòng nhân từ của Chúa dành cho bạn không bao giờ dời đổi.",
       },
       {
         ref: "Thi-thiên 73:26",
@@ -443,7 +443,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi thấy mọi cánh cửa đóng kín và không còn nhìn thấy lối ra.",
     intro:
-      "Nếu lúc này ngài thấy mình đang ở dưới đáy sâu và không còn sức bước tiếp, xin nhớ rằng Kinh Thánh đầy những lời kêu cứu từ tận vực thẳm. Chúa không quay lưng với người tuyệt vọng; Ngài gặp ngài ngay tại chỗ ngài đang ngã.",
+      "Nếu lúc này bạn thấy mình đang ở dưới đáy sâu và không còn sức bước tiếp, xin nhớ rằng Kinh Thánh đầy những lời kêu cứu từ tận vực thẳm. Chúa không quay lưng với người tuyệt vọng; Ngài gặp bạn ngay tại chỗ bạn đang ngã.",
     keywords: ["bế tắc", "không lối thoát", "chạm đáy", "ngã gục", "hết hy vọng"],
     passages: [
       {
@@ -497,12 +497,12 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi không còn hứng thú làm gì, lòng uể oải và muốn buông xuôi.",
     intro:
-      "Ai đi đường dài cũng có lúc sờn lòng và muốn ngồi bệt xuống bên đường. Những lời Kinh Thánh này không thúc ép hay trách móc ngài, mà nhẹ nhàng tiếp thêm hơi thở mới cho từng bước nhỏ.",
+      "Ai đi đường dài cũng có lúc sờn lòng và muốn ngồi bệt xuống bên đường. Những lời Kinh Thánh này không thúc ép hay trách móc bạn, mà nhẹ nhàng tiếp thêm hơi thở mới cho từng bước nhỏ.",
     keywords: ["chán nản", "nản lòng", "mất lửa", "uể oải", "ngán ngẩm"],
     passages: [
       {
         ref: "Ga-la-ti 6:9",
-        note: "Đừng sờn lòng khi chưa thấy kết quả ngay hôm nay; nếu không bỏ cuộc, đúng kỳ ngài sẽ gặt lấy mùa màng.",
+        note: "Đừng sờn lòng khi chưa thấy kết quả ngay hôm nay; nếu không bỏ cuộc, đúng kỳ bạn sẽ gặt lấy mùa màng.",
       },
       {
         ref: "1 Các Vua 19:4–8",
@@ -514,7 +514,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Ê-sai 41:10",
-        note: "Ngài không đòi ngài phải tự gồng lên thật mạnh, mà hứa chính tay phải công bình của Ngài sẽ nâng đỡ ngài.",
+        note: "Ngài không đòi bạn phải tự gồng lên thật mạnh, mà hứa chính tay phải công bình của Ngài sẽ nâng đỡ bạn.",
       },
     ],
   },
@@ -551,16 +551,16 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi thấy những người mình tin cậy quay lưng hoặc quên mất mình.",
     intro:
-      "Cảm giác bị bỏ lại phía sau là một trong những vết đau buốt nhất của lòng người. Nhưng có một Đấng khắc tên ngài trong lòng bàn tay Ngài và chưa từng quên ngài dù chỉ một khoảnh khắc.",
+      "Cảm giác bị bỏ lại phía sau là một trong những vết đau buốt nhất của lòng người. Nhưng có một Đấng khắc tên bạn trong lòng bàn tay Ngài và chưa từng quên bạn dù chỉ một khoảnh khắc.",
     keywords: ["bị bỏ rơi", "lãng quên", "bơ vơ", "quay lưng", "bị gạt ra"],
     passages: [
       {
         ref: "Ê-sai 49:15–16",
-        note: "Ngay cả tình mẫu tử gắn bó nhất cũng có lúc sơ sót, nhưng Đức Chúa Trời khẳng định Ngài chẳng bao giờ quên ngài.",
+        note: "Ngay cả tình mẫu tử gắn bó nhất cũng có lúc sơ sót, nhưng Đức Chúa Trời khẳng định Ngài chẳng bao giờ quên bạn.",
       },
       {
         ref: "Thi-thiên 27:10",
-        note: "Ngay cả khi những người thân cận nhất trên đời bỏ rơi, Đức Giê-hô-va vẫn dang tay tiếp nhận ngài.",
+        note: "Ngay cả khi những người thân cận nhất trên đời bỏ rơi, Đức Giê-hô-va vẫn dang tay tiếp nhận bạn.",
       },
       {
         ref: "Giăng 14:18",
@@ -578,7 +578,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi lòng thấy mình thiếu thốn tình cảm và khát khao được quan tâm.",
     intro:
-      "Khi không nhận được sự ấm áp từ xung quanh, ta dễ tin rằng mình không đáng được yêu. Kinh Thánh bác bỏ lời nói dối đó bằng tình yêu bền bỉ đã chọn ngài từ rất lâu trước khi ngài biết đến Ngài.",
+      "Khi không nhận được sự ấm áp từ xung quanh, ta dễ tin rằng mình không đáng được yêu. Kinh Thánh bác bỏ lời nói dối đó bằng tình yêu bền bỉ đã chọn bạn từ rất lâu trước khi bạn biết đến Ngài.",
     keywords: ["thiếu tình thương", "không được yêu", "khát yêu", "tủi thân"],
     passages: [
       {
@@ -587,7 +587,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Ê-sai 43:4",
-        note: "Trước mắt Đức Chúa Trời, ngài là người quý giá, được tôn trọng và được Ngài yêu thương sâu sắc.",
+        note: "Trước mắt Đức Chúa Trời, bạn là người quý giá, được tôn trọng và được Ngài yêu thương sâu sắc.",
       },
       {
         ref: "Rô-ma 5:8",
@@ -605,12 +605,12 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi tự chê trách bản thân, thấy mình kém cỏi và chẳng có gì đáng kể.",
     intro:
-      "Tiếng nói chỉ trích bên trong thường khắc nghiệt hơn bất kỳ ai bên ngoài. Đừng đo giá trị đời mình bằng những lần vấp ngã hay ánh mắt so sánh; hãy nghe Đấng dựng nên ngài nói ngài quý giá đến nhường nào.",
+      "Tiếng nói chỉ trích bên trong thường khắc nghiệt hơn bất kỳ ai bên ngoài. Đừng đo giá trị đời mình bằng những lần vấp ngã hay ánh mắt so sánh; hãy nghe Đấng dựng nên bạn nói bạn quý giá đến nhường nào.",
     keywords: ["tự ti", "vô dụng", "kém cỏi", "thấp kém", "mặc cảm bản thân"],
     passages: [
       {
         ref: "Thi-thiên 139:13–14",
-        note: "Ngài không phải sản phẩm ngẫu nhiên hay lỗi tạo hóa; từng đường nét đời ngài được dệt nên cách lạ lùng.",
+        note: "Bạn không phải sản phẩm ngẫu nhiên hay lỗi tạo hóa; từng đường nét đời bạn được dệt nên cách lạ lùng.",
       },
       {
         ref: "Ê-phê-sô 2:10",
@@ -618,7 +618,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Lu-ca 12:6–7",
-        note: "Ngay cả từng con chim sẻ nhỏ bé Chúa còn không quên, huống chi là từng sợi tóc trên đầu ngài.",
+        note: "Ngay cả từng con chim sẻ nhỏ bé Chúa còn không quên, huống chi là từng sợi tóc trên đầu bạn.",
       },
       {
         ref: "1 Cô-rinh-tô 1:27–29",
@@ -649,7 +649,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 62:5–8",
-        note: "Hãy đổ hết nỗi hụt hẫng ra trước mặt Chúa; Ngài là vầng đá đủ vững để tiếp nhận mọi tâm sự của ngài.",
+        note: "Hãy đổ hết nỗi hụt hẫng ra trước mặt Chúa; Ngài là vầng đá đủ vững để tiếp nhận mọi tâm sự của bạn.",
       },
     ],
   },
@@ -664,7 +664,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Thi-thiên 56:8",
-        note: "Không một giọt nước mắt hay bước chân lang thang đau khổ nào của ngài bị bỏ sót; Chúa ghi nhớ tất cả.",
+        note: "Không một giọt nước mắt hay bước chân lang thang đau khổ nào của bạn bị bỏ sót; Chúa ghi nhớ tất cả.",
       },
       {
         ref: "Ê-sai 61:1–3",
@@ -686,7 +686,7 @@ export const NIEM_VUI_VA_NOI_BUON: readonly MoodDefinition[] = [
     groupId: "noi-buon",
     prompt: "Khi lòng nghẹn ứ, chỉ muốn khóc thật lớn trước mặt Chúa.",
     intro:
-      "Nước mắt không phải là dấu hiệu của yếu đuối hay thiếu đức tin. Sách Thi-thiên và Ca-thương tràn ngập những giọt nước mắt chân thành — và Chúa lắng nghe tiếng khóc của ngài như một lời cầu nguyện.",
+      "Nước mắt không phải là dấu hiệu của yếu đuối hay thiếu đức tin. Sách Thi-thiên và Ca-thương tràn ngập những giọt nước mắt chân thành — và Chúa lắng nghe tiếng khóc của bạn như một lời cầu nguyện.",
     keywords: ["khóc", "nước mắt", "nghẹn ngào", "đau xót", "than khóc"],
     passages: [
       {

@@ -9,7 +9,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "toi-loi",
     prompt: "Khi biết mình đã làm sai và lương tâm cắn rứt nặng nề.",
     intro:
-      "Cảm giác cắn rứt không phải để đẩy ngài chạy trốn khỏi Đức Chúa Trời, mà để kéo ngài chạy về vòng tay tha thứ của Ngài. Giấu giếm tội lỗi chỉ khiến lòng héo mòn, còn thành thật xưng nhận mở ra sự nhẹ nhõm thật sự.",
+      "Cảm giác cắn rứt không phải để đẩy bạn chạy trốn khỏi Đức Chúa Trời, mà để kéo bạn chạy về vòng tay tha thứ của Ngài. Giấu giếm tội lỗi chỉ khiến lòng héo mòn, còn thành thật xưng nhận mở ra sự nhẹ nhõm thật sự.",
     keywords: ["tội lỗi", "cắn rứt", "lương tâm", "có lỗi", "làm sai"],
     passages: [
       {
@@ -34,9 +34,9 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     slug: "xau-ho-qua-khu",
     title: "Xấu hổ vì quá khứ",
     groupId: "toi-loi",
-    prompt: "Khi những ký ức sai lầm xưa cũ cứ quay về làm ngài hổ thẹn.",
+    prompt: "Khi những ký ức sai lầm xưa cũ cứ quay về làm bạn hổ thẹn.",
     intro:
-      "Cảm giác có lỗi nói 'tôi đã làm sai', còn nỗi xấu hổ thì thầm 'tôi là người hỏng bét'. Kinh Thánh đem lại một căn tính mới mẻ hoàn toàn, nơi quá khứ không còn quyền định nghĩa con người ngài.",
+      "Cảm giác có lỗi nói 'tôi đã làm sai', còn nỗi xấu hổ thì thầm 'tôi là người hỏng bét'. Kinh Thánh đem lại một căn tính mới mẻ hoàn toàn, nơi quá khứ không còn quyền định nghĩa con người bạn.",
     keywords: ["xấu hổ", "hổ thẹn", "quá khứ", "nhục nhã", "vết nhơ"],
     passages: [
       {
@@ -53,7 +53,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "2 Cô-rinh-tô 5:17",
-        note: "Quá khứ không phải bản án chung thân; trong Đấng Christ, ngài được dựng nên mới lại từ gốc.",
+        note: "Quá khứ không phải bản án chung thân; trong Đấng Christ, bạn được dựng nên mới lại từ gốc.",
       },
     ],
   },
@@ -63,12 +63,12 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "toi-loi",
     prompt: "Khi đang đứng trước lực hút của điều sai trái và sợ mình không đứng vững.",
     intro:
-      "Bị cám dỗ chưa phải là đã phạm tội — chính Chúa Jêsus cũng từng chịu cám dỗ và hiểu rõ sức nặng của nó. Ngay lúc sức hút đang mạnh nhất, luôn có một lối thoát Chúa mở sẵn cho ngài.",
+      "Bị cám dỗ chưa phải là đã phạm tội — chính Chúa Jêsus cũng từng chịu cám dỗ và hiểu rõ sức nặng của nó. Ngay lúc sức hút đang mạnh nhất, luôn có một lối thoát Chúa mở sẵn cho bạn.",
     keywords: ["cám dỗ", "thử thách", "sa ngã", "đứng vững", "lối thoát"],
     passages: [
       {
         ref: "1 Cô-rinh-tô 10:13",
-        note: "Chúa thành tín không bao giờ để ngài bị cám dỗ quá sức chịu đựng, mà luôn mở sẵn một đường ra ngay trong cơn thử thách.",
+        note: "Chúa thành tín không bao giờ để bạn bị cám dỗ quá sức chịu đựng, mà luôn mở sẵn một đường ra ngay trong cơn thử thách.",
       },
       {
         ref: "Hê-bơ-rơ 4:15–16",
@@ -130,7 +130,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "1 Cô-rinh-tô 4:7",
-        note: "Câu hỏi rất tỉnh táo cho lòng tự đắc: ngài có tài năng hay cơ hội nào mà không phải do được ban cho?",
+        note: "Câu hỏi rất tỉnh táo cho lòng tự đắc: bạn có tài năng hay cơ hội nào mà không phải do được ban cho?",
       },
       {
         ref: "Châm-ngôn 11:2",
@@ -157,7 +157,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "Ma-thi-ơ 6:21",
-        note: "Của cải ngài quý nhất đặt ở đâu, thì cả trái tim và nỗi bận tâm của ngài cũng bị cột chặt ở đó.",
+        note: "Của cải bạn quý nhất đặt ở đâu, thì cả trái tim và nỗi bận tâm của bạn cũng bị cột chặt ở đó.",
       },
       {
         ref: "Truyền-đạo 5:10",
@@ -176,7 +176,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "1 Cô-rinh-tô 6:18–20",
-        note: "Trước cám dỗ tà dâm, Kinh Thánh không bảo đứng lại tranh luận mà bảo hãy tránh chạy ngay — vì thân thể ngài là đền thờ quý giá.",
+        note: "Trước cám dỗ tà dâm, Kinh Thánh không bảo đứng lại tranh luận mà bảo hãy tránh chạy ngay — vì thân thể bạn là đền thờ quý giá.",
       },
       {
         ref: "2 Ti-mô-thê 2:22",
@@ -225,7 +225,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "toi-loi",
     prompt: "Khi đức tin trở nên khô khan, cầu nguyện thấy gượng gạo và lòng trôi xa.",
     intro:
-      "Đời sống đức tin cũng có những mùa đông khô hạn. Điều đáng mừng là chỉ riêng việc ngài nhận ra mình đang nguội lạnh và thấy nhớ Chúa đã là dấu hiệu ngọn lửa vẫn chưa tắt.",
+      "Đời sống đức tin cũng có những mùa đông khô hạn. Điều đáng mừng là chỉ riêng việc bạn nhận ra mình đang nguội lạnh và thấy nhớ Chúa đã là dấu hiệu ngọn lửa vẫn chưa tắt.",
     keywords: ["khô khan", "nguội lạnh", "xa Chúa", "mất lửa đức tin", "lạnh nhạt"],
     passages: [
       {
@@ -234,7 +234,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "Gia-cơ 4:8",
-        note: "Ngài chỉ cần bước một bước đến gần Đức Chúa Trời, chính Ngài sẽ bước đến thật gần với ngài.",
+        note: "Bạn chỉ cần bước một bước đến gần Đức Chúa Trời, chính Ngài sẽ bước đến thật gần với bạn.",
       },
       {
         ref: "Thi-thiên 51:10–12",
@@ -252,7 +252,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "toi-loi",
     prompt: "Khi muốn quay đầu khỏi lối cũ và bước đi theo hướng hoàn toàn mới.",
     intro:
-      "Không bao giờ là quá muộn để quay về. Hình ảnh đẹp nhất trong Tân Ước là người cha đứng ngóng từ xa rồi chạy ra ôm lấy đứa con lầm lạc — đó chính là cách Đức Chúa Trời đón ngài hôm nay.",
+      "Không bao giờ là quá muộn để quay về. Hình ảnh đẹp nhất trong Tân Ước là người cha đứng ngóng từ xa rồi chạy ra ôm lấy đứa con lầm lạc — đó chính là cách Đức Chúa Trời đón bạn hôm nay.",
     keywords: ["ăn năn", "làm lại", "quay về", "hoán cải", "thay đổi cuộc đời"],
     passages: [
       {
@@ -261,7 +261,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "Ê-xê-chi-ên 36:26",
-        note: "Chúa không chỉ vá víu tấm lòng cũ, mà hứa cất lòng bằng đá đi và đặt vào trong ngài một tấm lòng mới mềm mại.",
+        note: "Chúa không chỉ vá víu tấm lòng cũ, mà hứa cất lòng bằng đá đi và đặt vào trong bạn một tấm lòng mới mềm mại.",
       },
       {
         ref: "Công-vụ các Sứ-đồ 3:19",
@@ -308,7 +308,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "thu-thach",
     prompt: "Khi đang mang bệnh, điều trị dài ngày hoặc chịu cơn đau thể xác.",
     intro:
-      "Đau đớn thân xác làm mọi việc thường ngày trở nên vất vả và dễ kéo tinh thần xuống theo. Trong căn phòng bệnh hay những giờ mỏi mệt này, ngài không phải chịu đựng một mình.",
+      "Đau đớn thân xác làm mọi việc thường ngày trở nên vất vả và dễ kéo tinh thần xuống theo. Trong căn phòng bệnh hay những giờ mỏi mệt này, bạn không phải chịu đựng một mình.",
     keywords: ["bệnh tật", "đau đớn", "nằm viện", "chữa lành", "điều trị"],
     passages: [
       {
@@ -321,11 +321,11 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 73:26",
-        note: "Ngay cả khi thịt và lòng đều tiêu hao sức lực, Đức Chúa Trời vẫn là vầng đá vững chắc của trái tim ngài.",
+        note: "Ngay cả khi thịt và lòng đều tiêu hao sức lực, Đức Chúa Trời vẫn là vầng đá vững chắc của trái tim bạn.",
       },
       {
         ref: "2 Cô-rinh-tô 12:9–10",
-        note: "Khi gai nhọn trong thân xác chưa lập tức cất đi, ân điển Chúa vẫn đủ đầy để nâng ngài đi qua từng ngày.",
+        note: "Khi gai nhọn trong thân xác chưa lập tức cất đi, ân điển Chúa vẫn đủ đầy để nâng bạn đi qua từng ngày.",
       },
     ],
   },
@@ -335,7 +335,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "thu-thach",
     prompt: "Khi đang túc trực lo lắng cho cha mẹ, vợ chồng hay con cái đau ốm.",
     intro:
-      "Người chăm sóc bệnh nhân thường phải gồng mình tỏ ra mạnh mẽ trong khi bên trong cũng kiệt sức và lo âu không kém. Từng đêm thức trắng và từng cử chỉ yêu thương âm thầm của ngài đều được Chúa thấy rõ.",
+      "Người chăm sóc bệnh nhân thường phải gồng mình tỏ ra mạnh mẽ trong khi bên trong cũng kiệt sức và lo âu không kém. Từng đêm thức trắng và từng cử chỉ yêu thương âm thầm của bạn đều được Chúa thấy rõ.",
     keywords: ["chăm người bệnh", "nuôi bệnh", "thương người thân", "túc trực"],
     passages: [
       {
@@ -348,7 +348,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "Ê-sai 46:4",
-        note: "Khi ngài đang gồng mình bồng ẵm người thân, hãy nhớ chính Chúa cũng đang bồng ẵm và nâng đỡ cả ngài.",
+        note: "Khi bạn đang gồng mình bồng ẵm người thân, hãy nhớ chính Chúa cũng đang bồng ẵm và nâng đỡ cả bạn.",
       },
       {
         ref: "Thi-thiên 121:1–2",
@@ -367,11 +367,11 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Phi-líp 4:19",
-        note: "Lời hứa vững chắc của Phao-lô: Đức Chúa Trời sẽ làm cho đầy đủ mọi nhu cầu thật sự của ngài theo sự giàu có Ngài.",
+        note: "Lời hứa vững chắc của Phao-lô: Đức Chúa Trời sẽ làm cho đầy đủ mọi nhu cầu thật sự của bạn theo sự giàu có Ngài.",
       },
       {
         ref: "Ma-thi-ơ 6:31–33",
-        note: "Cha trên trời biết rõ ngài cần ăn gì, mặc gì; đặt niềm tin và thứ tự ưu tiên đúng giúp lòng thôi hoảng loạn.",
+        note: "Cha trên trời biết rõ bạn cần ăn gì, mặc gì; đặt niềm tin và thứ tự ưu tiên đúng giúp lòng thôi hoảng loạn.",
       },
       {
         ref: "Thi-thiên 37:25",
@@ -389,12 +389,12 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "thu-thach",
     prompt: "Khi mất việc, đang tìm cơ hội mới hoặc thấy con đường nghề nghiệp mờ mịt.",
     intro:
-      "Mất việc không chỉ là mất thu nhập mà còn dễ làm lung lay lòng tự trọng. Xin nhớ rằng giá trị đời ngài lớn hơn nhiều so với một chức danh hay bảng lương, và Đấng mở cửa mới vẫn đang đi trước ngài.",
+      "Mất việc không chỉ là mất thu nhập mà còn dễ làm lung lay lòng tự trọng. Xin nhớ rằng giá trị đời bạn lớn hơn nhiều so với một chức danh hay bảng lương, và Đấng mở cửa mới vẫn đang đi trước bạn.",
     keywords: ["thất nghiệp", "mất việc", "tìm việc", "sự nghiệp", "chông chênh"],
     passages: [
       {
         ref: "Thi-thiên 90:17",
-        note: "Lời cầu xin rất gần gũi cho người tìm việc: xin Chúa ban ơn và làm vững bền công việc tay ngài làm.",
+        note: "Lời cầu xin rất gần gũi cho người tìm việc: xin Chúa ban ơn và làm vững bền công việc tay bạn làm.",
       },
       {
         ref: "Khải-huyền 3:8",
@@ -433,7 +433,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
       },
       {
         ref: "Mi-chê 7:8",
-        note: "Ngã xuống hôm nay không có nghĩa sẽ nằm mãi nơi đó; Chúa sẽ làm ánh sáng nâng ngài đứng lên.",
+        note: "Ngã xuống hôm nay không có nghĩa sẽ nằm mãi nơi đó; Chúa sẽ làm ánh sáng nâng bạn đứng lên.",
       },
     ],
   },
@@ -443,7 +443,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "thu-thach",
     prompt: "Khi khó khăn nối tiếp khó khăn mãi chưa thấy hồi kết.",
     intro:
-      "Một cơn bão ngắn ai cũng cố chịu được, nhưng chuỗi ngày thử thách kéo dài mới thực sự bào mòn ý chí. Kinh Thánh gọi giai đoạn ấy là lò luyện vàng: không phải để thiêu hủy ngài, mà để tinh luyện đức tin bền vững hơn.",
+      "Một cơn bão ngắn ai cũng cố chịu được, nhưng chuỗi ngày thử thách kéo dài mới thực sự bào mòn ý chí. Kinh Thánh gọi giai đoạn ấy là lò luyện vàng: không phải để thiêu hủy bạn, mà để tinh luyện đức tin bền vững hơn.",
     keywords: ["hoạn nạn", "thử thách", "gian nan", "khó khăn kéo dài", "nghịch cảnh"],
     passages: [
       {
@@ -470,7 +470,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "thu-thach",
     prompt: "Khi cầu nguyện mãi mà bầu trời như im bặt, không thấy dấu hiệu gì.",
     intro:
-      "Cảm giác gọi mãi mà không nghe tiếng đáp là một thử thách rất sâu của người tin Chúa. Sách Thi-thiên và sách Gióp chứa đầy những câu hỏi 'Chúa ơi, cho đến bao giờ?' — cho thấy Ngài không hề giận khi ngài thành thật thưa nỗi thắc mắc ấy.",
+      "Cảm giác gọi mãi mà không nghe tiếng đáp là một thử thách rất sâu của người tin Chúa. Sách Thi-thiên và sách Gióp chứa đầy những câu hỏi 'Chúa ơi, cho đến bao giờ?' — cho thấy Ngài không hề giận khi bạn thành thật thưa nỗi thắc mắc ấy.",
     keywords: ["Chúa im lặng", "cầu nguyện không thấy đáp", "tại sao", "xa vắng"],
     passages: [
       {
@@ -524,7 +524,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     groupId: "thu-thach",
     prompt: "Khi bị người xung quanh giễu cợt, hiểu sai hoặc tách biệt vì niềm tin của mình.",
     intro:
-      "Giữ vững niềm tin và giá trị sống của mình giữa môi trường không đồng cảm có thể khiến ngài thấy lạc lõng. Chính Chúa Jêsus đã đi trước trên con đường ấy và khích lệ ngài giữ lòng bình tĩnh, nhân hậu.",
+      "Giữ vững niềm tin và giá trị sống của mình giữa môi trường không đồng cảm có thể khiến bạn thấy lạc lõng. Chính Chúa Jêsus đã đi trước trên con đường ấy và khích lệ bạn giữ lòng bình tĩnh, nhân hậu.",
     keywords: ["bị chê cười", "bắt bớ", "giễu cợt", "cô lập", "giữ đức tin"],
     passages: [
       {
@@ -583,7 +583,7 @@ export const TOI_LOI_VA_THU_THACH: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Ê-sai 46:4",
-        note: "Lời hứa ấm áp bậc nhất cho tuổi già: cho đến lúc ngài già cả và tóc bạc, chính Ta vẫn bồng ẵm, gánh vác và giải cứu.",
+        note: "Lời hứa ấm áp bậc nhất cho tuổi già: cho đến lúc bạn già cả và tóc bạc, chính Ta vẫn bồng ẵm, gánh vác và giải cứu.",
       },
       {
         ref: "Thi-thiên 92:12–14",

@@ -1,4 +1,4 @@
-import { getContent, type Content, type Mode } from "../content";
+import { getContent, type Content } from "../content";
 import { GIA_DINH_VA_DINH_HUONG } from "./groups/gia-dinh-va-dinh-huong";
 import { LO_AU_VA_TUC_GIAN } from "./groups/lo-au-va-tuc-gian";
 import { NIEM_VUI_VA_NOI_BUON } from "./groups/niem-vui-va-noi-buon";
@@ -29,41 +29,49 @@ export const MOOD_GROUPS: readonly MoodGroup[] = [
   {
     id: "niem-vui",
     name: "Niềm vui & biết ơn",
+    shortName: "Niềm vui",
     description: "Khi lòng nhẹ nhõm, bình an, biết ơn hoặc khao khát tôn vinh Chúa.",
   },
   {
     id: "noi-buon",
     name: "Nỗi buồn, mất mát & cô đơn",
+    shortName: "Nỗi buồn",
     description: "Khi lòng tan vỡ, lẻ loi, hụt hẫng hay đang bước qua mất mát.",
   },
   {
     id: "lo-au",
     name: "Lo âu, sợ hãi & áp lực",
+    shortName: "Lo âu",
     description: "Khi tâm trí bất an, căng thẳng, mất ngủ hoặc hoang mang trước ngày mai.",
   },
   {
     id: "tuc-gian",
     name: "Tức giận, xung đột & tha thứ",
+    shortName: "Xung đột & tha thứ",
     description: "Khi bị tổn thương, oan ức, nóng giận hoặc đang vật lộn với sự tha thứ.",
   },
   {
     id: "toi-loi",
     name: "Tội lỗi, cám dỗ & ăn năn",
+    shortName: "Cám dỗ & ăn năn",
     description: "Khi đối diện cám dỗ, mặc cảm lỗi lầm hay mong muốn làm lại cuộc đời.",
   },
   {
     id: "thu-thach",
     name: "Kiệt sức, bệnh tật & thử thách",
+    shortName: "Thử thách",
     description: "Khi thân thể mỏi mệt, gặp biến cố tài chính, sức khỏe hoặc thử thách dài.",
   },
   {
     id: "gia-dinh",
     name: "Gia đình, tình yêu & các mối quan hệ",
+    shortName: "Gia đình & tình yêu",
     description: "Khi xây dựng hôn nhân, nuôi dạy con cái, giữ tình bạn và hòa giải.",
   },
   {
     id: "dinh-huong",
     name: "Công việc, khôn ngoan & định hướng sống",
+    shortName: "Định hướng sống",
     description: "Khi cần sự sáng suốt, giữ chính trực, kiên trì và tìm mục đích đời mình.",
   },
 ];
@@ -76,8 +84,8 @@ export const MOOD_DEFINITIONS: readonly MoodDefinition[] = [
 ];
 
 export type MoodCatalog = {
-  index(mode: Mode): MoodIndex;
-  mood(args: { slug: string; mode: Mode }): MoodView | null;
+  index(): MoodIndex;
+  mood(slug: string): MoodView | null;
 };
 
 type ResolvedMood = {
@@ -138,6 +146,8 @@ export function createMoodCatalog(args: {
       }
     }
 
+    const books = [...new Set(passages.map((p) => p.ref.book.name))];
+
     resolved.push({
       def,
       group,
@@ -147,6 +157,7 @@ export function createMoodCatalog(args: {
         groupId: def.groupId,
         prompt: def.prompt,
         keywords: [...def.keywords],
+        books,
         passageCount: passages.length,
       },
       passages,
@@ -167,22 +178,20 @@ export function createMoodCatalog(args: {
     entry ? { slug: entry.def.slug, title: entry.def.title } : null;
 
   return {
-    index(mode) {
+    index() {
       return {
-        mode,
         groups,
         moods: resolved.map((r) => r.summary),
       };
     },
 
-    mood({ slug, mode }) {
+    mood(slug) {
       const found = bySlug.get(slug);
       if (!found) return null;
       const { entry, idx } = found;
 
-      // Chỉ gắn đường dẫn đọc ghi chú đoạn nếu đoạn đó hiện có trong chế độ xem (tránh link 404 khi prerender công bố).
       const tocChapters = new Map<string, string>();
-      for (const b of args.content.toc(mode)) {
+      for (const b of args.content.toc()) {
         for (const ch of b.chapters) {
           tocChapters.set(`${b.book.code}:${ch.number}`, ch.title);
         }
@@ -202,7 +211,6 @@ export function createMoodCatalog(args: {
       }
 
       return {
-        mode,
         slug: entry.def.slug,
         title: entry.def.title,
         group: entry.group,

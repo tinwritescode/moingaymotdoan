@@ -9,7 +9,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     groupId: "gia-dinh",
     prompt: "Khi đang rung động, hẹn hò và muốn xây dựng tình yêu lành mạnh.",
     intro:
-      "Tình yêu đẹp nhất khi vừa có rung động chân thành vừa có sự tỉnh táo, tôn trọng và chung thủy. Những đoạn Kinh Thánh này giúp ngài phân biệt cảm xúc nhất thời với tình yêu bền vững theo năm tháng.",
+      "Tình yêu đẹp nhất khi vừa có rung động chân thành vừa có sự tỉnh táo, tôn trọng và chung thủy. Những đoạn Kinh Thánh này giúp bạn phân biệt cảm xúc nhất thời với tình yêu bền vững theo năm tháng.",
     keywords: ["tình yêu", "hẹn hò", "người yêu", "tìm hiểu", "yêu đương"],
     passages: [
       {
@@ -230,7 +230,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Châm-ngôn 4:23",
-        note: "Hơn hết mọi sự, hãy gìn giữ tấm lòng mình — bởi ranh giới lành mạnh bảo vệ mạch sống bên trong ngài.",
+        note: "Hơn hết mọi sự, hãy gìn giữ tấm lòng mình — bởi ranh giới lành mạnh bảo vệ mạch sống bên trong bạn.",
       },
       {
         ref: "1 Cô-rinh-tô 15:33",
@@ -304,7 +304,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     slug: "an-ui-nguoi-dau-kho",
     title: "Muốn an ủi người đang đau khổ",
     groupId: "gia-dinh",
-    prompt: "Khi bạn bè hay người thân gặp hoạn nạn và ngài không biết nói gì cho phải.",
+    prompt: "Khi bạn bè hay người thân gặp hoạn nạn và bạn không biết nói gì cho phải.",
     intro:
       "Khi người thương đang đau buồn, nhiều khi họ không cần một bài giảng giải thích nguyên nhân, mà cần một người sẵn sàng ngồi im lặng và khóc cùng họ. Kinh Thánh dạy nghệ thuật an ủi rất nhân hậu này.",
     keywords: ["an ủi", "động viên", "chia buồn", "sẻ chia", "nâng đỡ"],
@@ -319,7 +319,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "2 Cô-rinh-tô 1:3–4",
-        note: "Chính những lần ngài từng được Chúa an ủi trong quá khứ trang bị cho ngài tấm lòng dịu dàng để nâng đỡ người khác hôm nay.",
+        note: "Chính những lần bạn từng được Chúa an ủi trong quá khứ trang bị cho bạn tấm lòng dịu dàng để nâng đỡ người khác hôm nay.",
       },
       {
         ref: "Châm-ngôn 16:24",
@@ -360,7 +360,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     groupId: "gia-dinh",
     prompt: "Khi phải nói lời tạm biệt người thân hay bạn quý lên đường sang phương xa.",
     intro:
-      "Những cuộc chia tay luôn mang theo bịn rịn và lo lắng cho chặng đường của người đi xa. Lời chúc phước từ Kinh Thánh trao người ngài thương vào sự gìn giữ chung của một bầu trời bình an.",
+      "Những cuộc chia tay luôn mang theo bịn rịn và lo lắng cho chặng đường của người đi xa. Lời chúc phước từ Kinh Thánh trao người bạn thương vào sự gìn giữ chung của một bầu trời bình an.",
     keywords: ["chia tay", "tiễn biệt", "đi xa", "tạm biệt", "lên đường"],
     passages: [
       {
@@ -416,12 +416,12 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     groupId: "dinh-huong",
     prompt: "Khi tự hỏi mình sống để làm gì và điều gì thật sự đáng dành cả đời.",
     intro:
-      "Câu hỏi về ý nghĩa cuộc đời thường vang lên rõ nhất vào những buổi tối yên tĩnh hay sau một cột mốc lớn. Kinh Thánh đặt đời sống ngài vào một bức tranh rộng lớn hơn nhiều so với vòng quay cơm áo thường ngày.",
+      "Câu hỏi về ý nghĩa cuộc đời thường vang lên rõ nhất vào những buổi tối yên tĩnh hay sau một cột mốc lớn. Kinh Thánh đặt đời sống bạn vào một bức tranh rộng lớn hơn nhiều so với vòng quay cơm áo thường ngày.",
     keywords: ["mục đích sống", "ý nghĩa cuộc đời", "sứ mệnh", "lẽ sống", "tôi là ai"],
     passages: [
       {
         ref: "Ê-phê-sô 2:10",
-        note: "Đời ngài có thiết kế và chủ ý: được dựng nên để bước đi trong những việc lành tốt đẹp đã chuẩn bị sẵn.",
+        note: "Đời bạn có thiết kế và chủ ý: được dựng nên để bước đi trong những việc lành tốt đẹp đã chuẩn bị sẵn.",
       },
       {
         ref: "Truyền-đạo 12:13",
@@ -460,7 +460,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 90:17",
-        note: "Lời cầu nguyện mỗi sáng thứ Hai: xin Chúa làm vững bền và đặt ý nghĩa lâu dài trên công việc tay ngài làm.",
+        note: "Lời cầu nguyện mỗi sáng thứ Hai: xin Chúa làm vững bền và đặt ý nghĩa lâu dài trên công việc tay bạn làm.",
       },
     ],
   },
@@ -483,7 +483,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "Ê-xơ-tê 4:14",
-        note: "Câu hỏi lay động của Mạc-đô-chê: biết đâu chính vì thời cơ này mà ngài được đặt vào vị trí hôm nay?",
+        note: "Câu hỏi lay động của Mạc-đô-chê: biết đâu chính vì thời cơ này mà bạn được đặt vào vị trí hôm nay?",
       },
       {
         ref: "2 Ti-mô-thê 1:7",
@@ -549,7 +549,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     slug: "song-chinh-truc",
     title: "Giữ sự chính trực giữa môi trường xấu",
     groupId: "dinh-huong",
-    prompt: "Khi xung quanh nhiều gian dối và ngài bị ép thỏa hiệp lương tâm.",
+    prompt: "Khi xung quanh nhiều gian dối và bạn bị ép thỏa hiệp lương tâm.",
     intro:
       "Giữ sự ngay thẳng khi chẳng ai nhìn thấy — hoặc khi mọi người xung quanh đều làm trái — đòi hỏi bản lĩnh rất lớn. Nhưng thanh danh sạch sẽ và giấc ngủ bình yên đáng giá hơn mọi khoản lợi bất chính.",
     keywords: ["chính trực", "liêm khiết", "ngay thẳng", "trung thực", "không thỏa hiệp"],
@@ -603,9 +603,9 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     slug: "kien-tri-khong-bo-cuoc",
     title: "Kiên trì khi chỉ muốn bỏ cuộc",
     groupId: "dinh-huong",
-    prompt: "Khi chặng đường quá dài, kết quả chưa thấy và ngài sắp buông tay.",
+    prompt: "Khi chặng đường quá dài, kết quả chưa thấy và bạn sắp buông tay.",
     intro:
-      "Phần lớn những điều quý giá nhất trong đời đều nở hoa chậm hơn ta tưởng. Nếu ngài đang đi trên con đường đúng nhưng thấm mệt, hãy bước thêm một bước nhỏ hôm nay thay vì nhìn mãi đường xa.",
+      "Phần lớn những điều quý giá nhất trong đời đều nở hoa chậm hơn ta tưởng. Nếu bạn đang đi trên con đường đúng nhưng thấm mệt, hãy bước thêm một bước nhỏ hôm nay thay vì nhìn mãi đường xa.",
     keywords: ["kiên trì", "bền chí", "bỏ cuộc", "cố gắng", "đi đến cùng"],
     passages: [
       {
@@ -641,7 +641,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "1 Phi-e-rơ 5:5–6",
-        note: "Hạ mình dưới bàn tay quyền năng của Đức Chúa Trời để chính Ngài nâng ngài lên vào đúng thời điểm.",
+        note: "Hạ mình dưới bàn tay quyền năng của Đức Chúa Trời để chính Ngài nâng bạn lên vào đúng thời điểm.",
       },
       {
         ref: "Châm-ngôn 22:4",
@@ -718,7 +718,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     passages: [
       {
         ref: "Ma-thi-ơ 6:6",
-        note: "Vào phòng kín đóng cửa lại — cầu nguyện bắt đầu từ cuộc gặp gỡ chân thật, không phô trương giữa ngài với Cha.",
+        note: "Vào phòng kín đóng cửa lại — cầu nguyện bắt đầu từ cuộc gặp gỡ chân thật, không phô trương giữa bạn với Cha.",
       },
       {
         ref: "1 Tê-sa-lô-ni-ca 5:16–18",
@@ -726,7 +726,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "Giê-rê-mi 33:3",
-        note: "Lời mời gọi ấm áp từ Đức Chúa Trời: hãy kêu cầu Ta, Ta sẽ trả lời và tỏ cho ngài những điều sâu nhiệm.",
+        note: "Lời mời gọi ấm áp từ Đức Chúa Trời: hãy kêu cầu Ta, Ta sẽ trả lời và tỏ cho bạn những điều sâu nhiệm.",
       },
       {
         ref: "Thi-thiên 145:18",
@@ -740,7 +740,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
     groupId: "dinh-huong",
     prompt: "Khi muốn nuôi dưỡng đời sống tâm linh và hiểu lời Chúa sâu hơn mỗi ngày.",
     intro:
-      "Thật quý biết bao khi lòng ngài dâng lên cơn khát tìm kiếm Đức Chúa Trời và lời Ngài. Cơn khát ấy chính là hạt giống lành Ngài gieo vào tâm hồn — và Ngài hứa sẽ làm cho người tìm kiếm được gặp.",
+      "Thật quý biết bao khi lòng bạn dâng lên cơn khát tìm kiếm Đức Chúa Trời và lời Ngài. Cơn khát ấy chính là hạt giống lành Ngài gieo vào tâm hồn — và Ngài hứa sẽ làm cho người tìm kiếm được gặp.",
     keywords: ["gần Chúa", "đọc Kinh Thánh", "tìm kiếm Chúa", "tâm linh", "lời Chúa"],
     passages: [
       {
@@ -749,7 +749,7 @@ export const GIA_DINH_VA_DINH_HUONG: readonly MoodDefinition[] = [
       },
       {
         ref: "Giê-rê-mi 29:13",
-        note: "Lời hứa chắc chắn: khi ngài hết lòng tìm kiếm Chúa, ngài chắc chắn sẽ gặp được Ngài.",
+        note: "Lời hứa chắc chắn: khi bạn hết lòng tìm kiếm Chúa, bạn chắc chắn sẽ gặp được Ngài.",
       },
       {
         ref: "Thi-thiên 119:103–105",

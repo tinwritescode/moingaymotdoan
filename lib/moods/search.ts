@@ -11,9 +11,11 @@ export function normalizeSearch(text: string): string {
     .trim();
 }
 
-/** Kiểm tra một chuyên mục có khớp từ khóa người dùng gõ không (khớp từng từ, không phân biệt dấu). */
+/** Kiểm tra một chuyên mục có khớp từ khóa người dùng gõ không (khớp từng từ, kể cả tên sách Kinh Thánh). */
 export function matchesMood(mood: MoodSummary, normalizedQuery: string): boolean {
   if (!normalizedQuery) return true;
-  const haystack = normalizeSearch(`${mood.title} ${mood.prompt} ${mood.keywords.join(" ")}`);
+  const haystack = normalizeSearch(
+    `${mood.title} ${mood.prompt} ${mood.keywords.join(" ")} ${mood.books.join(" ")}`,
+  );
   return normalizedQuery.split(" ").every((term) => haystack.includes(term));
 }

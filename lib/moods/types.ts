@@ -1,8 +1,10 @@
-import type { Mode, Ref } from "../content";
+import type { Ref } from "../content";
 
 export type MoodGroup = {
   id: string;
   name: string;
+  /** Nhãn gọn cho thanh lọc ngang trên điện thoại. */
+  shortName: string;
   description: string;
 };
 
@@ -32,11 +34,12 @@ export type MoodSummary = {
   groupId: string;
   prompt: string;
   keywords: string[];
+  /** Các sách Kinh Thánh xuất hiện trong chuyên mục, giúp tìm nhanh theo tên sách. */
+  books: string[];
   passageCount: number;
 };
 
 export type MoodIndex = {
-  mode: Mode;
   groups: MoodGroup[];
   moods: MoodSummary[];
 };
@@ -54,7 +57,6 @@ export type MoodNavLink = {
 };
 
 export type MoodView = {
-  mode: Mode;
   slug: string;
   title: string;
   group: MoodGroup;

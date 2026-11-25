@@ -11,7 +11,6 @@ const verse = (number: number) => ({ number, text: `Câu ${number}.` });
 
 /** One story paragraph citing 1:2–3 of this chapter and Xuất 3:14 elsewhere. */
 const VIEW: ChapterView = {
-  mode: "cong-bo",
   book: GEN,
   number: 1,
   title: "Ban đầu",

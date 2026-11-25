@@ -22,12 +22,11 @@ const PAGER = "kt-pager inline-flex min-h-11 items-center rounded-lg border bord
 
 const hrefOf = (l: ChapterLink) => chapterHref({ slug: l.book.slug, number: l.number });
 const linkHref = (l: ChapterLink | null) => (l ? hrefOf(l) : null);
-const draftOf = (v: ChapterView) => (v.mode === "nhap" ? v : null);
 /** Names the book only when the link leaves the current one. */
 const labelOf = (l: ChapterLink, here: ChapterView) =>
   l.book.code === here.book.code ? `Đoạn ${l.number}` : `${l.book.name} ${l.number}`;
 
-/** Only đoạn with a ghi chú (and, in Công bố, only approved ones) exist; anything else is the not-found page. */
+/** Only đoạn with a ghi chú exist; anything else is the not-found page. */
 export default function ChapterPage(props: RouteProps<typeof route>) {
   const view = createMemo(() => getChapter(props.params.book, Number(props.params.chapter)));
   return (
@@ -49,14 +48,6 @@ export default function ChapterPage(props: RouteProps<typeof route>) {
               <span class="text-ink">Đoạn {ch().number}</span>
             </nav>
             <div class="flex-1" />
-            <Show when={draftOf(ch())}>
-              {(d) => (
-                <span class="rounded-full bg-vua/15 px-2.5 py-1 text-xs font-semibold text-vua">
-                  Nháp · {d().approved ? "Đã duyệt" : "Chưa duyệt"} · Cao {d().summary.cao} · Vừa {d().summary.vua} · Thấp{" "}
-                  {d().summary.thap} · Đã đối chiếu {d().summary.verified}/{d().summary.total}
-                </span>
-              )}
-            </Show>
             <nav aria-label="Đoạn trước và sau" class="flex gap-2">
               <Show when={ch().prev} fallback={<span class={`${PAGER} text-muted/60`}>← Đoạn trước</span>}>
                 {(l) => (

@@ -4,8 +4,8 @@ import { createMemo, For, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
 import { testamentOf } from "../../lib/content/books";
 import { plainText } from "../../lib/content/note";
+import { AI_NOTICE } from "../../lib/notice";
 import { SiteHeader } from "../components/site-header";
-import { SummaryLine } from "../components/summary-line";
 import { getChapter, getToc, type Toc } from "../data";
 import { chapterHref } from "../router";
 
@@ -56,15 +56,13 @@ export default function MucLuc() {
           </div>
         </header>
 
-        <Show when={toc().mode === "nhap"}>
-          <p class="mt-6 rounded border border-vua/40 bg-card px-3 py-2 font-sans text-sm">
-            Đang xem chế độ Nháp: hiện cả đoạn chưa duyệt.
-          </p>
-        </Show>
+        <p class="mt-6 rounded-xl border border-rule bg-card px-4 py-3 font-sans text-sm leading-relaxed text-muted">
+          {AI_NOTICE}
+        </p>
 
         <Show
           when={startOf(toc())}
-          fallback={<p class="mt-10 text-muted">Chưa có đoạn nào được công bố. Mời ngài quay lại sau.</p>}
+          fallback={<p class="mt-10 text-muted">Chưa có đoạn nào. Mời bạn quay lại sau.</p>}
         >
           {(start) => (
             <>
@@ -94,12 +92,17 @@ function StartHere(props: { book: TocBook }) {
     return story ? firstSentence(plainText(story)) : "";
   });
   return (
-    <section aria-labelledby="bat-dau" class="kt-start flex flex-wrap items-end gap-x-14 gap-y-6 border-b border-rule py-12">
+    <section
+      aria-labelledby="bat-dau"
+      class="kt-start flex flex-wrap items-end gap-x-14 gap-y-6 border-b border-rule py-12"
+    >
       <div class="min-w-0 flex-[999_1_32rem]">
         <p id="bat-dau" class={`${KICKER} text-accent`}>
           Bắt đầu đọc · {props.book.book.name} {ch().number}
         </p>
-        <h2 class="kt-start-title mt-3 font-display text-5xl leading-[1.05] font-extrabold text-balance sm:text-7xl">{ch().title}</h2>
+        <h2 class="kt-start-title mt-3 font-display text-5xl leading-[1.05] font-extrabold text-balance sm:text-7xl">
+          {ch().title}
+        </h2>
         <p class="mt-5 max-w-2xl text-xl leading-relaxed">{lead()}</p>
         <a
           href={chapterHref({ slug: props.book.book.slug, number: ch().number })}
@@ -128,7 +131,10 @@ function BookIndex(props: { toc: TocBook[] }) {
         <For each={props.toc}>
           {(t) => (
             <li class="border-b border-rule last:border-b-0">
-              <a href={`#${t.book.slug}`} class="kt-books-link group flex min-h-20 flex-wrap items-baseline gap-x-6 gap-y-1 py-4">
+              <a
+                href={`#${t.book.slug}`}
+                class="kt-books-link group flex min-h-20 flex-wrap items-baseline gap-x-6 gap-y-1 py-4"
+              >
                 <span class="flex-[1_1_18rem] font-display text-4xl font-semibold group-hover:text-accent sm:text-5xl">
                   {t.book.name}
                 </span>
@@ -147,7 +153,11 @@ function BookIndex(props: { toc: TocBook[] }) {
 
 function BookSection(props: { entry: TocBook }) {
   return (
-    <section id={props.entry.book.slug} aria-labelledby={`${props.entry.book.slug}-ten`} class="kt-book scroll-mt-6 pt-14">
+    <section
+      id={props.entry.book.slug}
+      aria-labelledby={`${props.entry.book.slug}-ten`}
+      class="kt-book scroll-mt-6 pt-14"
+    >
       <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink pb-2">
         <h2 id={`${props.entry.book.slug}-ten`} class="kt-book-name font-display text-3xl font-semibold">
           {props.entry.book.name}
@@ -160,18 +170,13 @@ function BookSection(props: { entry: TocBook }) {
         <For each={props.entry.chapters}>
           {(ch) => (
             <li class="mb-3 break-inside-avoid">
-              <a href={chapterHref({ slug: props.entry.book.slug, number: ch.number })} class="kt-chapter-link group flex gap-3">
+              <a
+                href={chapterHref({ slug: props.entry.book.slug, number: ch.number })}
+                class="kt-chapter-link group flex gap-3"
+              >
                 <span class="w-7 shrink-0 text-right font-sans text-sm leading-7 text-accent">{ch.number}</span>
                 <span class="leading-snug group-hover:text-accent">{ch.title}</span>
               </a>
-              <Show when={ch.draft}>
-                {(d) => (
-                  <div class="ml-10 flex flex-wrap items-center gap-x-2 font-sans">
-                    <span class="text-xs font-semibold">{d().approved ? "Đã duyệt" : "Chưa duyệt"}</span>
-                    <SummaryLine summary={d().summary} />
-                  </div>
-                )}
-              </Show>
             </li>
           )}
         </For>

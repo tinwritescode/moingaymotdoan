@@ -12,13 +12,9 @@ Mỗi đoạn (chương) một file Markdown: `content/sang-the-ky/01.md`, `02.m
 
 ## Cấu trúc mỗi file
 
-App đọc theo phần đầu file và các heading cố định, đúng thứ tự này. Sai một chỗ là bản build báo lỗi kèm tên file.
+App đọc theo các heading cố định, đúng thứ tự này (phần frontmatter `--- ... ---` ở đầu file nếu có sẽ được bỏ qua). Sai một chỗ là bản build báo lỗi kèm tên file.
 
 ```
----
-duyet: false
----
-
 # Sáng-thế Ký N — Tiêu đề
 ## Câu chuyện
 ## Ý chính
@@ -27,7 +23,6 @@ duyet: false
 ## Các nhà giải kinh nói gì
 ```
 
-- `duyet: true` khi chủ trang đã đọc và duyệt. Thiếu phần đầu file thì coi như chưa duyệt.
 - `## Câu chuyện`: kể lại đoạn Kinh Thánh bằng lời thường
 - `## Ý chính`: ý nghĩa dễ hiểu
 - `## Ý nghĩa sâu xa`: liên kết với toàn bộ Kinh Thánh
@@ -56,15 +51,13 @@ Dấu đặt ở cuối đoạn văn của ý kiến:
 <!-- tin-cay: cao|vua|thap | doi-chieu: roi|chua | ly-do: vì sao chọn mức này -->
 ```
 
-`doi-chieu: roi` khi chủ trang đã tự mở sách gốc ra xem. Ở trang công bố, ý kiến chưa đối chiếu bị ẩn.
-
 Câu văn ở các phần khác mà chưa chắc thì bọc lại:
 
 ```
 <!-- thap: lý do -->câu chưa chắc<!-- /thap -->
 ```
 
-Ghi chú đã duyệt thì không được còn câu mức Thấp. Mức tin cậy chỉ hiện ở chế độ Nháp (`pnpm dev`), không hiện ở trang công bố (`pnpm build`).
+Trang không có chế độ duyệt riêng: mọi đoạn, ý kiến nhà giải kinh và mức tin cậy đều hiện trực tiếp kèm thông báo nguồn biên soạn AI để người đọc kiểm chứng lại hoặc hỏi ý kiến mục sư khi cần.
 
 ## Nguồn và bản quyền
 

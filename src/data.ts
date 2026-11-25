@@ -1,9 +1,9 @@
 import { query } from "@solidjs/router";
-import type { ChapterView, Mode, TocBook } from "../lib/content";
+import type { ChapterView, TocBook } from "../lib/content";
 import type { MoodIndex, MoodView } from "../lib/moods";
 
-/** What every page needs: the mode it is built in and the đoạn it may link to. */
-export type Toc = { mode: Mode; books: TocBook[] };
+/** What every page needs: the list of books and đoạn it may link to. */
+export type Toc = { books: TocBook[] };
 
 /** The static file each query reads in the browser; the server writes the same files at build time. */
 export const dataUrl = {

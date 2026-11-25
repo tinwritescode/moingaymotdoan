@@ -9,12 +9,12 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "lo-au",
     prompt: "Khi đầu óc quay cuồng với hàng trăm kịch bản ngày mai chưa xảy ra.",
     intro:
-      "Lo âu kéo ta rời khỏi giây phút hiện tại để gánh trước những gánh nặng của ngày mai mà ta chưa có sức cho hôm nay. Hãy thở chậm lại và đặt từng nỗi lo ấy vào tay Đấng đã nắm giữ ngày mai của ngài.",
+      "Lo âu kéo ta rời khỏi giây phút hiện tại để gánh trước những gánh nặng của ngày mai mà ta chưa có sức cho hôm nay. Hãy thở chậm lại và đặt từng nỗi lo ấy vào tay Đấng đã nắm giữ ngày mai của bạn.",
     keywords: ["lo âu", "lo lắng", "bất an", "tương lai", "suy nghĩ nhiều"],
     passages: [
       {
         ref: "Ma-thi-ơ 6:25–34",
-        note: "Chúa Jêsus chỉ vào chim trời và hoa huệ ngoài đồng để nhắc: Cha trên trời biết rõ mọi nhu cầu của ngài, hãy sống trọn hôm nay.",
+        note: "Chúa Jêsus chỉ vào chim trời và hoa huệ ngoài đồng để nhắc: Cha trên trời biết rõ mọi nhu cầu của bạn, hãy sống trọn hôm nay.",
       },
       {
         ref: "Phi-líp 4:6–7",
@@ -22,7 +22,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "1 Phi-e-rơ 5:7",
-        note: "Phi-e-rơ dùng một động từ rất mạnh: hãy trút hết mọi sự lo lắng lên Chúa, vì Ngài thật sự chăm sóc ngài.",
+        note: "Phi-e-rơ dùng một động từ rất mạnh: hãy trút hết mọi sự lo lắng lên Chúa, vì Ngài thật sự chăm sóc bạn.",
       },
       {
         ref: "Châm-ngôn 12:25",
@@ -34,9 +34,9 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     slug: "so-hai",
     title: "Sợ hãi và bất an",
     groupId: "lo-au",
-    prompt: "Khi nỗi sợ xâm chiếm tâm trí và khiến ngài chùn bước.",
+    prompt: "Khi nỗi sợ xâm chiếm tâm trí và khiến bạn chùn bước.",
     intro:
-      "Câu nói lặp lại nhiều lần nhất trong Kinh Thánh là 'Đừng sợ'. Chúa không nói 'đừng sợ' vì cuộc đời không có hiểm nguy, mà vì Đấng đang đứng bên cạnh ngài lớn hơn mọi điều làm ngài run sợ.",
+      "Câu nói lặp lại nhiều lần nhất trong Kinh Thánh là 'Đừng sợ'. Chúa không nói 'đừng sợ' vì cuộc đời không có hiểm nguy, mà vì Đấng đang đứng bên cạnh bạn lớn hơn mọi điều làm bạn run sợ.",
     keywords: ["sợ", "hoảng sợ", "kinh hãi", "bất an", "run sợ"],
     passages: [
       {
@@ -61,14 +61,14 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     slug: "cang-thang-qua-tai",
     title: "Căng thẳng và quá tải",
     groupId: "lo-au",
-    prompt: "Khi công việc, trách nhiệm và áp lực dồn dập khiến ngài nghẹt thở.",
+    prompt: "Khi công việc, trách nhiệm và áp lực dồn dập khiến bạn nghẹt thở.",
     intro:
-      "Khi danh sách việc phải làm dài bất tận và ai cũng chờ đợi ở ngài, rất dễ quên rằng mình không phải là cỗ máy. Hãy dừng lại vài phút trước lời mời nghỉ ngơi đầy nhân hậu của Chúa Jêsus.",
+      "Khi danh sách việc phải làm dài bất tận và ai cũng chờ đợi ở bạn, rất dễ quên rằng mình không phải là cỗ máy. Hãy dừng lại vài phút trước lời mời nghỉ ngơi đầy nhân hậu của Chúa Jêsus.",
     keywords: ["stress", "áp lực", "quá tải", "căng thẳng", "ngộp thở"],
     passages: [
       {
         ref: "Ma-thi-ơ 11:28–30",
-        note: "Chúa Jêsus không đặt thêm gánh nặng lên vai người mệt mỏi, mà mời ngài đến nhận lấy sự yên nghỉ thật cho linh hồn.",
+        note: "Chúa Jêsus không đặt thêm gánh nặng lên vai người mệt mỏi, mà mời bạn đến nhận lấy sự yên nghỉ thật cho linh hồn.",
       },
       {
         ref: "Thi-thiên 46:10",
@@ -76,7 +76,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 55:22",
-        note: "Hãy trao gánh nặng quá sức của ngài sang cho Đức Giê-hô-va; Ngài sẽ nâng đỡ để ngài không gục ngã.",
+        note: "Hãy trao gánh nặng quá sức của bạn sang cho Đức Giê-hô-va; Ngài sẽ nâng đỡ để bạn không gục ngã.",
       },
       {
         ref: "Xuất Ê-díp-tô Ký 33:14",
@@ -99,7 +99,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 121:3–4",
-        note: "Ngài có thể yên tâm ngủ đi vì Đấng gìn giữ ngài chẳng hề buồn ngủ cũng không hề ngủ.",
+        note: "Bạn có thể yên tâm ngủ đi vì Đấng gìn giữ bạn chẳng hề buồn ngủ cũng không hề ngủ.",
       },
       {
         ref: "Thi-thiên 127:2",
@@ -117,12 +117,12 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "lo-au",
     prompt: "Khi đứng trước nhiều lựa chọn và không biết rẽ hướng nào cho đúng.",
     intro:
-      "Đứng trước một quyết định lớn mà thiếu bản đồ rõ ràng luôn khiến lòng chao đảo. Chúa thường không chiếu sáng cả mười cây số phía trước, nhưng Ngài luôn đủ ánh sáng cho bước chân kế tiếp của ngài.",
+      "Đứng trước một quyết định lớn mà thiếu bản đồ rõ ràng luôn khiến lòng chao đảo. Chúa thường không chiếu sáng cả mười cây số phía trước, nhưng Ngài luôn đủ ánh sáng cho bước chân kế tiếp của bạn.",
     keywords: ["hoang mang", "mất phương hướng", "ngã rẽ", "phân vân", "lựa chọn"],
     passages: [
       {
         ref: "Châm-ngôn 3:5–6",
-        note: "Khi lý trí không nhìn hết đường phía trước, hết lòng tin cậy và nhận biết Chúa là cách để Ngài chỉ dẫn các nẻo ngài đi.",
+        note: "Khi lý trí không nhìn hết đường phía trước, hết lòng tin cậy và nhận biết Chúa là cách để Ngài chỉ dẫn các nẻo bạn đi.",
       },
       {
         ref: "Thi-thiên 119:105",
@@ -144,7 +144,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "lo-au",
     prompt: "Khi chùn bước vì sợ làm hỏng, sợ sai lầm hoặc không đủ giỏi.",
     intro:
-      "Nỗi sợ thất bại thường làm ta tê liệt trước cả khi bắt đầu. Nhưng trong bàn tay Đức Chúa Trời, một bước vấp ngã không phải dấu chấm hết — mà là nơi Ngài nắm tay kéo ngài đứng dậy.",
+      "Nỗi sợ thất bại thường làm ta tê liệt trước cả khi bắt đầu. Nhưng trong bàn tay Đức Chúa Trời, một bước vấp ngã không phải dấu chấm hết — mà là nơi Ngài nắm tay kéo bạn đứng dậy.",
     keywords: ["sợ sai", "sợ thua", "chùn bước", "do dự", "sợ hỏng việc"],
     passages: [
       {
@@ -161,7 +161,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Rô-ma 8:31",
-        note: "Khi Đức Chúa Trời đứng về phía ngài, nỗi sợ thất bại không còn tiếng nói cuối cùng trên đời ngài nữa.",
+        note: "Khi Đức Chúa Trời đứng về phía bạn, nỗi sợ thất bại không còn tiếng nói cuối cùng trên đời bạn nữa.",
       },
     ],
   },
@@ -171,7 +171,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "lo-au",
     prompt: "Khi quá để tâm ánh mắt người khác và sống mệt mỏi vì muốn làm vừa lòng tất cả.",
     intro:
-      "Sống chạy theo sự công nhận của người đời giống như chiếc bẫy vô hình khiến ta luôn căng thẳng. Biết mình đã được Đấng Tối Cao tiếp nhận giúp ngài bước đi tự do và chân thật hơn.",
+      "Sống chạy theo sự công nhận của người đời giống như chiếc bẫy vô hình khiến ta luôn căng thẳng. Biết mình đã được Đấng Tối Cao tiếp nhận giúp bạn bước đi tự do và chân thật hơn.",
     keywords: ["sợ phán xét", "làm vừa lòng người khác", "bị từ chối", "ánh mắt người đời"],
     passages: [
       {
@@ -184,7 +184,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 118:6",
-        note: "Có Đức Giê-hô-va ở về phía mình, lời đánh giá hay sự khước từ của loài người không thể định đoạt giá trị ngài.",
+        note: "Có Đức Giê-hô-va ở về phía mình, lời đánh giá hay sự khước từ của loài người không thể định đoạt giá trị bạn.",
       },
       {
         ref: "1 Phi-e-rơ 2:4",
@@ -198,7 +198,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "lo-au",
     prompt: "Khi lo lắng về sức khỏe, chờ kết quả khám bệnh hoặc sợ thân thể suy yếu.",
     intro:
-      "Thân thể con người mong manh nên nỗi lo về bệnh tật là điều rất dễ hiểu. Giữa lúc hồi hộp chờ đợi hay chăm lo sức khỏe, hãy tựa vào Đấng nắm giữ từng nhịp đập và hơi thở của ngài.",
+      "Thân thể con người mong manh nên nỗi lo về bệnh tật là điều rất dễ hiểu. Giữa lúc hồi hộp chờ đợi hay chăm lo sức khỏe, hãy tựa vào Đấng nắm giữ từng nhịp đập và hơi thở của bạn.",
     keywords: ["sức khỏe", "lo bệnh", "khám bệnh", "ốm đau", "thân thể yếu"],
     passages: [
       {
@@ -225,7 +225,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "lo-au",
     prompt: "Khi đối diện sự hữu hạn của kiếp người và thấy bất an trước cõi đời sau.",
     intro:
-      "Cái chết là bóng tối lớn nhất khiến loài người run sợ suốt lịch sử. Tin Lành không né tránh sự thật ấy, mà loan báo một Đấng đã đi xuyên qua sự chết và bước ra khỏi ngôi mộ để nắm tay dẫn ngài qua bên kia.",
+      "Cái chết là bóng tối lớn nhất khiến loài người run sợ suốt lịch sử. Tin Lành không né tránh sự thật ấy, mà loan báo một Đấng đã đi xuyên qua sự chết và bước ra khỏi ngôi mộ để nắm tay dẫn bạn qua bên kia.",
     keywords: ["cái chết", "sợ chết", "hữu hạn", "đời sau", "sống lại"],
     passages: [
       {
@@ -261,7 +261,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Ma-thi-ơ 6:7–9",
-        note: "Chúa Jêsus dạy cầu nguyện không cần dài dòng hoa mỹ, vì Cha đã biết rõ điều ngài cần trước khi ngài mở miệng.",
+        note: "Chúa Jêsus dạy cầu nguyện không cần dài dòng hoa mỹ, vì Cha đã biết rõ điều bạn cần trước khi bạn mở miệng.",
       },
       {
         ref: "1 Sa-mu-ên 1:12–15",
@@ -389,7 +389,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "tuc-gian",
     prompt: "Khi người mình tin cậy nhất lại quay lưng hoặc đâm sau lưng mình.",
     intro:
-      "Nỗi đau bị kẻ thù hại không sánh nổi nỗi đau bị chính bạn thân hay người một nhà phản bội. Vua Đa-vít từng nếm trải và chính Chúa Jêsus cũng bị bạn đồng bàn bán đứng — Ngài hiểu thấu cảm giác lúc này của ngài.",
+      "Nỗi đau bị kẻ thù hại không sánh nổi nỗi đau bị chính bạn thân hay người một nhà phản bội. Vua Đa-vít từng nếm trải và chính Chúa Jêsus cũng bị bạn đồng bàn bán đứng — Ngài hiểu thấu cảm giác lúc này của bạn.",
     keywords: ["phản bội", "lừa dối", "đâm sau lưng", "bội bạc", "phụ lòng"],
     passages: [
       {
@@ -402,7 +402,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Thi-thiên 41:9–10",
-        note: "Ngay cả khi người bạn tin cậy nhất trở gót phản lại, ngài vẫn có nơi nương tựa chắc chắn nơi lòng thương xót của Chúa.",
+        note: "Ngay cả khi người bạn tin cậy nhất trở gót phản lại, bạn vẫn có nơi nương tựa chắc chắn nơi lòng thương xót của Chúa.",
       },
       {
         ref: "2 Ti-mô-thê 4:16–17",
@@ -416,12 +416,12 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "tuc-gian",
     prompt: "Khi bị đặt điều nói xấu hoặc bị hiểu sai mà không biết thanh minh thế nào.",
     intro:
-      "Bị mang tiếng oan luôn khiến ta nóng ruột muốn giải thích cho bằng được với tất cả mọi người. Hãy nhớ rằng có một Đấng thấy rõ sự thật ngay cả khi không ai tin ngài, và Ngài sẽ làm sáng tỏ lẽ công bình vào đúng lúc.",
+      "Bị mang tiếng oan luôn khiến ta nóng ruột muốn giải thích cho bằng được với tất cả mọi người. Hãy nhớ rằng có một Đấng thấy rõ sự thật ngay cả khi không ai tin bạn, và Ngài sẽ làm sáng tỏ lẽ công bình vào đúng lúc.",
     keywords: ["oan ức", "vu khống", "hiểu lầm", "nói xấu", "đặt điều"],
     passages: [
       {
         ref: "Thi-thiên 37:5–6",
-        note: "Trao phó con đường mình cho Chúa: Ngài sẽ làm cho sự ngay thẳng của ngài sáng rực lên như ánh sáng ban trưa.",
+        note: "Trao phó con đường mình cho Chúa: Ngài sẽ làm cho sự ngay thẳng của bạn sáng rực lên như ánh sáng ban trưa.",
       },
       {
         ref: "1 Phi-e-rơ 2:23",
@@ -470,7 +470,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "tuc-gian",
     prompt: "Khi bị đối xử tệ và chỉ muốn ăn miếng trả miếng cho hả giận.",
     intro:
-      "Phản xạ tự nhiên của con người là muốn kẻ làm hại mình phải nếm đúng nỗi đau họ gây ra. Kinh Thánh không xem nhẹ tội ác, nhưng bảo vệ ngài khỏi biến mình thành bản sao của chính kẻ làm hại ngài.",
+      "Phản xạ tự nhiên của con người là muốn kẻ làm hại mình phải nếm đúng nỗi đau họ gây ra. Kinh Thánh không xem nhẹ tội ác, nhưng bảo vệ bạn khỏi biến mình thành bản sao của chính kẻ làm hại bạn.",
     keywords: ["trả thù", "trả đũa", "ăn miếng trả miếng", "báo thù", "hả giận"],
     passages: [
       {
@@ -483,7 +483,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "1 Tê-sa-lô-ni-ca 5:15",
-        note: "Giữ mình không lấy ác trả ác với bất kỳ ai, để vòng xoáy hận thù dừng lại ngay nơi ngài.",
+        note: "Giữ mình không lấy ác trả ác với bất kỳ ai, để vòng xoáy hận thù dừng lại ngay nơi bạn.",
       },
       {
         ref: "1 Phi-e-rơ 3:9",
@@ -497,7 +497,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "tuc-gian",
     prompt: "Khi biết nên tha thứ nhưng vết thương vẫn quá lớn để buông bỏ.",
     intro:
-      "Tha thứ không phải là nói rằng chuyện sai trái đó chẳng sao cả, cũng không bắt buộc ngài phải quên ngay nỗi đau. Tha thứ là quyết định giao món nợ ấy vào tay Chúa để giải thoát chính trái tim mình khỏi nhà tù hận thù.",
+      "Tha thứ không phải là nói rằng chuyện sai trái đó chẳng sao cả, cũng không bắt buộc bạn phải quên ngay nỗi đau. Tha thứ là quyết định giao món nợ ấy vào tay Chúa để giải thoát chính trái tim mình khỏi nhà tù hận thù.",
     keywords: ["tha thứ", "buông bỏ", "khó tha thứ", "lòng bao dung"],
     passages: [
       {
@@ -524,7 +524,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "tuc-gian",
     prompt: "Khi cứ tự dằn vặt mãi về một sai lầm cũ dù đã ăn năn.",
     intro:
-      "Nhiều khi ta dễ tha thứ cho người khác nhưng lại làm quan tòa khắc nghiệt nhất với chính mình. Nếu Đức Chúa Trời đã tuyên bố tha thứ và xóa sạch lỗi lầm của ngài, ngài không cần tiếp tục tự kết án mình nữa.",
+      "Nhiều khi ta dễ tha thứ cho người khác nhưng lại làm quan tòa khắc nghiệt nhất với chính mình. Nếu Đức Chúa Trời đã tuyên bố tha thứ và xóa sạch lỗi lầm của bạn, bạn không cần tiếp tục tự kết án mình nữa.",
     keywords: ["tự trách", "dằn vặt", "ân hận", "tự tha thứ", "hối hận"],
     passages: [
       {
@@ -578,7 +578,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     groupId: "tuc-gian",
     prompt: "Khi thấy kẻ gian trục lợi còn người ngay thẳng chịu thiệt thòi.",
     intro:
-      "Nhìn thấy sự bất công mà lòng không nổi sóng mới là điều lạ. Kinh Thánh chưa bao giờ làm ngơ trước bất công; trái lại, sách Thi-thiên và các tiên tri đồng hành cùng nỗi bất bình chính đáng của ngài và khẳng định công lý sau cùng thuộc về Chúa.",
+      "Nhìn thấy sự bất công mà lòng không nổi sóng mới là điều lạ. Kinh Thánh chưa bao giờ làm ngơ trước bất công; trái lại, sách Thi-thiên và các tiên tri đồng hành cùng nỗi bất bình chính đáng của bạn và khẳng định công lý sau cùng thuộc về Chúa.",
     keywords: ["bất công", "chịu thiệt", "áp bức", "công lý", "oan trái"],
     passages: [
       {
@@ -603,7 +603,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
     slug: "mat-niem-tin-con-nguoi",
     title: "Mất niềm tin vào con người",
     groupId: "tuc-gian",
-    prompt: "Khi trải qua nhiều thất vọng khiến ngài muốn khép cửa lòng lại.",
+    prompt: "Khi trải qua nhiều thất vọng khiến bạn muốn khép cửa lòng lại.",
     intro:
       "Sau vài lần bị lợi dụng hay phụ bạc, tự nhiên ta muốn dựng bức tường thật dày quanh mình. Kinh Thánh dạy ta sống tỉnh táo, không ngây thơ đặt trọn linh hồn nơi con người bất toàn — nhưng vẫn giữ trái tim ấm áp nhờ tin cậy Chúa.",
     keywords: ["khép lòng", "không tin ai", "thất vọng con người", "hoài nghi"],
@@ -649,7 +649,7 @@ export const LO_AU_VA_TUC_GIAN: readonly MoodDefinition[] = [
       },
       {
         ref: "Rô-ma 12:14",
-        note: "Chọn chúc phước thay vì rủa sả giữ cho tâm trí ngài luôn sáng sủa và thanh thản.",
+        note: "Chọn chúc phước thay vì rủa sả giữ cho tâm trí bạn luôn sáng sủa và thanh thản.",
       },
     ],
   },

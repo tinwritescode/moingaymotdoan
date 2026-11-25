@@ -41,11 +41,11 @@ describe("zip", () => {
 });
 
 describe("buildEpub", () => {
-  const toc = content.toc("nhap");
+  const toc = content.toc();
   const one = bundles(toc).find((b) => b.slug === "tan-uoc");
   if (!one) throw new Error("Phi-lê-môn chưa có trong content/");
   const build = (fullText: boolean) =>
-    unzip(buildEpub({ bundle: one, content, mode: "nhap", modified: "2026-11-21T00:00:00Z", fullText }));
+    unzip(buildEpub({ bundle: one, content, modified: "2026-11-21T00:00:00Z", fullText }));
   const files = build(true);
   const file = (name: string) => files.find((f) => f.name === name)?.text ?? "";
 

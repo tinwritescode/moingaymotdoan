@@ -2,6 +2,7 @@ import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import type { ChapterView, Inline, Opinion, Section } from "../../lib/content";
 import { verseLabel } from "../../lib/content/refs";
+import { AI_NOTICE } from "../../lib/notice";
 import { InlineText } from "./inline";
 import { InlineVersesContext, type VerseRange } from "./inline-verses";
 import { VerseText } from "./verse-text";
@@ -12,7 +13,7 @@ const LEVEL = {
   thap: { label: "Thấp", class: "bg-thap/10 text-thap" },
 } as const;
 
-function DraftOpinion(props: { opinion: Opinion }) {
+function OpinionCard(props: { opinion: Opinion }) {
   return (
     <article class="kt-opinion rounded-xl border border-rule p-4">
       <p>
@@ -21,9 +22,6 @@ function DraftOpinion(props: { opinion: Opinion }) {
       <p class="mt-2 flex flex-wrap items-center gap-2 font-sans text-xs">
         <span class={["rounded-md px-2 py-0.5 font-semibold", LEVEL[props.opinion.level].class]}>
           Tin cậy: {LEVEL[props.opinion.level].label}
-        </span>
-        <span class="rounded-md border border-rule px-2 py-0.5 font-semibold text-muted">
-          {props.opinion.verified ? "Đã đối chiếu" : "Chưa đối chiếu"}
         </span>
         <span class="text-muted">{props.opinion.reason}</span>
       </p>
@@ -113,18 +111,7 @@ export function ChapterReader(props: { view: ChapterView }) {
             {
               id: "giai-kinh",
               label: `Các nhà giải kinh nói gì (${ch.opinions.length})`,
-              body: () =>
-                ch.mode === "nhap" ? (
-                  <For each={ch.opinions}>{(o) => <DraftOpinion opinion={o} />}</For>
-                ) : (
-                  <For each={ch.opinions}>
-                    {(body) => (
-                      <article class="kt-opinion rounded-xl border border-rule p-4">
-                        <InlineText nodes={body} />
-                      </article>
-                    )}
-                  </For>
-                ),
+              body: () => <For each={ch.opinions}>{(o) => <OpinionCard opinion={o} />}</For>,
             },
           ];
     return [
@@ -209,11 +196,7 @@ export function ChapterReader(props: { view: ChapterView }) {
           </For>
         </div>
 
-        <p class="kt-byline mt-6 font-sans text-sm text-muted">
-          {props.view.mode === "nhap"
-            ? "Mức tin cậy chỉ hiện ở chế độ Nháp. Trang công bố chỉ giữ ý kiến đã đối chiếu."
-            : "Ghi chú do AI soạn, đã được duyệt; ý kiến các nhà giải kinh đã đối chiếu với nguồn."}
-        </p>
+        <p class="kt-byline mt-6 font-sans text-sm text-muted">{AI_NOTICE}</p>
       </article>
 
       <Show when={written("Ý chính")}>

@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 import { testamentOf } from "../content/books";
-import type { ChapterView, Content, Inline, Mode, Ref, TocBook, Verse } from "../content";
+import type { ChapterView, Content, Inline, Ref, TocBook, Verse } from "../content";
 import { verseLabel } from "../content/refs";
+import { AI_NOTICE } from "../notice";
 import type { Bundle } from "./bundles";
 import { zip } from "./zip";
 
@@ -68,7 +69,7 @@ function chapterPage(ch: ChapterView, fullText: boolean): string {
   const prose = ch.sections
     .filter((s) => s.paragraphs.length > 0)
     .map((s) => `<h3>${esc(s.heading)}</h3>\n${s.paragraphs.map((p) => para(p)).join("\n")}`);
-  const opinions = ch.mode === "nhap" ? ch.opinions.map((o) => o.body) : ch.opinions;
+  const opinions = ch.opinions.map((o) => o.body);
   const commentators =
     opinions.length > 0 ? [`<h3>Các nhà giải kinh nói gì</h3>\n${opinions.map((o) => para(o, "op")).join("\n")}`] : [];
   const body = [
@@ -91,11 +92,7 @@ function bookPage(b: TocBook): string {
   return page(b.book.name, `<section epub:type="part">\n<h1>${esc(b.book.name)}</h1>\n<p class="kicker">${testament} · ${b.chapters.length} đoạn</p>\n<ol class="ds">\n${items}\n</ol>\n</section>`);
 }
 
-function titlePage(bundle: Bundle, mode: Mode, date: string, fullText: boolean): string {
-  const draft =
-    mode === "nhap"
-      ? `<p class="note">Đây là bản nháp. Ghi chú do AI soạn; ý kiến các nhà giải kinh chưa được đối chiếu với sách gốc.</p>`
-      : "";
+function titlePage(bundle: Bundle, date: string, fullText: boolean): string {
   return page(
     TITLE,
     `<section epub:type="titlepage" class="bia">
@@ -104,7 +101,7 @@ function titlePage(bundle: Bundle, mode: Mode, date: string, fullText: boolean):
 <p class="kicker">${esc(bundle.name)}</p>
 <p class="center">Mỗi đoạn Kinh Thánh, kể lại bằng lời thường${fullText ? ", kèm nguyên văn Bản Truyền Thống 1926" : ""}. <em>Đoạn</em> nghĩa là chương.</p>
 <p class="center">Chạm vào chỗ dẫn như (1:26) để xem câu Kinh Thánh.</p>
-${draft}
+<p class="note">${esc(AI_NOTICE)}</p>
 <p class="center small">bible.tyvn.online · ${esc(date)}</p>
 </section>`,
   );
@@ -148,11 +145,10 @@ function uuid(slug: string): string {
 export function buildEpub(args: {
   bundle: Bundle;
   content: Content;
-  mode: Mode;
   modified: string;
   fullText: boolean;
 }): Uint8Array<ArrayBuffer> {
-  const { bundle, content, mode, modified, fullText } = args;
+  const { bundle, content, modified, fullText } = args;
   const edition = fullText ? `${bundle.slug}-nguyen-van` : bundle.slug;
   const title = `${TITLE} — ${bundle.name}${fullText ? " (kèm nguyên văn)" : ""}`;
   const date = modified.slice(0, 10);
@@ -165,7 +161,7 @@ export function buildEpub(args: {
     html: bookPage(b),
     label: b.book.name,
     children: b.chapters.map((c) => {
-      const ch = content.chapter({ slug: b.book.slug, number: c.number, mode });
+      const ch = content.chapter({ slug: b.book.slug, number: c.number });
       if (!ch) throw new Error(`Không tải được ${b.book.name} ${c.number}`);
       return {
         id: `c-${chapterFile(b.book.slug, c.number)}`,
@@ -175,7 +171,7 @@ export function buildEpub(args: {
       };
     }),
   }));
-  const cover: Item = { id: "bia", href: "text/bia.xhtml", html: titlePage(bundle, mode, date, fullText), label: "Trang đầu" };
+  const cover: Item = { id: "bia", href: "text/bia.xhtml", html: titlePage(bundle, date, fullText), label: "Trang đầu" };
   const all = [cover, ...books.flatMap((b) => [b, ...(b.children ?? [])])];
 
   const navList = (items: Item[]): string =>

@@ -23,11 +23,9 @@ export type Opinion = {
   body: Paragraph;
   level: Level;
   reason: string;
-  verified: boolean;
 };
 
 export type Note = {
-  approved: boolean;
   title: string;
   sections: Section[];
   opinions: Opinion[];
@@ -110,12 +108,6 @@ export function plainText(nodes: Inline[]): string {
     .join("");
 }
 
-export function hasThap(nodes: Inline[]): boolean {
-  return nodes.some(
-    (n) => n.kind === "thap" || ((n.kind === "strong" || n.kind === "em") && hasThap(n.children)),
-  );
-}
-
 function paragraphs(block: string): string[] {
   return block
     .split(/\n\s*\n/)
@@ -123,32 +115,27 @@ function paragraphs(block: string): string[] {
     .filter((p) => p !== "");
 }
 
-function parseApproved(source: string): { approved: boolean; body: string } {
-  const m = /^---\n([\s\S]*?)\n---\n/.exec(source);
-  if (!m) return { approved: false, body: source };
-  const fields = m[1].split("\n").filter((l) => l.trim() !== "");
-  if (fields.length !== 1 || !/^duyet:\s*(true|false)\s*$/.test(fields[0])) {
-    throw new Error(`Phần đầu file chỉ được có "duyet: true" hoặc "duyet: false"`);
-  }
-  return { approved: fields[0].includes("true"), body: source.slice(m[0].length) };
+function stripFrontmatter(source: string): string {
+  const m = /^---\n[\s\S]*?\n---\n/.exec(source);
+  return m ? source.slice(m[0].length) : source;
 }
 
 function parseOpinion(text: string, ctx: Ctx): Opinion {
   const m = OPINION_MARK.exec(text);
   if (!m) throw new Error(`Ý kiến thiếu dấu mức tin cậy: "${text.slice(0, 60)}…"`);
-  const [mark, level, verified, reason] = m;
+  const [mark, level, , reason] = m;
   // The regex only matches these literals, so the narrowing below is exact.
   const lvl: Level = level === "cao" ? "cao" : level === "vua" ? "vua" : "thap";
   const body = parseInline(text.slice(0, text.length - mark.length).trim(), ctx);
   const first = body[0];
   if (first?.kind !== "strong") throw new Error(`Ý kiến phải mở đầu bằng tên in đậm: "${text.slice(0, 60)}…"`);
-  return { name: plainText(first.children), body, level: lvl, reason, verified: verified === "roi" };
+  return { name: plainText(first.children), body, level: lvl, reason };
 }
 
 /** Parses one ghi chú file. Throws on any rule the authoring guide (README) sets. */
 export function parseNote(args: { source: string; book: Book; chapter: number; bible: Bible }): Note {
   const ctx = { book: args.book, bible: args.bible };
-  const { approved, body } = parseApproved(args.source.replace(/\r\n/g, "\n"));
+  const body = stripFrontmatter(args.source.replace(/\r\n/g, "\n"));
   const [head, ...rest] = body.split(/^## /m);
 
   const prefix = `# ${args.book.name} ${args.chapter} — `;
@@ -171,8 +158,5 @@ export function parseNote(args: { source: string; book: Book; chapter: number; b
   }));
   const opinions = blocks[PROSE_HEADINGS.length].map((p) => parseOpinion(p, ctx));
 
-  const thap = sections.some((s) => s.paragraphs.some(hasThap)) || opinions.some((o) => hasThap(o.body));
-  if (approved && thap) throw new Error(`Ghi chú đã duyệt nhưng vẫn còn câu mức Thấp`);
-
-  return { approved, title: h1.slice(prefix.length).trim(), sections, opinions };
+  return { title: h1.slice(prefix.length).trim(), sections, opinions };
 }
