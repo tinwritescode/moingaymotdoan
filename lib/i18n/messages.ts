@@ -1,3 +1,4 @@
+import type { BookGroupId } from "../content/books";
 import type { Locale } from "./locale";
 
 export type QuickMoodShortcut = {
@@ -122,7 +123,8 @@ export type Messages = {
     filterNew: (count: number) => string;
     chaptersCount: (count: number) => string;
     readOfTotal: (read: number, total: number) => string;
-    backToBooks: string;
+    bookGroups: Record<BookGroupId, string>;
+    closeBook: string;
     legendCompleted: string;
     legendSeen: string;
     legendUnread: string;
@@ -483,7 +485,17 @@ const VI: Messages = {
     filterNew: (count) => `Tân Ước · ${count}`,
     chaptersCount: (count) => `${count} đoạn`,
     readOfTotal: (read, total) => `${read} / ${total} đã xem`,
-    backToBooks: "↑ Các sách",
+    bookGroups: {
+      law: "Ngũ Kinh",
+      history: "Lịch sử",
+      poetry: "Thơ ca",
+      majorProphets: "Tiên tri lớn",
+      minorProphets: "Tiên tri nhỏ",
+      gospels: "Phúc Âm và Công-vụ",
+      paul: "Thư Phao-lô",
+      general: "Thư chung và Khải-huyền",
+    },
+    closeBook: "Đóng",
     legendCompleted: "đã đọc xong",
     legendSeen: "đã xem",
     legendUnread: "chưa đọc",
@@ -880,7 +892,17 @@ const EN: Messages = {
     filterNew: (count) => `New Testament · ${count}`,
     chaptersCount: (count) => `${count} ${count === 1 ? "chapter" : "chapters"}`,
     readOfTotal: (read, total) => `${read} / ${total} read`,
-    backToBooks: "↑ Books",
+    bookGroups: {
+      law: "The Law",
+      history: "History",
+      poetry: "Poetry and Wisdom",
+      majorProphets: "Major Prophets",
+      minorProphets: "Minor Prophets",
+      gospels: "Gospels and Acts",
+      paul: "Paul's Letters",
+      general: "General Letters and Revelation",
+    },
+    closeBook: "Close",
     legendCompleted: "completed",
     legendSeen: "visited",
     legendUnread: "unread",

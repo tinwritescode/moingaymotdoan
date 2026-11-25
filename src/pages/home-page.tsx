@@ -1,6 +1,7 @@
-import { createMemo, createSignal, For, onSettled, Show } from "solid-js";
+import { useLocation } from "@solidjs/router";
+import { createEffect, createMemo, createSignal, For, onSettled, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
-import { testamentOf } from "../../lib/content/books";
+import { groupBooks, testamentOf } from "../../lib/content/books";
 import { findSection, plainText } from "../../lib/content/note";
 import { chapterItemKey, formatShortDate } from "../../lib/history/types";
 import { messagesFor, type Locale } from "../../lib/i18n";
@@ -32,10 +33,9 @@ function timeGreeting(now: Date, locale: Locale): { dateLine: string; headline: 
 /** Quiet home page shared by Vietnamese (/) and English (/en). */
 export function HomePage() {
   const { locale, t } = useLocale();
+  const location = useLocation();
   const toc = createMemo(() => getToc(locale()));
   const [now, setNow] = createSignal<Date | null>(null);
-  const [testament, setTestament] = createSignal<TestamentFilter>("tat-ca");
-  const [chapterMode, setChapterMode] = createSignal<ChapterViewMode>("dots");
 
   onSettled(() => {
     setNow(new Date());
@@ -46,8 +46,6 @@ export function HomePage() {
     return d ? timeGreeting(d, locale()) : null;
   });
 
-  const otCount = createMemo(() => toc().books.filter((b) => testamentOf(b.book) === "cu-uoc").length);
-  const ntCount = createMemo(() => toc().books.filter((b) => testamentOf(b.book) === "tan-uoc").length);
 
   return (
     <>
@@ -73,66 +71,7 @@ export function HomePage() {
 
               <StartHere book={start()} />
 
-              <BookIndex
-                toc={toc().books}
-                testament={testament()}
-                otCount={otCount()}
-                ntCount={ntCount()}
-                onTestament={setTestament}
-              />
-
-              <div class="mt-8 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-6 font-sans">
-                <p class="flex flex-wrap items-center gap-x-3.5 gap-y-1 text-xs text-muted">
-                  <span class="inline-flex items-center gap-1.5">
-                    <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
-                    {t().home.legendCompleted}
-                  </span>
-                  <span class="inline-flex items-center gap-1.5">
-                    <i
-                      aria-hidden="true"
-                      class="inline-block h-2.5 w-2.5 rounded-full border-[1.5px] border-accent bg-side"
-                    />
-                    {t().home.legendSeen}
-                  </span>
-                  <span class="inline-flex items-center gap-1.5">
-                    <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border border-rule" />
-                    {t().home.legendUnread}
-                  </span>
-                </p>
-
-                <div
-                  role="group"
-                  aria-label={t().home.chapterDisplayLabel}
-                  class="inline-flex rounded-full border border-rule bg-card p-0.5 text-xs"
-                >
-                  <button
-                    type="button"
-                    aria-pressed={ariaState(chapterMode() === "dots")}
-                    onClick={() => setChapterMode("dots")}
-                    class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
-                  >
-                    {t().home.viewDots}
-                  </button>
-                  <button
-                    type="button"
-                    aria-pressed={ariaState(chapterMode() === "list")}
-                    onClick={() => setChapterMode("list")}
-                    class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
-                  >
-                    {t().home.viewTitles}
-                  </button>
-                </div>
-              </div>
-
-              <For each={toc().books}>
-                {(b) => (
-                  <BookSection
-                    entry={b}
-                    hidden={testament() !== "tat-ca" && testamentOf(b.book) !== testament()}
-                    mode={chapterMode()}
-                  />
-                )}
-              </For>
+              <BookIndex toc={toc().books} hash={location.hash} />
             </>
           )}
         </Show>
@@ -195,15 +134,24 @@ function StartHere(props: { book: TocBook }) {
   );
 }
 
-function BookIndex(props: {
-  toc: TocBook[];
-  testament: TestamentFilter;
-  otCount: number;
-  ntCount: number;
-  onTestament: (t: TestamentFilter) => void;
-}) {
-  const { hydrated, bookSummary } = useHistory();
+/** The books as small tiles under their group; a tile opens its chapters just below its row, one book at a time. */
+export function BookIndex(props: { toc: TocBook[]; hash: string }) {
   const { t } = useLocale();
+  const [testament, setTestament] = createSignal<TestamentFilter>("tat-ca");
+  const [mode, setMode] = createSignal<ChapterViewMode>("dots");
+  const [open, setOpen] = createSignal<string | null>(null);
+  const groups = createMemo(() => groupBooks(props.toc));
+  const countOf = (tm: TestamentFilter) => props.toc.filter((b) => testamentOf(b.book) === tm).length;
+
+  // The chapter page's "Mục lục" links to /#<book>: open that book.
+  createEffect(
+    () => decodeURIComponent(props.hash.slice(1)),
+    (slug) => {
+      if (!props.toc.some((b) => b.book.slug === slug)) return;
+      setOpen(slug);
+      document.getElementById(slug)?.scrollIntoView({ block: "start" });
+    },
+  );
 
   return (
     <nav aria-labelledby="cac-sach" class="kt-books mt-8">
@@ -216,102 +164,153 @@ function BookIndex(props: {
           aria-label={t().home.chooseTestamentLabel}
           class="inline-flex rounded-full border border-rule bg-card p-0.5 font-sans text-xs"
         >
-          <button
-            type="button"
-            aria-pressed={ariaState(props.testament === "tat-ca")}
-            onClick={() => props.onTestament("tat-ca")}
-            class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
+          <For
+            each={[
+              ["tat-ca", t().home.filterAll],
+              ["cu-uoc", t().home.filterOld(countOf("cu-uoc"))],
+              ["tan-uoc", t().home.filterNew(countOf("tan-uoc"))],
+            ] as const}
           >
-            {t().home.filterAll}
-          </button>
-          <button
-            type="button"
-            aria-pressed={ariaState(props.testament === "cu-uoc")}
-            onClick={() => props.onTestament("cu-uoc")}
-            class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
-          >
-            {t().home.filterOld(props.otCount)}
-          </button>
-          <button
-            type="button"
-            aria-pressed={ariaState(props.testament === "tan-uoc")}
-            onClick={() => props.onTestament("tan-uoc")}
-            class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
-          >
-            {t().home.filterNew(props.ntCount)}
-          </button>
+            {(f) => (
+              <button
+                type="button"
+                aria-pressed={ariaState(testament() === f[0])}
+                onClick={() => setTestament(f[0])}
+                class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
+              >
+                {f[1]}
+              </button>
+            )}
+          </For>
         </div>
       </div>
 
-      <ol class="mt-3 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-6">
-        <For each={props.toc}>
-          {(tEntry) => {
-            const readCount = () => (hydrated() ? (bookSummary(tEntry.book.slug)?.read ?? 0) : 0);
-            const pct = () =>
-              tEntry.chapters.length > 0 ? Math.round((readCount() / tEntry.chapters.length) * 100) : 0;
-            return (
-              <li
-                hidden={props.testament !== "tat-ca" && testamentOf(tEntry.book) !== props.testament}
-                class="border-b border-rule py-2.5"
-              >
-                <a href={`#${tEntry.book.slug}`} class="kt-books-link group block">
-                  <div class="flex items-baseline justify-between gap-2">
-                    <span class="font-serif text-[16.5px] text-ink transition-colors group-hover:text-accent">
-                      {tEntry.book.name}
-                    </span>
-                    <span
-                      class={[
-                        "shrink-0 font-sans text-xs",
-                        readCount() > 0 ? "font-medium text-accent" : "text-muted",
-                      ]}
-                    >
-                      {readCount() > 0
-                        ? `${readCount()}/${tEntry.chapters.length}`
-                        : t().home.chaptersCount(tEntry.chapters.length)}
-                    </span>
-                  </div>
-                  <span aria-hidden="true" class="mt-1.5 block h-[3px] overflow-hidden rounded-full bg-rule">
-                    <span
-                      class="block h-full rounded-full bg-accent transition-[width] duration-300"
-                      style={{ width: `${pct()}%` }}
-                    />
-                  </span>
-                </a>
-              </li>
-            );
-          }}
-        </For>
-      </ol>
+      <For each={groups()}>
+        {(g) => (
+          <section
+            hidden={testament() !== "tat-ca" && testamentOf(g.entries[0].book) !== testament()}
+            aria-labelledby={`nhom-${g.id}`}
+            class="mt-6"
+          >
+            <h3 id={`nhom-${g.id}`} class="mb-2 font-sans text-xs font-semibold tracking-widest text-muted uppercase">
+              {t().home.bookGroups[g.id]}
+            </h3>
+            {/* Dense flow: tiles after an open panel fill the rest of its row, so the panel sits under the row. */}
+            <div class="grid grid-flow-row-dense grid-cols-2 gap-2 sm:grid-cols-3">
+              <For each={g.entries}>
+                {(entry) => (
+                  <BookTile
+                    entry={entry}
+                    open={open() === entry.book.slug}
+                    mode={mode()}
+                    onToggle={() => setOpen(open() === entry.book.slug ? null : entry.book.slug)}
+                    onMode={setMode}
+                  />
+                )}
+              </For>
+            </div>
+          </section>
+        )}
+      </For>
     </nav>
   );
 }
 
-function BookSection(props: { entry: TocBook; hidden: boolean; mode: ChapterViewMode }) {
-  const { hydrated, progressFor, bookSummary } = useHistory();
+function BookTile(props: {
+  entry: TocBook;
+  open: boolean;
+  mode: ChapterViewMode;
+  onToggle: () => void;
+  onMode: (m: ChapterViewMode) => void;
+}) {
+  const { hydrated, bookSummary } = useHistory();
+  const { t } = useLocale();
+  const slug = () => props.entry.book.slug;
+  const total = () => props.entry.chapters.length;
+  const readCount = () => (hydrated() ? (bookSummary(slug())?.read ?? 0) : 0);
+
+  return (
+    <>
+      <button
+        id={slug()}
+        type="button"
+        aria-expanded={ariaState(props.open)}
+        aria-controls={`${slug()}-doan`}
+        onClick={() => props.onToggle()}
+        class="kt-books-link flex min-h-[4.25rem] scroll-mt-20 cursor-pointer flex-col justify-between gap-2 rounded-2xl border border-rule bg-card px-3 py-2.5 text-left transition-colors hover:border-accent aria-expanded:border-accent aria-expanded:bg-side"
+      >
+        <span class="font-serif text-[15px] leading-snug text-ink">{props.entry.book.name}</span>
+        <span class="flex items-center gap-2">
+          <span aria-hidden="true" class="block h-[3px] flex-1 overflow-hidden rounded-full bg-rule">
+            <span
+              class="block h-full rounded-full bg-accent transition-[width] duration-300"
+              style={{ width: `${total() > 0 ? Math.round((readCount() / total()) * 100) : 0}%` }}
+            />
+          </span>
+          <span class={["shrink-0 font-sans text-xs", readCount() > 0 ? "font-medium text-accent" : "text-muted"]}>
+            {readCount() > 0 ? `${readCount()}/${total()}` : t().home.chaptersCount(total())}
+          </span>
+        </span>
+      </button>
+      <ChapterPanel entry={props.entry} hidden={!props.open} mode={props.mode} onMode={props.onMode} onClose={props.onToggle} />
+    </>
+  );
+}
+
+function ChapterPanel(props: {
+  entry: TocBook;
+  hidden: boolean;
+  mode: ChapterViewMode;
+  onMode: (m: ChapterViewMode) => void;
+  onClose: () => void;
+}) {
+  const { hydrated, progressFor } = useHistory();
   const { locale, t } = useLocale();
-  const readCount = () => (hydrated() ? (bookSummary(props.entry.book.slug)?.read ?? 0) : 0);
+  const slug = () => props.entry.book.slug;
 
   return (
     <section
-      id={props.entry.book.slug}
+      id={`${slug()}-doan`}
       hidden={props.hidden}
-      aria-labelledby={`${props.entry.book.slug}-ten`}
-      class="kt-book scroll-mt-20 pt-8"
+      aria-labelledby={`${slug()}-ten`}
+      class="kt-book col-span-full rounded-2xl border border-rule bg-card p-4"
     >
-      <div class="flex flex-wrap items-baseline justify-between gap-2">
-        <div class="flex flex-wrap items-baseline gap-2.5">
-          <h2 id={`${props.entry.book.slug}-ten`} class="kt-book-name font-display text-lg font-normal text-ink">
-            {props.entry.book.name}
-          </h2>
-          <span class="font-sans text-xs text-accent">
-            {readCount() > 0
-              ? t().home.readOfTotal(readCount(), props.entry.chapters.length)
-              : t().home.chaptersCount(props.entry.chapters.length)}
-          </span>
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h4 id={`${slug()}-ten`} class="kt-book-name font-display text-lg font-normal text-ink">
+          {props.entry.book.name}
+        </h4>
+        <div class="flex items-center gap-1.5 font-sans">
+          <div
+            role="group"
+            aria-label={t().home.chapterDisplayLabel}
+            class="inline-flex rounded-full border border-rule bg-paper p-0.5 text-xs"
+          >
+            <button
+              type="button"
+              aria-pressed={ariaState(props.mode === "dots")}
+              onClick={() => props.onMode("dots")}
+              class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
+            >
+              {t().home.viewDots}
+            </button>
+            <button
+              type="button"
+              aria-pressed={ariaState(props.mode === "list")}
+              onClick={() => props.onMode("list")}
+              class="min-h-8 cursor-pointer rounded-full px-3 text-muted transition-colors aria-pressed:bg-accent aria-pressed:text-paper"
+            >
+              {t().home.viewTitles}
+            </button>
+          </div>
+          <button
+            type="button"
+            aria-label={t().home.closeBook}
+            onClick={() => props.onClose()}
+            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-muted transition-colors hover:bg-side hover:text-ink"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
         </div>
-        <a href="#cac-sach" class="font-sans text-xs text-muted hover:text-accent">
-          {t().home.backToBooks}
-        </a>
       </div>
 
       <ol
@@ -325,12 +324,12 @@ function BookSection(props: { entry: TocBook; hidden: boolean; mode: ChapterView
         <For each={props.entry.chapters}>
           {(ch) => {
             const prog = () =>
-              hydrated() ? progressFor("chapter", chapterItemKey(props.entry.book.slug, ch.number)) : undefined;
+              hydrated() ? progressFor("chapter", chapterItemKey(slug(), ch.number)) : undefined;
             const state = () => (prog()?.completed ? "ok" : prog() ? "seen" : "none");
             return (
               <li>
                 <a
-                  href={chapterHref({ slug: props.entry.book.slug, number: ch.number, locale: locale() })}
+                  href={chapterHref({ slug: slug(), number: ch.number, locale: locale() })}
                   title={t().home.chapterTitleAttr(
                     ch.number,
                     ch.title,
@@ -347,7 +346,7 @@ function BookSection(props: { entry: TocBook; hidden: boolean; mode: ChapterView
                               ? "border-[1.5px] border-accent bg-side font-medium text-accent"
                               : "border border-rule text-muted hover:border-accent hover:text-accent",
                         ]
-                      : "group flex items-baseline gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-card"
+                      : "group flex items-baseline gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-side"
                   }
                 >
                   <Show
@@ -387,6 +386,21 @@ function BookSection(props: { entry: TocBook; hidden: boolean; mode: ChapterView
           }}
         </For>
       </ol>
+
+      <p class="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-xs text-muted">
+        <span class="inline-flex items-center gap-1.5">
+          <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
+          {t().home.legendCompleted}
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border-[1.5px] border-accent bg-side" />
+          {t().home.legendSeen}
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border border-rule" />
+          {t().home.legendUnread}
+        </span>
+      </p>
     </section>
   );
 }

@@ -143,3 +143,25 @@ export function translateBookSlug(slug: string, targetLocale: Locale): string | 
 
 /** The 39 books up to Ma-la-chi / Malachi are the Old Testament. */
 export const testamentOf = (book: Book): "cu-uoc" | "tan-uoc" => (book.order <= 39 ? "cu-uoc" : "tan-uoc");
+
+/** The usual Protestant division of the canon. Each group starts at the book with order `from`. */
+const BOOK_GROUPS = [
+  { id: "law", from: 1 },
+  { id: "history", from: 6 },
+  { id: "poetry", from: 18 },
+  { id: "majorProphets", from: 23 },
+  { id: "minorProphets", from: 28 },
+  { id: "gospels", from: 40 },
+  { id: "paul", from: 45 },
+  { id: "general", from: 58 },
+] as const;
+
+export type BookGroupId = (typeof BOOK_GROUPS)[number]["id"];
+
+/** Entries (in canon order) gathered under their book group; empty groups are left out. */
+export function groupBooks<T extends { book: Book }>(entries: readonly T[]): { id: BookGroupId; entries: T[] }[] {
+  return BOOK_GROUPS.map((g, i) => {
+    const to = BOOK_GROUPS[i + 1]?.from ?? Infinity;
+    return { id: g.id, entries: entries.filter((e) => e.book.order >= g.from && e.book.order < to) };
+  }).filter((g) => g.entries.length > 0);
+}
