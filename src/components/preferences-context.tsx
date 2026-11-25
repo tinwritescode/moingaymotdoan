@@ -53,7 +53,7 @@ const FALLBACK_PREFERENCES: PreferencesContextValue = {
 
 const PreferencesContext = createContext<PreferencesContextValue>(FALLBACK_PREFERENCES);
 
-function readStorage(key: string): string | null {
+export function readStorage(key: string): string | null {
   try {
     return window.localStorage.getItem(key);
   } catch {
@@ -61,7 +61,7 @@ function readStorage(key: string): string | null {
   }
 }
 
-function writeStorage(key: string, value: string | null): void {
+export function writeStorage(key: string, value: string | null): void {
   try {
     if (value === null) {
       window.localStorage.removeItem(key);

@@ -6,6 +6,8 @@ export type QuickMoodShortcut = {
   hue: string;
 };
 
+type TourPoint = { title: string; body: string };
+
 export type Messages = {
   locale: Locale;
   htmlLang: string;
@@ -307,6 +309,22 @@ export type Messages = {
       deleteItemFailed: string;
       clearFailed: string;
     };
+  };
+  tour: {
+    welcomeKicker: string;
+    welcomeTitle: string;
+    welcomePoints: readonly [TourPoint, TourPoint, TourPoint];
+    welcomeStart: string;
+    welcomeLater: string;
+    stepOf: (step: number, total: number) => string;
+    steps: Record<"ref" | "notes" | "display" | "next", { title: string; body: string }>;
+    arrowKeysHint: string;
+    next: string;
+    back: string;
+    skip: string;
+    done: string;
+    replay: string;
+    replayHint: string;
   };
   notFound: {
     heading: string;
@@ -666,6 +684,43 @@ const VI: Messages = {
       deleteItemFailed: "Không xóa được mục khỏi đám mây.",
       clearFailed: "Không xóa được lịch sử trên máy chủ.",
     },
+  },
+  tour: {
+    welcomeKicker: "Chào mừng",
+    welcomeTitle: "Mỗi ngày một đoạn, bằng lời thường",
+    welcomePoints: [
+      { title: "Đọc câu chuyện trước.", body: "Mỗi đoạn được kể lại bằng lời thường, đọc trong vài phút." },
+      { title: "Nguyên văn 1926 luôn kề bên.", body: "Chạm số câu để đọc lời gốc." },
+      { title: "Tiến độ tự lưu.", body: "Không cần tài khoản. Đăng nhập chỉ để đồng bộ." },
+    ],
+    welcomeStart: "Đọc đoạn đầu, có chỉ dẫn",
+    welcomeLater: "Tôi tự xem",
+    stepOf: (step, total) => `Bước ${step} / ${total}`,
+    steps: {
+      ref: {
+        title: "Chạm số câu để đọc nguyên văn",
+        body: "Câu Kinh Thánh mở ngay dưới đoạn văn, không rời trang. Chạm lần nữa để gấp lại.",
+      },
+      notes: {
+        title: "Đào sâu khi muốn",
+        body: "Mở các phần gấp để xem ý nghĩa, lưu ý và lời các nhà giải kinh. Mỗi ý kiến có nhãn độ tin cậy: cao, vừa, thấp.",
+      },
+      display: {
+        title: "Chữ to hơn, đọc ban đêm dễ hơn",
+        body: "Nút mặt trăng đổi sáng / tối, nút Aa chọn cỡ chữ và phông. Chọn cỡ chữ ngay đây cũng được:",
+      },
+      next: {
+        title: "Đọc xong thì sang đoạn kế",
+        body: "Tiến độ tự lưu. Trang chủ có thêm Cảm xúc, Lịch sử và Tôi ở thanh dưới.",
+      },
+    },
+    arrowKeysHint: "Trên máy tính: phím ← → mở đoạn trước / sau.",
+    next: "Tiếp",
+    back: "Quay lại",
+    skip: "Bỏ qua hướng dẫn",
+    done: "Xong, đọc tiếp",
+    replay: "Xem lại hướng dẫn",
+    replayHint: "4 bước, khoảng 1 phút",
   },
   notFound: {
     heading: "Không tìm thấy trang này",
@@ -1027,6 +1082,43 @@ const EN: Messages = {
       deleteItemFailed: "Could not remove this item from the cloud.",
       clearFailed: "Could not clear cloud history.",
     },
+  },
+  tour: {
+    welcomeKicker: "Welcome",
+    welcomeTitle: "One chapter a day, in plain words",
+    welcomePoints: [
+      { title: "Read the story first.", body: "Each chapter is retold in plain words, a few minutes long." },
+      { title: "The Bible text is always at hand.", body: "Tap a verse number to read the original." },
+      { title: "Progress saves itself.", body: "No account needed. Sign in only to sync." },
+    ],
+    welcomeStart: "Read the first chapter, guided",
+    welcomeLater: "I'll look around myself",
+    stepOf: (step, total) => `Step ${step} of ${total}`,
+    steps: {
+      ref: {
+        title: "Tap a verse number to read the text",
+        body: "The verses open right under the paragraph, without leaving the page. Tap again to fold them.",
+      },
+      notes: {
+        title: "Go deeper when you want",
+        body: "Open the folded sections for meaning, notes and what commentators say. Each view carries a confidence label: high, medium, low.",
+      },
+      display: {
+        title: "Bigger text, easier night reading",
+        body: "The moon button switches light and dark; Aa picks text size and font. You can pick a size right here:",
+      },
+      next: {
+        title: "Done? On to the next chapter",
+        body: "Progress saves itself. The home page also has Moods, History and Me in the bottom bar.",
+      },
+    },
+    arrowKeysHint: "On a computer: ← → open the previous or next chapter.",
+    next: "Next",
+    back: "Back",
+    skip: "Skip the tour",
+    done: "Done, keep reading",
+    replay: "Replay the tour",
+    replayHint: "4 steps, about a minute",
   },
   notFound: {
     heading: "Page not found",

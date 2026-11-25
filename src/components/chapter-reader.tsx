@@ -218,7 +218,7 @@ export function ChapterReader(props: { view: ChapterView; scale?: ReadingScale }
 
         <nav
           aria-label={t().chapter.bottomNavLabel}
-          class="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-6 font-sans text-sm"
+          class="kt-chapter-nav mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-6 font-sans text-sm"
         >
           <Show when={props.view.prev} fallback={<span />}>
             {(prev) => (

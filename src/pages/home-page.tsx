@@ -11,6 +11,7 @@ import { useHistory } from "../components/history-context";
 import { useLocale } from "../components/locale-context";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
+import { WelcomeSheet } from "../components/tour";
 import { getChapter, getToc, type Toc } from "../data";
 import { chapterHref, ebookHref, homeHref, moodsHref } from "../router";
 
@@ -71,6 +72,9 @@ export function HomePage() {
               </p>
 
               <StartHere book={start()} />
+              <WelcomeSheet
+                startHref={chapterHref({ slug: start().book.slug, number: start().chapters[0].number, locale: locale() })}
+              />
 
               <BookIndex
                 toc={toc().books}

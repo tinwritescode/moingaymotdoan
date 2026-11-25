@@ -5,6 +5,7 @@ import type { Locale } from "../../lib/i18n";
 import { BookPicker } from "../components/book-picker";
 import { ChapterKeys } from "../components/chapter-keys";
 import { ChapterReader } from "../components/chapter-reader";
+import { ChapterTour } from "../components/tour";
 import { DisplayMenu, ThemeToggle } from "../components/display-controls";
 import { useLocale } from "../components/locale-context";
 import { NotFound } from "../components/not-found";
@@ -58,7 +59,7 @@ export function ChapterPageView(props: { book: string; chapter: number }) {
                 <BookPicker books={books()} current={ch().book.slug} />
               </div>
 
-              <div class="flex items-center gap-1.5">
+              <div class="kt-display-controls flex items-center gap-1.5">
                 <ThemeToggle compact />
                 <DisplayMenu compact />
               </div>
@@ -67,6 +68,7 @@ export function ChapterPageView(props: { book: string; chapter: number }) {
 
           <ChapterKeys prev={linkHref(ch().prev, locale())} next={linkHref(ch().next, locale())} />
           <ChapterReader view={ch()} scale={scale()} />
+          <ChapterTour />
         </div>
       )}
     </Show>

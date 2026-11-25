@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "@solidjs/router";
 import { createEffect, createMemo, Show } from "solid-js";
 import { safeNextPath } from "../../lib/auth/types";
+import { booksFor } from "../../lib/content/books";
 import { useAuth } from "../components/auth-context";
 import { FloatingDock } from "../components/floating-dock";
 import { useHistory } from "../components/history-context";
@@ -10,7 +11,8 @@ import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
 import { Bone, Skeleton } from "../components/skeleton";
 import { formatAuthError } from "../lib/auth-messages";
-import { accountHref, historyHref } from "../router";
+import { tourHref } from "../lib/tour";
+import { accountHref, chapterHref, historyHref } from "../router";
 
 /** Shared AuthKit sign-in & cloud sync profile page for Vietnamese (/tai-khoan) and English (/en/account). */
 export function AccountPageView() {
@@ -214,6 +216,27 @@ export function AccountPageView() {
             )}
           </Show>
         </Show>
+
+        <a
+          href={tourHref(chapterHref({ slug: booksFor(locale())[0].slug, number: 1, locale: locale() }))}
+          class="mt-4 flex min-h-16 items-center gap-3.5 rounded-[20px] border border-rule bg-card px-[18px] font-sans text-ink transition-colors hover:border-accent"
+        >
+          <span
+            aria-hidden="true"
+            class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-side text-accent"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" class="h-[18px] w-[18px]">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6" />
+              <path d="M12 17h.01" />
+            </svg>
+          </span>
+          <span class="flex flex-1 flex-col gap-0.5">
+            <span class="text-[15px] font-medium">{t().tour.replay}</span>
+            <span class="text-xs text-muted">{t().tour.replayHint}</span>
+          </span>
+          <span aria-hidden="true" class="text-muted">›</span>
+        </a>
       </main>
 
       <FloatingDock active="tai-khoan" />

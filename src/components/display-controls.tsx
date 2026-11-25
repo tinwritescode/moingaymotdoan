@@ -98,7 +98,7 @@ export function ThemeToggle(props: { compact?: boolean }) {
 
 /** Popover menu for color mode (light/dark/system), reading size, and reading font. */
 export function DisplayMenu(props: { compact?: boolean }) {
-  const { theme, font, scale, setTheme, setFont, setScale } = usePreferences();
+  const { theme, font, scale, setTheme, setFont } = usePreferences();
   const { t } = useLocale();
 
   return (
@@ -152,27 +152,7 @@ export function DisplayMenu(props: { compact?: boolean }) {
 
           <div class="space-y-1.5">
             <p class="text-[11px] font-medium text-muted">{t().display.readingSize}</p>
-            <div
-              role="group"
-              aria-label={t().display.readingSize}
-              class="grid grid-cols-3 gap-1 rounded-full border border-rule bg-paper/70 p-1 text-xs"
-            >
-              <For each={SCALE_OPTIONS}>
-                {(opt) => (
-                  <button
-                    type="button"
-                    aria-pressed={ariaState(scale() === opt.id)}
-                    onClick={() => setScale(opt.id)}
-                    class="inline-flex min-h-8 cursor-pointer items-center justify-center gap-1 rounded-full px-2.5 text-muted transition-colors hover:text-ink aria-pressed:bg-accent aria-pressed:font-medium aria-pressed:text-paper"
-                  >
-                    <span aria-hidden="true" class={["font-serif leading-none", opt.sampleClass]}>
-                      A
-                    </span>
-                    <span>{t().display.scales[opt.id]}</span>
-                  </button>
-                )}
-              </For>
-            </div>
+            <ScalePicker />
           </div>
 
           <div class="space-y-1.5">
@@ -228,5 +208,35 @@ export function DisplayMenu(props: { compact?: boolean }) {
         </div>
       )}
     </Popover>
+  );
+}
+
+/** Nhỏ / Vừa / Lớn: the reading size picker, in the display menu and the tour. */
+export function ScalePicker() {
+  const { scale, setScale } = usePreferences();
+  const { t } = useLocale();
+
+  return (
+    <div
+      role="group"
+      aria-label={t().display.readingSize}
+      class="grid grid-cols-3 gap-1 rounded-full border border-rule bg-paper/70 p-1 text-xs"
+    >
+      <For each={SCALE_OPTIONS}>
+        {(opt) => (
+          <button
+            type="button"
+            aria-pressed={ariaState(scale() === opt.id)}
+            onClick={() => setScale(opt.id)}
+            class="inline-flex min-h-8 cursor-pointer items-center justify-center gap-1 rounded-full px-2.5 text-muted transition-colors hover:text-ink aria-pressed:bg-accent aria-pressed:font-medium aria-pressed:text-paper"
+          >
+            <span aria-hidden="true" class={["font-serif leading-none", opt.sampleClass]}>
+              A
+            </span>
+            <span>{t().display.scales[opt.id]}</span>
+          </button>
+        )}
+      </For>
+    </div>
   );
 }
