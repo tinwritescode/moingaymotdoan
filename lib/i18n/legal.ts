@@ -24,14 +24,14 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
     privacy: {
       title: "Quyền riêng tư",
       description:
-        "Cách Mỗi Ngày Một Đoạn xử lý lịch sử đọc khi bạn đọc không cần tài khoản hoặc đăng nhập đồng bộ — không quảng cáo, không theo dõi.",
+        "Cách Mỗi Ngày Một Đoạn xử lý lịch sử đọc khi bạn đọc không cần tài khoản hoặc đăng nhập đồng bộ — không quảng cáo, không cookie theo dõi.",
       updated: "2026-11-25",
       sections: [
         {
           heading: "Đọc không cần tài khoản",
           paragraphs: [
             "Bạn có thể đọc toàn bộ Kinh Thánh, ghi chú và các trang cảm xúc trên Mỗi Ngày Một Đoạn mà không cần đăng ký hay đăng nhập.",
-            "Khi bạn không đăng nhập, không có dữ liệu nào được gửi về máy chủ của chúng tôi. Lịch sử đọc và các tùy chỉnh hiển thị (chế độ màu, phông chữ, cỡ chữ) chỉ được lưu ngay trong bộ nhớ trình duyệt (localStorage) trên thiết bị của bạn.",
+            "Khi bạn không đăng nhập, lịch sử đọc của bạn không được gửi về máy chủ của chúng tôi. Lịch sử đọc và các tùy chỉnh hiển thị (chế độ màu, phông chữ, cỡ chữ) chỉ được lưu ngay trong bộ nhớ trình duyệt (localStorage) trên thiết bị của bạn.",
           ],
         },
         {
@@ -46,13 +46,20 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
           heading: "Mục đích sử dụng dữ liệu",
           paragraphs: [
             "Chúng tôi chỉ dùng lịch sử đọc của bạn cho một mục đích duy nhất: hiển thị lại lịch sử và tiến độ đọc của chính bạn trên các thiết bị bạn sử dụng.",
-            "Trang web hoàn toàn miễn phí, phi lợi nhuận và không đặt quảng cáo. Chúng tôi không cài công cụ phân tích hay mã theo dõi, không gửi email tiếp thị, và không bán hay chia sẻ dữ liệu của bạn cho bất kỳ ai.",
+            "Trang web hoàn toàn miễn phí, phi lợi nhuận và không đặt quảng cáo. Chúng tôi không đặt cookie theo dõi, không ghi lại phiên truy cập, không gửi email tiếp thị, và không bán hay chia sẻ dữ liệu của bạn cho bất kỳ ai.",
+          ],
+        },
+        {
+          heading: "Thống kê lượt truy cập",
+          paragraphs: [
+            "Để biết trang nào được đọc nhiều và trang có tải nhanh không, chúng tôi dùng PostHog (máy chủ tại Mỹ) ở chế độ không cookie: trang web không lưu cookie hay mã định danh nào trên thiết bị của bạn, và lượt truy cập không được gắn với tài khoản hay danh tính của bạn.",
+            "PostHog nhận địa chỉ trang bạn mở, các lượt bấm trên trang, loại trình duyệt và thiết bị, cùng thông tin kỹ thuật của lượt truy cập (như địa chỉ IP). Chúng tôi không ghi lại màn hình hay phiên truy cập của bạn.",
           ],
         },
         {
           heading: "Các dịch vụ hạ tầng",
           paragraphs: [
-            "Để vận hành trang web, chúng tôi sử dụng ba đơn vị hạ tầng: WorkOS (đăng nhập và xác thực tài khoản), Neon (cơ sở dữ liệu và API), và Vercel (lưu trữ trang web tĩnh).",
+            "Để vận hành trang web, chúng tôi sử dụng bốn đơn vị hạ tầng: WorkOS (đăng nhập và xác thực tài khoản), Neon (cơ sở dữ liệu và API), Vercel (lưu trữ trang web tĩnh) và PostHog (thống kê lượt truy cập ẩn danh).",
             "Cũng như mọi nhà cung cấp máy chủ web khác, Vercel có thể xử lý các thông tin kỹ thuật tiêu chuẩn của mỗi lượt truy cập (chẳng hạn địa chỉ IP) để gửi trang web đến trình duyệt của bạn.",
           ],
         },
@@ -150,14 +157,14 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
     privacy: {
       title: "Privacy Policy",
       description:
-        "How Mỗi Ngày Một Đoạn handles reading history locally or with an optional account — with no ads, no tracking, and simple ways to delete your data.",
+        "How Mỗi Ngày Một Đoạn handles reading history locally or with an optional account — with no ads, no tracking cookies, and simple ways to delete your data.",
       updated: "2026-11-25",
       sections: [
         {
           heading: "Reading without an account",
           paragraphs: [
             "You can read all Scripture passages, study notes, and mood guides on Mỗi Ngày Một Đoạn (One Chapter a Day) without creating an account.",
-            "When you are not signed in, nothing is sent to our servers. Your reading history and display preferences (theme, font, and text size) are stored only in your browser's localStorage on your device.",
+            "When you are not signed in, your reading history is never sent to our servers. Your reading history and display preferences (theme, font, and text size) are stored only in your browser's localStorage on your device.",
           ],
         },
         {
@@ -172,13 +179,20 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
           heading: "How we use your data",
           paragraphs: [
             "We use your reading history for one purpose only: to show you your own reading history and progress across your devices.",
-            "This site is free, non-profit, and ad-free. We do not run analytics or tracking scripts, send marketing emails, or sell or share your data with anyone.",
+            "This site is free, non-profit, and ad-free. We do not set tracking cookies, record your sessions, send marketing emails, or sell or share your data with anyone.",
+          ],
+        },
+        {
+          heading: "Visit statistics",
+          paragraphs: [
+            "To learn which pages are read most and whether pages load quickly, we use PostHog (servers in the US) in cookieless mode: the site stores no cookies or identifiers on your device, and visits are not tied to your account or identity.",
+            "PostHog receives the address of each page you open, clicks on the page, your browser and device type, and technical request data (such as your IP address). We do not record your screen or your sessions.",
           ],
         },
         {
           heading: "Service providers",
           paragraphs: [
-            "Three service providers help run the site: WorkOS (sign-in and authentication), Neon (database and API), and Vercel (static site hosting).",
+            "Four service providers help run the site: WorkOS (sign-in and authentication), Neon (database and API), Vercel (static site hosting), and PostHog (anonymous visit statistics).",
             "Like any web host, Vercel may process standard web request data, such as your IP address, in order to serve pages to your browser.",
           ],
         },

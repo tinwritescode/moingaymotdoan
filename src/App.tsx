@@ -8,6 +8,20 @@ import { PageSkeleton } from "./components/skeleton";
 import { ebookHref, privacyHref, Router, termsHref } from "./router";
 import "./app.css";
 
+const posthogKey = (import.meta.env.VITE_POSTHOG_KEY ?? "").trim();
+if (!import.meta.env.SSR && posthogKey) {
+  // Browser only: the dynamic import keeps posthog-js out of SSR/prerender and the first bundle.
+  // Cookieless and no replay: anonymous counts only, as the privacy policy promises.
+  void import("posthog-js").then(({ default: posthog }) =>
+    posthog.init(posthogKey, {
+      api_host: "https://us.i.posthog.com",
+      defaults: "2026-05-30",
+      cookieless_mode: "always",
+      disable_session_recording: true,
+    }),
+  );
+}
+
 function SiteFooter() {
   const { locale, t } = useLocale();
   return (

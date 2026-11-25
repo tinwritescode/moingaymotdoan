@@ -32,6 +32,7 @@
     "hono": "^4.13.21",
     "jose": "^6.2.18",
     "pg": "^8.23.1",
+    "posthog-js": "^1.454.2",
     "solid-js": "2.0.3"
   },
   "devDependencies": {
