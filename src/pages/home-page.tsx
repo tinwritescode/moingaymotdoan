@@ -316,94 +316,97 @@ function ChapterPanel(props: {
         </div>
       </div>
 
-      <ol
-        class={[
-          "kt-chapter-list mt-3",
-          props.mode === "dots"
-            ? "grid grid-cols-[repeat(auto-fill,minmax(2.35rem,1fr))] gap-1.5"
-            : "space-y-1.5",
-        ]}
-      >
-        <For each={props.entry.chapters}>
-          {(ch) => {
-            const prog = () =>
-              hydrated() ? progressFor("chapter", chapterItemKey(slug(), ch.number)) : undefined;
-            const state = () => (prog()?.completed ? "ok" : prog() ? "seen" : "none");
-            return (
-              <li>
-                <a
-                  href={chapterHref({ slug: slug(), number: ch.number, locale: locale() })}
-                  title={t().home.chapterTitleAttr(
-                    ch.number,
-                    ch.title,
-                    prog() ? formatShortDate(prog()!.lastReadAt, locale()) : undefined,
-                  )}
-                  aria-label={t().home.chapterAriaLabel(ch.number, ch.title)}
-                  class={
-                    props.mode === "dots"
-                      ? [
-                          "flex aspect-square items-center justify-center rounded-full font-sans text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-                          state() === "ok"
-                            ? "border border-accent bg-accent font-medium text-paper"
-                            : state() === "seen"
-                              ? "border-[1.5px] border-accent bg-side font-medium text-accent"
-                              : "border border-rule text-muted hover:border-accent hover:text-accent",
-                        ]
-                      : "group flex items-baseline gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-side"
-                  }
-                >
-                  <Show
-                    when={props.mode === "dots"}
-                    fallback={
-                      <>
-                        <span
-                          class={[
-                            "flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-sans text-[11px]",
+      {/* Only an open book's chapters render: all 66 lists made up two thirds of the home page's HTML. */}
+      <Show when={!props.hidden}>
+        <ol
+          class={[
+            "kt-chapter-list mt-3",
+            props.mode === "dots"
+              ? "grid grid-cols-[repeat(auto-fill,minmax(2.35rem,1fr))] gap-1.5"
+              : "space-y-1.5",
+          ]}
+        >
+          <For each={props.entry.chapters}>
+            {(ch) => {
+              const prog = () =>
+                hydrated() ? progressFor("chapter", chapterItemKey(slug(), ch.number)) : undefined;
+              const state = () => (prog()?.completed ? "ok" : prog() ? "seen" : "none");
+              return (
+                <li>
+                  <a
+                    href={chapterHref({ slug: slug(), number: ch.number, locale: locale() })}
+                    title={t().home.chapterTitleAttr(
+                      ch.number,
+                      ch.title,
+                      prog() ? formatShortDate(prog()!.lastReadAt, locale()) : undefined,
+                    )}
+                    aria-label={t().home.chapterAriaLabel(ch.number, ch.title)}
+                    class={
+                      props.mode === "dots"
+                        ? [
+                            "flex aspect-square items-center justify-center rounded-full font-sans text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
                             state() === "ok"
-                              ? "bg-accent font-medium text-paper"
+                              ? "border border-accent bg-accent font-medium text-paper"
                               : state() === "seen"
-                                ? "border border-accent bg-side font-medium text-accent"
-                                : "border border-rule text-muted",
-                          ]}
-                        >
-                          {ch.number}
-                        </span>
-                        <span class="leading-snug text-ink group-hover:text-accent">
-                          {ch.title}
-                          <Show when={prog()}>
-                            {(p) => (
-                              <span class="ml-1.5 font-sans text-[11px] text-accent">
-                                {p().completed ? "✓" : t().home.seenBadge}
-                              </span>
-                            )}
-                          </Show>
-                        </span>
-                      </>
+                                ? "border-[1.5px] border-accent bg-side font-medium text-accent"
+                                : "border border-rule text-muted hover:border-accent hover:text-accent",
+                          ]
+                        : "group flex items-baseline gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-side"
                     }
                   >
-                    {ch.number}
-                  </Show>
-                </a>
-              </li>
-            );
-          }}
-        </For>
-      </ol>
+                    <Show
+                      when={props.mode === "dots"}
+                      fallback={
+                        <>
+                          <span
+                            class={[
+                              "flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-sans text-[11px]",
+                              state() === "ok"
+                                ? "bg-accent font-medium text-paper"
+                                : state() === "seen"
+                                  ? "border border-accent bg-side font-medium text-accent"
+                                  : "border border-rule text-muted",
+                            ]}
+                          >
+                            {ch.number}
+                          </span>
+                          <span class="leading-snug text-ink group-hover:text-accent">
+                            {ch.title}
+                            <Show when={prog()}>
+                              {(p) => (
+                                <span class="ml-1.5 font-sans text-[11px] text-accent">
+                                  {p().completed ? "✓" : t().home.seenBadge}
+                                </span>
+                              )}
+                            </Show>
+                          </span>
+                        </>
+                      }
+                    >
+                      {ch.number}
+                    </Show>
+                  </a>
+                </li>
+              );
+            }}
+          </For>
+        </ol>
 
-      <p class="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-xs text-muted">
-        <span class="inline-flex items-center gap-1.5">
-          <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
-          {t().home.legendCompleted}
-        </span>
-        <span class="inline-flex items-center gap-1.5">
-          <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border-[1.5px] border-accent bg-side" />
-          {t().home.legendSeen}
-        </span>
-        <span class="inline-flex items-center gap-1.5">
-          <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border border-rule" />
-          {t().home.legendUnread}
-        </span>
-      </p>
+        <p class="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-xs text-muted">
+          <span class="inline-flex items-center gap-1.5">
+            <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
+            {t().home.legendCompleted}
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border-[1.5px] border-accent bg-side" />
+            {t().home.legendSeen}
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <i aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full border border-rule" />
+            {t().home.legendUnread}
+          </span>
+        </p>
+      </Show>
     </section>
   );
 }

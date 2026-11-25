@@ -66,14 +66,24 @@ const data = [
   ...tocEn.books.flatMap((b) => b.chapters.map((c) => `/data/en/${b.book.slug}/${c.number}.json`)),
 ];
 
-const seen = new Set(["/", "/en", ...data]);
+// The home page renders only the open book's chapters, so no page links every chapter: list them.
+const chapters = [
+  ...tocVi.books.flatMap((b) => b.chapters.map((c) => `/${b.book.slug}/${c.number}`)),
+  ...tocEn.books.flatMap((b) => b.chapters.map((c) => `/en/${b.book.slug}/${c.number}`)),
+];
+
+const seen = new Set(["/", "/en", ...chapters, ...data]);
 const queue = [...seen];
+/** Canonical URLs of the indexable pages, for sitemap.xml. */
+const sitemap = [];
 for (const path of queue) {
   const res = await fetchPath(path);
   if (!res.ok) throw new Error(`${path}: ${res.status} (linked from a prerendered page)`);
   const html = res.headers.get("content-type")?.includes("text/html") ?? false;
   if (html) {
     const text = await res.text();
+    const canonical = /<link rel="canonical" href="([^"]+)"/.exec(text)?.[1];
+    if (canonical && !text.includes('content="noindex')) sitemap.push(canonical);
     for (const link of linksIn(text)) if (!seen.has(link)) (seen.add(link), queue.push(link));
     await save(fileFor(path, html), res, hoistHeadMeta(text, path));
   } else {
@@ -85,5 +95,14 @@ for (const path of queue) {
 const missing = await fetchPath("/khong-co-trang-nay");
 if (missing.status !== 404) throw new Error(`/khong-co-trang-nay: expected 404, got ${missing.status}`);
 await save(join(OUT, "404.html"), missing, hoistHeadMeta(await missing.text(), "/khong-co-trang-nay"));
+
+// Search engines found every chapter through the home page's links; they now find them here (robots.txt points to it).
+await save(
+  join(OUT, "sitemap.xml"),
+  null,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(sitemap)]
+    .map((url) => `<url><loc>${url}</loc></url>`)
+    .join("\n")}\n</urlset>\n`,
+);
 
 console.log(`Prerendered ${queue.length} files and 404.html into dist/client.`);
