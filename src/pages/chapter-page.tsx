@@ -12,8 +12,7 @@ import { useLocale } from "../components/locale-context";
 import { NotFound } from "../components/not-found";
 import { usePreferences } from "../components/preferences-context";
 import { Seo } from "../components/seo";
-import { pickerBooks } from "../components/site-header";
-import { getChapter, getToc } from "../data";
+import { getChapter } from "../data";
 import { chapterHref, homeHref } from "../router";
 
 const linkHref = (l: ChapterLink | null, locale: Locale) =>
@@ -23,7 +22,6 @@ const linkHref = (l: ChapterLink | null, locale: Locale) =>
 export function ChapterPageView(props: { book: string; chapter: number }) {
   const { locale, t } = useLocale();
   const view = createMemo(() => getChapter(props.book, props.chapter, locale()));
-  const books = createMemo(async () => pickerBooks((await getToc(locale())).books, locale()));
   const { scale } = usePreferences();
 
   const summaryOf = (ch: ChapterView): string => {
@@ -57,7 +55,7 @@ export function ChapterPageView(props: { book: string; chapter: number }) {
                 <span class="hidden text-xs font-medium text-ink sm:inline">
                   {ch().book.name} {ch().number}
                 </span>
-                <BookPicker books={books()} current={ch().book.slug} />
+                <BookPicker current={ch().book.slug} />
               </div>
 
               <div class="kt-display-controls flex items-center gap-1.5">

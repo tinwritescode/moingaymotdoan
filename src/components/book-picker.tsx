@@ -1,8 +1,13 @@
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, Loading, Show } from "solid-js";
+import type { TocBook } from "../../lib/content";
+import { booksFor, testamentOf } from "../../lib/content/books";
+import type { Locale } from "../../lib/i18n";
+import { getToc } from "../data";
 import { chapterHref, ebookHref } from "../router";
 import { ariaState } from "./aria";
 import { useLocale } from "./locale-context";
 import { Popover } from "./popover";
+import { Bone, Skeleton } from "./skeleton";
 
 export type PickerBook = {
   slug: string;
@@ -11,21 +16,22 @@ export type PickerBook = {
   chapters: { number: number; title: string }[];
 };
 
+export function pickerBooks(toc: TocBook[], locale: Locale = "vi"): PickerBook[] {
+  const written = new Map(toc.map((t) => [t.book.code, t.chapters]));
+  return booksFor(locale).map((b) => ({
+    slug: b.slug,
+    name: b.name,
+    testament: testamentOf(b),
+    chapters: (written.get(b.code) ?? []).map((ch) => ({ number: ch.number, title: ch.title })),
+  }));
+}
+
 /**
  * "Sách ▾" / "Books ▾" in the top bar: pick a book on the left, then a chapter from its grid on the right.
  * Every book is listed so the reader sees the whole Bible; books with no notes yet are greyed out.
  */
-export function BookPicker(props: { books: PickerBook[]; current?: string }) {
+export function BookPicker(props: { current?: string }) {
   const { locale, t } = useLocale();
-  const [picked, setPicked] = createSignal(
-    () => props.current ?? props.books.find((b) => b.chapters.length > 0)?.slug,
-  );
-  const book = () => props.books.find((b) => b.slug === picked());
-  const groups = createMemo(() => [
-    { testament: "cu-uoc" as const, label: t().header.oldTestament },
-    { testament: "tan-uoc" as const, label: t().header.newTestament },
-  ]);
-
   return (
     <Popover
       trigger={
@@ -49,6 +55,39 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
             <span aria-hidden="true">↓</span>
             {t().footer.downloadEbook} (EPUB)
           </a>
+          <Loading
+            fallback={
+              <Skeleton label={t().skeleton.loading} class="space-y-3 p-4 sm:col-span-2">
+                <Bone class="h-4 w-2/3" />
+                <Bone class="h-4 w-1/2" />
+                <Bone class="h-4 w-3/5" />
+              </Skeleton>
+            }
+          >
+            <PickerPanel current={props.current} close={close} />
+          </Loading>
+        </>
+      )}
+    </Popover>
+  );
+}
+
+/**
+ * The open picker's book list and chapter grid. It loads the table of contents itself, so the toc is
+ * fetched only when a reader opens the picker and is never serialized into a prerendered page.
+ */
+function PickerPanel(props: { current?: string; close: () => void }) {
+  const { locale, t } = useLocale();
+  const books = createMemo(async () => pickerBooks((await getToc(locale())).books, locale()));
+  const [picked, setPicked] = createSignal(() => props.current ?? books().find((b) => b.chapters.length > 0)?.slug);
+  const book = () => books().find((b) => b.slug === picked());
+  const groups = createMemo(() => [
+    { testament: "cu-uoc" as const, label: t().header.oldTestament },
+    { testament: "tan-uoc" as const, label: t().header.newTestament },
+  ]);
+
+  return (
+        <>
           <nav
             aria-label={t().header.booksNavLabel}
             class="max-h-[min(60vh,32rem)] overflow-y-auto border-b border-rule p-2 sm:border-r sm:border-b-0"
@@ -58,7 +97,7 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
                 <div>
                   <p class="px-3 pt-3 pb-1 text-xs font-semibold tracking-widest text-muted uppercase">{g.label}</p>
                   <ul>
-                    <For each={props.books.filter((b) => b.testament === g.testament)}>
+                    <For each={books().filter((b) => b.testament === g.testament)}>
                       {(b) => (
                         <li>
                           <button
@@ -96,7 +135,7 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
                           <a
                             href={chapterHref({ slug: b().slug, number: ch.number, locale: locale() })}
                             title={ch.title}
-                            onClick={close}
+                            onClick={props.close}
                             class="flex aspect-square items-center justify-center rounded-full border border-rule text-xs text-muted transition-colors hover:border-accent hover:bg-side hover:text-accent"
                           >
                             {ch.number}
@@ -110,7 +149,5 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
             </Show>
           </div>
         </>
-      )}
-    </Popover>
   );
 }

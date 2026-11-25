@@ -1,26 +1,12 @@
-import { createMemo, Show, type ParentProps } from "solid-js";
-import type { TocBook } from "../../lib/content";
-import { booksFor, testamentOf } from "../../lib/content/books";
-import type { Locale } from "../../lib/i18n";
-import { getToc } from "../data";
+import { Show, type ParentProps } from "solid-js";
 import { accountHref, homeHref, moodsHref } from "../router";
 import { useAuth } from "./auth-context";
-import { BookPicker, type PickerBook } from "./book-picker";
+import { BookPicker } from "./book-picker";
 import { DisplayMenu, ThemeToggle } from "./display-controls";
 import { LanguageToggle } from "./language-switcher";
 import { useLocale } from "./locale-context";
 
 type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
-
-export function pickerBooks(toc: TocBook[], locale: Locale = "vi"): PickerBook[] {
-  const written = new Map(toc.map((t) => [t.book.code, t.chapters]));
-  return booksFor(locale).map((b) => ({
-    slug: b.slug,
-    name: b.name,
-    testament: testamentOf(b),
-    chapters: (written.get(b.code) ?? []).map((ch) => ({ number: ch.number, title: ch.title })),
-  }));
-}
 
 /**
  * Minimal quiet top bar: moss dot + site name on the left;
@@ -28,7 +14,6 @@ export function pickerBooks(toc: TocBook[], locale: Locale = "vi"): PickerBook[]
  */
 export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderSection }>) {
   const { locale, t } = useLocale();
-  const books = createMemo(async () => pickerBooks((await getToc(locale())).books, locale()));
   const { user, initialized } = useAuth();
 
   return (
@@ -43,7 +28,7 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
         </a>
 
         <div class="flex items-center gap-1.5 sm:gap-2">
-          <BookPicker books={books()} current={props.book} />
+          <BookPicker current={props.book} />
           <ThemeToggle />
           <DisplayMenu />
           <LanguageToggle />
