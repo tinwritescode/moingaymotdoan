@@ -72,9 +72,6 @@ export function HomePage() {
               </p>
 
               <StartHere book={start()} />
-              <WelcomeSheet
-                startHref={chapterHref({ slug: start().book.slug, number: start().chapters[0].number, locale: locale() })}
-              />
 
               <BookIndex
                 toc={toc().books}
@@ -141,6 +138,14 @@ export function HomePage() {
         </Show>
       </main>
       <FloatingDock active="home" />
+      {/* Outside <main>: its reveal animation's transform would pin a fixed sheet to main, not the screen. */}
+      <Show when={startOf(toc())}>
+        {(start) => (
+          <WelcomeSheet
+            startHref={chapterHref({ slug: start().book.slug, number: start().chapters[0].number, locale: locale() })}
+          />
+        )}
+      </Show>
     </>
   );
 }

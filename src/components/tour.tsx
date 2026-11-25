@@ -173,7 +173,7 @@ export function ChapterTour() {
             <>
               <div
                 aria-hidden="true"
-                class="pointer-events-none fixed z-40 rounded-2xl ring-2 ring-accent"
+                class="pointer-events-none fixed z-40 rounded-2xl outline-2 outline-accent"
                 style={{
                   top: `${r().top - 6}px`,
                   left: `${r().left - 6}px`,

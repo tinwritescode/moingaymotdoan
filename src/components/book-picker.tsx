@@ -1,5 +1,5 @@
 import { createMemo, createSignal, For, Show } from "solid-js";
-import { chapterHref } from "../router";
+import { chapterHref, ebookHref } from "../router";
 import { ariaState } from "./aria";
 import { useLocale } from "./locale-context";
 import { Popover } from "./popover";
@@ -40,6 +40,15 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
     >
       {(close) => (
         <>
+          {/* First, not last: on a phone the lists below run past the screen. */}
+          <a
+            href={ebookHref(locale())}
+            onClick={close}
+            class="flex min-h-11 items-center gap-2 border-b border-rule px-5 text-sm font-medium text-accent transition-colors hover:bg-side sm:col-span-2"
+          >
+            <span aria-hidden="true">↓</span>
+            {t().footer.downloadEbook} (EPUB)
+          </a>
           <nav
             aria-label={t().header.booksNavLabel}
             class="max-h-[min(60vh,32rem)] overflow-y-auto border-b border-rule p-2 sm:border-r sm:border-b-0"

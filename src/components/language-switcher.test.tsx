@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@solidjs/testing-library";
 import { afterEach, describe, expect, it } from "vitest";
-import { LanguageSwitcher } from "./language-switcher";
+import { LanguageSwitcher, LanguageToggle } from "./language-switcher";
 import { LocaleProvider } from "./locale-context";
 
 afterEach(cleanup);
@@ -30,5 +30,30 @@ describe("LanguageSwitcher", () => {
     const viLink = screen.getByRole("link", { name: "Tiếng Việt" });
     expect(viLink.getAttribute("href")).toBe("/cam-xuc/lo-au-tuong-lai");
     expect(viLink.getAttribute("hreflang")).toBe("vi");
+  });
+
+  it("the header toggle links a Vietnamese page to its English twin", () => {
+    render(() => (
+      <LocaleProvider locale="vi" pathname="/thi-thien/23">
+        <LanguageToggle />
+      </LocaleProvider>
+    ));
+
+    const link = screen.getByRole("link", { name: "Switch to English" });
+    expect(link.textContent).toBe("EN");
+    expect(link.getAttribute("href")).toBe("/en/psalms/23");
+    expect(link.getAttribute("hreflang")).toBe("en");
+  });
+
+  it("the header toggle links an English page back to Vietnamese", () => {
+    render(() => (
+      <LocaleProvider locale="en" pathname="/en/moods/anxiety-about-the-future">
+        <LanguageToggle />
+      </LocaleProvider>
+    ));
+
+    const link = screen.getByRole("link", { name: "Chuyển sang Tiếng Việt" });
+    expect(link.textContent).toBe("VI");
+    expect(link.getAttribute("href")).toBe("/cam-xuc/lo-au-tuong-lai");
   });
 });

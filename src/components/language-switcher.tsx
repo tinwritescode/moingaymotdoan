@@ -32,3 +32,20 @@ export function LanguageSwitcher() {
     </span>
   );
 }
+
+/** "EN" / "VI" in the top bar: the same page in the other language, one tap away. */
+export function LanguageToggle() {
+  const { locale, pathname, t } = useLocale();
+  const other = () => (locale() === "vi" ? "en" : "vi");
+
+  return (
+    <a
+      href={alternatePath(pathname(), other())}
+      hreflang={other()}
+      aria-label={t().header.switchLanguageLabel}
+      class="inline-flex h-9 min-w-9 shrink-0 items-center justify-center rounded-full border border-rule bg-card px-2 text-xs font-medium text-muted transition-colors hover:border-accent hover:text-ink sm:h-10 sm:min-w-10"
+    >
+      {t().header.switchLanguageShort}
+    </a>
+  );
+}

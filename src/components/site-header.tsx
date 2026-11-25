@@ -7,6 +7,7 @@ import { accountHref, homeHref, moodsHref } from "../router";
 import { useAuth } from "./auth-context";
 import { BookPicker, type PickerBook } from "./book-picker";
 import { DisplayMenu, ThemeToggle } from "./display-controls";
+import { LanguageToggle } from "./language-switcher";
 import { useLocale } from "./locale-context";
 
 type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
@@ -38,13 +39,14 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
           class="kt-brand inline-flex shrink-0 items-center gap-2 text-[15px] font-medium tracking-tight text-ink sm:gap-2.5"
         >
           <span aria-hidden="true" class="h-2.5 w-2.5 rounded-full bg-accent" />
-          <span>{t().header.brand}</span>
+          <span class="max-[379px]:sr-only">{t().header.brand}</span>
         </a>
 
         <div class="flex items-center gap-1.5 sm:gap-2">
           <BookPicker books={books()} current={props.book} />
           <ThemeToggle />
           <DisplayMenu />
+          <LanguageToggle />
 
           <a
             href={moodsHref(locale())}
