@@ -2,6 +2,8 @@ import { Title } from "@solidjs/meta";
 import { useLocation, useNavigate, type RouteDefinition } from "@solidjs/router";
 import { createEffect, createMemo, Show } from "solid-js";
 import { safeNextPath } from "../../lib/history/types";
+import { FloatingDock } from "../components/floating-dock";
+import { WeeklyDots } from "../components/progress-ring";
 import { SiteHeader } from "../components/site-header";
 import { useUser } from "../components/user-context";
 import { getToc } from "../data";
@@ -12,7 +14,7 @@ export const route = {
   },
 } satisfies RouteDefinition;
 
-/** Trang đăng nhập, tạo tài khoản (WorkOS AuthKit) và quản lý đồng bộ lịch sử đọc Kinh Thánh. */
+/** Trang đăng nhập, tạo tài khoản (WorkOS AuthKit) và hồ sơ đồng bộ phong cách Tĩnh Lặng. */
 export default function TaiKhoanPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ export default function TaiKhoanPage() {
     redirectReturnTo,
     clearRedirectReturnTo,
     stats,
+    logs,
     signIn,
     signUp,
     signOut,
@@ -52,11 +55,11 @@ export default function TaiKhoanPage() {
       <Title>Tài khoản — Kinh Thánh</Title>
       <SiteHeader section="tai-khoan" />
 
-      <main class="mx-auto w-full max-w-lg animate-reveal px-4 pt-8 pb-20 sm:px-6 sm:pt-12 motion-reduce:animate-none">
+      <main class="mx-auto w-full max-w-[34rem] animate-reveal px-5 pt-7 pb-12 motion-reduce:animate-none">
         <Show
           when={ready()}
           fallback={
-            <section class="rounded-2xl border border-rule bg-card p-6 font-sans text-sm text-muted sm:p-8">
+            <section class="rounded-3xl border border-rule bg-card p-6 font-sans text-sm text-muted">
               Đang kiểm tra phiên đăng nhập và đồng bộ lịch sử…
             </section>
           }
@@ -64,23 +67,24 @@ export default function TaiKhoanPage() {
           <Show
             when={user()}
             fallback={
-              <section aria-labelledby="auth-heading" class="rounded-2xl border border-rule bg-card p-6 sm:p-8">
-                <p class="font-sans text-xs font-semibold tracking-[0.14em] text-accent uppercase">
-                  Đồng bộ lịch sử đọc
-                </p>
-                <h1 id="auth-heading" class="mt-2 font-display text-3xl font-extrabold sm:text-4xl">
+              <section aria-labelledby="auth-heading" class="rounded-3xl border border-rule bg-card p-6 sm:p-8">
+                <p class="font-sans text-xs font-medium text-accent">Đồng bộ lịch sử đọc</p>
+                <h1
+                  id="auth-heading"
+                  class="mt-1 font-display text-3xl font-light tracking-tight text-ink sm:text-[2.1rem]"
+                >
                   Đăng nhập tài khoản
                 </h1>
                 <p class="mt-2 font-sans text-sm leading-relaxed text-muted">
-                  Lưu lại ngày tháng năm đã xem, đoạn đang đọc dở và các đoạn đã đọc xong để mở xem tiếp liền mạch trên
-                  mọi thiết bị.
+                  Lưu lại ngày tháng năm đã xem, đoạn đang đọc dở và chuỗi ngày đọc để mở xem tiếp liền mạch trên mọi
+                  thiết bị.
                 </p>
 
                 <Show when={authError()}>
                   {(msg) => (
                     <p
                       role="alert"
-                      class="mt-5 rounded-xl border border-thap/40 bg-thap/10 px-3.5 py-2.5 font-sans text-sm text-thap"
+                      class="mt-5 rounded-2xl border border-thap/40 bg-thap/10 px-4 py-3 font-sans text-xs text-thap"
                     >
                       {msg()}
                     </p>
@@ -90,9 +94,8 @@ export default function TaiKhoanPage() {
                 <Show
                   when={authConfigured}
                   fallback={
-                    <p class="mt-6 rounded-xl border border-rule bg-side/70 p-4 font-sans text-sm text-muted">
-                      Chưa cấu hình WorkOS Client ID trên môi trường này. Bạn vẫn có thể đọc và lưu lịch sử tạm trên
-                      trình duyệt tại{" "}
+                    <p class="mt-6 rounded-2xl bg-side p-4 font-sans text-xs text-ink/85">
+                      Chưa cấu hình WorkOS Client ID trên môi trường này. Bạn vẫn có thể xem lịch sử tạm tại{" "}
                       <a href="/lich-su" class="font-medium text-accent underline">
                         trang Lịch sử
                       </a>
@@ -100,12 +103,12 @@ export default function TaiKhoanPage() {
                     </p>
                   }
                 >
-                  <div class="mt-6 space-y-3 font-sans">
+                  <div class="mt-6 space-y-2.5 font-sans">
                     <button
                       type="button"
                       disabled={authLoading()}
                       onClick={() => void signIn(nextUrl())}
-                      class="flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-ink px-5 text-sm font-semibold text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
+                      class="flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full bg-accent px-5 text-sm font-medium text-paper transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {authLoading() ? "Đang chuyển sang trang đăng nhập…" : "Đăng nhập"}
                     </button>
@@ -114,7 +117,7 @@ export default function TaiKhoanPage() {
                       type="button"
                       disabled={authLoading()}
                       onClick={() => void signUp(nextUrl())}
-                      class="flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl border border-rule bg-paper/60 px-5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
+                      class="flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full bg-side px-5 text-sm font-medium text-accent transition-colors hover:bg-accent hover:text-paper disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       Tạo tài khoản mới
                     </button>
@@ -122,21 +125,21 @@ export default function TaiKhoanPage() {
                 </Show>
 
                 <p class="mt-6 border-t border-rule pt-4 font-sans text-xs leading-relaxed text-muted">
-                  Xác thực an toàn qua WorkOS AuthKit. Lịch sử bạn đã đọc trước khi đăng nhập trên trình duyệt này sẽ tự
-                  động được gộp vào tài khoản của bạn.
+                  Xác thực an toàn qua WorkOS AuthKit. Lịch sử bạn đã đọc trên trình duyệt này sẽ tự động gộp vào tài
+                  khoản sau khi đăng nhập.
                 </p>
               </section>
             }
           >
             {(signedIn) => (
-              <section aria-labelledby="profile-heading" class="rounded-2xl border border-rule bg-card p-6 sm:p-8">
+              <section aria-labelledby="profile-heading" class="rounded-3xl border border-rule bg-card p-6 sm:p-8">
                 <div class="flex items-center gap-4">
                   <Show
                     when={signedIn().avatarUrl}
                     fallback={
                       <div
                         aria-hidden="true"
-                        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-ink font-display text-2xl font-bold text-paper"
+                        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-side font-display text-2xl font-medium text-accent"
                       >
                         {signedIn().name.slice(0, 1).toUpperCase()}
                       </div>
@@ -151,35 +154,36 @@ export default function TaiKhoanPage() {
                     )}
                   </Show>
                   <div class="min-w-0">
-                    <p class="font-sans text-xs font-semibold tracking-[0.14em] text-cao uppercase">
-                      ✓ Đang đồng bộ đám mây
-                    </p>
-                    <h1 id="profile-heading" class="truncate font-display text-3xl font-bold">
+                    <p class="font-sans text-xs font-medium text-accent">✓ Đang đồng bộ đám mây</p>
+                    <h1 id="profile-heading" class="truncate font-display text-2xl font-normal text-ink">
                       {signedIn().name}
                     </h1>
-                    <p class="truncate font-sans text-sm text-muted">{signedIn().email}</p>
+                    <p class="truncate font-sans text-xs text-muted">{signedIn().email}</p>
                   </div>
                 </div>
 
-                <div class="mt-6 grid grid-cols-3 gap-3 border-y border-rule py-5 text-center font-sans">
-                  <div>
-                    <p class="font-display text-2xl font-semibold text-ink">{stats().chaptersRead}</p>
-                    <p class="mt-0.5 text-xs text-muted">Đoạn đã xem</p>
+                <div class="mt-6 grid grid-cols-3 gap-2 font-sans">
+                  <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">
+                    <strong class="block text-2xl leading-none font-light text-ink">{stats().chaptersRead}</strong>
+                    <span class="mt-1 block text-[11px] text-muted">đoạn đã xem</span>
                   </div>
-                  <div>
-                    <p class="font-display text-2xl font-semibold text-cao">{stats().chaptersCompleted}</p>
-                    <p class="mt-0.5 text-xs text-muted">Đã đọc xong</p>
+                  <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">
+                    <strong class="block text-2xl leading-none font-light text-accent">
+                      {stats().chaptersCompleted}
+                    </strong>
+                    <span class="mt-1 block text-[11px] text-muted">đã đọc xong</span>
                   </div>
-                  <div>
-                    <p class="font-display text-2xl font-semibold text-accent">{stats().streak}</p>
-                    <p class="mt-0.5 text-xs text-muted">Chuỗi ngày</p>
+                  <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">
+                    <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
+                    <span class="mt-1 block text-[11px] text-muted">ngày liên tiếp</span>
+                    <WeeklyDots logs={logs()} />
                   </div>
                 </div>
 
-                <div class="mt-6 flex flex-wrap gap-3 font-sans text-sm">
+                <div class="mt-6 flex flex-wrap gap-2.5 font-sans text-sm">
                   <a
                     href="/lich-su"
-                    class="inline-flex min-h-11 flex-1 items-center justify-center rounded-xl bg-ink px-5 font-semibold text-paper transition-colors hover:bg-accent"
+                    class="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-accent px-5 font-medium text-paper transition-opacity hover:opacity-90"
                   >
                     Mở lịch sử đọc →
                   </a>
@@ -187,7 +191,7 @@ export default function TaiKhoanPage() {
                     type="button"
                     disabled={authLoading()}
                     onClick={() => void signOut()}
-                    class="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl border border-rule bg-paper/60 px-5 font-medium text-muted transition-colors hover:border-thap hover:text-thap disabled:opacity-60"
+                    class="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-rule bg-paper/50 px-5 text-muted transition-colors hover:border-thap hover:text-thap disabled:opacity-60"
                   >
                     Đăng xuất
                   </button>
@@ -197,6 +201,8 @@ export default function TaiKhoanPage() {
           </Show>
         </Show>
       </main>
+
+      <FloatingDock active="tai-khoan" />
     </>
   );
 }

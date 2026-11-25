@@ -6,7 +6,8 @@ import { InlineVersesContext } from "./inline-verses";
 import { Popover } from "./popover";
 import { VerseText } from "./verse-text";
 
-const LINK = "kt-ref cursor-pointer text-accent underline decoration-dotted underline-offset-4 hover:decoration-solid";
+const LINK =
+  "kt-ref mx-0.5 inline-flex cursor-pointer items-center rounded-full bg-side px-2 py-0.5 align-[0.12em] font-sans text-[0.65em] font-medium text-accent transition-colors hover:bg-accent hover:text-paper aria-expanded:bg-accent aria-expanded:text-paper";
 
 /**
  * A chỗ dẫn the reader can tap. Into the chapter being read: opens those verses under the paragraph.

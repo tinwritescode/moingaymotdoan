@@ -1,33 +1,33 @@
 @import "tailwindcss";
 
-/* Giấy ngà ban ngày, mực sáng ban đêm. Màu chỉ khai báo ở đây. */
+/* Tĩnh Lặng (Quiet) — đá ấm ban ngày, rêu thẫm ban đêm. Màu chỉ khai báo ở đây. */
 :root {
-  --paper: #fbf7ee;
-  --ink: #2b2620;
-  --muted: #6f665a;
-  --accent: #8a3b2b;
-  --rule: #e6dcc8;
-  --card: #fffdf8;
-  --side: #f7f1e3;
-  --mark: #f6e3a8;
-  --cao: #2f6b3a;
-  --vua: #8a6a12;
-  --thap: #a3332a;
+  --paper: #f4f3ee;
+  --ink: #2b2e2a;
+  --muted: #6e756d;
+  --accent: #4d7059;
+  --rule: #e2e1d9;
+  --card: #fbfaf6;
+  --side: #e3ebe2;
+  --mark: #eee5c8;
+  --cao: #3d6d4d;
+  --vua: #8b6f26;
+  --thap: #a3443a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #1b1916;
-    --ink: #e9e3d6;
-    --muted: #a39a8c;
-    --accent: #e09a7f;
-    --rule: #38332c;
-    --card: #24211d;
-    --side: #201d1a;
-    --mark: #5a4a1c;
-    --cao: #8fcf99;
-    --vua: #e3c46a;
-    --thap: #f08a7e;
+    --paper: #111312;
+    --ink: #d8ddd6;
+    --muted: #8a938b;
+    --accent: #8fbf9f;
+    --rule: #262b27;
+    --card: #191c1a;
+    --side: #1f2b23;
+    --mark: #443c1f;
+    --cao: #8fbf9f;
+    --vua: #e2c572;
+    --thap: #eb8c81;
   }
 }
 
@@ -43,15 +43,15 @@
   --color-cao: var(--cao);
   --color-vua: var(--vua);
   --color-thap: var(--thap);
-  --font-serif: "Literata", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Playfair Display", Georgia, serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Lexend", system-ui, sans-serif;
+  --font-display: "Lexend", system-ui, sans-serif;
   /* Fades a page in. Pure CSS, so it needs no JS and shows the same with or without it. */
-  --animate-reveal: reveal 0.45s ease-out both;
+  --animate-reveal: reveal 0.4s ease-out both;
   @keyframes reveal {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(6px);
     }
   }
 }

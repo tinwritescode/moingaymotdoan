@@ -1,27 +1,43 @@
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import type { ChapterView, Inline, Opinion, Section } from "../../lib/content";
+import { plainText } from "../../lib/content/note";
 import { verseLabel } from "../../lib/content/refs";
 import { AI_NOTICE } from "../../lib/notice";
+import { chapterHref } from "../router";
 import { InlineText } from "./inline";
 import { InlineVersesContext, type VerseRange } from "./inline-verses";
 import { ChapterProgressBar, ChapterVisitRecorder } from "./reading-tracker";
 import { VerseText } from "./verse-text";
 
+export type ReadingScale = "sm" | "md" | "lg";
+
+const SCALE_CLASS: Record<ReadingScale, string> = {
+  sm: "text-[1.08rem] leading-[1.85]",
+  md: "text-[1.22rem] leading-[1.9]",
+  lg: "text-[1.38rem] leading-[1.95]",
+};
+
 const LEVEL = {
-  cao: { label: "Cao", class: "bg-cao/10 text-cao" },
-  vua: { label: "Vừa", class: "bg-vua/10 text-vua" },
-  thap: { label: "Thấp", class: "bg-thap/10 text-thap" },
+  cao: { label: "Cao", class: "bg-cao/12 text-cao" },
+  vua: { label: "Vừa", class: "bg-vua/12 text-vua" },
+  thap: { label: "Thấp", class: "bg-thap/12 text-thap" },
 } as const;
+
+function estimateMinutes(section: Section | undefined): number {
+  if (!section) return 2;
+  const words = section.paragraphs.reduce((sum, p) => sum + plainText(p).split(/\s+/u).length, 0);
+  return Math.max(1, Math.round(words / 180));
+}
 
 function OpinionCard(props: { opinion: Opinion }) {
   return (
-    <article class="kt-opinion rounded-xl border border-rule p-4">
+    <article class="kt-opinion rounded-2xl border border-rule bg-paper/50 p-4">
       <p>
         <InlineText nodes={props.opinion.body} />
       </p>
-      <p class="mt-2 flex flex-wrap items-center gap-2 font-sans text-xs">
-        <span class={["rounded-md px-2 py-0.5 font-semibold", LEVEL[props.opinion.level].class]}>
+      <p class="mt-2.5 flex flex-wrap items-center gap-2 font-sans text-xs">
+        <span class={["rounded-full px-2.5 py-0.5 font-medium", LEVEL[props.opinion.level].class]}>
           Tin cậy: {LEVEL[props.opinion.level].label}
         </span>
         <span class="text-muted">{props.opinion.reason}</span>
@@ -52,15 +68,15 @@ function StoryParagraph(props: { nodes: Inline[]; view: ChapterView; dropCap: bo
     <InlineVersesContext value={inline}>
       <p
         class={{
-          "first-letter:float-left first-letter:mt-1.5 first-letter:mr-2.5 first-letter:text-[4.6rem] first-letter:leading-[0.9] first-letter:font-semibold first-letter:text-accent":
+          "first-letter:float-left first-letter:mt-1 first-letter:mr-2.5 first-letter:font-display first-letter:text-[4rem] first-letter:leading-[0.9] first-letter:font-light first-letter:text-accent":
             props.dropCap,
         }}
       >
         <InlineText nodes={props.nodes} />
       </p>
       <Show when={verses().length > 0}>
-        <div class="kt-inline-verses mt-4 rounded-xl bg-side px-5 py-4 text-[1.05rem] leading-[1.75]">
-          <p class="mb-1.5 font-sans text-xs font-semibold tracking-wider text-muted uppercase">
+        <div class="kt-inline-verses mt-3 rounded-2xl border border-rule bg-card px-5 py-4 text-[1.06rem] leading-[1.8]">
+          <p class="mb-1.5 font-sans text-xs font-medium text-accent">
             Nguyên văn · {props.view.book.name} {verseLabel({ chapter: props.view.number, verses: verses() })}
           </p>
           <p>
@@ -84,24 +100,19 @@ function Prose(props: { section: Section | undefined }) {
   );
 }
 
-/** Opens a folded section before the browser jumps to it; a closed <details> would hide the target. */
-function openSection(id: string) {
-  const el = document.getElementById(id);
-  if (el instanceof HTMLDetailsElement) el.open = true;
-}
-
 type Fold = { id: string; label: string; body: () => JSX.Element };
 
 /**
- * The chapter page body: Câu chuyện as the one column to read, Ý chính beside it, and the
- * rest (deeper meaning, cautions, commentators, the full text) folded below the story.
+ * Trang đọc đoạn phong cách Tĩnh Lặng: một cột tập trung (38rem), chữ thở rộng,
+ * "Điều cần nhớ" viền trái rêu ngay dưới câu chuyện, phần đọc thêm xếp gọn trong thẻ bo tròn.
  */
-export function ChapterReader(props: { view: ChapterView }) {
+export function ChapterReader(props: { view: ChapterView; scale?: ReadingScale }) {
   const section = (heading: Section["heading"]) => props.view.sections.find((s) => s.heading === heading);
-  // A ghi chú may have only its story written so far; empty parts stay off the page.
   const written = (heading: Section["heading"]) => (section(heading)?.paragraphs.length ?? 0) > 0;
   const prose = (id: string, heading: Section["heading"]): Fold[] =>
     written(heading) ? [{ id, label: heading, body: () => <Prose section={section(heading)} /> }] : [];
+
+  const minutes = createMemo(() => estimateMinutes(section("Câu chuyện")));
 
   const folds = createMemo((): Fold[] => {
     const ch = props.view;
@@ -132,40 +143,23 @@ export function ChapterReader(props: { view: ChapterView }) {
   });
 
   return (
-    <div class="kt-reader mx-auto grid w-full max-w-[90rem] flex-1 items-start gap-x-14 gap-y-10 px-6 pt-10 pb-16 lg:grid-cols-[12rem_minmax(0,44rem)_20rem] lg:justify-center lg:pt-14">
-      <nav aria-label="Trong trang này" class="kt-toc hidden font-sans text-sm lg:sticky lg:top-6 lg:block">
-        <p class="mb-3 text-xs font-semibold tracking-widest text-muted uppercase">Trong trang này</p>
-        <ol class="space-y-0.5">
-          <For each={[{ id: "cau-chuyen", label: "Câu chuyện" }, ...folds()]}>
-            {(f) => (
-              <li>
-                <a
-                  href={`#${f.id}`}
-                  onClick={() => openSection(f.id)}
-                  class="block rounded-lg px-3 py-2 text-ink/80 hover:bg-side hover:text-ink"
-                >
-                  {f.label}
-                </a>
-              </li>
-            )}
-          </For>
-        </ol>
-      </nav>
-
+    <div class="kt-reader mx-auto w-full max-w-[38rem] flex-1 px-5 pt-6 pb-16 sm:pt-9">
       <article class="kt-chapter min-w-0">
         <div class="animate-reveal motion-reduce:animate-none">
-          <p class="kt-kicker font-sans text-xs font-semibold tracking-widest text-accent uppercase">
+          <p class="kt-kicker font-sans text-xs font-medium text-accent">
             {props.view.book.name} · Đoạn {props.view.number}
           </p>
-          <h1 class="kt-title mt-2 text-4xl leading-tight font-semibold text-balance lg:text-5xl">{props.view.title}</h1>
-          <p class="kt-lead mt-4 text-lg text-muted italic">
-            Kể lại {props.view.verses.length} câu Kinh Thánh bằng lời thường. Bấm chỗ dẫn trong ngoặc để đọc nguyên văn.
+          <h1 class="kt-title mt-1.5 font-display text-3xl leading-[1.16] font-light tracking-tight text-balance text-ink sm:text-[2.45rem]">
+            {props.view.title}
+          </h1>
+          <p class="kt-lead mt-2.5 font-sans text-xs text-muted">
+            {props.view.verses.length} câu · khoảng {minutes()} phút đọc · chạm chỗ dẫn để đọc nguyên văn
           </p>
 
           <section
             id="cau-chuyen"
             aria-label="Câu chuyện"
-            class="kt-scripture mt-10 scroll-mt-6 space-y-6 text-[1.25rem] leading-[1.85]"
+            class={["kt-scripture mt-8 scroll-mt-16 space-y-6", SCALE_CLASS[props.scale ?? "md"]]}
           >
             <For each={section("Câu chuyện")?.paragraphs ?? []}>
               {(p, i) => (
@@ -177,42 +171,71 @@ export function ChapterReader(props: { view: ChapterView }) {
           </section>
         </div>
 
-        <ChapterVisitRecorder view={props.view} />
-        <ChapterProgressBar view={props.view} />
+        <Show when={written("Ý chính")}>
+          <section
+            aria-labelledby="dieu-can-nho"
+            class="kt-aside my-9 border-l-[3px] border-accent py-1 pl-5"
+          >
+            <h2 id="dieu-can-nho" class="font-sans text-sm font-medium text-accent">
+              Điều cần nhớ
+            </h2>
+            <div class="mt-2.5 space-y-3 text-[1.06rem] leading-[1.75] text-ink">
+              <Prose section={section("Ý chính")} />
+            </div>
+          </section>
+        </Show>
 
-        <p aria-hidden="true" class="kt-divider mt-10 text-center text-xl tracking-[0.6em] text-muted/60">
-          * * *
-        </p>
-
-        <div class="kt-notes mt-8 border-b border-rule">
+        <div class="kt-notes mt-8 space-y-2">
           <For each={folds()}>
             {(f) => (
-              <details id={f.id} class="kt-note group scroll-mt-6 border-t border-rule">
-                <summary class="kt-note-heading flex min-h-14 cursor-pointer items-center justify-between gap-4 text-2xl font-semibold [&::-webkit-details-marker]:hidden">
-                  {f.label}
-                  <span aria-hidden="true" class="font-sans text-base text-muted group-open:rotate-180">
-                    ▾
-                  </span>
+              <details
+                id={f.id}
+                class="kt-note group scroll-mt-16 rounded-2xl border border-rule bg-card px-4 sm:px-5"
+              >
+                <summary class="kt-note-heading flex min-h-14 cursor-pointer items-center justify-between gap-4 font-sans text-[15px] font-normal text-ink [&::-webkit-details-marker]:hidden">
+                  <span>{f.label}</span>
+                  <span
+                    aria-hidden="true"
+                    class="h-2 w-2 shrink-0 rotate-45 border-r-[1.5px] border-b-[1.5px] border-muted transition-transform duration-200 group-open:-rotate-135"
+                  />
                 </summary>
-                <div class="kt-note-body space-y-4 pb-6 text-[1.1rem] leading-[1.75]">{f.body()}</div>
+                <div class="kt-note-body space-y-4 pb-5 text-[1.06rem] leading-[1.8]">{f.body()}</div>
               </details>
             )}
           </For>
         </div>
 
-        <p class="kt-byline mt-6 font-sans text-sm text-muted">{AI_NOTICE}</p>
+        <nav
+          aria-label="Chuyển đoạn cuối bài"
+          class="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-6 font-sans text-sm"
+        >
+          <Show when={props.view.prev} fallback={<span />}>
+            {(prev) => (
+              <a
+                href={chapterHref({ slug: prev().book.slug, number: prev().number })}
+                class="inline-flex min-h-11 items-center rounded-full border border-rule bg-card px-4 text-muted transition-colors hover:border-accent hover:text-accent"
+              >
+                ← {prev().book.name} {prev().number}
+              </a>
+            )}
+          </Show>
+          <Show when={props.view.next}>
+            {(next) => (
+              <a
+                href={chapterHref({ slug: next().book.slug, number: next().number })}
+                class="inline-flex min-h-11 items-center rounded-full bg-side px-4 font-medium text-accent transition-colors hover:bg-accent hover:text-paper"
+              >
+                {next().book.name} {next().number} →
+              </a>
+            )}
+          </Show>
+        </nav>
+
+        <p class="kt-byline mt-6 font-sans text-xs leading-relaxed text-muted">{AI_NOTICE}</p>
       </article>
 
-      <Show when={written("Ý chính")}>
-        <aside aria-labelledby="dieu-can-nho" class="kt-aside rounded-2xl border border-rule bg-card px-6 py-5">
-          <h2 id="dieu-can-nho" class="font-sans text-xs font-semibold tracking-widest text-muted uppercase">
-            Điều cần nhớ
-          </h2>
-          <div class="mt-3 space-y-3.5 text-base leading-relaxed">
-            <Prose section={section("Ý chính")} />
-          </div>
-        </aside>
-      </Show>
+      <ChapterVisitRecorder view={props.view} />
+      <ChapterProgressBar view={props.view} />
     </div>
   );
 }

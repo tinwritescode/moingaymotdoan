@@ -15,13 +15,16 @@ export default function App() {
                 {props.children}
               </Loading>
             </div>
-            <footer class="kt-footer border-t border-rule">
-              <p class="px-6 py-4 font-sans text-sm text-muted">
+            <footer class="kt-footer border-t border-rule pb-24">
+              <p class="mx-auto max-w-[40rem] px-5 py-5 text-center font-sans text-xs text-muted">
                 Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn{" "}
                 <a href="https://ebible.org/find/details.php?id=vie1934" class="underline hover:text-accent">
                   eBible.org
                 </a>
-                .
+                {" · "}
+                <a href="/ebook" class="underline hover:text-accent">
+                  Tải ebook
+                </a>
               </p>
             </footer>
           </>

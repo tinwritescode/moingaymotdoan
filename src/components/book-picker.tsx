@@ -32,10 +32,10 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
           Sách <span aria-hidden="true">▾</span>
         </>
       }
-      triggerClass="inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-lg border border-rule px-3.5 text-sm hover:border-accent"
+      triggerClass="inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full border border-rule bg-card px-3.5 text-sm text-ink transition-colors hover:border-accent"
       title="Chọn sách và đoạn"
       titleClass="sr-only"
-      class="kt-picker w-[min(46rem,calc(100vw-2rem))] grid-cols-1 overflow-hidden font-sans open:grid sm:grid-cols-[15rem_1fr]"
+      class="kt-picker w-[min(44rem,calc(100vw-2rem))] grid-cols-1 overflow-hidden font-sans open:grid sm:grid-cols-[14rem_1fr]"
     >
       {(close) => (
         <>
@@ -78,7 +78,7 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
                   <p class="font-serif text-lg font-semibold">{b().name}</p>
                   <ol
                     aria-label={`Các đoạn ${b().name}`}
-                    class="mt-3 grid grid-cols-[repeat(auto-fill,minmax(2.75rem,1fr))] gap-1.5"
+                    class="mt-3 grid grid-cols-[repeat(auto-fill,minmax(2.5rem,1fr))] gap-1.5"
                   >
                     <For each={b().chapters}>
                       {(ch) => (
@@ -87,7 +87,7 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
                             href={chapterHref({ slug: b().slug, number: ch.number })}
                             title={ch.title}
                             onClick={close}
-                            class="flex min-h-11 items-center justify-center rounded-lg border border-rule text-sm hover:border-accent hover:text-accent"
+                            class="flex aspect-square items-center justify-center rounded-full border border-rule text-xs text-muted transition-colors hover:border-accent hover:bg-side hover:text-accent"
                           >
                             {ch.number}
                           </a>

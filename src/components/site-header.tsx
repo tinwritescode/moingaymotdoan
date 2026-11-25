@@ -1,6 +1,6 @@
 import { createMemo, Show, type ParentProps } from "solid-js";
-import { BOOKS, testamentOf } from "../../lib/content/books";
 import type { TocBook } from "../../lib/content";
+import { BOOKS, testamentOf } from "../../lib/content/books";
 import { getToc } from "../data";
 import { BookPicker, type PickerBook } from "./book-picker";
 import { useUser } from "./user-context";
@@ -17,79 +17,94 @@ function pickerBooks(toc: TocBook[]): PickerBook[] {
   }));
 }
 
-function navPillClass(active: boolean) {
-  return [
-    "inline-flex min-h-11 items-center gap-1.5 rounded-lg border px-3 text-sm transition-colors",
-    active ? "border-ink bg-ink font-semibold text-paper" : "border-rule hover:border-accent",
-  ];
-}
-
 /**
- * The top bar on every page; `children` go after the top navigation (breadcrumb, prev/next).
- * `book` is the slug of the book being read, so the picker opens on it.
+ * Thanh trên tối giản kiểu Tĩnh Lặng: dấu chấm rêu + tên trang bên trái;
+ * nút chọn Sách, tìm Cảm xúc và hình đại diện tài khoản gọn gàng bên phải.
  */
 export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderSection }>) {
   const books = createMemo(async () => pickerBooks((await getToc()).books));
-  const { user, ready, stats } = useUser();
+  const { user, ready } = useUser();
 
   return (
-    <header class="kt-header flex flex-wrap items-center gap-x-4 gap-y-2.5 border-b border-rule bg-card px-4 py-3 font-sans sm:gap-x-5 sm:px-6">
-      <a href="/" class="kt-brand font-serif text-[17px] font-semibold">
-        Kinh Thánh <span class="font-normal text-muted">· ghi chú từng đoạn</span>
-      </a>
-      <div class="flex flex-wrap items-center gap-2">
-        <BookPicker books={books()} current={props.book} />
-        <a
-          href="/cam-xuc"
-          aria-current={props.section === "cam-xuc" ? "page" : undefined}
-          class={navPillClass(props.section === "cam-xuc")}
-        >
-          Theo cảm xúc
+    <header class="kt-header sticky top-0 z-20 border-b border-rule/70 bg-paper/88 backdrop-blur-md">
+      <div class="mx-auto flex w-full max-w-[40rem] items-center justify-between gap-3 px-5 py-3 font-sans">
+        <a href="/" class="kt-brand inline-flex items-center gap-2.5 text-[15px] font-medium tracking-tight text-ink">
+          <span aria-hidden="true" class="h-2.5 w-2.5 rounded-full bg-accent" />
+          <span>Kinh Thánh</span>
         </a>
-        <a
-          href="/lich-su"
-          aria-current={props.section === "lich-su" ? "page" : undefined}
-          class={navPillClass(props.section === "lich-su")}
-        >
-          <span>Lịch sử</span>
-          <Show when={ready() && stats().chaptersRead > 0}>
-            <span class="text-xs opacity-75">{stats().chaptersRead}</span>
-          </Show>
-        </a>
-        <a
-          href="/tai-khoan"
-          aria-current={props.section === "tai-khoan" ? "page" : undefined}
-          class={navPillClass(props.section === "tai-khoan")}
-        >
-          <Show
-            when={ready() && user()}
-            fallback={<span>Đăng nhập</span>}
+
+        <div class="flex items-center gap-2">
+          <BookPicker books={books()} current={props.book} />
+
+          <a
+            href="/cam-xuc"
+            aria-label="Tìm theo cảm xúc"
+            aria-current={props.section === "cam-xuc" ? "page" : undefined}
+            class={[
+              "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors",
+              props.section === "cam-xuc"
+                ? "border-accent bg-side text-accent"
+                : "border-rule bg-card text-muted hover:border-accent hover:text-ink",
+            ]}
           >
-            {(u) => (
-              <>
-                <Show
-                  when={u().avatarUrl}
-                  fallback={
-                    <span
-                      aria-hidden="true"
-                      class={[
-                        "flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold",
-                        props.section === "tai-khoan" ? "bg-paper text-ink" : "bg-ink text-paper",
-                      ]}
-                    >
-                      {u().name.slice(0, 1).toUpperCase()}
-                    </span>
-                  }
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              aria-hidden="true"
+              class="h-[17px] w-[17px]"
+            >
+              <circle cx="11" cy="11" r="6" />
+              <path d="m20 20-4.5-4.5" />
+            </svg>
+          </a>
+
+          <a
+            href="/tai-khoan"
+            aria-label={ready() && user() ? `Tài khoản ${user()!.name}` : "Đăng nhập"}
+            aria-current={props.section === "tai-khoan" ? "page" : undefined}
+            class={[
+              "inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border text-sm font-medium transition-colors",
+              props.section === "tai-khoan"
+                ? "border-accent bg-accent text-paper"
+                : ready() && user()
+                  ? "border-accent/30 bg-side text-accent hover:border-accent"
+                  : "border-rule bg-card text-muted hover:border-accent hover:text-ink",
+            ]}
+          >
+            <Show
+              when={ready() && user()}
+              fallback={
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                  class="h-[17px] w-[17px]"
                 >
-                  {(url) => <img src={url()} alt="" class="h-5 w-5 rounded-full object-cover" />}
+                  <circle cx="12" cy="9" r="3.5" />
+                  <path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5" />
+                </svg>
+              }
+            >
+              {(u) => (
+                <Show when={u().avatarUrl} fallback={<span>{u().name.slice(0, 1).toUpperCase()}</span>}>
+                  {(url) => <img src={url()} alt={u().name} class="h-full w-full object-cover" />}
                 </Show>
-                <span class="max-w-24 truncate">{u().name}</span>
-              </>
-            )}
-          </Show>
-        </a>
+              )}
+            </Show>
+          </a>
+        </div>
       </div>
-      {props.children}
+      <Show when={props.children}>
+        <div class="mx-auto flex w-full max-w-[40rem] flex-wrap items-center gap-2 border-t border-rule/60 px-5 py-2 font-sans">
+          {props.children}
+        </div>
+      </Show>
     </header>
   );
 }

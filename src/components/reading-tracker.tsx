@@ -1,7 +1,7 @@
-import { createEffect, createMemo, Show } from "solid-js";
+import { createEffect, createMemo, createSignal, onSettled, Show } from "solid-js";
 import type { ChapterView } from "../../lib/content";
-import { formatDateTime } from "../../lib/history/types";
 import { chapterHref } from "../router";
+import { ProgressRing } from "./progress-ring";
 import { useUser } from "./user-context";
 
 /** Tự động ghi nhận lượt đọc một đoạn Kinh Thánh sau 500ms ổn định. */
@@ -66,11 +66,27 @@ export function MoodVisitRecorder(props: { slug: string; title: string; groupNam
 }
 
 /**
- * Thanh trạng thái đọc cuối phần Câu chuyện:
- * cho biết ngày giờ đã xem, nút đánh dấu "Đã đọc xong" và lối tắt sang đoạn kế tiếp / lịch sử.
+ * Thanh nổi cuối màn hình đọc kiểu Tĩnh Lặng:
+ * mũi tên đoạn trước/sau, vòng tiến độ cuộn theo thời gian thực và nút "Đánh dấu đã đọc xong".
  */
 export function ChapterProgressBar(props: { view: ChapterView }) {
-  const { ready, user, progressFor, toggleCompleted } = useUser();
+  const { ready, progressFor, toggleCompleted } = useUser();
+  const [scrollPct, setScrollPct] = createSignal(0);
+
+  onSettled(() => {
+    const update = () => {
+      const el = document.documentElement;
+      const max = Math.max(1, el.scrollHeight - window.innerHeight);
+      setScrollPct(Math.max(0, Math.min(100, Math.round((window.scrollY / max) * 100))));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  });
 
   const itemKey = createMemo(() => `${props.view.book.slug}/${props.view.number}`);
   const entry = createMemo(() => progressFor("chapter", itemKey()));
@@ -91,55 +107,75 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
 
   return (
     <Show when={ready()}>
-      <div class="mt-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-card px-4 py-3 font-sans text-sm">
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <button
-            type="button"
-            onClick={handleToggle}
-            aria-pressed={completed() ? "true" : "false"}
-            class={[
-              "inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-lg border px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-              completed()
-                ? "border-cao/40 bg-cao/10 text-cao"
-                : "border-rule bg-paper/60 text-ink hover:border-accent hover:text-accent",
-            ]}
-          >
-            <span>{completed() ? "✓ Đã đọc xong đoạn này" : "Đánh dấu đã đọc xong"}</span>
-          </button>
-
-          <Show when={entry()}>
-            {(e) => (
-              <span class="text-xs text-muted">
-                Đã xem {e().readCount > 1 ? `${e().readCount} lần · ` : ""}
-                {formatDateTime(e().lastReadAt)}
-              </span>
-            )}
-          </Show>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-3 text-xs">
-          <Show when={props.view.next}>
-            {(n) => (
-              <a
-                href={chapterHref({ slug: n().book.slug, number: n().number })}
-                class="font-semibold text-accent underline-offset-4 hover:underline"
-              >
-                Đọc tiếp: {n().book.name} {n().number} →
-              </a>
-            )}
-          </Show>
-          <a href="/lich-su" class="text-muted underline-offset-4 hover:text-accent hover:underline">
-            Lịch sử
-          </a>
-          <Show when={!user()}>
-            <a
-              href={`/tai-khoan?next=${encodeURIComponent(chapterHref({ slug: props.view.book.slug, number: props.view.number }))}`}
-              class="text-muted underline-offset-4 hover:text-accent hover:underline"
+      <div
+        role="region"
+        aria-label="Tiến độ đọc đoạn này"
+        class="fixed bottom-3.5 left-1/2 z-30 flex w-max max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-2 rounded-full border border-rule bg-card/90 p-1.5 shadow-lg backdrop-blur-md font-sans"
+      >
+        <Show
+          when={props.view.prev}
+          fallback={
+            <span
+              aria-hidden="true"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted/40"
             >
-              Đăng nhập lưu đám mây
+              ←
+            </span>
+          }
+        >
+          {(prev) => (
+            <a
+              href={chapterHref({ slug: prev().book.slug, number: prev().number })}
+              aria-label={`Đoạn trước: ${prev().book.name} ${prev().number}`}
+              title={`${prev().book.name} ${prev().number} — ${prev().title}`}
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted transition-colors hover:bg-side hover:text-accent"
+            >
+              ←
             </a>
-          </Show>
+          )}
+        </Show>
+
+        <div class="flex items-center gap-2 pl-0.5">
+          <div class="h-7 w-7 shrink-0">
+            <ProgressRing radius={11} percent={completed() ? 100 : scrollPct()} strokeWidth={3} />
+          </div>
+          <span class="min-w-[2.25rem] text-xs text-muted">{completed() ? "100%" : `${scrollPct()}%`}</span>
         </div>
+
+        <button
+          type="button"
+          onClick={handleToggle}
+          aria-pressed={completed() ? "true" : "false"}
+          class={[
+            "inline-flex min-h-10 cursor-pointer items-center rounded-full px-4 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:text-[13px]",
+            completed() ? "bg-side text-accent" : "bg-accent text-paper hover:opacity-90",
+          ]}
+        >
+          {completed() ? "✓ Đã đọc xong" : "Đánh dấu xong"}
+        </button>
+
+        <Show
+          when={props.view.next}
+          fallback={
+            <span
+              aria-hidden="true"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted/40"
+            >
+              →
+            </span>
+          }
+        >
+          {(next) => (
+            <a
+              href={chapterHref({ slug: next().book.slug, number: next().number })}
+              aria-label={`Đoạn kế: ${next().book.name} ${next().number}`}
+              title={`${next().book.name} ${next().number} — ${next().title}`}
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted transition-colors hover:bg-side hover:text-accent"
+            >
+              →
+            </a>
+          )}
+        </Show>
       </div>
     </Show>
   );

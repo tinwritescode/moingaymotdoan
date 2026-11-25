@@ -33,7 +33,7 @@ export function Popover(props: {
         // oxlint-disable-next-line solid/style-prop -- CSS anchor positioning; the rule's property list predates it.
         style={{ "position-anchor": `--${id}` }}
         class={[
-          "anchored rounded-xl border border-rule bg-card text-ink shadow-xl outline-none",
+          "anchored rounded-2xl border border-rule bg-card text-ink shadow-xl outline-none",
           "transition-[opacity,scale] duration-150 starting:open:scale-[0.98] starting:open:opacity-0 motion-reduce:transition-none",
           props.class,
         ]}

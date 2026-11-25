@@ -2,6 +2,7 @@ import { createMemo, Show } from "solid-js";
 import type { TocBook } from "../../lib/content";
 import { formatDateTime } from "../../lib/history/types";
 import { chapterHref } from "../router";
+import { ProgressRing, WeeklyDots } from "./progress-ring";
 import { useUser } from "./user-context";
 
 type NextChapter = {
@@ -40,74 +41,107 @@ export function findNextChapter(toc: TocBook[], bookSlug: string | null, chapter
   return null;
 }
 
-/** Khối "Xem tiếp" hiện trên trang chủ ngay khi người đọc đã có ít nhất một đoạn trong lịch sử. */
+/** Khối "Xem tiếp" + 3 thẻ thống kê tĩnh lặng trên trang chủ khi người đọc đã có lịch sử. */
 export function ContinueReading(props: { toc: TocBook[] }) {
-  const { ready, latestChapter, stats, user } = useUser();
+  const { ready, latestChapter, stats, logs, bookSummary, user } = useUser();
 
   const nextChapter = createMemo(() => {
     const latest = latestChapter();
     return latest ? findNextChapter(props.toc, latest.bookSlug, latest.chapter) : null;
   });
 
+  const bookPercent = createMemo(() => {
+    const latest = latestChapter();
+    if (!latest?.bookSlug) return 0;
+    const book = props.toc.find((b) => b.book.slug === latest.bookSlug);
+    const total = book?.chapters.length ?? 0;
+    if (total === 0) return 0;
+    const read = bookSummary(latest.bookSlug)?.read ?? 1;
+    return Math.min(100, Math.round((read / total) * 100));
+  });
+
   return (
     <Show when={ready() && latestChapter()}>
       {(latest) => (
-        <section
-          aria-labelledby="xem-tiep-heading"
-          class="mt-6 rounded-2xl border border-accent/35 bg-card p-5 sm:p-6"
-        >
-          <div class="flex flex-wrap items-center justify-between gap-2 font-sans text-xs">
-            <p id="xem-tiep-heading" class="font-semibold tracking-[0.14em] text-accent uppercase">
-              Xem tiếp · {formatDateTime(latest().lastReadAt)}
-            </p>
-            <div class="flex flex-wrap items-center gap-3 text-muted">
-              <Show when={latest().completed}>
-                <span class="rounded-full bg-cao/10 px-2.5 py-0.5 font-medium text-cao">✓ Đã đọc xong</span>
-              </Show>
-              <span>
-                Đã xem <strong class="font-semibold text-ink">{stats().chaptersRead}</strong> / 1.189 đoạn
+        <div class="space-y-2.5">
+          <section
+            aria-labelledby="xem-tiep-heading"
+            class="grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5"
+          >
+            <div class="relative h-[4.5rem] w-[4.5rem]">
+              <ProgressRing radius={30} percent={bookPercent()} />
+              <span class="absolute inset-0 grid place-items-center font-sans text-sm font-medium text-ink">
+                {bookPercent()}%
               </span>
             </div>
-          </div>
 
-          <div class="mt-3 flex flex-wrap items-end justify-between gap-4">
-            <div class="min-w-0 flex-1">
-              <p class="font-sans text-sm font-medium text-muted">{latest().subtitle}</p>
-              <h2 class="mt-0.5 font-display text-2xl leading-snug font-semibold sm:text-3xl">{latest().title}</h2>
+            <div class="min-w-0">
+              <p id="xem-tiep-heading" class="font-sans text-xs font-medium text-accent">
+                Xem tiếp · {formatDateTime(latest().lastReadAt)}
+              </p>
+              <h2 class="mt-0.5 truncate font-display text-xl font-normal text-ink sm:text-[1.35rem]">
+                {latest().subtitle}
+              </h2>
+              <p class="truncate text-sm text-muted">{latest().title}</p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2.5 font-sans text-sm">
+            <div class="col-span-full flex flex-wrap items-center gap-2 font-sans text-sm">
               <a
                 href={chapterHref({ slug: latest().bookSlug ?? "", number: latest().chapter ?? 1 })}
-                class="inline-flex min-h-11 items-center rounded-xl bg-ink px-5 font-semibold text-paper transition-colors hover:bg-accent"
+                class="inline-flex min-h-11 items-center justify-center rounded-full bg-accent px-5 font-medium text-paper transition-opacity hover:opacity-90"
               >
-                {latest().completed ? "Đọc lại đoạn này" : "Xem tiếp đoạn này"}
+                {latest().completed ? "Đọc lại đoạn này" : "Tiếp tục đọc"}
               </a>
               <Show when={nextChapter()}>
                 {(next) => (
                   <a
                     href={next().href}
                     title={next().title}
-                    class="inline-flex min-h-11 items-center rounded-xl border border-rule bg-paper/60 px-4 font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+                    class="inline-flex min-h-11 items-center rounded-full bg-side px-4 font-normal text-accent transition-colors hover:bg-accent hover:text-paper"
                   >
                     Đoạn kế: {next().label} →
                   </a>
                 )}
               </Show>
             </div>
-          </div>
+          </section>
 
-          <div class="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-3 font-sans text-xs text-muted">
-            <a href="/lich-su" class="font-medium text-accent underline-offset-4 hover:underline">
-              Xem toàn bộ lịch sử đọc ({stats().readingDays} ngày) →
+          <section aria-label="Thống kê đọc" class="grid grid-cols-3 gap-2 font-sans">
+            <a
+              href="/lich-su"
+              class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
+            >
+              <strong class="block text-2xl leading-none font-light text-ink">{stats().chaptersRead}</strong>
+              <span class="mt-1 block text-[11.5px] text-muted">đoạn đã xem</span>
             </a>
-            <Show when={!user()}>
-              <a href="/tai-khoan?next=/" class="underline underline-offset-4 hover:text-accent">
-                Đăng nhập để đồng bộ lịch sử trên mọi thiết bị
+
+            <a
+              href="/lich-su"
+              class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
+            >
+              <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
+              <span class="mt-1 block text-[11.5px] text-muted">ngày liên tiếp</span>
+              <WeeklyDots logs={logs()} />
+            </a>
+
+            <a
+              href="/lich-su"
+              class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
+            >
+              <strong class="block text-2xl leading-none font-light text-ink">{stats().booksOpened}</strong>
+              <span class="mt-1 block text-[11.5px] text-muted">sách đã mở</span>
+            </a>
+          </section>
+
+          <Show when={!user()}>
+            <p class="px-1 font-sans text-xs text-muted">
+              Lịch sử đang lưu trên máy này ·{" "}
+              <a href="/tai-khoan?next=/" class="text-accent underline underline-offset-4">
+                Đăng nhập để đồng bộ mọi thiết bị
               </a>
-            </Show>
-          </div>
-        </section>
+            </p>
+          </Show>
+        </div>
       )}
     </Show>
   );

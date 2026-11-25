@@ -1,4 +1,5 @@
 import { Title } from "@solidjs/meta";
+import { FloatingDock } from "./floating-dock";
 import { SiteHeader } from "./site-header";
 
 export function NotFound() {
@@ -6,13 +7,24 @@ export function NotFound() {
     <>
       <Title>Không tìm thấy trang này — Kinh Thánh</Title>
       <SiteHeader />
-      <div class="mx-auto w-full max-w-2xl px-4 py-8">
-        <h1 class="text-2xl font-semibold">Không tìm thấy trang này</h1>
-        <p class="mt-3 text-muted">Có thể đoạn này chưa có ghi chú, hoặc đường dẫn bị gõ sai.</p>
-        <a href="/" class="mt-6 inline-block text-accent underline">
-          Về mục lục
-        </a>
-      </div>
+      <main class="mx-auto w-full max-w-[40rem] px-5 pt-12 pb-8">
+        <div class="rounded-3xl border border-rule bg-card p-7 text-center shadow-[var(--shadow-soft)]">
+          <p class="text-[0.72rem] uppercase tracking-[0.08em] text-muted">404</p>
+          <h1 class="mt-2 font-display text-2xl font-normal tracking-tight text-ink">
+            Không tìm thấy trang này
+          </h1>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            Có thể đoạn này chưa có ghi chú, hoặc đường dẫn bị gõ sai.
+          </p>
+          <a
+            href="/"
+            class="mt-6 inline-flex items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-paper transition-opacity hover:opacity-90"
+          >
+            Về trang chủ
+          </a>
+        </div>
+      </main>
+      <FloatingDock />
     </>
   );
 }

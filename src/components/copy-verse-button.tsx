@@ -54,10 +54,8 @@ export function CopyVerseButton(props: { label: string; verses: Verse[] }) {
       onClick={() => void handleCopy()}
       aria-label={`Sao chép ${props.label}`}
       class={[
-        "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-lg border px-3 font-sans text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-        copied()
-          ? "border-cao/40 bg-cao/10 text-cao"
-          : "border-rule bg-paper/60 text-muted hover:border-accent hover:text-ink",
+        "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full px-3.5 font-sans text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        copied() ? "bg-accent text-paper" : "bg-side text-accent hover:bg-accent hover:text-paper",
       ]}
     >
       <span aria-live="polite">{copied() ? "Đã chép ✓" : "Sao chép"}</span>

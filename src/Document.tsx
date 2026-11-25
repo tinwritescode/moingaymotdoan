@@ -1,9 +1,9 @@
 import { HydrationScript } from "@solidjs/web";
 import type { ParentProps } from "solid-js";
 
-/** Literata for reading, Inter for navigation and numbers, Playfair Display for the big headings. */
+/** Lexend cho giao diện & tiêu đề tĩnh lặng; Source Serif 4 cho văn bản đọc Kinh Thánh. */
 const FONTS =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Playfair+Display:ital,wght@0,600;0,800;1,600;1,800&display=swap";
+  "https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap";
 
 /** The HTML shell around every page. */
 export default function Document(props: ParentProps) {
