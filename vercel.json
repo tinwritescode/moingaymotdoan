@@ -3,7 +3,7 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/client",
   "rewrites": [
-    { "source": "/k7q/static/:path*", "destination": "https://us-assets.i.posthog.com/static/:path*" },
-    { "source": "/k7q/:path*", "destination": "https://us.i.posthog.com/:path*" }
+    { "source": "/k7q/static/:path(.*)", "destination": "https://us-assets.i.posthog.com/static/:path" },
+    { "source": "/k7q/:path(.*)", "destination": "https://us.i.posthog.com/:path" }
   ]
 }
