@@ -1,6 +1,7 @@
 import { HydrationScript } from "@solidjs/web";
 import type { ParentProps } from "solid-js";
 import { DEFAULT_TITLE } from "./components/seo";
+import { PREFS_INIT_SCRIPT } from "./lib/preferences";
 
 /** Lexend cho giao diện & tiêu đề tĩnh lặng; Source Serif 4 cho văn bản đọc Kinh Thánh. */
 const FONTS =
@@ -19,6 +20,7 @@ export default function Document(props: ParentProps) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
         <link rel="stylesheet" href={FONTS} />
+        <script textContent={PREFS_INIT_SCRIPT} />
         <title>{DEFAULT_TITLE}</title>
         <HydrationScript />
       </head>

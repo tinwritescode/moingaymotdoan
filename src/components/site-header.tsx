@@ -3,6 +3,7 @@ import type { TocBook } from "../../lib/content";
 import { BOOKS, testamentOf } from "../../lib/content/books";
 import { getToc } from "../data";
 import { BookPicker, type PickerBook } from "./book-picker";
+import { DisplayMenu, ThemeToggle } from "./display-controls";
 import { useUser } from "./user-context";
 
 type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
@@ -27,21 +28,23 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
 
   return (
     <header class="kt-header sticky top-0 z-20 border-b border-rule/70 bg-paper/88 backdrop-blur-md">
-      <div class="mx-auto flex w-full max-w-[40rem] items-center justify-between gap-3 px-5 py-3 font-sans">
-        <a href="/" class="kt-brand inline-flex items-center gap-2.5 text-[15px] font-medium tracking-tight text-ink">
+      <div class="mx-auto flex w-full max-w-[40rem] items-center justify-between gap-2 px-4 py-3 font-sans sm:gap-3 sm:px-5">
+        <a href="/" class="kt-brand inline-flex shrink-0 items-center gap-2 text-[15px] font-medium tracking-tight text-ink sm:gap-2.5">
           <span aria-hidden="true" class="h-2.5 w-2.5 rounded-full bg-accent" />
           <span>Kinh Thánh</span>
         </a>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2">
           <BookPicker books={books()} current={props.book} />
+          <ThemeToggle />
+          <DisplayMenu />
 
           <a
             href="/cam-xuc"
             aria-label="Tìm theo cảm xúc"
             aria-current={props.section === "cam-xuc" ? "page" : undefined}
             class={[
-              "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors",
+              "hidden h-10 w-10 items-center justify-center rounded-full border transition-colors sm:inline-flex",
               props.section === "cam-xuc"
                 ? "border-accent bg-side text-accent"
                 : "border-rule bg-card text-muted hover:border-accent hover:text-ink",
@@ -66,7 +69,7 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
             aria-label={ready() && user() ? `Tài khoản ${user()!.name}` : "Đăng nhập"}
             aria-current={props.section === "tai-khoan" ? "page" : undefined}
             class={[
-              "inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border text-sm font-medium transition-colors",
+              "inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border text-sm font-medium transition-colors sm:h-10 sm:w-10",
               props.section === "tai-khoan"
                 ? "border-accent bg-accent text-paper"
                 : ready() && user()

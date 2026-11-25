@@ -32,7 +32,7 @@ export function BookPicker(props: { books: PickerBook[]; current?: string }) {
           Sách <span aria-hidden="true">▾</span>
         </>
       }
-      triggerClass="inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full border border-rule bg-card px-3.5 text-sm text-ink transition-colors hover:border-accent"
+      triggerClass="inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full border border-rule bg-card px-3 text-sm text-ink transition-colors hover:border-accent sm:min-h-10 sm:px-3.5"
       title="Chọn sách và đoạn"
       titleClass="sr-only"
       class="kt-picker w-[min(44rem,calc(100vw-2rem))] grid-cols-1 overflow-hidden font-sans open:grid sm:grid-cols-[14rem_1fr]"

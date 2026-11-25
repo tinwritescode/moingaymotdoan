@@ -8,10 +8,12 @@ import { createSignal, createUniqueId, Show } from "solid-js";
  */
 export function Popover(props: {
   trigger: JSX.Element;
-  triggerClass: string;
+  triggerClass: string | (string | Record<string, boolean> | false | undefined)[];
+  triggerLabel?: string;
   title: JSX.Element;
   titleClass: string;
   class: string;
+  onOpenChange?: (open: boolean) => void;
   /** `close` hides the popover, for a link inside it that navigates without leaving the page. */
   children: (close: () => void) => JSX.Element;
 }) {
@@ -20,7 +22,14 @@ export function Popover(props: {
   let popup!: HTMLSpanElement;
   return (
     <>
-      <button type="button" popovertarget={id} class={props.triggerClass} style={{ "anchor-name": `--${id}` }}>
+      <button
+        type="button"
+        popovertarget={id}
+        aria-label={props.triggerLabel}
+        title={props.triggerLabel}
+        class={props.triggerClass}
+        style={{ "anchor-name": `--${id}` }}
+      >
         {props.trigger}
       </button>
       <span
@@ -29,7 +38,11 @@ export function Popover(props: {
         popover
         role="dialog"
         aria-labelledby={`${id}-title`}
-        onBeforeToggle={(e) => setOpen(e.newState === "open")}
+        onBeforeToggle={(e) => {
+          const next = e.newState === "open";
+          setOpen(next);
+          props.onOpenChange?.(next);
+        }}
         // oxlint-disable-next-line solid/style-prop -- CSS anchor positioning; the rule's property list predates it.
         style={{ "position-anchor": `--${id}` }}
         class={[

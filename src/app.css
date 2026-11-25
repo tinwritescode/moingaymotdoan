@@ -2,6 +2,7 @@
 
 /* Tĩnh Lặng (Quiet) — đá ấm ban ngày, rêu thẫm ban đêm. Màu chỉ khai báo ở đây. */
 :root {
+  color-scheme: light dark;
   --paper: #f4f3ee;
   --ink: #2b2e2a;
   --muted: #6e756d;
@@ -13,10 +14,31 @@
   --cao: #3d6d4d;
   --vua: #8b6f26;
   --thap: #a3443a;
+  --reading-font: "Source Serif 4", Georgia, serif;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111312;
+  --ink: #d8ddd6;
+  --muted: #8a938b;
+  --accent: #8fbf9f;
+  --rule: #262b27;
+  --card: #191c1a;
+  --side: #1f2b23;
+  --mark: #443c1f;
+  --cao: #8fbf9f;
+  --vua: #e2c572;
+  --thap: #eb8c81;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --paper: #111312;
     --ink: #d8ddd6;
     --muted: #8a938b;
@@ -31,6 +53,26 @@
   }
 }
 
+:root[data-font="literata"] {
+  --reading-font: "Literata", Georgia, serif;
+}
+
+:root[data-font="lora"] {
+  --reading-font: "Lora", Georgia, serif;
+}
+
+:root[data-font="newsreader"] {
+  --reading-font: "Newsreader", Georgia, serif;
+}
+
+:root[data-font="be-vietnam"] {
+  --reading-font: "Be Vietnam Pro", system-ui, sans-serif;
+}
+
+:root[data-font="lexend"] {
+  --reading-font: "Lexend", system-ui, sans-serif;
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-ink: var(--ink);
@@ -43,7 +85,7 @@
   --color-cao: var(--cao);
   --color-vua: var(--vua);
   --color-thap: var(--thap);
-  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-serif: var(--reading-font);
   --font-sans: "Lexend", system-ui, sans-serif;
   --font-display: "Lexend", system-ui, sans-serif;
   /* Fades a page in. Pure CSS, so it needs no JS and shows the same with or without it. */

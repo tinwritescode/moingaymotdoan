@@ -1,4 +1,5 @@
 import { Loading } from "solid-js";
+import { PreferencesProvider } from "./components/preferences-context";
 import { PageSkeleton } from "./components/skeleton";
 import { UserProvider } from "./components/user-context";
 import { Router } from "./router";
@@ -7,30 +8,32 @@ import "./app.css";
 /** The layout every page shares: the page itself, then the source line. */
 export default function App() {
   return (
-    <UserProvider>
-      <Router>
-        {(props) => (
-          <>
-            <div class="flex flex-1 flex-col">
-              <Loading fallback={<PageSkeleton />}>
-                {props.children}
-              </Loading>
-            </div>
-            <footer class="kt-footer border-t border-rule pb-24">
-              <p class="mx-auto max-w-[40rem] px-5 py-5 text-center font-sans text-xs text-muted">
-                Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn{" "}
-                <a href="https://ebible.org/find/details.php?id=vie1934" class="underline hover:text-accent">
-                  eBible.org
-                </a>
-                {" · "}
-                <a href="/ebook" class="underline hover:text-accent">
-                  Tải ebook
-                </a>
-              </p>
-            </footer>
-          </>
-        )}
-      </Router>
-    </UserProvider>
+    <PreferencesProvider>
+      <UserProvider>
+        <Router>
+          {(props) => (
+            <>
+              <div class="flex flex-1 flex-col">
+                <Loading fallback={<PageSkeleton />}>
+                  {props.children}
+                </Loading>
+              </div>
+              <footer class="kt-footer border-t border-rule pb-24">
+                <p class="mx-auto max-w-[40rem] px-5 py-5 text-center font-sans text-xs text-muted">
+                  Lời Kinh Thánh: Bản Truyền Thống (public domain), nguồn{" "}
+                  <a href="https://ebible.org/find/details.php?id=vie1934" class="underline hover:text-accent">
+                    eBible.org
+                  </a>
+                  {" · "}
+                  <a href="/ebook" class="underline hover:text-accent">
+                    Tải ebook
+                  </a>
+                </p>
+              </footer>
+            </>
+          )}
+        </Router>
+      </UserProvider>
+    </PreferencesProvider>
   );
 }

@@ -4,13 +4,14 @@ import type { ChapterView, Inline, Opinion, Section } from "../../lib/content";
 import { plainText } from "../../lib/content/note";
 import { verseLabel } from "../../lib/content/refs";
 import { AI_NOTICE } from "../../lib/notice";
+import type { ReadingScale } from "../lib/preferences";
 import { chapterHref } from "../router";
 import { InlineText } from "./inline";
 import { InlineVersesContext, type VerseRange } from "./inline-verses";
 import { ChapterProgressBar, ChapterVisitRecorder } from "./reading-tracker";
 import { VerseText } from "./verse-text";
 
-export type ReadingScale = "sm" | "md" | "lg";
+export type { ReadingScale };
 
 const SCALE_CLASS: Record<ReadingScale, string> = {
   sm: "text-[1.08rem] leading-[1.85]",
