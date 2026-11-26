@@ -1,3 +1,4 @@
+import { useLocation } from "@solidjs/router";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, onSettled, Show } from "solid-js";
 import { cardPlacement, TOUR_STEPS, TOUR_STORAGE_KEY, tourHref, type TourStepId } from "../lib/tour";
@@ -111,6 +112,7 @@ export function ChapterTour() {
   const { t } = useLocale();
   const [tour, setTour] = createSignal<Tour | null>(null);
   const [rect, setRect] = createSignal<DOMRect | null>(null);
+  const location = useLocation();
   let card: HTMLElement | undefined;
 
   const show = (next: Tour) => {
@@ -135,7 +137,8 @@ export function ChapterTour() {
   };
 
   onSettled(() => {
-    if (!new URLSearchParams(window.location.search).has("tour")) return;
+    // The router's location, not window.location: after an in-app link this runs before the address bar changes.
+    if (!new URLSearchParams(location.search).has("tour")) return;
     const steps = TOUR_STEPS.flatMap((s) => {
       const el = document.querySelector(s.selector);
       return el ? [{ id: s.id, el }] : [];
