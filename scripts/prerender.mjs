@@ -26,7 +26,7 @@ async function save(file, res, text) {
  */
 function hoistHeadMeta(html, path) {
   const withLang =
-    path === "/en" || path.startsWith("/en/") ? html.replace(/<html\s+lang="vi"/, '<html lang="en"') : html;
+    path === "/en" || path.startsWith("/en/") ? html.replace(/(<html\b[^>]*?)\blang="vi"/, '$1lang="en"') : html;
   const headEnd = withLang.indexOf("</head>");
   if (headEnd === -1) return withLang;
   const head = withLang.slice(0, headEnd);
