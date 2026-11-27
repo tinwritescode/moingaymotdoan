@@ -1,11 +1,11 @@
 import { Loading } from "solid-js";
 import { AuthProvider } from "./components/auth-context";
 import { HistoryProvider } from "./components/history-context";
-import { LanguageSwitcher } from "./components/language-switcher";
-import { RouterLocaleProvider, useLocale } from "./components/locale-context";
+import { RouterLocaleProvider } from "./components/locale-context";
 import { PreferencesProvider } from "./components/preferences-context";
+import { SiteFooter } from "./components/site-footer";
 import { PageSkeleton } from "./components/skeleton";
-import { ebookHref, privacyHref, Router, termsHref } from "./router";
+import { Router } from "./router";
 import "./app.css";
 
 const posthogKey = (import.meta.env.VITE_POSTHOG_KEY ?? "").trim();
@@ -25,38 +25,7 @@ if (!import.meta.env.SSR && posthogKey) {
   );
 }
 
-function SiteFooter() {
-  const { locale, t } = useLocale();
-  return (
-    <footer class="kt-footer border-t border-rule pb-24">
-      <div class="mx-auto max-w-[40rem] space-y-2 px-5 py-5 text-center font-sans text-xs text-muted">
-        <p>
-          {t().footer.scripturePrefix}{" "}
-          <a href={t().bibleSourceUrl} class="underline hover:text-accent">
-            {t().footer.sourceWord}
-          </a>
-          {" · "}
-          <a href={ebookHref(locale())} class="underline hover:text-accent">
-            {t().footer.downloadEbook}
-          </a>
-          {" · "}
-          <a href={privacyHref(locale())} class="underline hover:text-accent">
-            {t().footer.privacy}
-          </a>
-          {" · "}
-          <a href={termsHref(locale())} class="underline hover:text-accent">
-            {t().footer.terms}
-          </a>
-        </p>
-        <p>
-          <LanguageSwitcher />
-        </p>
-      </div>
-    </footer>
-  );
-}
-
-/** The layout every page shares: the page itself, then the source line. */
+/** The layout every page shares: the page itself, then the footer. */
 export default function App() {
   return (
     <PreferencesProvider>

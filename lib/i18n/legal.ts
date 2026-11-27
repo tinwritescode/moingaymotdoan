@@ -16,9 +16,6 @@ export type LegalDoc = {
   sections: LegalSection[];
 };
 
-/** Where readers send questions and data requests; the legal page renders it below the sections. */
-export const LEGAL_CONTACT_URL = "https://github.com/tinwritescode/moingaymotdoan/issues";
-
 export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
   vi: {
     privacy: {
@@ -119,7 +116,7 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
           paragraphs: [
             "Các phần ghi chú từng đoạn và các trang đọc theo cảm xúc do trang web biên soạn nhằm hỗ trợ bạn đọc và suy ngẫm hằng ngày, có sự hỗ trợ một phần của AI và được con người rà soát.",
             "Những phần này không phải giáo lý chính thức và vẫn có thể có sai sót. Chúng tôi luôn khuyến khích bạn đọc trực tiếp nguyên văn Kinh Thánh và lắng nghe sự dạy dỗ của hội thánh mình.",
-            "Nếu bạn phát hiện chỗ sai hoặc chưa chính xác, xin báo giúp chúng tôi trên GitHub qua liên kết liên hệ bên dưới.",
+            "Nếu bạn phát hiện chỗ sai hoặc chưa chính xác, xin báo giúp chúng tôi qua liên kết liên hệ bên dưới.",
           ],
         },
         {
@@ -252,7 +249,7 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
           paragraphs: [
             "The chapter notes and mood pages are written by the site for devotional help, partly with AI assistance and human review.",
             "They are not authoritative doctrine and may contain mistakes. We encourage you to read Scripture itself and rely on your church's teaching.",
-            "If you spot an error, please report it via GitHub issues using the contact link below.",
+            "If you spot an error, please let us know through the contact link below.",
           ],
         },
         {

@@ -78,6 +78,7 @@ describe("i18n locale, books, and route mapping", () => {
       ["/ebook", "/en/ebook"],
       ["/quyen-rieng-tu", "/en/privacy"],
       ["/dieu-khoan", "/en/terms"],
+      ["/lien-he", "/en/contact"],
     ];
 
     for (const [vi, en] of pairs) {
@@ -110,8 +111,12 @@ describe("i18n locale, books, and route mapping", () => {
   });
 
   it("provides complete localized UI dictionaries for both locales", () => {
-    expect(messagesFor("vi").header.brand).toBe("Kinh Thánh");
-    expect(messagesFor("en").header.brand).toBe("Bible");
-    expect(messagesFor("en").display.previewVerse).toContain("The LORD is my shepherd");
+    const vi = messagesFor("vi");
+    const en = messagesFor("en");
+    expect(vi.header.brand).toBe("Kinh Thánh");
+    expect(en.header.brand).toBe("Bible");
+    expect(en.display.previewVerse).toContain("The LORD is my shepherd");
+    expect(vi.footer.contributeLanguageUrl).toMatch(/^https:\/\/github\.com\//);
+    expect(en.footer.contributeLanguageUrl).toMatch(/^https:\/\/github\.com\//);
   });
 });

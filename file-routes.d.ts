@@ -146,6 +146,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/en/contact";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/contact"), Extract<"default", keyof typeof import("./src/routes/en/contact")>>>;
+      $$route?: undefined;
+    },
+    {
       path: "/en/ebook/:file";
       page: false;
       $GET: FileRouteLazyRef<Pick<typeof import("./src/routes/en/ebook/[file]"), Extract<"GET", keyof typeof import("./src/routes/en/ebook/[file]")>>>;
@@ -207,6 +213,12 @@ declare module "virtual:file-routes" {
       $$route: FileRouteEagerRef<Pick<typeof import("./src/routes/lich-su"), Extract<"route", keyof typeof import("./src/routes/lich-su")>>>;
     },
     {
+      path: "/lien-he";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/lien-he"), Extract<"default", keyof typeof import("./src/routes/lien-he")>>>;
+      $$route?: undefined;
+    },
+    {
       path: "/quyen-rieng-tu";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/quyen-rieng-tu"), Extract<"default", keyof typeof import("./src/routes/quyen-rieng-tu")>>>;
@@ -264,6 +276,14 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/lien-he";
+      id: "/lien-he";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/lien-he"), Extract<"default", keyof typeof import("./src/routes/lien-he")>>>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
       path: "/cam-xuc/";
       id: "/cam-xuc/";
       page: true;
@@ -316,6 +336,14 @@ declare module "virtual:file-routes" {
       id: "/en/account";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/account"), Extract<"default", keyof typeof import("./src/routes/en/account")>>>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/en/contact";
+      id: "/en/contact";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/contact"), Extract<"default", keyof typeof import("./src/routes/en/contact")>>>;
       $$route?: undefined;
       children?: undefined;
     },

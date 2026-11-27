@@ -8,6 +8,7 @@ Vì toàn bộ ghi chú giải kinh được biên soạn với sự hỗ trợ 
 
 ## 1. Các cách đóng góp
 
+- **Đóng góp ngôn ngữ khác**: Bạn muốn có thêm bản dịch cho một ngôn ngữ khác (như tiếng Hàn, tiếng Nhật, tiếng Hoa, tiếng Pháp, tiếng Tây Ban Nha, tiếng các dân tộc thiểu số…)? Xem [mục 5 bên dưới](#5-đóng-góp-ngôn-ngữ-khác) — không cần biết lập trình vẫn có thể bắt đầu bằng cách mở [GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues).
 - **Báo lỗi hoặc góp ý giải kinh**: Mở một [GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues) ghi rõ tên sách, số đoạn (ví dụ: `Sáng-thế Ký 3`, `Thi-thiên 23`), đoạn văn cần xem lại và gợi ý chỉnh sửa hoặc nguồn tham khảo.
 - **Sửa trực tiếp nội dung đoạn Kinh Thánh**: Chỉnh file Markdown tương ứng trong `content/<ten-sach>/<so-doan>.md` (ví dụ `content/sang-the-ky/01.md`) và gửi Pull Request.
 - **Bổ sung hoặc cải thiện chủ đề cảm xúc**: Xem thư mục `lib/moods/groups/`.
@@ -95,3 +96,27 @@ pnpm build
 
 - **Lời Kinh Thánh**: Bản Truyền Thống 1926 (public domain), nguồn [eBible.org](https://ebible.org/find/details.php?id=vie1934).
 - **Giải kinh cổ điển miễn phí (public domain)**: Matthew Henry, John Calvin, Augustine trên [ccel.org](https://www.ccel.org/); Charles Spurgeon trên [spurgeongems.org](https://www.spurgeongems.org/).
+
+---
+
+## 5. Đóng góp ngôn ngữ khác
+
+Trang hiện có **Tiếng Việt** (`/`) và **English** (`/en`). Dự án luôn mở rộng cửa đón nhận các bản dịch sang ngôn ngữ khác (mã nguồn mở MIT, phi lợi nhuận).
+
+### Nếu bạn không lập trình (mục sư, dịch giả, bạn đọc)
+
+Chỉ cần mở một [GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues) cho biết:
+
+1. Ngôn ngữ bạn muốn đóng góp hoặc hỗ trợ rà soát.
+2. Bản dịch Kinh Thánh thuộc phạm vi công cộng (public domain) hoặc giấy phép mở (CC0 / CC-BY) của ngôn ngữ đó (có thể tra cứu trên [eBible.org](https://ebible.org/)) nếu bạn biết.
+
+Chúng tôi sẽ cùng phối hợp chuẩn bị cấu trúc kỹ thuật để bạn tập trung vào phần ngôn ngữ và kiểm duyệt nội dung.
+
+### Nếu bạn là lập trình viên muốn gửi Pull Request
+
+Bạn có thể dựa theo cách bản tiếng Anh (`/en`) được tổ chức trong repo:
+
+1. **Nguyên văn Kinh Thánh**: Nhập bản văn public domain / giấy phép mở vào `data/bible-<lang>/` (xem mẫu tại `scripts/import-bible-en.mjs`).
+2. **Ngôn ngữ giao diện & tên sách**: Khai báo mã ngôn ngữ trong `lib/i18n/` (`locale.ts`, `messages.ts`, `routes.ts`, `legal.ts`) và bảng tên/slug 66 sách trong `lib/content/books.ts`.
+3. **Ghi chú từng đoạn & chủ đề cảm xúc**: Đặt ghi chú 5 mục trong `content-<lang>/` và các nhóm cảm xúc trong `lib/moods/<lang>/`.
+4. **Định tuyến & prerender**: Thêm route trong `src/routes/<lang>/` và bổ sung đường dẫn dữ liệu vào `scripts/prerender.mjs`, rồi chạy `pnpm lint && pnpm typecheck && pnpm test && pnpm build`.
