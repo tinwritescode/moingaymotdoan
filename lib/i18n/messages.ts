@@ -12,6 +12,9 @@ export type QuickMoodShortcut = {
 
 type TourPoint = { title: string; body: string };
 
+/** Where the install guide has its own steps. */
+export type InstallPlatformId = "ios" | "android" | "desktop" | "mac";
+
 export type Messages = {
   locale: Locale;
   htmlLang: string;
@@ -39,6 +42,8 @@ export type Messages = {
     accountDescription: string;
     contactTitle: string;
     contactDescription: string;
+    installTitle: string;
+    installDescription: string;
     notFoundTitle: string;
     notFoundDescription: string;
   };
@@ -71,6 +76,7 @@ export type Messages = {
     privacy: string;
     terms: string;
     contact: string;
+    install: string;
     contributeLanguage: string;
     contributeLanguageUrl: string;
     openSourcePrefix: string;
@@ -80,6 +86,29 @@ export type Messages = {
     updatedLabel: string;
     contactPrompt: string;
     contactLink: string;
+  };
+  install: {
+    kicker: string;
+    heading: string;
+    intro: string;
+    benefits: readonly [string, string, string];
+    choosePlatform: string;
+    detected: (platform: string) => string;
+    tabsLabel: string;
+    platforms: Record<InstallPlatformId, string>;
+    guides: Record<InstallPlatformId, { heading: string; steps: readonly string[] }>;
+    shareButton: string;
+    shareMenu: readonly [string, string, string];
+    appName: string;
+    iosChromeNote: string;
+    installButton: string;
+    orByHand: string;
+    installed: string;
+    cornerToggle: string;
+    cornerToggleHint: string;
+    faqHeading: string;
+    faq: readonly { q: string; a: string }[];
+    corner: { open: string; tip: string; dismiss: string; dismissed: string; undo: string };
   };
   contact: {
     kicker: string;
@@ -398,6 +427,9 @@ const VI: Messages = {
     contactTitle: "Liên hệ & Góp ý | Mỗi Ngày Một Đoạn",
     contactDescription:
       "Liên hệ Mỗi Ngày Một Đoạn qua Email, Zalo, Facebook, Instagram hoặc GitHub để góp ý nội dung, báo lỗi hay gửi yêu cầu về dữ liệu tài khoản.",
+    installTitle: "Cài ứng dụng | Mỗi Ngày Một Đoạn",
+    installDescription:
+      "Cài Mỗi Ngày Một Đoạn lên màn hình chính iPhone, Android hoặc máy tính để mở nhanh và đọc Kinh Thánh cả khi không có mạng.",
     notFoundTitle: "Không tìm thấy trang này | Mỗi Ngày Một Đoạn",
     notFoundDescription: "Đoạn Kinh Thánh hoặc đường dẫn bạn mở hiện không tồn tại.",
   },
@@ -430,6 +462,7 @@ const VI: Messages = {
     privacy: "Quyền riêng tư",
     terms: "Điều khoản",
     contact: "Liên hệ",
+    install: "Cài ứng dụng",
     contributeLanguage: "Đóng góp ngôn ngữ khác",
     contributeLanguageUrl: `${REPO_URL}/blob/main/CONTRIBUTING.md`,
     openSourcePrefix: "Phi lợi nhuận & mã nguồn mở trên",
@@ -439,6 +472,76 @@ const VI: Messages = {
     updatedLabel: "Cập nhật lần cuối:",
     contactPrompt: "Câu hỏi hoặc yêu cầu về dữ liệu của bạn:",
     contactLink: "trang Liên hệ",
+  },
+  install: {
+    kicker: "Cài ứng dụng",
+    heading: "Đặt Kinh Thánh lên màn hình chính",
+    intro:
+      "Mở bằng một chạm như một ứng dụng, và vẫn đọc được những đoạn đã mở khi không có mạng. Không cần App Store, chỉ chiếm vài MB.",
+    benefits: [
+      "Mở từ màn hình chính, toàn màn hình",
+      "Đọc offline những đoạn bạn đã mở",
+      "Miễn phí, không quảng cáo, gỡ bất cứ lúc nào",
+    ],
+    choosePlatform: "Chọn máy của bạn",
+    detected: (platform) => `Đã nhận ra: ${platform}`,
+    tabsLabel: "Nền tảng",
+    platforms: { ios: "iPhone / iPad", android: "Android", desktop: "Máy tính", mac: "Mac (Safari)" },
+    guides: {
+      ios: {
+        heading: "iPhone và iPad",
+        steps: [
+          "Mở trang này bằng Safari.",
+          "Bấm nút Chia sẻ ở thanh dưới cùng.",
+          "Kéo xuống, chọn “Thêm vào MH chính”.",
+          "Bấm “Thêm”. Biểu tượng Kinh Thánh sẽ nằm trên màn hình chính.",
+        ],
+      },
+      android: {
+        heading: "Android",
+        steps: [
+          "Mở trang này bằng Chrome.",
+          "Bấm nút ⋮ ở góc trên bên phải.",
+          "Chọn “Thêm vào màn hình chính”, rồi “Cài đặt”.",
+        ],
+      },
+      desktop: {
+        heading: "Máy tính (Chrome, Edge)",
+        steps: [
+          "Bấm biểu tượng Cài đặt ở cuối thanh địa chỉ.",
+          "Chọn “Cài đặt”. Ứng dụng mở trong cửa sổ riêng và có trong menu Start hoặc Launchpad.",
+        ],
+      },
+      mac: {
+        heading: "Mac (Safari)",
+        steps: ["Trên thanh menu, chọn Tệp rồi “Thêm vào Dock”.", "Bấm “Thêm”. Biểu tượng Kinh Thánh nằm trên Dock."],
+      },
+    },
+    shareButton: "Nút Chia sẻ",
+    shareMenu: ["Thêm vào Mục ưa thích", "Thêm vào MH chính", "Tìm trên trang"],
+    appName: "Kinh Thánh",
+    iosChromeNote: "Đang dùng Chrome trên iPhone? Bấm nút Chia sẻ ở cuối thanh địa chỉ, rồi làm tiếp từ bước 3.",
+    installButton: "Cài ứng dụng",
+    orByHand: "Không thấy hộp cài? Làm theo các bước dưới đây.",
+    installed: "Bạn đang dùng ứng dụng đã cài. Cảm ơn bạn!",
+    cornerToggle: "Nút cài nhanh ở góc màn hình",
+    cornerToggleHint: "Bật lại nếu bạn đã ẩn nó",
+    faqHeading: "Câu hỏi thường gặp",
+    faq: [
+      {
+        q: "Lịch sử đọc có còn không?",
+        a: "Trên iPhone, ứng dụng đã cài giữ dữ liệu riêng với Safari. Đăng nhập một lần trong ứng dụng để đồng bộ lịch sử đọc.",
+      },
+      { q: "Đọc offline được những gì?", a: "Trang chủ và mọi đoạn bạn đã mở khi có mạng." },
+      { q: "Gỡ ứng dụng thế nào?", a: "Nhấn giữ biểu tượng rồi chọn Xóa, như mọi ứng dụng khác." },
+    ],
+    corner: {
+      open: "Cài ứng dụng",
+      tip: "Cài app, đọc cả khi offline",
+      dismiss: "Ẩn nút cài",
+      dismissed: "Đã ẩn. Bật lại trong trang Cài ứng dụng ở cuối trang.",
+      undo: "Hoàn tác",
+    },
   },
   contact: {
     kicker: "Liên hệ & Góp ý",
@@ -854,6 +957,9 @@ const EN: Messages = {
     contactTitle: "Contact & Feedback | One Chapter a Day",
     contactDescription:
       "Contact One Chapter a Day via Email, Zalo, Facebook, Instagram, or GitHub for study-note feedback, bug reports, translations, or data requests.",
+    installTitle: "Install the App | One Chapter a Day",
+    installDescription:
+      "Install One Chapter a Day on your iPhone, Android or computer home screen to open it in one tap and read the Bible even offline.",
     notFoundTitle: "Page Not Found | One Chapter a Day",
     notFoundDescription: "The chapter or link you opened does not exist.",
   },
@@ -886,6 +992,7 @@ const EN: Messages = {
     privacy: "Privacy",
     terms: "Terms",
     contact: "Contact",
+    install: "Install app",
     contributeLanguage: "Contribute another language",
     contributeLanguageUrl: `${REPO_URL}#adding-another-language`,
     openSourcePrefix: "Non-profit & open source on",
@@ -895,6 +1002,76 @@ const EN: Messages = {
     updatedLabel: "Last updated:",
     contactPrompt: "Questions or requests about your data:",
     contactLink: "visit our Contact page",
+  },
+  install: {
+    kicker: "Install the app",
+    heading: "Put the Bible on your home screen",
+    intro:
+      "Open it in one tap like any app, and keep reading the chapters you have opened when you are offline. No app store needed, and it takes only a few MB.",
+    benefits: [
+      "Opens from your home screen, full screen",
+      "Read the chapters you have opened offline",
+      "Free, no ads, remove it any time",
+    ],
+    choosePlatform: "Choose your device",
+    detected: (platform) => `Detected: ${platform}`,
+    tabsLabel: "Platform",
+    platforms: { ios: "iPhone / iPad", android: "Android", desktop: "Computer", mac: "Mac (Safari)" },
+    guides: {
+      ios: {
+        heading: "iPhone and iPad",
+        steps: [
+          "Open this page in Safari.",
+          "Tap the Share button in the bottom bar.",
+          "Scroll down and choose “Add to Home Screen”.",
+          "Tap “Add”. The Bible icon appears on your home screen.",
+        ],
+      },
+      android: {
+        heading: "Android",
+        steps: [
+          "Open this page in Chrome.",
+          "Tap the ⋮ button in the top-right corner.",
+          "Choose “Add to Home screen”, then “Install”.",
+        ],
+      },
+      desktop: {
+        heading: "Computer (Chrome, Edge)",
+        steps: [
+          "Click the Install icon at the end of the address bar.",
+          "Choose “Install”. The app opens in its own window and appears in Start or Launchpad.",
+        ],
+      },
+      mac: {
+        heading: "Mac (Safari)",
+        steps: ["In the menu bar, choose File, then “Add to Dock”.", "Click “Add”. The Bible icon appears in your Dock."],
+      },
+    },
+    shareButton: "Share button",
+    shareMenu: ["Add to Favorites", "Add to Home Screen", "Find on Page"],
+    appName: "Bible",
+    iosChromeNote: "Using Chrome on iPhone? Tap the Share button at the end of the address bar, then continue from step 3.",
+    installButton: "Install app",
+    orByHand: "No install dialog? Follow the steps below.",
+    installed: "You are using the installed app. Thank you!",
+    cornerToggle: "Quick install button in the corner",
+    cornerToggleHint: "Turn it back on if you hid it",
+    faqHeading: "Questions",
+    faq: [
+      {
+        q: "Will my reading history carry over?",
+        a: "On iPhone, the installed app keeps its data apart from Safari. Sign in once in the app to sync your reading history.",
+      },
+      { q: "What can I read offline?", a: "The home page and every chapter you opened while online." },
+      { q: "How do I remove it?", a: "Press and hold the icon, then choose Remove, like any other app." },
+    ],
+    corner: {
+      open: "Install app",
+      tip: "Install the app, read offline",
+      dismiss: "Hide install button",
+      dismissed: "Hidden. Turn it back on from Install app at the bottom of the page.",
+      undo: "Undo",
+    },
   },
   contact: {
     kicker: "Contact & Feedback",
