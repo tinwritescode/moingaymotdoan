@@ -53,6 +53,7 @@ export function Seo(props: SeoProps) {
         <Meta name="robots" content="noindex, nofollow" />
       </Show>
       <Link rel="canonical" href={url()} key="canonical" />
+      <Link rel="manifest" href={locale() === "en" ? "/site.en.webmanifest" : "/site.webmanifest"} key="manifest" />
       <Show when={!props.noindex}>
         <Link rel="alternate" hreflang="vi" href={viUrl()} key="hreflang-vi" />
         <Link rel="alternate" hreflang="en" href={enUrl()} key="hreflang-en" />

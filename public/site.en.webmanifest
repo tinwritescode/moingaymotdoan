@@ -1,0 +1,21 @@
+{
+  "id": "/en",
+  "name": "One Chapter a Day",
+  "short_name": "Bible",
+  "lang": "en",
+  "start_url": "/en",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f3ee",
+  "theme_color": "#4d7059",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Moods", "url": "/en/moods", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Reading history", "url": "/en/history", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
