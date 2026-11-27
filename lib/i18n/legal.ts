@@ -29,6 +29,7 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
           paragraphs: [
             "Bạn có thể đọc toàn bộ Kinh Thánh, ghi chú và các trang cảm xúc trên Mỗi Ngày Một Đoạn mà không cần đăng ký hay đăng nhập.",
             "Khi bạn không đăng nhập, lịch sử đọc của bạn không được gửi về máy chủ của chúng tôi. Lịch sử đọc và các tùy chỉnh hiển thị (chế độ màu, phông chữ, cỡ chữ) chỉ được lưu ngay trong bộ nhớ trình duyệt (localStorage) trên thiết bị của bạn.",
+            "Để bạn đọc được cả khi không có mạng, trình duyệt giữ lại một bản sao của các trang và đoạn Kinh Thánh bạn đã mở, ngay trên thiết bị của bạn. Bản sao này không gửi đi đâu, và bạn có thể xóa nó bằng cách xóa dữ liệu trang web trong cài đặt trình duyệt.",
           ],
         },
         {
@@ -162,6 +163,7 @@ export const LEGAL: Record<Locale, Record<LegalKind, LegalDoc>> = {
           paragraphs: [
             "You can read all Scripture passages, study notes, and mood guides on Mỗi Ngày Một Đoạn (One Chapter a Day) without creating an account.",
             "When you are not signed in, your reading history is never sent to our servers. Your reading history and display preferences (theme, font, and text size) are stored only in your browser's localStorage on your device.",
+            "So you can read without a connection, your browser keeps a copy of the pages and chapters you have opened on your device. This copy is not sent anywhere, and you can remove it by clearing this site's data in your browser settings.",
           ],
         },
         {

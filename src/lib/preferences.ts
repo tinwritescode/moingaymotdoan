@@ -136,6 +136,7 @@ export function ensureFontStylesheet(id: ReadingFontId): void {
   if (document.head.querySelector(`link[data-kt-font="${id}"]`)) return;
   const link = document.createElement("link");
   link.rel = "stylesheet";
+  link.crossOrigin = "";
   link.dataset.ktFont = id;
   link.href = font.stylesheetUrl;
   document.head.appendChild(link);
@@ -213,7 +214,7 @@ export function buildPrefsInitScript(): string {
     "d.dataset.font=f;",
     "if(u[f]){",
     'var k=document.createElement("link");',
-    'k.rel="stylesheet";k.dataset.ktFont=f;k.href=u[f];',
+    'k.rel="stylesheet";k.crossOrigin="";k.dataset.ktFont=f;k.href=u[f];',
     "h.appendChild(k);",
     "}",
     "}",

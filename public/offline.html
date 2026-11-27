@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Đang offline · Offline</title>
+    <!-- Served by the service worker when a page was never opened online; inline styles because the CSS may not be cached. -->
+    <style>
+      :root {
+        color-scheme: light dark;
+        --paper: #f4f3ee;
+        --ink: #2b2e2a;
+        --muted: #636a62;
+        --accent: #4d7059;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #111312;
+          --ink: #d8ddd6;
+          --muted: #8a938b;
+          --accent: #8fbf9f;
+        }
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        background: var(--paper);
+        color: var(--ink);
+        font: 1.05rem/1.6 Georgia, serif;
+        text-align: center;
+        padding: 0 1.25rem;
+      }
+      p {
+        margin: 0.25rem 0;
+        color: var(--muted);
+      }
+      h1 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem;
+      }
+      .actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      button,
+      a {
+        font: inherit;
+        font-size: 0.95rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        background: none;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      button {
+        background: var(--accent);
+        color: var(--paper);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Bạn đang offline</h1>
+      <p>Trang này chưa được lưu để đọc khi không có mạng.</p>
+      <p lang="en">You are offline, and this page has not been saved for offline reading.</p>
+      <div class="actions">
+        <button type="button" onclick="location.reload()">Thử lại · Retry</button>
+        <a href="/">Trang chủ</a>
+        <a href="/en" lang="en">Home</a>
+      </div>
+    </main>
+  </body>
+</html>
