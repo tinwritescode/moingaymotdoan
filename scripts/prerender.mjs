@@ -1,8 +1,9 @@
 // Turns the server build into a static site: renders every page, data file and ebook (VI + EN)
 // through the built request handler and writes them into dist/client, which is what gets deployed.
 //   node scripts/prerender.mjs   (run by `pnpm build`, after `vite build`, from the repo root)
+import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
 process.env.NODE_ENV = "production";
@@ -103,6 +104,17 @@ await save(
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(sitemap)]
     .map((url) => `<url><loc>${url}</loc></url>`)
     .join("\n")}\n</urlset>\n`,
+);
+
+// The service worker precaches what the installed app needs to open offline. A new asset set renames its
+// cache, so each deploy drops the old assets and the pages that pointed at them.
+const assets = (await readdir(join(OUT, "assets"))).map((file) => `/assets/${file}`).sort();
+const precache = [...assets, "/", "/en", "/offline.html", "/data/toc.json", "/data/en/toc.json"];
+const version = createHash("sha256").update(assets.join("\n")).digest("hex").slice(0, 12);
+await save(
+  join(OUT, "sw.js"),
+  null,
+  `const VERSION = ${JSON.stringify(version)};\nconst PRECACHE = ${JSON.stringify(precache)};\n${await readFile(join(import.meta.dirname, "..", "src", "sw.js"), "utf8")}`,
 );
 
 console.log(`Prerendered ${queue.length} files and 404.html into dist/client.`);
