@@ -1,6 +1,7 @@
 import { Loading } from "solid-js";
 import { AuthProvider } from "./components/auth-context";
 import { HistoryProvider } from "./components/history-context";
+import { InstallCorner } from "./components/install-corner";
 import { RouterLocaleProvider } from "./components/locale-context";
 import { PreferencesProvider } from "./components/preferences-context";
 import { SiteFooter } from "./components/site-footer";
@@ -47,6 +48,7 @@ export default function App() {
                   <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
                 </div>
                 <SiteFooter />
+                <InstallCorner />
               </RouterLocaleProvider>
             )}
           </Router>
