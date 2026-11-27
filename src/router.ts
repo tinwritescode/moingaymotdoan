@@ -10,6 +10,7 @@ export {
   ebookFileHref,
   ebookHref,
   historyHref,
+  installHref,
   homeHref,
   moodHref,
   moodsHref,
