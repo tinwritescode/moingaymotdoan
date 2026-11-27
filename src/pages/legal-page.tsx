@@ -1,10 +1,10 @@
 import { createMemo, For } from "solid-js";
-import { LEGAL, LEGAL_CONTACT_URL, type LegalKind } from "../../lib/i18n/legal";
+import { LEGAL, type LegalKind } from "../../lib/i18n/legal";
 import { FloatingDock } from "../components/floating-dock";
 import { useLocale } from "../components/locale-context";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
-import { privacyHref, termsHref } from "../router";
+import { contactHref, privacyHref, termsHref } from "../router";
 
 const HREF = { privacy: privacyHref, terms: termsHref } satisfies Record<LegalKind, unknown>;
 
@@ -42,7 +42,7 @@ export function LegalPage(props: { kind: LegalKind }) {
 
         <p class="mt-10 border-t border-rule pt-5 font-sans text-sm text-muted">
           {t().legal.contactPrompt}{" "}
-          <a href={LEGAL_CONTACT_URL} class="underline hover:text-accent">
+          <a href={contactHref(locale())} class="underline hover:text-accent">
             {t().legal.contactLink}
           </a>
         </p>

@@ -1,5 +1,8 @@
 import type { BookGroupId } from "../content/books";
+import type { ContactChannelId } from "./contact";
 import type { Locale } from "./locale";
+
+export const REPO_URL = "https://github.com/tinwritescode/moingaymotdoan";
 
 export type QuickMoodShortcut = {
   slug: string;
@@ -34,6 +37,8 @@ export type Messages = {
     historyDescription: string;
     accountTitle: string;
     accountDescription: string;
+    contactTitle: string;
+    contactDescription: string;
     notFoundTitle: string;
     notFoundDescription: string;
   };
@@ -65,11 +70,30 @@ export type Messages = {
     downloadEbook: string;
     privacy: string;
     terms: string;
+    contact: string;
+    contributeLanguage: string;
+    contributeLanguageUrl: string;
+    openSourcePrefix: string;
+    openSourceLink: string;
   };
   legal: {
     updatedLabel: string;
     contactPrompt: string;
     contactLink: string;
+  };
+  contact: {
+    kicker: string;
+    heading: string;
+    intro: string;
+    directHeading: string;
+    communityHeading: string;
+    copy: string;
+    copied: string;
+    copyAriaLabel: (label: string) => string;
+    channels: Record<ContactChannelId, { label: string; description: string }>;
+    noteHeading: string;
+    noteBody: string;
+    noteFootnote: string;
   };
   display: {
     switchToLight: string;
@@ -371,6 +395,9 @@ const VI: Messages = {
     accountTitle: "Tài khoản & Đồng bộ lịch sử | Mỗi Ngày Một Đoạn",
     accountDescription:
       "Đăng nhập để đồng bộ lịch sử đọc Kinh Thánh và tiến độ từng sách trên điện thoại và máy tính.",
+    contactTitle: "Liên hệ & Góp ý | Mỗi Ngày Một Đoạn",
+    contactDescription:
+      "Liên hệ Mỗi Ngày Một Đoạn qua Email, Zalo, Facebook, Instagram hoặc GitHub để góp ý nội dung, báo lỗi hay gửi yêu cầu về dữ liệu tài khoản.",
     notFoundTitle: "Không tìm thấy trang này | Mỗi Ngày Một Đoạn",
     notFoundDescription: "Đoạn Kinh Thánh hoặc đường dẫn bạn mở hiện không tồn tại.",
   },
@@ -402,11 +429,58 @@ const VI: Messages = {
     downloadEbook: "Tải ebook",
     privacy: "Quyền riêng tư",
     terms: "Điều khoản",
+    contact: "Liên hệ",
+    contributeLanguage: "Đóng góp ngôn ngữ khác",
+    contributeLanguageUrl: `${REPO_URL}/blob/main/CONTRIBUTING.md`,
+    openSourcePrefix: "Phi lợi nhuận & mã nguồn mở trên",
+    openSourceLink: "GitHub",
   },
   legal: {
     updatedLabel: "Cập nhật lần cuối:",
     contactPrompt: "Câu hỏi hoặc yêu cầu về dữ liệu của bạn:",
-    contactLink: "liên hệ qua GitHub",
+    contactLink: "trang Liên hệ",
+  },
+  contact: {
+    kicker: "Liên hệ & Góp ý",
+    heading: "Liên hệ",
+    intro:
+      "Mọi góp ý về ghi chú Kinh Thánh, báo lỗi kỹ thuật, yêu cầu xóa tài khoản hay mong muốn đóng góp thêm ngôn ngữ đều rất đáng quý. Bạn có thể nhắn qua kênh tiện nhất bên dưới.",
+    directHeading: "Nhắn trực tiếp",
+    communityHeading: "Mã nguồn mở & Đóng góp",
+    copy: "Sao chép",
+    copied: "Đã chép ✓",
+    copyAriaLabel: (label) => `Sao chép ${label}`,
+    channels: {
+      email: {
+        label: "Email",
+        description: "Góp ý chi tiết, yêu cầu xóa tài khoản hoặc câu hỏi về quyền riêng tư.",
+      },
+      zalo: {
+        label: "Zalo",
+        description: "Nhắn nhanh trực tiếp qua Zalo.",
+      },
+      facebook: {
+        label: "Facebook",
+        description: "Nhắn tin hoặc kết nối trên Facebook.",
+      },
+      instagram: {
+        label: "Instagram",
+        description: "Nhắn tin trực tiếp trên Instagram.",
+      },
+      githubIssues: {
+        label: "GitHub Issues",
+        description: "Báo lỗi chính tả, hiệu đính giải kinh hoặc đề xuất tính năng công khai.",
+      },
+      contributing: {
+        label: "Hướng dẫn đóng góp",
+        description: "Quy chuẩn biên soạn nội dung và cách đóng góp thêm ngôn ngữ khác.",
+      },
+    },
+    noteHeading: "Khi góp ý một đoạn Kinh Thánh",
+    noteBody:
+      "Nếu bạn thấy chỗ diễn đạt chưa chính xác hoặc muốn góp ý thần học, xin ghi kèm tên sách và số đoạn (ví dụ: Thi-thiên 23) để chúng tôi kiểm tra và chỉnh sửa nhanh nhất.",
+    noteFootnote:
+      "Mỗi Ngày Một Đoạn là dự án phi lợi nhuận làm trong thời gian rảnh, nên đôi khi phản hồi có thể chậm một chút — rất mong bạn thông cảm.",
   },
   display: {
     switchToLight: "Chuyển sang chế độ sáng",
@@ -777,6 +851,9 @@ const EN: Messages = {
     accountTitle: "Account & Cloud Sync | One Chapter a Day",
     accountDescription:
       "Sign in to sync your Bible reading history and chapter progress across phone and computer.",
+    contactTitle: "Contact & Feedback | One Chapter a Day",
+    contactDescription:
+      "Contact One Chapter a Day via Email, Zalo, Facebook, Instagram, or GitHub for study-note feedback, bug reports, translations, or data requests.",
     notFoundTitle: "Page Not Found | One Chapter a Day",
     notFoundDescription: "The chapter or link you opened does not exist.",
   },
@@ -808,11 +885,58 @@ const EN: Messages = {
     downloadEbook: "Download ebooks",
     privacy: "Privacy",
     terms: "Terms",
+    contact: "Contact",
+    contributeLanguage: "Contribute another language",
+    contributeLanguageUrl: `${REPO_URL}#adding-another-language`,
+    openSourcePrefix: "Non-profit & open source on",
+    openSourceLink: "GitHub",
   },
   legal: {
     updatedLabel: "Last updated:",
     contactPrompt: "Questions or requests about your data:",
-    contactLink: "contact us on GitHub",
+    contactLink: "visit our Contact page",
+  },
+  contact: {
+    kicker: "Contact & Feedback",
+    heading: "Contact",
+    intro:
+      "Feedback on study notes, bug reports, account or privacy requests, and offers to help translate are always welcome. Reach out through whichever channel works best for you.",
+    directHeading: "Direct contact",
+    communityHeading: "Open source & Contributing",
+    copy: "Copy",
+    copied: "Copied ✓",
+    copyAriaLabel: (label) => `Copy ${label}`,
+    channels: {
+      email: {
+        label: "Email",
+        description: "Detailed feedback, account deletion, or privacy inquiries.",
+      },
+      zalo: {
+        label: "Zalo",
+        description: "Send a quick message on Zalo.",
+      },
+      facebook: {
+        label: "Facebook",
+        description: "Message or connect on Facebook.",
+      },
+      instagram: {
+        label: "Instagram",
+        description: "Send a direct message on Instagram.",
+      },
+      githubIssues: {
+        label: "GitHub Issues",
+        description: "Report typos, suggest study-note edits, or propose features publicly.",
+      },
+      contributing: {
+        label: "Contributing guide",
+        description: "Content guidelines and how to help add another language.",
+      },
+    },
+    noteHeading: "When reporting a passage or note",
+    noteBody:
+      "If you spot an error or unclear wording in a chapter, please include the book and chapter number (for example, Psalms 23) so we can review and fix it promptly.",
+    noteFootnote:
+      "One Chapter a Day is a free, volunteer-run project, so replies may occasionally take a day or two — thank you for your patience.",
   },
   display: {
     switchToLight: "Switch to light mode",

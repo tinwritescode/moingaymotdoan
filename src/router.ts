@@ -6,6 +6,7 @@ export {
   accountHref,
   alternatePath,
   chapterHref,
+  contactHref,
   ebookFileHref,
   ebookHref,
   historyHref,

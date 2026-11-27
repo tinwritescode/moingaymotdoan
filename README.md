@@ -160,10 +160,21 @@ cp .env.example .env.local
 
 ## Contributing
 
-Contributions of all kinds are deeply appreciated — whether fixing a typo, reviewing theological accuracy, refining a chapter retelling, or improving UI and accessibility.
+Contributions of all kinds are deeply appreciated — whether fixing a typo, reviewing theological accuracy, refining a chapter retelling, adding another language, or improving UI and accessibility.
 
 - Report a content issue or suggestion: [Open a GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues)
 - Vietnamese editorial spec, citation rules, and PR checklist: see **[CONTRIBUTING.md](./CONTRIBUTING.md)**
+
+### Adding another language
+
+The site currently ships in **Vietnamese** (`/`) and **English** (`/en`). Contributions to bring **Mỗi Ngày Một Đoạn** to more languages are warmly welcome:
+
+- **Not a developer?** Open a [GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues) telling us which language you would like to translate or review — and, if you know one, a public-domain or open-licensed Bible translation for that language (for example on [eBible.org](https://ebible.org/)). We can help set up the technical scaffolding.
+- **Want to open a Pull Request?** Follow the structure used by the English edition:
+  1. Import a public-domain / open-licensed Bible text into `data/bible-<lang>/` (see `scripts/import-bible-en.mjs`).
+  2. Add the locale, UI copy, routes, and legal text in `lib/i18n/` and 66 book names/slugs in `lib/content/books.ts`.
+  3. Add chapter notes under `content-<lang>/` and mood guides under `lib/moods/<lang>/`.
+  4. Wire routes under `src/routes/<lang>/` and list the locale's data endpoints in `scripts/prerender.mjs`, then run `pnpm lint && pnpm typecheck && pnpm test && pnpm build`.
 
 ---
 

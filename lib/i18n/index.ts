@@ -1,5 +1,5 @@
 export { DEFAULT_LOCALE, isLocale, LOCALES, localeFromPath, type Locale } from "./locale";
-export { MESSAGES, messagesFor, type Messages, type QuickMoodShortcut } from "./messages";
+export { MESSAGES, messagesFor, REPO_URL, type Messages, type QuickMoodShortcut } from "./messages";
 export {
   canonicalMoodGroupId,
   canonicalMoodId,
@@ -12,6 +12,7 @@ export {
   accountHref,
   alternatePath,
   chapterHref,
+  contactHref,
   ebookFileHref,
   ebookHref,
   historyHref,

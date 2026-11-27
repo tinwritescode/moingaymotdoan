@@ -160,10 +160,14 @@ cp .env.example .env.local
 
 ## Đóng góp & Hiệu đính
 
-Dự án luôn trân trọng mọi đóng góp từ cộng đồng — dù là sửa một lỗi chính tả nhỏ, góp ý thần học cho một đoạn giải kinh, hay gửi Pull Request cải tiến giao diện.
+Dự án luôn trân trọng mọi đóng góp từ cộng đồng — dù là sửa một lỗi chính tả nhỏ, góp ý thần học cho một đoạn giải kinh, đóng góp thêm ngôn ngữ khác, hay gửi Pull Request cải tiến giao diện.
 
 - Báo lỗi hoặc góp ý nội dung: [Mở GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues)
-- Quy chuẩn biên soạn Markdown, quy ước dẫn câu Kinh Thánh và hướng dẫn PR: xem **[CONTRIBUTING.md](./CONTRIBUTING.md)**
+- Quy chuẩn biên soạn Markdown, quy ước dẫn câu Kinh Thánh và hướng dẫn đóng góp ngôn ngữ mới: xem **[CONTRIBUTING.md](./CONTRIBUTING.md)**
+
+### Đóng góp ngôn ngữ khác
+
+Trang hiện hỗ trợ **Tiếng Việt** (`/`) và **English** (`/en`). Nếu bạn muốn giúp dịch hoặc hiệu đính cho một ngôn ngữ khác, bạn không cần biết lập trình — chỉ cần mở [GitHub Issue](https://github.com/tinwritescode/moingaymotdoan/issues) hoặc xem hướng dẫn chi tiết tại **[CONTRIBUTING.md](./CONTRIBUTING.md#5-đóng-góp-ngôn-ngữ-khác)**.
 
 ---
 
