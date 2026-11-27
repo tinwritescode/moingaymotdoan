@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#557b62" />
+      <stop offset="100%" stop-color="#3f5f4a" />
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dfb552" />
+      <stop offset="100%" stop-color="#c2922f" />
+    </linearGradient>
+    <clipPath id="right-page">
+      <path d="M34 20.5C39.4 17 46.2 16.5 51.8 18C53.1 18.4 54 19.5 54 20.8V42.2C54 43.7 52.6 44.8 51.1 44.4C45.8 42.9 39.4 43.5 34 47.2Z" />
+    </clipPath>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#bg)" />
+  <path
+    d="M30 20.5C24.6 17 17.8 16.5 12.2 18C10.9 18.4 10 19.5 10 20.8V42.2C10 43.7 11.4 44.8 12.9 44.4C18.2 42.9 24.6 43.5 30 47.2Z"
+    fill="#fbfaf6"
+  />
+  <path
+    d="M34 20.5C39.4 17 46.2 16.5 51.8 18C53.1 18.4 54 19.5 54 20.8V42.2C54 43.7 52.6 44.8 51.1 44.4C45.8 42.9 39.4 43.5 34 47.2Z"
+    fill="#eceae0"
+  />
+  <path
+    d="M40.5 15H47V35.2L43.75 32.1L40.5 35.2Z"
+    fill="url(#ribbon)"
+    clip-path="url(#right-page)"
+  />
+</svg>
