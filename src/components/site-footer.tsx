@@ -1,4 +1,4 @@
-import { contactHref, ebookHref, privacyHref, REPO_URL, termsHref } from "../../lib/i18n";
+import { contactHref, ebookHref, installHref, privacyHref, REPO_URL, termsHref } from "../../lib/i18n";
 import { LanguageSwitcher } from "./language-switcher";
 import { useLocale } from "./locale-context";
 
@@ -28,6 +28,10 @@ export function SiteFooter() {
           {" · "}
           <a href={contactHref(locale())} class="underline hover:text-accent">
             {t().footer.contact}
+          </a>
+          {" · "}
+          <a href={installHref(locale())} class="underline hover:text-accent">
+            {t().footer.install}
           </a>
         </p>
         <p class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">

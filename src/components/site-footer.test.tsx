@@ -22,6 +22,7 @@ describe("SiteFooter", () => {
 
     const contactLink = screen.getByRole("link", { name: "Liên hệ" });
     expect(contactLink.getAttribute("href")).toBe("/lien-he");
+    expect(screen.getByRole("link", { name: "Cài ứng dụng" }).getAttribute("href")).toBe("/cai-dat");
   });
 
   it("renders open-source GitHub and contribute-another-language links in English", () => {
@@ -39,5 +40,6 @@ describe("SiteFooter", () => {
 
     const contactLink = screen.getByRole("link", { name: "Contact" });
     expect(contactLink.getAttribute("href")).toBe("/en/contact");
+    expect(screen.getByRole("link", { name: "Install app" }).getAttribute("href")).toBe("/en/install");
   });
 });
