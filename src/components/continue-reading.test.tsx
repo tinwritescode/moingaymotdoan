@@ -68,6 +68,7 @@ describe("<ContinueReading /> remembers its height for the next load", () => {
   });
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
     localStorage.clear();
   });
 
@@ -75,6 +76,25 @@ describe("<ContinueReading /> remembers its height for the next load", () => {
     const { findByText } = await renderAsGuest(READ_GENESIS_1);
     await findByText("Sáng-thế Ký 1");
     expect(localStorage.getItem(CONTINUE_HEIGHT_STORAGE_KEY)).toBe("302");
+  });
+
+  test("keeps the stored height current as the card grows after it first shows", async () => {
+    const watchers: (() => void)[] = [];
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        constructor(cb: () => void) {
+          watchers.push(cb);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const { findByText } = await renderAsGuest(READ_GENESIS_1);
+    await findByText("Sáng-thế Ký 1");
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(419);
+    for (const w of watchers) w();
+    expect(localStorage.getItem(CONTINUE_HEIGHT_STORAGE_KEY)).toBe("419");
   });
 
   test("the streak card leads the card", async () => {
@@ -86,5 +106,56 @@ describe("<ContinueReading /> remembers its height for the next load", () => {
     localStorage.setItem(CONTINUE_HEIGHT_STORAGE_KEY, "302");
     await renderAsGuest(EMPTY_HISTORY);
     await vi.waitFor(() => expect(localStorage.getItem(CONTINUE_HEIGHT_STORAGE_KEY)).toBeNull());
+  });
+});
+
+const LOADING = "Đang tải lịch sử đọc của bạn…";
+
+describe("<ContinueReading /> while history loads", () => {
+  test("holds a skeleton until a signed-in reader's cloud history arrives, then shows the card", async () => {
+    let arrive: ((h: HistorySnapshot) => void) | null = null;
+    const session = createAuthSession({
+      configured: true,
+      init: async () => ({ id: "user_a", email: "a@example.test", name: "A", avatarUrl: null }),
+      signIn: async () => {},
+      signUp: async () => {},
+      signOut: async () => {},
+      getAccessToken: async () => "token",
+    });
+    const fail = async (): Promise<never> => {
+      throw new Error("not in this test");
+    };
+    const engine = createHistoryEngine({
+      local: createMemoryLocalHistoryStore(EMPTY_HISTORY),
+      remote: {
+        fetchHistory: () => new Promise<HistorySnapshot>((resolve) => (arrive = resolve)),
+        syncGuest: fail,
+        recordVisit: fail,
+        setCompleted: fail,
+        deleteLog: fail,
+        clearAll: fail,
+      },
+    });
+    const view = render(() => (
+      <AuthProvider session={session}>
+        <HistoryProvider engine={engine}>
+          <StreakProvider>
+            <ContinueReading toc={[]} />
+          </StreakProvider>
+        </HistoryProvider>
+      </AuthProvider>
+    ));
+
+    await view.findByText(LOADING);
+    const deliver = await vi.waitFor(() => arrive ?? Promise.reject(new Error("history not fetched yet")));
+    expect(view.getByText(LOADING)).toBeTruthy();
+    deliver(READ_GENESIS_1);
+    await view.findByText("Sáng-thế Ký 1");
+    expect(view.queryByText(LOADING)).toBeNull();
+  });
+
+  test("drops the skeleton once a reader turns out to have nothing to continue", async () => {
+    const view = await renderAsGuest(EMPTY_HISTORY);
+    await vi.waitFor(() => expect(view.queryByText(LOADING)).toBeNull());
   });
 });

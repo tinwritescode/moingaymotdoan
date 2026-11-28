@@ -12,6 +12,7 @@ import { StreakCard } from "./streak-card";
 import { useStreak } from "./streak-context";
 import { writeStorage } from "./preferences-context";
 import { ProgressRing, WeeklyDots } from "./progress-ring";
+import { Bone, Skeleton } from "./skeleton";
 
 type NextChapter = {
   href: string;
@@ -109,17 +110,31 @@ export function ContinueReading(props: { toc: TocBook[] }) {
     return Math.min(100, Math.round((read / display.totalChapters) * 100));
   });
 
-  // Once auth and history settle, remember the card's height (or that there is none) for the next load's init script.
+  const settled = createMemo(() => hydrated() && initialized() && !syncing());
+
+  // Once auth and history settle, remember the card's height (or that there is none) for the next load's init script,
+  // and keep it current: parts of the card (the streak card, its reminder row) fill in after it first shows.
   let card: HTMLDivElement | undefined;
   createEffect(
-    () => (hydrated() && initialized() && !syncing() ? Boolean(latestChapter()) : undefined),
+    () => (settled() ? Boolean(latestChapter()) : undefined),
     (shown) => {
-      if (shown !== undefined) writeStorage(CONTINUE_HEIGHT_STORAGE_KEY, shown && card ? String(card.offsetHeight) : null);
+      if (shown === undefined) return;
+      const el = card;
+      if (!shown || !el) {
+        writeStorage(CONTINUE_HEIGHT_STORAGE_KEY, null);
+        return;
+      }
+      const remember = () => writeStorage(CONTINUE_HEIGHT_STORAGE_KEY, String(el.offsetHeight));
+      remember();
+      if (typeof ResizeObserver === "undefined") return;
+      const watch = new ResizeObserver(remember);
+      watch.observe(el);
+      return () => watch.disconnect();
     },
   );
 
   return (
-    <Show when={hydrated() && latestChapter()}>
+    <Show when={hydrated() && latestChapter()} fallback={<Show when={!settled()}>{<ContinueSkeleton />}</Show>}>
       {(latest) => (
         <div ref={card} class="space-y-2.5">
           <StreakCard next={nextChapter()} />
@@ -203,5 +218,41 @@ export function ContinueReading(props: { toc: TocBook[] }) {
         </div>
       )}
     </Show>
+  );
+}
+
+/**
+ * The card's shapes while history loads, as tall as the card was last time (app.css), so the card replaces it in place.
+ * shortcut: a device that has never shown the card has no height to hold, so the skeleton is empty there; add a default
+ * height for signed-in readers if first loads after sign-in feel blank.
+ */
+function ContinueSkeleton() {
+  const { t } = useLocale();
+  return (
+    <Skeleton label={t().history.loadingLabel} class="kt-continue-skeleton grid">
+      <div class="grid h-full grid-rows-[1fr_auto_auto] gap-2.5">
+        <div class="flex items-start gap-4 rounded-3xl border border-rule bg-card p-5">
+          <Bone class="h-20 w-20 shrink-0" />
+          <div class="flex-1 space-y-2 pt-3">
+            <Bone class="h-7 w-24" />
+            <Bone class="h-3 w-20" />
+          </div>
+        </div>
+        <div class="grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5">
+          <Bone class="h-[4.5rem] w-[4.5rem]" />
+          <div class="space-y-2">
+            <Bone class="h-3 w-40" />
+            <Bone class="h-5 w-28" />
+            <Bone class="h-3 w-32" />
+          </div>
+          <Bone class="col-span-full h-11 w-44" />
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <Bone class="h-[5.75rem] rounded-2xl" />
+          <Bone class="h-[5.75rem] rounded-2xl" />
+          <Bone class="h-[5.75rem] rounded-2xl" />
+        </div>
+      </div>
+    </Skeleton>
   );
 }
