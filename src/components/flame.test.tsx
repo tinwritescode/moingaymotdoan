@@ -24,7 +24,7 @@ describe("<Flame />", () => {
     prefersReducedMotion(false);
     const { container } = render(() => <Flame kind="den-dau" mode="dim" />);
     flush();
-    expect(container.querySelector("svg")).not.toBeNull();
+    expect(container.querySelector("img")).not.toBeNull();
     await vi.waitFor(() => expect(loadAnimation).toHaveBeenCalledOnce());
     expect(fetch).toHaveBeenCalledWith("/lottie/den-dau-leo-let.json");
     expect(loadAnimation.mock.calls[0][0]).toMatchObject({ loop: true, animationData: { v: "5.7.4" } });
@@ -35,7 +35,7 @@ describe("<Flame />", () => {
     const { container } = render(() => <Flame kind="nen" mode="lit" />);
     flush();
     await new Promise((r) => setTimeout(r, 20));
-    expect(container.querySelector("svg")).not.toBeNull();
+    expect(container.querySelector("img")).not.toBeNull();
     expect(fetch).not.toHaveBeenCalled();
     expect(loadAnimation).not.toHaveBeenCalled();
   });

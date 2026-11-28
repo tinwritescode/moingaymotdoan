@@ -169,3 +169,7 @@ export function flameSvg(kind: FlameKind, state: FlameState): string {
   const body = state === "out" ? `<g style="filter:grayscale(1)" opacity="0.75">${f.body}</g>` : f.body;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">${flames}${smoke}${body}</svg>`;
 }
+
+/** The flame as an image URL, for <img> and for drawing on a canvas. */
+export const flameDataUrl = (kind: FlameKind, state: FlameState) =>
+  `data:image/svg+xml;charset=utf-8,${encodeURIComponent(flameSvg(kind, state))}`;

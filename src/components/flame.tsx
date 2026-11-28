@@ -1,5 +1,5 @@
 import { createEffect } from "solid-js";
-import { flameSvg, type FlameKind } from "../../lib/streak/flames";
+import { flameDataUrl, type FlameKind } from "../../lib/streak/flames";
 
 /** lit: burning loop; ignite: bursts from a spark, then the lit loop; dim: guttering loop; out: sputters out, smoke stays. */
 export type FlameMode = "lit" | "ignite" | "dim" | "out";
@@ -17,7 +17,7 @@ const reducedMotion = () =>
  */
 export function Flame(props: { kind: FlameKind; mode: FlameMode; class?: string }) {
   let stage!: HTMLDivElement;
-  let still!: HTMLDivElement;
+  let still!: HTMLImageElement;
 
   createEffect(
     () => ({ kind: props.kind, mode: props.mode }),
@@ -55,10 +55,11 @@ export function Flame(props: { kind: FlameKind; mode: FlameMode; class?: string 
 
   return (
     <div aria-hidden="true" class={["relative", props.class ?? "h-24 w-24"]}>
-      <div
+      <img
         ref={still}
-        class="absolute inset-0 [&>svg]:h-full [&>svg]:w-full"
-        innerHTML={flameSvg(props.kind, props.mode === "ignite" ? "lit" : props.mode)}
+        alt=""
+        class="absolute inset-0 h-full w-full"
+        src={flameDataUrl(props.kind, props.mode === "ignite" ? "lit" : props.mode)}
       />
       <div ref={stage} class="absolute inset-0" />
     </div>
