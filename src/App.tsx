@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { Loading } from "solid-js";
 import { AuthProvider } from "./components/auth-context";
 import { HistoryProvider } from "./components/history-context";
@@ -40,28 +41,31 @@ if (!import.meta.env.SSR && import.meta.env.PROD && "serviceWorker" in navigator
 
 /** The layout every page shares: the page itself, then the footer. */
 export default function App() {
+  const queryClient = new QueryClient();
   return (
-    <PreferencesProvider>
-      <AuthProvider>
-        <HistoryProvider>
-          <StreakProvider>
-            <ProfileProvider>
-              <Router>
-                {(props) => (
-                  <RouterLocaleProvider>
-                    <div class="flex flex-1 flex-col">
-                      <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
-                    </div>
-                    <SiteFooter />
-                    <InstallCorner />
-                    <ReminderSync />
-                  </RouterLocaleProvider>
-                )}
-              </Router>
-            </ProfileProvider>
-          </StreakProvider>
-        </HistoryProvider>
-      </AuthProvider>
-    </PreferencesProvider>
+    <QueryClientProvider client={queryClient}>
+      <PreferencesProvider>
+        <AuthProvider>
+          <HistoryProvider>
+            <StreakProvider>
+              <ProfileProvider>
+                <Router>
+                  {(props) => (
+                    <RouterLocaleProvider>
+                      <div class="flex flex-1 flex-col">
+                        <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
+                      </div>
+                      <SiteFooter />
+                      <InstallCorner />
+                      <ReminderSync />
+                    </RouterLocaleProvider>
+                  )}
+                </Router>
+              </ProfileProvider>
+            </StreakProvider>
+          </HistoryProvider>
+        </AuthProvider>
+      </PreferencesProvider>
+    </QueryClientProvider>
   );
 }

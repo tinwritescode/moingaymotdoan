@@ -1,6 +1,8 @@
 import { render } from "@solidjs/testing-library";
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { flush } from "solid-js";
 import type { JSX } from "@solidjs/web";
+import type { ParentProps } from "solid-js";
 import { vi } from "vitest";
 import { createAuthSession } from "../../lib/auth/session";
 import type { AuthUser } from "../../lib/auth/types";
@@ -35,6 +37,11 @@ export function historyOf(today: string, count: number, endBack: number): Histor
   return { progress: [], logs: Array.from({ length: count }, (_, i) => chapterLog(addDays(today, -(endBack + i)))) };
 }
 
+/** render() option giving each test its own query cache, as App gives each page load. */
+export const freshQueryClient = {
+  wrapper: (props: ParentProps) => <QueryClientProvider client={new QueryClient()}>{props.children}</QueryClientProvider>,
+};
+
 type SignedIn = { userId: string; remoteFor: (userId: string) => StreakMarksRemote | null };
 
 /** A session already signed in as `userId`, with the account's name and photo if given. */
@@ -63,6 +70,7 @@ export function renderStreakAt(time: string, history: HistorySnapshot, ui: () =>
   );
   const view = render(() =>
     signedIn ? <AuthProvider session={signedInSession(signedIn.userId)}>{tree()}</AuthProvider> : tree(),
+    freshQueryClient,
   );
   flush();
   return view;

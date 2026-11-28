@@ -1,3 +1,4 @@
+import { useMutation, useQuery } from "@tanstack/solid-query";
 import {
   createContext,
   createEffect,
@@ -117,26 +118,45 @@ export function StreakProvider(props: ParentProps<{ remoteFor?: (userId: string)
     return baseUrl ? createHttpStreakMarksRemote({ baseUrl, getAccessToken: (force) => auth.getAccessToken(force) }) : null;
   };
   const localMarks = createMemo(() => marks(), { equals: sameMarks });
+  const userId = createMemo(() => (loaded() ? (auth.user()?.id ?? null) : null));
+  const remote = createMemo(() => {
+    const id = userId();
+    return id ? (props.remoteFor ?? httpRemote)(id) : null;
+  });
   // Sign-in pulls the server copy first (its reminder hour wins); after that each local change is pushed.
-  let pulledFor: string | null = null;
+  const pulled = useQuery(() => ({
+    queryKey: ["streak-marks", userId()],
+    queryFn: async () => (await remote()?.fetch()) ?? null,
+    enabled: remote() !== null,
+    staleTime: Infinity,
+  }));
+  const push = useMutation(() => ({
+    mutationFn: (args: { server: StreakMarksRemote; marks: StreakMarks }) => args.server.merge(args.marks),
+  }));
+  let mergedFor: string | null = null;
   createEffect(
     () => {
-      const userId = loaded() ? (auth.user()?.id ?? null) : null;
-      return userId ? { userId, local: localMarks() } : null;
+      const id = userId();
+      const server = remote();
+      if (!id || !server || !pulled.isSuccess) return null;
+      return { userId: id, server, local: localMarks(), pulled: pulled.data };
     },
     (target) => {
-      const remote = target && (props.remoteFor ?? httpRemote)(target.userId);
-      if (!target || !remote) return;
-      const pull = pulledFor !== target.userId;
-      pulledFor = target.userId;
+      if (!target) return;
+      const first = mergedFor !== target.userId;
+      mergedFor = target.userId;
       let stale = false;
-      void (async () => {
-        const server = pull ? await remote.fetch() : null;
-        const merged = await remote.merge(server ? mergeMarks(target.local, server) : target.local);
-        if (!stale) save(merged);
-      })().catch(() => {
-        // shortcut: a failed sync waits for the next change or page load; no retry timer.
-      });
+      push
+        .mutate({
+          server: target.server,
+          marks: first && target.pulled ? mergeMarks(target.local, target.pulled) : target.local,
+        })
+        .then((merged) => {
+          if (!stale) save(merged);
+        })
+        .catch(() => {
+          // shortcut: a failed push waits for the next change or page load; no retry timer.
+        });
       return () => {
         stale = true;
       };

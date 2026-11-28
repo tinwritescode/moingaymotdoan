@@ -5,7 +5,7 @@ import type { ProfileRemote } from "../../lib/history/ports";
 import { AuthProvider } from "./auth-context";
 import { ProfileEditor } from "./profile-editor";
 import { ProfileProvider, useProfile } from "./profile-context";
-import { signedInSession } from "./streak-fixtures";
+import { freshQueryClient, signedInSession } from "./streak-fixtures";
 
 const photo = "data:image/jpeg;base64,AAAA";
 vi.mock("../lib/avatar", () => ({
@@ -24,7 +24,7 @@ const editing = (onClose = vi.fn()) => {
       <ProfileEditor onClose={onClose} />
       <Shown />
     </ProfileProvider>
-  ));
+  ), freshQueryClient);
   flush();
   return { view, onClose };
 };
@@ -61,7 +61,7 @@ describe("<ProfileEditor />", () => {
           <ProfileEditor onClose={onClose} />
         </ProfileProvider>
       </AuthProvider>
-    ));
+    ), freshQueryClient);
     flush();
     await vi.waitFor(() => expect(view.getByLabelText<HTMLInputElement>("Tên hiện trên thẻ").value).toBe("Tin"));
     fireEvent.click(view.getByRole("button", { name: "Lưu" }));

@@ -10,6 +10,7 @@ import { AuthProvider } from "./auth-context";
 import { ContinueReading } from "./continue-reading";
 import { HistoryProvider } from "./history-context";
 import { StreakProvider } from "./streak-context";
+import { freshQueryClient } from "./streak-fixtures";
 
 vi.mock("lottie-web/build/player/lottie_light", () => ({ default: { loadAnimation: vi.fn() } }));
 
@@ -52,7 +53,7 @@ async function renderAsGuest(history: HistorySnapshot) {
         </StreakProvider>
       </HistoryProvider>
     </AuthProvider>
-  ));
+  ), freshQueryClient);
   await vi.waitFor(() => {
     flush();
     expect(session.getState().initialized).toBe(true);
@@ -144,7 +145,7 @@ describe("<ContinueReading /> while history loads", () => {
           </StreakProvider>
         </HistoryProvider>
       </AuthProvider>
-    ));
+    ), freshQueryClient);
 
     await view.findByText(LOADING);
     const deliver = await vi.waitFor(() => arrive ?? Promise.reject(new Error("history not fetched yet")));

@@ -5,7 +5,7 @@ import { createMemoryHistoryRepository, createMemoryProfileRemote } from "../../
 import type { HistoryRepository } from "../../lib/history/ports";
 import { AuthProvider } from "./auth-context";
 import { CARD_IDENTITY_STORAGE_KEY, PROFILE_STORAGE_KEY, ProfileProvider, useProfile } from "./profile-context";
-import { signedInSession } from "./streak-fixtures";
+import { freshQueryClient, signedInSession } from "./streak-fixtures";
 
 const photo = "data:image/jpeg;base64,AAAA";
 
@@ -26,7 +26,7 @@ const guest = () => {
     <ProfileProvider>
       <Probe />
     </ProfileProvider>
-  ));
+  ), freshQueryClient);
   flush();
   return view;
 };
@@ -38,7 +38,7 @@ const reader = (server: HistoryRepository, account = { name: "Tin Nguyen", avata
         <Probe />
       </ProfileProvider>
     </AuthProvider>
-  ));
+  ), freshQueryClient);
   flush();
   return view;
 };

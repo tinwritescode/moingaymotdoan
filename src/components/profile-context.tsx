@@ -1,6 +1,6 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/solid-query";
 import {
   createContext,
-  createEffect,
   createMemo,
   createSignal,
   onSettled,
@@ -50,8 +50,8 @@ function readDeviceProfile(): ReaderProfile | null {
 /** The reader's share-card name and photo. `remoteFor` replaces the history API in tests. */
 export function ProfileProvider(props: ParentProps<{ remoteFor?: (userId: string) => ProfileRemote | null }>) {
   const auth = useAuth();
+  const queryClient = useQueryClient();
   const [device, setDevice] = createSignal<ReaderProfile | null>(null);
-  const [account, setAccount] = createSignal<{ userId: string; profile: ReaderProfile | null } | null>(null);
   const [onCard, setOnCard] = createSignal(true);
   const [loaded, setLoaded] = createSignal(false);
 
@@ -66,33 +66,38 @@ export function ProfileProvider(props: ParentProps<{ remoteFor?: (userId: string
     const baseUrl = getHistoryApiUrl();
     return baseUrl ? createHttpProfileRemote({ baseUrl, getAccessToken: (force) => auth.getAccessToken(force) }) : null;
   };
+  const profileKey = (userId: string) => ["profile", userId] as const;
 
-  // On sign-in, the account's saved profile; a name set as a guest on this device moves to an account without one.
-  createEffect(
-    () => (loaded() ? (auth.user()?.id ?? null) : null),
-    (userId) => {
-      const server = userId ? remote(userId) : null;
-      if (!userId || !server) return;
-      let stale = false;
-      const guestProfile = device();
-      void (async () => {
-        const saved = await server.fetch();
-        const profile = saved ?? (guestProfile ? await server.save(guestProfile) : null);
-        if (!stale) setAccount({ userId, profile });
-      })().catch(() => {
-        // shortcut: a failed load shows the account's name and photo until the next page load; no retry.
-      });
-      return () => {
-        stale = true;
-      };
+  // The account's saved profile; a name set as a guest on this device moves to an account without one.
+  const loadAccount = async (userId: string): Promise<ReaderProfile | null> => {
+    const server = remote(userId);
+    const guestProfile = device();
+    if (!server) return null;
+    return (await server.fetch()) ?? (guestProfile ? server.save(guestProfile) : null);
+  };
+  const userId = createMemo(() => (loaded() ? (auth.user()?.id ?? "") : ""));
+  const account = useQuery(() => ({
+    queryKey: profileKey(userId()),
+    queryFn: () => loadAccount(userId()),
+    enabled: userId() !== "" && remote(userId()) !== null,
+    staleTime: Infinity,
+  }));
+
+  const saveToAccount = useMutation(() => ({
+    mutationFn: async ({ userId, profile }: { userId: string; profile: ReaderProfile }) => {
+      const server = remote(userId);
+      if (!server) throw new Error("No profile service");
+      return server.save(profile);
     },
-  );
+    onSuccess: (saved, { userId }) => queryClient.setQueryData(profileKey(userId), saved),
+  }));
 
   const profile = createMemo<ReaderProfile | null>(() => {
     const user = auth.user();
     if (!user) return device();
-    const own = account();
-    if (own?.userId === user.id && own.profile) return own.profile;
+    // A failed or pending load shows the account's name and photo; `data` would suspend or throw.
+    const own = account.isSuccess ? account.data : null;
+    if (own) return own;
     return user.name ? { name: user.name, avatar: user.avatarUrl } : null;
   });
 
@@ -110,9 +115,7 @@ export function ProfileProvider(props: ParentProps<{ remoteFor?: (userId: string
         writeStorage(PROFILE_STORAGE_KEY, JSON.stringify(next));
         return;
       }
-      const server = remote(user.id);
-      if (!server) throw new Error("No profile service");
-      setAccount({ userId: user.id, profile: await server.save(next) });
+      await saveToAccount.mutate({ userId: user.id, profile: next });
     },
   };
 
