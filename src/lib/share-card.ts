@@ -3,9 +3,11 @@ import { addDays } from "../../lib/streak/streak";
 
 export type ShareSize = "post" | "story";
 
-const SIZES: Record<ShareSize, { w: number; h: number; top: number }> = {
-  post: { w: 1080, h: 1350, top: 0 },
-  story: { w: 1080, h: 1920, top: 240 },
+// `foot` is the date and URL baseline's distance from the bottom edge. The post card sits 40px high so a
+// two-line verse and its reference clear the footer row.
+const SIZES: Record<ShareSize, { w: number; h: number; top: number; foot: number }> = {
+  post: { w: 1080, h: 1350, top: -40, foot: 50 },
+  story: { w: 1080, h: 1920, top: 240, foot: 70 },
 };
 
 const C = { paper: "#f4f3ee", ink: "#2b2e2a", muted: "#636a62", accent: "#4d7059", rule: "#e2e1d9", mark: "#eee5c8" };
@@ -51,13 +53,16 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): st
 
 /** Draws the streak share card (design: ShareCard / ShareStory boards) and returns it as a PNG. */
 export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
-  const { w, h, top } = SIZES[input.size];
+  const { w, h, top, foot } = SIZES[input.size];
   const canvas = document.createElement("canvas");
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("no canvas");
-  await document.fonts?.ready;
+  // fonts.ready only covers faces the page already uses; the card's italic verse may not be one of them.
+  await Promise.all(
+    [`italic 400 40px ${SERIF}`, `600 230px ${SERIF}`, `500 34px ${SANS}`, `400 46px ${SANS}`].map((f) => document.fonts?.load(f)),
+  );
   const flame = await loadImage(flameDataUrl(input.flame, "lit"));
 
   ctx.fillStyle = C.paper;
@@ -94,7 +99,7 @@ export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
 
   ctx.fillStyle = C.ink;
   const verseTop = top + 1150 + (input.size === "story" ? 80 : 0);
-  // Two lines fit above the post card's footer; a longer verse sets smaller rather than run into it.
+  // Two lines fit above the footer; a longer verse sets smaller rather than run into it.
   let verse: string[] = [];
   for (const px of [40, 36, 32]) {
     ctx.font = `italic 400 ${px}px ${SERIF}`;
@@ -108,10 +113,10 @@ export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
 
   ctx.font = `400 30px ${SANS}`;
   ctx.textAlign = "left";
-  ctx.fillText(input.date, 80, h - 70);
+  ctx.fillText(input.date, 80, h - foot);
   ctx.textAlign = "right";
   ctx.fillStyle = C.accent;
-  ctx.fillText("moingaymotdoan.xyz", w - 80, h - 70);
+  ctx.fillText("moingaymotdoan.xyz", w - 80, h - foot);
 
   return new Promise((resolve, reject) =>
     canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("toBlob failed"))), "image/png"),
