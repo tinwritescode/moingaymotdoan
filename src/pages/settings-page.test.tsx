@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { cleanup, fireEvent, render } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
@@ -6,6 +6,7 @@ import { LocaleProvider } from "../components/locale-context";
 import { PreferencesProvider } from "../components/preferences-context";
 import { READING_FONTS } from "../lib/preferences";
 import { SettingsPage } from "./settings-page";
+import { expectNoSolidWarnings } from "../components/diagnostics-fixtures";
 
 beforeEach(() => {
   window.localStorage.clear();
@@ -59,7 +60,7 @@ describe("<SettingsPage />", () => {
       },
       { scenario: "settings-page-vi" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 
   test("renders English copy and links back to /tuy-chinh", async () => {
@@ -81,6 +82,6 @@ describe("<SettingsPage />", () => {
       },
       { scenario: "settings-page-en" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 });

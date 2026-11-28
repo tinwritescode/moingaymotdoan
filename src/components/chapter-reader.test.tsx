@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { fireEvent, render } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { describe, expect, test } from "vitest";
@@ -7,6 +7,7 @@ import { BOOKS } from "../../lib/content/books";
 import { ChapterReader } from "./chapter-reader";
 import { LocaleProvider } from "./locale-context";
 import { BOOKS_EN } from "../../lib/content/books";
+import { expectNoSolidWarnings } from "./diagnostics-fixtures";
 
 const [GEN, EXO] = BOOKS;
 const verse = (number: number) => ({ number, text: `Câu ${number}.` });
@@ -63,7 +64,7 @@ describe("<ChapterReader />", () => {
       },
       { scenario: "inline-verses-toggle" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 
   test("a chỗ dẫn into another chapter opens a popover instead", () => {
@@ -123,6 +124,6 @@ describe("<ChapterReader />", () => {
       },
       { scenario: "en-inline-verses-toggle" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 });

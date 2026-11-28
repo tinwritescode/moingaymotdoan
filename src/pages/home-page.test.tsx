@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { fireEvent, render } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { beforeEach, expect, test } from "vitest";
@@ -7,6 +7,7 @@ import { createHistoryEngine } from "../../lib/history/engine";
 import { createMemoryLocalHistoryStore } from "../../lib/history/memory-adapters";
 import { HistoryProvider } from "../components/history-context";
 import { BookIndex } from "./home-page";
+import { expectNoSolidWarnings } from "../components/diagnostics-fixtures";
 
 beforeEach(() => {
   Element.prototype.scrollIntoView = () => {};
@@ -52,7 +53,7 @@ test("books sit under their group, and a tile opens only its own chapters", asyn
     },
     { scenario: "home-book-index" },
   );
-  expectNoDiagnostics(artifact);
+  expectNoSolidWarnings(artifact);
 });
 
 test("a /#<book> link opens that book", () => {

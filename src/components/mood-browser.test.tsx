@@ -1,9 +1,10 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { fireEvent, render } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { describe, expect, test } from "vitest";
 import type { MoodIndex } from "../../lib/moods/types";
 import { MoodBrowser } from "./mood-browser";
+import { expectNoSolidWarnings } from "./diagnostics-fixtures";
 
 const SAMPLE: MoodIndex = {
   groups: [
@@ -73,7 +74,7 @@ describe("<MoodBrowser />", () => {
       },
       { scenario: "mood-browser-filter" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 
   test("giữ từ khóa và nhóm trên URL để bấm quay lại không mất bộ lọc", async () => {
@@ -93,7 +94,7 @@ describe("<MoodBrowser />", () => {
       },
       { scenario: "mood-browser-url" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
     window.history.replaceState(null, "", "/");
   });
 });

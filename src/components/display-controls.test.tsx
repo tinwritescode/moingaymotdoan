@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { fireEvent, render, within } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
@@ -14,6 +14,7 @@ import {
 import { DisplayMenu, ThemeToggle } from "./display-controls";
 import { LocaleProvider } from "./locale-context";
 import { PreferencesProvider, usePreferences } from "./preferences-context";
+import { expectNoSolidWarnings } from "./diagnostics-fixtures";
 
 function openPopover(trigger: HTMLElement): HTMLElement {
   const id = trigger.getAttribute("popovertarget");
@@ -116,7 +117,7 @@ describe("<ThemeToggle /> & <DisplayMenu />", () => {
       },
       { scenario: "display-controls-theme-and-font" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 
   test("khôi phục tùy chọn đã lưu và chạy init script trước khi vẽ", () => {
@@ -154,6 +155,6 @@ describe("<ThemeToggle /> & <DisplayMenu />", () => {
       },
       { scenario: "en-display-controls" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 });

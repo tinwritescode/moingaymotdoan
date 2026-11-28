@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { cleanup, fireEvent, render, screen } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -7,6 +7,7 @@ import { CONTACT_EMAIL, CONTACT_FACEBOOK, CONTACT_INSTAGRAM, CONTACT_ZALO } from
 import { LocaleProvider } from "../components/locale-context";
 import { ContactPage } from "./contact-page";
 import { LegalPage } from "./legal-page";
+import { expectNoSolidWarnings } from "../components/diagnostics-fixtures";
 
 afterEach(cleanup);
 
@@ -44,7 +45,7 @@ describe("ContactPage", () => {
       { scenario: "contact-page-vi" },
     );
 
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 
   it("renders localized English copy and links", () => {

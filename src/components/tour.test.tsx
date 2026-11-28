@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { cleanup, fireEvent, render } from "@solidjs/testing-library";
 import { createRouter } from "@solidjs/router";
 import { createMemo, flush, Loading, Show } from "solid-js";
@@ -8,6 +8,7 @@ import { createMemoryLocalHistoryStore } from "../../lib/history/memory-adapters
 import { TOUR_STORAGE_KEY } from "../lib/tour";
 import { HistoryProvider } from "./history-context";
 import { ChapterTour, WelcomeSheet } from "./tour";
+import { expectNoSolidWarnings } from "./diagnostics-fixtures";
 
 beforeEach(() => {
   localStorage.clear();
@@ -111,7 +112,7 @@ describe("<ChapterTour />", () => {
       },
       { scenario: "chapter-tour" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 
   test("starts when an in-app link leads to the chapter with ?tour", async () => {

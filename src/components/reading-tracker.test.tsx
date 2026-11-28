@@ -1,4 +1,4 @@
-import { captureArtifact, expectNoDiagnostics } from "@solidjs/diagnostics";
+import { captureArtifact } from "@solidjs/diagnostics";
 import { fireEvent, render } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
@@ -13,6 +13,7 @@ import { ChapterReader } from "./chapter-reader";
 import { HistoryProvider } from "./history-context";
 import { ChapterProgressBar } from "./reading-tracker";
 import { historyOf, renderStreakAt } from "./streak-fixtures";
+import { expectNoSolidWarnings } from "./diagnostics-fixtures";
 
 const [GEN] = BOOKS;
 const VIEW: ChapterView = {
@@ -100,7 +101,7 @@ describe("HistoryProvider + ChapterProgressBar + ChapterVisitRecorder", () => {
       },
       { scenario: "history-provider-chapter-reader" },
     );
-    expectNoDiagnostics(artifact);
+    expectNoSolidWarnings(artifact);
   });
 });
 
