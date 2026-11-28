@@ -92,7 +92,7 @@ Many readers — especially new believers and busy young adults — want to buil
 | **Styling & Typography** | [Tailwind CSS v4](https://tailwindcss.com/), Google Fonts (`Lexend` + `Source Serif 4`) |
 | **Build & Static Delivery** | Vite 8 + custom static prerenderer (`scripts/prerender.mjs` generating **2,591 static files** + `404.html`), hosted on Vercel |
 | **Authentication (Optional)** | [WorkOS AuthKit](https://workos.com/) (`@workos-inc/authkit-js`, PKCE SPA + RS256 JWKS verification) |
-| **History API & DB (Optional)** | [Neon Functions](https://neon.tech/) (Hono + `jose`) backed by Lakebase Postgres (`db/schema.sql`) |
+| **History API & DB (Optional)** | [Neon Functions](https://neon.tech/) (Hono + `jose`) backed by Lakebase Postgres through Prisma (`prisma/schema.prisma`) |
 | **EPUB Generator** | Zero-dependency TypeScript EPUB 3/NCX builder (`lib/ebook/epub.ts`), built during prerender |
 | **Testing & Quality** | Vitest (`@solidjs/testing-library` + `@solidjs/diagnostics`), TypeScript, Oxlint (`eslint-plugin-solid`) |
 
@@ -111,7 +111,7 @@ Many readers — especially new believers and busy young adults — want to buil
 │   ├── components/         # UI components (ChapterReader, FloatingDock, ProgressRing, MoodBrowser, Seo...)
 │   └── lib/                # WorkOS client (auth.ts) & local/cloud history store (history-store.ts)
 ├── functions/history/      # Neon Function (Hono API) for authenticated cloud reading history
-├── db/schema.sql           # Postgres schema for reading_progress and reading_logs
+├── prisma/                 # Prisma schema, migrations and typed SQL for the history API
 ├── public/                 # Favicon, 1200×630 og-image.png, robots.txt
 └── scripts/                # Static prerenderer, Bible importer, DB migration script
 ```
@@ -154,7 +154,7 @@ cp .env.example .env.local
 ```
 
 1. **WorkOS AuthKit**: Create an app in the [WorkOS Dashboard](https://dashboard.workos.com/), enable AuthKit (PKCE / Public Client), register your Redirect URI (`/tai-khoan`) and CORS origin, then set `VITE_WORKOS_CLIENT_ID` (and `WORKOS_CLIENT_ID`).
-2. **Neon Postgres & Function**: Create a project on [Neon](https://neon.tech/), set `DATABASE_URL` in `.env.local`, run `pnpm db:migrate` to apply [`db/schema.sql`](./db/schema.sql), add your domain to `ALLOWED_ORIGINS` in [`functions/history/index.ts`](./functions/history/index.ts), deploy via `neon deploy --env .env.local`, and set `VITE_HISTORY_API_URL`.
+2. **Neon Postgres & Function**: Create a project on [Neon](https://neon.tech/), set `DATABASE_URL` in `.env.local`, run `pnpm db:migrate` to apply the [Prisma migrations](./prisma/migrations) (on an existing database made before Prisma, run `pnpm prisma migrate resolve --applied 0_init` first), add your domain to `ALLOWED_ORIGINS` in [`functions/history/index.ts`](./functions/history/index.ts), deploy via `neon deploy --env .env.local`, and set `VITE_HISTORY_API_URL`.
 
 ---
 

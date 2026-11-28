@@ -1,3 +1,6 @@
 allowBuilds:
   # postinstall only prints a funding banner.
   core-js: false
+  # Prisma 7 runs migrate and generate without these postinstall downloads.
+  prisma: false
+  "@prisma/engines": false

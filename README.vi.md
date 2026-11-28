@@ -92,7 +92,7 @@ Nhiều anh chị em — nhất là người mới tin Chúa hoặc bận rộn 
 | **Styling & Typography** | [Tailwind CSS v4](https://tailwindcss.com/), Google Fonts (`Lexend` + `Source Serif 4`) |
 | **Build & Static Hosting** | Vite 8 + prerender toàn bộ **2.591 tệp tĩnh** + `404.html` (`scripts/prerender.mjs`), triển khai trên Vercel |
 | **Xác thực (tùy chọn)** | [WorkOS AuthKit](https://workos.com/) (`@workos-inc/authkit-js`, PKCE SPA + xác thực JWT RS256 qua JWKS) |
-| **API & Cơ sở dữ liệu (tùy chọn)** | [Neon Functions](https://neon.tech/) (Hono + `jose`) kết nối Lakebase Postgres (`db/schema.sql`) |
+| **API & Cơ sở dữ liệu (tùy chọn)** | [Neon Functions](https://neon.tech/) (Hono + `jose`) kết nối Lakebase Postgres qua Prisma (`prisma/schema.prisma`) |
 | **Ebook Generator** | Bộ tạo EPUB 3/NCX thuần TypeScript (`lib/ebook/epub.ts`), sinh sẵn trong bước prerender |
 | **Kiểm thử & Chất lượng** | Vitest (`@solidjs/testing-library` + `@solidjs/diagnostics`), TypeScript, Oxlint (`eslint-plugin-solid`) |
 
@@ -111,7 +111,7 @@ Nhiều anh chị em — nhất là người mới tin Chúa hoặc bận rộn 
 │   ├── components/         # UI components (ChapterReader, FloatingDock, ProgressRing, MoodBrowser, Seo...)
 │   └── lib/                # WorkOS client (auth.ts) & store lịch sử đọc (history-store.ts)
 ├── functions/history/      # Neon Function (Hono API) lưu và đồng bộ lịch sử đọc trên Postgres
-├── db/schema.sql           # Schema bảng reading_progress và reading_logs
+├── prisma/                 # Schema Prisma, migration và SQL có kiểu cho API lịch sử
 ├── public/                 # Favicon, og-image.png (1200×630), robots.txt
 └── scripts/                # Prerender tĩnh, import Kinh Thánh, migrate database
 ```
@@ -154,7 +154,7 @@ cp .env.example .env.local
 ```
 
 1. **WorkOS AuthKit**: Tạo ứng dụng trên [WorkOS Dashboard](https://dashboard.workos.com/), bật AuthKit (PKCE / Public Client), khai báo Redirect URI (`/tai-khoan`) và CORS Origin cho tên miền của bạn, rồi điền `VITE_WORKOS_CLIENT_ID` (và `WORKOS_CLIENT_ID`).
-2. **Neon Postgres & Function**: Tạo dự án trên [Neon](https://neon.tech/), điền `DATABASE_URL` vào `.env.local`, chạy `pnpm db:migrate` để áp dụng [`db/schema.sql`](./db/schema.sql), cập nhật `ALLOWED_ORIGINS` trong [`functions/history/index.ts`](./functions/history/index.ts), triển khai bằng `neon deploy --env .env.local` và điền URL vào `VITE_HISTORY_API_URL`.
+2. **Neon Postgres & Function**: Tạo dự án trên [Neon](https://neon.tech/), điền `DATABASE_URL` vào `.env.local`, chạy `pnpm db:migrate` để áp dụng [các migration Prisma](./prisma/migrations) (với cơ sở dữ liệu có từ trước Prisma, chạy `pnpm prisma migrate resolve --applied 0_init` trước), cập nhật `ALLOWED_ORIGINS` trong [`functions/history/index.ts`](./functions/history/index.ts), triển khai bằng `neon deploy --env .env.local` và điền URL vào `VITE_HISTORY_API_URL`.
 
 ---
 

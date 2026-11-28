@@ -17,7 +17,8 @@
     "lint": "oxlint src lib",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "db:migrate": "node --env-file=.env.local scripts/db-migrate.mjs",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate --sql",
     "import-bible": "node scripts/import-bible.mjs",
     "import-bible:en": "node scripts/import-bible-en.mjs",
     "mood:review": "MOOD_REVIEW_OUT=${MOOD_REVIEW_OUT:-mood-review.md} vitest run lib/moods/review.export.test.ts"
@@ -25,6 +26,8 @@
   "dependencies": {
     "@neon/config": "^1.14.6",
     "@neon/functions": "^0.11.0",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
     "@solidjs/meta": "2.0.0",
     "@solidjs/router": "2.0.1",
     "@solidjs/web": "2.0.3",
@@ -49,6 +52,7 @@
     "filesystem-routing": "0.5.0",
     "jsdom": "31.0.1",
     "oxlint": "1.94.0",
+    "prisma": "7.10.1",
     "svgpath": "^2.6.0",
     "tailwindcss": "4.3.3",
     "typescript": "^5",

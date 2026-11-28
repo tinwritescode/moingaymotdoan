@@ -1,0 +1,78 @@
+// Source of truth for the history function's tables. Names map to the snake_case tables that
+// already hold production data. CHECK constraints live in the migrations (Prisma cannot model them).
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../functions/history/generated/prisma"
+  previewFeatures = ["typedSql"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// kind IN ('chapter', 'mood'): CHECK in the migration.
+model ReadingProgress {
+  userId      String    @map("user_id")
+  kind        String
+  itemKey     String    @map("item_key")
+  bookSlug    String?   @map("book_slug")
+  chapter     Int?
+  title       String
+  subtitle    String
+  firstReadAt DateTime  @default(now()) @map("first_read_at") @db.Timestamptz(6)
+  lastReadAt  DateTime  @default(now()) @map("last_read_at") @db.Timestamptz(6)
+  readCount   Int       @default(1) @map("read_count")
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at") @db.Timestamptz(6)
+
+  @@id([userId, kind, itemKey])
+  @@index([userId, lastReadAt(sort: Desc)], map: "reading_progress_user_last_read_idx")
+  @@map("reading_progress")
+}
+
+/// kind IN ('chapter', 'mood'): CHECK in the migration. readDate is the reader's local day.
+model ReadingLog {
+  id       BigInt   @id @default(autoincrement())
+  userId   String   @map("user_id")
+  kind     String
+  itemKey  String   @map("item_key")
+  bookSlug String?  @map("book_slug")
+  chapter  Int?
+  title    String
+  subtitle String
+  readDate DateTime @map("read_date") @db.Date
+  readAt   DateTime @default(now()) @map("read_at") @db.Timestamptz(6)
+
+  @@unique([userId, kind, itemKey, readDate], map: "reading_logs_user_id_kind_item_key_read_date_key")
+  @@index([userId, readDate(sort: Desc), readAt(sort: Desc)], map: "reading_logs_user_date_idx")
+  @@map("reading_logs")
+}
+
+/// A device subscribed to reading reminders. remind_hour 6–23, locale vi|en, streak ≥ 0: CHECKs in the migration.
+model PushSubscription {
+  endpoint     String    @id
+  p256dh       String
+  auth         String
+  tz           String
+  remindHour   Int       @map("remind_hour")
+  locale       String
+  lastReadDate DateTime? @map("last_read_date") @db.Date
+  streak       Int       @default(0)
+  lastSentDate DateTime? @map("last_sent_date") @db.Date
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("push_subscriptions")
+}
+
+/// Rest days, restart and reminder hour of one reader's streak. remind_hour 6–23: CHECK in the migration.
+model StreakMark {
+  userId      String     @id @map("user_id")
+  restDays    DateTime[] @default([]) @map("rest_days") @db.Date
+  restartedOn DateTime?  @map("restarted_on") @db.Date
+  remindHour  Int        @default(21) @map("remind_hour")
+  updatedAt   DateTime   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("streak_marks")
+}
