@@ -11,14 +11,14 @@ export function FloatingDock(props: { active?: DockSection }) {
   const { locale, t } = useLocale();
 
   const itemClass = (key: DockSection) => [
-    "relative flex min-w-[3.75rem] flex-col items-center gap-0.5 rounded-full px-2 py-1.5 font-sans text-[11px] font-medium whitespace-nowrap transition-[color,background-color,transform] duration-150 ease-[var(--ease-quiet)] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100 sm:min-w-[4.25rem] sm:px-3",
+    "relative flex min-w-0 shrink flex-col items-center gap-0.5 rounded-full px-2 py-1.5 font-sans text-[10.5px] font-medium whitespace-nowrap transition-[color,background-color,transform] duration-150 ease-[var(--ease-quiet)] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100 sm:min-w-[4.25rem] sm:px-3 sm:text-[11px]",
     props.active === key ? "bg-side text-accent" : "text-muted hover:text-ink",
   ];
 
   return (
     <nav
       aria-label={t().dock.navLabel}
-      class="fixed bottom-3.5 left-1/2 z-30 flex w-max max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-1 rounded-full border border-rule bg-card/88 p-1.5 shadow-lg backdrop-blur-md"
+      class="fixed bottom-3.5 left-1/2 z-30 flex w-[calc(100vw-1rem)] max-w-[26rem] -translate-x-1/2 items-center justify-around gap-0.5 rounded-full border border-rule bg-card/88 p-1 shadow-lg backdrop-blur-md sm:w-max sm:max-w-[calc(100vw-1.5rem)] sm:gap-1 sm:p-1.5"
     >
       <a href={homeHref(locale())} aria-current={props.active === "home" ? "page" : undefined} class={itemClass("home")}>
         <svg

@@ -249,7 +249,7 @@ export function WorshipBrowser(props: WorshipBrowserProps) {
   };
 
   return (
-    <main class="mx-auto w-full max-w-[60rem] animate-reveal px-4 pt-5 pb-14 sm:px-5 motion-reduce:animate-none">
+    <main class="mx-auto w-full max-w-[60rem] animate-reveal overflow-x-clip px-4 pt-5 pb-14 sm:px-5 motion-reduce:animate-none">
       <header>
         <p class="font-sans text-xs font-medium text-accent">{t().worship.kicker}</p>
         <h1 class="mt-1 font-display text-3xl leading-tight font-light tracking-tight text-ink sm:text-[2.15rem]">
@@ -709,12 +709,12 @@ function ThanhCaSection(props: {
         </For>
       </div>
 
-      <div class="grid gap-4 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-start">
+      <div class="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-start">
         {/* Sidebar song list */}
         <aside
           aria-label={t().worship.songListHeading}
           class={[
-            "rounded-3xl border border-rule bg-card p-3 lg:sticky lg:top-[4.5rem] lg:flex lg:max-h-[calc(100dvh-7.5rem)] lg:flex-col",
+            "min-w-0 rounded-3xl border border-rule bg-card p-3 lg:sticky lg:top-[4.5rem] lg:flex lg:max-h-[calc(100dvh-7.5rem)] lg:flex-col",
             props.mobileView === "detail" && "hidden lg:flex",
           ]}
         >
@@ -745,9 +745,9 @@ function ThanhCaSection(props: {
                           : "border-transparent bg-paper/60 hover:border-rule hover:bg-paper",
                       ]}
                     >
-                      <div class="flex items-baseline gap-2">
+                      <div class="flex min-w-0 items-baseline gap-2">
                         <span class="shrink-0 font-sans text-xs font-semibold text-accent">#{song.number}</span>
-                        <span class="truncate font-serif text-[15px] font-medium text-ink">{song.title}</span>
+                        <span class="min-w-0 truncate font-serif text-[15px] font-medium text-ink">{song.title}</span>
                       </div>
                       <p class="mt-0.5 truncate font-sans text-xs text-muted">
                         {firstLyricLine(song.stanzas) || song.category}
@@ -770,10 +770,10 @@ function ThanhCaSection(props: {
         </aside>
 
         {/* Detail reader */}
-        <section class={props.mobileView === "list" ? "hidden lg:block" : "block"}>
+        <section class={["min-w-0", props.mobileView === "list" ? "hidden lg:block" : "block"]}>
           <Show when={currentSong()}>
             {(song) => (
-              <article class="rounded-3xl border border-rule bg-card p-5 sm:p-6">
+              <article class="min-w-0 rounded-3xl border border-rule bg-card p-4 sm:p-6">
                 <button
                   type="button"
                   onClick={() => props.onBackToList()}
@@ -930,15 +930,15 @@ function ThanhCaSection(props: {
                 </div>
 
                 {/* Prev / Next */}
-                <div class="mt-6 flex items-center justify-between gap-2 border-t border-rule pt-4 font-sans text-xs">
+                <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-4 font-sans text-xs">
                   <Show when={adjacent().prev} fallback={<span />}>
                     {(prev) => (
                       <button
                         type="button"
                         onClick={() => props.onSelect(prev().number)}
-                        class="inline-flex min-h-10 cursor-pointer items-center rounded-full border border-rule bg-paper px-3.5 text-muted hover:border-accent hover:text-accent"
+                        class="inline-flex min-h-10 max-w-full min-w-0 cursor-pointer items-center rounded-full border border-rule bg-paper px-3.5 text-muted hover:border-accent hover:text-accent"
                       >
-                        ← #{prev().number} {prev().title}
+                        <span class="truncate">← #{prev().number} {prev().title}</span>
                       </button>
                     )}
                   </Show>
@@ -947,9 +947,9 @@ function ThanhCaSection(props: {
                       <button
                         type="button"
                         onClick={() => props.onSelect(next().number)}
-                        class="inline-flex min-h-10 cursor-pointer items-center rounded-full bg-side px-3.5 font-medium text-accent hover:bg-accent hover:text-paper"
+                        class="inline-flex min-h-10 max-w-full min-w-0 cursor-pointer items-center rounded-full bg-side px-3.5 font-medium text-accent hover:bg-accent hover:text-paper"
                       >
-                        #{next().number} {next().title} →
+                        <span class="truncate">#{next().number} {next().title} →</span>
                       </button>
                     )}
                   </Show>
@@ -1011,11 +1011,11 @@ function TvchhSection(props: {
   const visibleList = createMemo(() => filtered().slice(0, props.listLimit));
 
   return (
-    <div class="grid gap-4 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-start">
+    <div class="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-start">
       <aside
         aria-label={t().worship.songListHeading}
         class={[
-          "rounded-3xl border border-rule bg-card p-3 lg:sticky lg:top-[4.5rem] lg:flex lg:max-h-[calc(100dvh-7.5rem)] lg:flex-col",
+          "min-w-0 rounded-3xl border border-rule bg-card p-3 lg:sticky lg:top-[4.5rem] lg:flex lg:max-h-[calc(100dvh-7.5rem)] lg:flex-col",
           props.mobileView === "detail" && "hidden lg:flex",
         ]}
       >
@@ -1046,9 +1046,9 @@ function TvchhSection(props: {
                         : "border-transparent bg-paper/60 hover:border-rule hover:bg-paper",
                     ]}
                   >
-                    <div class="flex items-baseline gap-2">
+                    <div class="flex min-w-0 items-baseline gap-2">
                       <span class="shrink-0 font-sans text-xs font-semibold text-accent">#{song.number}</span>
-                      <span class="truncate font-serif text-[15px] font-medium text-ink">{song.title}</span>
+                      <span class="min-w-0 truncate font-serif text-[15px] font-medium text-ink">{song.title}</span>
                     </div>
                     <p class="mt-0.5 truncate font-sans text-xs text-muted">{firstLyricLine(song.stanzas)}</p>
                   </button>
@@ -1068,10 +1068,10 @@ function TvchhSection(props: {
         </div>
       </aside>
 
-      <section class={props.mobileView === "list" ? "hidden lg:block" : "block"}>
+      <section class={["min-w-0", props.mobileView === "list" ? "hidden lg:block" : "block"]}>
         <Show when={currentSong()}>
           {(song) => (
-            <article class="rounded-3xl border border-rule bg-card p-5 sm:p-6">
+            <article class="min-w-0 rounded-3xl border border-rule bg-card p-4 sm:p-6">
               <button
                 type="button"
                 onClick={() => props.onBackToList()}
@@ -1181,15 +1181,15 @@ function TvchhSection(props: {
                 </For>
               </div>
 
-              <div class="mt-6 flex items-center justify-between gap-2 border-t border-rule pt-4 font-sans text-xs">
+              <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-4 font-sans text-xs">
                 <Show when={adjacent().prev} fallback={<span />}>
                   {(prev) => (
                     <button
                       type="button"
                       onClick={() => props.onSelect(prev().number)}
-                      class="inline-flex min-h-10 cursor-pointer items-center rounded-full border border-rule bg-paper px-3.5 text-muted hover:border-accent hover:text-accent"
+                      class="inline-flex min-h-10 max-w-full min-w-0 cursor-pointer items-center rounded-full border border-rule bg-paper px-3.5 text-muted hover:border-accent hover:text-accent"
                     >
-                      ← #{prev().number} {prev().title}
+                      <span class="truncate">← #{prev().number} {prev().title}</span>
                     </button>
                   )}
                 </Show>
@@ -1198,9 +1198,9 @@ function TvchhSection(props: {
                     <button
                       type="button"
                       onClick={() => props.onSelect(next().number)}
-                      class="inline-flex min-h-10 cursor-pointer items-center rounded-full bg-side px-3.5 font-medium text-accent hover:bg-accent hover:text-paper"
+                      class="inline-flex min-h-10 max-w-full min-w-0 cursor-pointer items-center rounded-full bg-side px-3.5 font-medium text-accent hover:bg-accent hover:text-paper"
                     >
-                      #{next().number} {next().title} →
+                      <span class="truncate">#{next().number} {next().title} →</span>
                     </button>
                   )}
                 </Show>
@@ -1293,11 +1293,11 @@ function KtddSection(props: {
         </For>
       </div>
 
-      <div class="grid gap-4 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-start">
+      <div class="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-start">
         <aside
           aria-label={t().worship.songListHeading}
           class={[
-            "rounded-3xl border border-rule bg-card p-3 lg:sticky lg:top-[4.5rem] lg:flex lg:max-h-[calc(100dvh-7.5rem)] lg:flex-col",
+            "min-w-0 rounded-3xl border border-rule bg-card p-3 lg:sticky lg:top-[4.5rem] lg:flex lg:max-h-[calc(100dvh-7.5rem)] lg:flex-col",
             props.mobileView === "detail" && "hidden lg:flex",
           ]}
         >
@@ -1328,9 +1328,9 @@ function KtddSection(props: {
                           : "border-transparent bg-paper/60 hover:border-rule hover:bg-paper",
                       ]}
                     >
-                      <div class="flex items-baseline gap-2">
+                      <div class="flex min-w-0 items-baseline gap-2">
                         <span class="shrink-0 font-sans text-xs font-semibold text-accent">#{item.code}</span>
-                        <span class="truncate font-serif text-[15px] font-medium text-ink">{item.title}</span>
+                        <span class="min-w-0 truncate font-serif text-[15px] font-medium text-ink">{item.title}</span>
                       </div>
                       <p class="mt-0.5 truncate font-sans text-xs text-muted">{item.scriptureRefs.join(" · ")}</p>
                     </button>
@@ -1341,10 +1341,10 @@ function KtddSection(props: {
           </div>
         </aside>
 
-        <section class={props.mobileView === "list" ? "hidden lg:block" : "block"}>
+        <section class={["min-w-0", props.mobileView === "list" ? "hidden lg:block" : "block"]}>
           <Show when={currentReading()}>
             {(reading) => (
-              <article class="rounded-3xl border border-rule bg-card p-5 sm:p-6">
+              <article class="min-w-0 rounded-3xl border border-rule bg-card p-4 sm:p-6">
                 <button
                   type="button"
                   onClick={() => props.onBackToList()}
@@ -1439,15 +1439,15 @@ function KtddSection(props: {
                   </For>
                 </ol>
 
-                <div class="mt-6 flex items-center justify-between gap-2 border-t border-rule pt-4 font-sans text-xs">
+                <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-4 font-sans text-xs">
                   <Show when={adjacent().prev} fallback={<span />}>
                     {(prev) => (
                       <button
                         type="button"
                         onClick={() => props.onSelect(prev().number)}
-                        class="inline-flex min-h-10 cursor-pointer items-center rounded-full border border-rule bg-paper px-3.5 text-muted hover:border-accent hover:text-accent"
+                        class="inline-flex min-h-10 max-w-full min-w-0 cursor-pointer items-center rounded-full border border-rule bg-paper px-3.5 text-muted hover:border-accent hover:text-accent"
                       >
-                        ← #{prev().code} {prev().title}
+                        <span class="truncate">← #{prev().code} {prev().title}</span>
                       </button>
                     )}
                   </Show>
@@ -1456,9 +1456,9 @@ function KtddSection(props: {
                       <button
                         type="button"
                         onClick={() => props.onSelect(next().number)}
-                        class="inline-flex min-h-10 cursor-pointer items-center rounded-full bg-side px-3.5 font-medium text-accent hover:bg-accent hover:text-paper"
+                        class="inline-flex min-h-10 max-w-full min-w-0 cursor-pointer items-center rounded-full bg-side px-3.5 font-medium text-accent hover:bg-accent hover:text-paper"
                       >
-                        #{next().code} {next().title} →
+                        <span class="truncate">#{next().code} {next().title} →</span>
                       </button>
                     )}
                   </Show>
@@ -1540,12 +1540,12 @@ function TinDieuSection(props: {
         <h3 id="tin-khoan" class="font-display text-lg font-normal text-ink">
           {t().worship.creedClausesHeading(props.dataset.creed.clauses.length)}
         </h3>
-        <ol class="mt-3 grid gap-3 sm:grid-cols-2">
+        <ol class="mt-3 grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2">
           <For each={props.dataset.creed.clauses}>
             {(clause) => (
-              <li class="flex flex-col justify-between rounded-2xl border border-rule bg-card p-4">
+              <li class="flex min-w-0 flex-col justify-between rounded-2xl border border-rule bg-card p-4">
                 <div>
-                  <div class="flex items-center justify-between gap-2 font-sans text-xs">
+                  <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 font-sans text-xs">
                     <span class="font-semibold text-accent">
                       #{clause.order} · {clause.trinitySection}
                     </span>
@@ -1570,10 +1570,10 @@ function TinDieuSection(props: {
         <h3 id="giao-nghi" class="font-display text-lg font-normal text-ink">
           {t().worship.creedLiturgyHeading}
         </h3>
-        <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div class="mt-3 grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2">
           <For each={[props.dataset.liturgy.lordsPrayer, props.dataset.liturgy.benediction]}>
             {(item) => (
-              <article class="rounded-2xl border border-rule bg-card p-5">
+              <article class="min-w-0 rounded-2xl border border-rule bg-card p-5">
                 <div class="flex items-start justify-between gap-2">
                   <div>
                     <p class="font-sans text-xs font-medium text-accent">{item.performer}</p>
@@ -1663,7 +1663,7 @@ function ProgramSection(props: {
           <For each={props.items}>
             {(item, i) => (
               <li class="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-rule bg-paper/70 px-4 py-3">
-                <div class="flex min-w-0 items-baseline gap-2.5">
+                <div class="flex min-w-0 flex-1 items-baseline gap-2.5">
                   <span class="font-sans text-xs font-semibold text-muted">{i() + 1}.</span>
                   <span class="shrink-0 rounded-full bg-side px-2 py-0.5 font-sans text-[11px] font-semibold text-accent">
                     {item.code}
