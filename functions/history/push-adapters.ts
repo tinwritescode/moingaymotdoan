@@ -1,69 +1,64 @@
-import type { Pool } from "pg";
 import webpush from "web-push";
-import type { Locale } from "../../lib/i18n";
+import { isLocale, type Locale } from "../../lib/i18n";
 import type { PushRow, PushSender, PushStore } from "../../lib/streak/reminders";
+import type { PrismaClient } from "./generated/prisma/client";
+import { listDuePushSubscriptions } from "./generated/prisma/sql";
+import { fromDateKey, toDateKey } from "./postgres-repository";
 
-type PushDbRow = {
-  endpoint: string;
-  p256dh: string;
-  auth: string;
-  tz: string;
-  remind_hour: number;
-  locale: Locale;
-  last_read_date: string | null;
-  streak: number;
-  last_sent_date: string | null;
-};
+/** The database's CHECK allows only vi and en; anything else means a broken table, not bad input. */
+function toLocale(locale: string): Locale {
+  if (isLocale(locale)) return locale;
+  throw new Error(`Unknown locale in database: ${locale}`);
+}
 
-const toRow = (r: PushDbRow): PushRow => ({
-  endpoint: r.endpoint,
-  p256dh: r.p256dh,
-  auth: r.auth,
-  tz: r.tz,
-  remindHour: r.remind_hour,
-  locale: r.locale,
-  lastReadDate: r.last_read_date,
-  streak: r.streak,
-  lastSentDate: r.last_sent_date,
-});
+const dateOrNull = (key: string | null) => (key === null ? null : fromDateKey(key));
 
-export function createPostgresPushStore(pool: Pool): PushStore {
+/** Postgres implementation of the PushStore seam, through Prisma. */
+export function createPostgresPushStore(prisma: PrismaClient): PushStore {
   return {
     async upsert(row) {
-      await pool.query(
-        `INSERT INTO push_subscriptions (endpoint, p256dh, auth, tz, remind_hour, locale, last_read_date, streak)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-         ON CONFLICT (endpoint) DO UPDATE SET
-           p256dh = EXCLUDED.p256dh, auth = EXCLUDED.auth, tz = EXCLUDED.tz, remind_hour = EXCLUDED.remind_hour,
-           locale = EXCLUDED.locale, last_read_date = EXCLUDED.last_read_date, streak = EXCLUDED.streak, updated_at = now()`,
-        [row.endpoint, row.p256dh, row.auth, row.tz, row.remindHour, row.locale, row.lastReadDate, row.streak],
-      );
+      const fields = {
+        p256dh: row.p256dh,
+        auth: row.auth,
+        tz: row.tz,
+        remindHour: row.remindHour,
+        locale: row.locale,
+        lastReadDate: dateOrNull(row.lastReadDate),
+        streak: row.streak,
+      };
+      // lastSentDate is left out of `update`, so a re-subscribed device keeps today's claim.
+      await prisma.pushSubscription.upsert({
+        where: { endpoint: row.endpoint },
+        create: { endpoint: row.endpoint, ...fields },
+        update: fields,
+      });
     },
     async remove(endpoint) {
-      await pool.query("DELETE FROM push_subscriptions WHERE endpoint = $1", [endpoint]);
+      await prisma.pushSubscription.deleteMany({ where: { endpoint } });
     },
     async listDue(now, after, limit) {
-      const { rows } = await pool.query<PushDbRow>(
-        `SELECT endpoint, p256dh, auth, tz, remind_hour, locale,
-                to_char(last_read_date, 'YYYY-MM-DD') AS last_read_date, streak,
-                to_char(last_sent_date, 'YYYY-MM-DD') AS last_sent_date
-         FROM push_subscriptions
-         WHERE ($2::text IS NULL OR endpoint > $2)
-           AND last_sent_date IS DISTINCT FROM ($1::timestamptz AT TIME ZONE tz)::date
-           AND last_read_date IS DISTINCT FROM ($1::timestamptz AT TIME ZONE tz)::date
-         ORDER BY endpoint
-         LIMIT $3`,
-        [now.toISOString(), after, limit],
+      const rows = await prisma.$queryRawTyped(listDuePushSubscriptions(now, after, limit));
+      return rows.map(
+        (r): PushRow => ({
+          endpoint: r.endpoint,
+          p256dh: r.p256dh,
+          auth: r.auth,
+          tz: r.tz,
+          remindHour: r.remind_hour,
+          locale: toLocale(r.locale),
+          lastReadDate: r.last_read_date === null ? null : toDateKey(r.last_read_date),
+          streak: r.streak,
+          lastSentDate: r.last_sent_date === null ? null : toDateKey(r.last_sent_date),
+        }),
       );
-      return rows.map(toRow);
     },
     async claim(endpoint, date) {
-      const { rowCount } = await pool.query(
-        `UPDATE push_subscriptions SET last_sent_date = $2
-         WHERE endpoint = $1 AND last_sent_date IS DISTINCT FROM $2::date`,
-        [endpoint, date],
-      );
-      return rowCount === 1;
+      const day = fromDateKey(date);
+      const { count } = await prisma.pushSubscription.updateMany({
+        where: { endpoint, OR: [{ lastSentDate: null }, { lastSentDate: { not: day } }] },
+        data: { lastSentDate: day },
+      });
+      return count === 1;
     },
   };
 }

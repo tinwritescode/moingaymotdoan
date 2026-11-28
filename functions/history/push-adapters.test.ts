@@ -1,13 +1,14 @@
-import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "./generated/prisma/client";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { createPostgresPushStore } from "./push-adapters";
 
-// Runs against a real Postgres with db/schema.sql applied: TEST_DATABASE_URL=postgres://… pnpm test
+// Runs against a real Postgres with the Prisma migrations applied: TEST_DATABASE_URL=postgres://… pnpm test
 const url = process.env.TEST_DATABASE_URL;
 
 describe.skipIf(!url)("Postgres push store", () => {
-  const pool = new Pool({ connectionString: url });
-  const store = createPostgresPushStore(pool);
+  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: url }) });
+  const store = createPostgresPushStore(prisma);
   const row = {
     endpoint: "https://fcm.googleapis.com/fcm/send/pg-test",
     p256dh: "p256dh-key",
@@ -18,8 +19,8 @@ describe.skipIf(!url)("Postgres push store", () => {
     lastReadDate: "2026-11-28",
     streak: 23,
   };
-  beforeAll(() => pool.query("DELETE FROM push_subscriptions WHERE endpoint = $1", [row.endpoint]));
-  afterAll(() => pool.end());
+  beforeAll(() => prisma.pushSubscription.deleteMany({ where: { endpoint: row.endpoint } }));
+  afterAll(() => prisma.$disconnect());
 
   it("upserts, claims a day once, keeps the claim across upserts, and removes", async () => {
     await store.upsert(row);
@@ -38,9 +39,13 @@ describe.skipIf(!url)("Postgres push store", () => {
     expect((await store.listDue(new Date("2026-11-30T14:05:00Z"), null, 1000)).some((r) => r.endpoint === row.endpoint)).toBe(false);
   });
 
+  it("the database refuses a reminder hour outside 6–23", async () => {
+    await expect(store.upsert({ ...row, endpoint: `${row.endpoint}-bad-hour`, remindHour: 5 })).rejects.toThrow();
+  });
+
   it("lists due devices in pages after an endpoint, skipping a device read today", async () => {
     const at = (n: number) => `${row.endpoint}-page-${n}`;
-    await pool.query("DELETE FROM push_subscriptions WHERE endpoint LIKE $1", [`${row.endpoint}-page-%`]);
+    await prisma.pushSubscription.deleteMany({ where: { endpoint: { startsWith: `${row.endpoint}-page-` } } });
     for (const n of [1, 2, 3]) await store.upsert({ ...row, endpoint: at(n) });
     await store.upsert({ ...row, endpoint: at(4), lastReadDate: "2026-11-29" });
     const now = new Date("2026-11-29T14:05:00Z");
@@ -48,6 +53,6 @@ describe.skipIf(!url)("Postgres push store", () => {
     const first = await store.listDue(now, at(0), 2);
     expect(mine(first)).toEqual([at(1), at(2)]);
     expect(mine(await store.listDue(now, at(2), 1000))).toEqual([at(3)]);
-    await pool.query("DELETE FROM push_subscriptions WHERE endpoint LIKE $1", [`${row.endpoint}-page-%`]);
+    await prisma.pushSubscription.deleteMany({ where: { endpoint: { startsWith: `${row.endpoint}-page-` } } });
   });
 });

@@ -35,6 +35,6 @@ None.
 ## Impact
 
 - `functions/history/`: `postgres-repository.ts` and the store half of `push-adapters.ts` are replaced by Prisma adapters, and `index.ts` builds a `PrismaClient` on the attached Pool. The Web Push sender is unchanged.
-- New `prisma/` directory with `schema.prisma`, `migrations/` and `sql/`, plus `prisma.config.ts`. The generated client is written to a git-ignored folder and built by `prisma generate` before tests, typecheck and `neon deploy`.
-- `package.json`: the `db:migrate` script changes, and `prisma generate` runs on `postinstall`.
+- New `prisma/` directory with `schema.prisma`, `migrations/` and `sql/`, plus `prisma.config.ts`. The generated client is committed under `functions/history/generated/prisma`, because TypedSQL types come only from `prisma generate --sql` against a migrated database, which a fresh worktree or Vercel does not have.
+- `package.json`: `db:migrate` runs `prisma migrate deploy`; `db:generate` runs `prisma generate --sql` after a change to the schema or a `.sql` file.
 - Production: one manual step, `prisma migrate resolve --applied 0_init`, on the Neon `main` branch. Neon preview branches inherit the migration table from `main`.

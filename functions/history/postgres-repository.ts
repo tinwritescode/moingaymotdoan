@@ -1,4 +1,3 @@
-import type { Pool } from "pg";
 import { MAX_LOGS, MAX_PROGRESS } from "../../lib/history/contract";
 import type { HistoryRepository } from "../../lib/history/ports";
 import { mergeMarks, type StreakMarks } from "../../lib/streak/marks";
@@ -11,62 +10,101 @@ import {
   type VisitMutationResult,
   type VisitPayload,
 } from "../../lib/history/types";
+import type { PrismaClient } from "./generated/prisma/client";
+import { lockStreakMarks, setCompleted, syncLogs, syncProgress, upsertVisit } from "./generated/prisma/sql";
+
+/** A local day (YYYY-MM-DD) as Prisma stores a `@db.Date`: midnight UTC. */
+export const fromDateKey = (key: string): Date => new Date(`${key}T00:00:00.000Z`);
+/** A `@db.Date` back to its local day; UTC, so the server's time zone never shifts it. */
+export const toDateKey = (date: Date): string => date.toISOString().slice(0, 10);
+
+/** The database's CHECK allows only these; a wrong value means a broken table, not bad input. */
+function toKind(kind: string): HistoryKind {
+  if (kind === "chapter" || kind === "mood") return kind;
+  throw new Error(`Unknown history kind in database: ${kind}`);
+}
 
 type ProgressRow = {
-  kind: HistoryKind;
+  kind: string;
   item_key: string;
   book_slug: string | null;
   chapter: number | null;
   title: string;
   subtitle: string;
-  first_read_at: string;
-  last_read_at: string;
+  first_read_at: Date;
+  last_read_at: Date;
   read_count: number;
   completed: boolean;
-  completed_at: string | null;
-};
-
-type LogRow = {
-  id: string;
-  kind: HistoryKind;
-  item_key: string;
-  book_slug: string | null;
-  chapter: number | null;
-  title: string;
-  subtitle: string;
-  read_date: string;
-  read_at: string;
+  completed_at: Date | null;
 };
 
 function mapProgress(row: ProgressRow): ReadingProgress {
   return {
-    kind: row.kind,
+    kind: toKind(row.kind),
     itemKey: row.item_key,
     bookSlug: row.book_slug,
     chapter: row.chapter,
     title: row.title,
     subtitle: row.subtitle,
-    firstReadAt: row.first_read_at,
-    lastReadAt: row.last_read_at,
+    firstReadAt: row.first_read_at.toISOString(),
+    lastReadAt: row.last_read_at.toISOString(),
     readCount: row.read_count,
     completed: row.completed,
-    completedAt: row.completed_at,
+    completedAt: row.completed_at?.toISOString() ?? null,
   };
 }
 
-function mapLog(row: LogRow): ReadingLog {
-  return {
-    id: row.id,
-    kind: row.kind,
-    itemKey: row.item_key,
-    bookSlug: row.book_slug,
-    chapter: row.chapter,
-    title: row.title,
-    subtitle: row.subtitle,
-    readDate: row.read_date,
-    readAt: row.read_at,
-  };
-}
+type ProgressModel = {
+  kind: string;
+  itemKey: string;
+  bookSlug: string | null;
+  chapter: number | null;
+  title: string;
+  subtitle: string;
+  firstReadAt: Date;
+  lastReadAt: Date;
+  readCount: number;
+  completed: boolean;
+  completedAt: Date | null;
+};
+
+const progressFromModel = (p: ProgressModel): ReadingProgress => ({
+  kind: toKind(p.kind),
+  itemKey: p.itemKey,
+  bookSlug: p.bookSlug,
+  chapter: p.chapter,
+  title: p.title,
+  subtitle: p.subtitle,
+  readCount: p.readCount,
+  completed: p.completed,
+  firstReadAt: p.firstReadAt.toISOString(),
+  lastReadAt: p.lastReadAt.toISOString(),
+  completedAt: p.completedAt?.toISOString() ?? null,
+});
+
+type LogModel = {
+  id: bigint;
+  kind: string;
+  itemKey: string;
+  bookSlug: string | null;
+  chapter: number | null;
+  title: string;
+  subtitle: string;
+  readDate: Date;
+  readAt: Date;
+};
+
+const logFromModel = (l: LogModel): ReadingLog => ({
+  id: l.id.toString(),
+  kind: toKind(l.kind),
+  itemKey: l.itemKey,
+  bookSlug: l.bookSlug,
+  chapter: l.chapter,
+  title: l.title,
+  subtitle: l.subtitle,
+  readDate: toDateKey(l.readDate),
+  readAt: l.readAt.toISOString(),
+});
 
 type AggregatedProgress = {
   kind: HistoryKind;
@@ -164,79 +202,41 @@ export function aggregateSyncBatch(items: VisitPayload[], fallbackNowIso: string
   };
 }
 
-/** Postgres implementation of the HistoryRepository seam. */
-export function createPostgresHistoryRepository(pool: Pool): HistoryRepository {
-  const fetchUserHistory = async (userId: string): Promise<HistorySnapshot> => {
-    const [progressRes, logsRes] = await Promise.all([
-      pool.query<ProgressRow>(
-        `SELECT kind, item_key, book_slug, chapter, title, subtitle,
-                first_read_at, last_read_at, read_count, completed, completed_at
-         FROM reading_progress
-         WHERE user_id = $1
-         ORDER BY last_read_at DESC
-         LIMIT $2`,
-        [userId, MAX_PROGRESS],
-      ),
-      pool.query<LogRow>(
-        `SELECT id::text AS id, kind, item_key, book_slug, chapter, title, subtitle,
-                to_char(read_date, 'YYYY-MM-DD') AS read_date, read_at
-         FROM reading_logs
-         WHERE user_id = $1
-         ORDER BY read_date DESC, read_at DESC
-         LIMIT $2`,
-        [userId, MAX_LOGS],
-      ),
-    ]);
 
-    return {
-      progress: progressRes.rows.map(mapProgress),
-      logs: logsRes.rows.map(mapLog),
-    };
+const LOG_SELECT = {
+  id: true,
+  kind: true,
+  itemKey: true,
+  bookSlug: true,
+  chapter: true,
+  title: true,
+  subtitle: true,
+  readDate: true,
+  readAt: true,
+} as const;
+
+/** Postgres implementation of the HistoryRepository seam, through Prisma. */
+export function createPostgresHistoryRepository(prisma: PrismaClient): HistoryRepository {
+  const fetchUserHistory = async (userId: string): Promise<HistorySnapshot> => {
+    const [progress, logs] = await Promise.all([
+      prisma.readingProgress.findMany({ where: { userId }, orderBy: { lastReadAt: "desc" }, take: MAX_PROGRESS }),
+      prisma.readingLog.findMany({
+        where: { userId },
+        orderBy: [{ readDate: "desc" }, { readAt: "desc" }],
+        take: MAX_LOGS,
+        select: LOG_SELECT,
+      }),
+    ]);
+    return { progress: progress.map(progressFromModel), logs: logs.map(logFromModel) };
   };
 
-  const upsertVisit = async (
+  const upsertVisitRow = async (
     userId: string,
     item: VisitPayload,
     options: { isSync: boolean },
   ): Promise<VisitMutationResult> => {
-    const at = item.readAt ?? new Date().toISOString();
-    const completed = item.completed ?? false;
-    const incomingCount = Math.max(1, item.readCount ?? 1);
-
-    const { rows } = await pool.query<{ progress: ProgressRow; log: LogRow }>(
-      `WITH upserted_progress AS (
-         INSERT INTO reading_progress (
-           user_id, kind, item_key, book_slug, chapter, title, subtitle,
-           first_read_at, last_read_at, read_count, completed, completed_at
-         )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8::timestamptz, $8::timestamptz, $12, $9, CASE WHEN $9 THEN $8::timestamptz ELSE NULL END)
-         ON CONFLICT (user_id, kind, item_key) DO UPDATE SET
-           title = EXCLUDED.title,
-           subtitle = EXCLUDED.subtitle,
-           first_read_at = LEAST(reading_progress.first_read_at, EXCLUDED.first_read_at),
-           last_read_at = GREATEST(reading_progress.last_read_at, EXCLUDED.last_read_at),
-           read_count = CASE WHEN $10 THEN GREATEST(reading_progress.read_count, EXCLUDED.read_count) ELSE reading_progress.read_count + 1 END,
-           completed = reading_progress.completed OR EXCLUDED.completed,
-           completed_at = COALESCE(reading_progress.completed_at, EXCLUDED.completed_at)
-         RETURNING kind, item_key, book_slug, chapter, title, subtitle,
-                   first_read_at, last_read_at, read_count, completed, completed_at
-       ),
-       upserted_log AS (
-         INSERT INTO reading_logs (
-           user_id, kind, item_key, book_slug, chapter, title, subtitle, read_date, read_at
-         )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $11::date, $8::timestamptz)
-         ON CONFLICT (user_id, kind, item_key, read_date) DO UPDATE SET
-           title = EXCLUDED.title,
-           subtitle = EXCLUDED.subtitle,
-           read_at = GREATEST(reading_logs.read_at, EXCLUDED.read_at)
-         RETURNING id::text AS id, kind, item_key, book_slug, chapter, title, subtitle,
-                   to_char(read_date, 'YYYY-MM-DD') AS read_date, read_at
-       )
-       SELECT row_to_json(upserted_progress.*) AS progress,
-              row_to_json(upserted_log.*) AS log
-       FROM upserted_progress, upserted_log`,
-      [
+    const [row] = await prisma.$queryRawTyped(
+      upsertVisit(
         userId,
         item.kind,
         item.itemKey,
@@ -244,191 +244,113 @@ export function createPostgresHistoryRepository(pool: Pool): HistoryRepository {
         item.chapter ?? null,
         item.title,
         item.subtitle,
-        at,
-        completed,
+        new Date(item.readAt ?? Date.now()),
+        item.completed ?? false,
         options.isSync,
-        item.readDate,
-        incomingCount,
-      ],
+        fromDateKey(item.readDate),
+        Math.max(1, item.readCount ?? 1),
+      ),
     );
-
-    const row = rows[0];
     return {
-      progress: mapProgress(row.progress),
-      log: mapLog(row.log),
+      progress: mapProgress(row),
+      log: {
+        id: row.log_id.toString(),
+        kind: toKind(row.kind),
+        itemKey: row.item_key,
+        bookSlug: row.book_slug,
+        chapter: row.chapter,
+        title: row.log_title,
+        subtitle: row.log_subtitle,
+        readDate: toDateKey(row.read_date),
+        readAt: row.read_at.toISOString(),
+      },
     };
   };
 
   return {
     fetchUserHistory,
-    upsertVisit,
+    upsertVisit: upsertVisitRow,
     async setCompleted(userId, input) {
-      const { rows } = await pool.query<ProgressRow>(
-        `UPDATE reading_progress
-         SET completed = $4,
-             completed_at = CASE WHEN $4 THEN COALESCE(completed_at, now()) ELSE NULL END
-         WHERE user_id = $1 AND kind = $2 AND item_key = $3
-         RETURNING kind, item_key, book_slug, chapter, title, subtitle,
-                   first_read_at, last_read_at, read_count, completed, completed_at`,
-        [userId, input.kind, input.itemKey, input.completed],
-      );
-      if (rows.length > 0) return { progress: mapProgress(rows[0]) };
-
+      const [row] = await prisma.$queryRawTyped(setCompleted(userId, input.kind, input.itemKey, input.completed));
+      if (row) return { progress: mapProgress(row) };
       if (!input.fallbackVisit) return null;
-      const created = await upsertVisit(
-        userId,
-        { ...input.fallbackVisit, completed: input.completed },
-        { isSync: false },
-      );
+      const created = await upsertVisitRow(userId, { ...input.fallbackVisit, completed: input.completed }, { isSync: false });
       return { progress: created.progress };
     },
     async syncVisits(userId, items) {
       if (items.length === 0) return fetchUserHistory(userId);
       const batch = aggregateSyncBatch(items, new Date().toISOString());
-
-      const client = await pool.connect();
-      try {
-        await client.query("BEGIN");
-
-        if (batch.progress.length > 0) {
-          await client.query(
-            `INSERT INTO reading_progress (
-               user_id, kind, item_key, book_slug, chapter, title, subtitle,
-               first_read_at, last_read_at, read_count, completed, completed_at
-             )
-             SELECT
-               $1, u.kind, u.item_key, u.book_slug, u.chapter, u.title, u.subtitle,
-               u.first_read_at, u.last_read_at, u.read_count, u.completed, u.completed_at
-             FROM unnest(
-               $2::text[], $3::text[], $4::text[], $5::int[], $6::text[], $7::text[],
-               $8::timestamptz[], $9::timestamptz[], $10::int[], $11::boolean[], $12::timestamptz[]
-             ) AS u(
-               kind, item_key, book_slug, chapter, title, subtitle,
-               first_read_at, last_read_at, read_count, completed, completed_at
-             )
-             ON CONFLICT (user_id, kind, item_key) DO UPDATE SET
-               title = EXCLUDED.title,
-               subtitle = EXCLUDED.subtitle,
-               first_read_at = LEAST(reading_progress.first_read_at, EXCLUDED.first_read_at),
-               last_read_at = GREATEST(reading_progress.last_read_at, EXCLUDED.last_read_at),
-               read_count = GREATEST(reading_progress.read_count, EXCLUDED.read_count),
-               completed = reading_progress.completed OR EXCLUDED.completed,
-               completed_at = COALESCE(reading_progress.completed_at, EXCLUDED.completed_at)`,
-            [
-              userId,
-              batch.progress.map((p) => p.kind),
-              batch.progress.map((p) => p.itemKey),
-              batch.progress.map((p) => p.bookSlug),
-              batch.progress.map((p) => p.chapter),
-              batch.progress.map((p) => p.title),
-              batch.progress.map((p) => p.subtitle),
-              batch.progress.map((p) => p.firstReadAt),
-              batch.progress.map((p) => p.lastReadAt),
-              batch.progress.map((p) => p.readCount),
-              batch.progress.map((p) => p.completed),
-              batch.progress.map((p) => p.completedAt),
-            ],
-          );
-        }
-
-        if (batch.logs.length > 0) {
-          await client.query(
-            `INSERT INTO reading_logs (
-               user_id, kind, item_key, book_slug, chapter, title, subtitle, read_date, read_at
-             )
-             SELECT
-               $1, u.kind, u.item_key, u.book_slug, u.chapter, u.title, u.subtitle, u.read_date, u.read_at
-             FROM unnest(
-               $2::text[], $3::text[], $4::text[], $5::int[], $6::text[], $7::text[],
-               $8::date[], $9::timestamptz[]
-             ) AS u(
-               kind, item_key, book_slug, chapter, title, subtitle, read_date, read_at
-             )
-             ON CONFLICT (user_id, kind, item_key, read_date) DO UPDATE SET
-               title = EXCLUDED.title,
-               subtitle = EXCLUDED.subtitle,
-               read_at = GREATEST(reading_logs.read_at, EXCLUDED.read_at)`,
-            [
-              userId,
-              batch.logs.map((l) => l.kind),
-              batch.logs.map((l) => l.itemKey),
-              batch.logs.map((l) => l.bookSlug),
-              batch.logs.map((l) => l.chapter),
-              batch.logs.map((l) => l.title),
-              batch.logs.map((l) => l.subtitle),
-              batch.logs.map((l) => l.readDate),
-              batch.logs.map((l) => l.readAt),
-            ],
-          );
-        }
-
-        await client.query("COMMIT");
-      } catch (err) {
-        await client.query("ROLLBACK").catch(() => {});
-        throw err;
-      } finally {
-        client.release();
-      }
-
+      const progressRows = batch.progress.map((p) => ({
+        kind: p.kind,
+        item_key: p.itemKey,
+        book_slug: p.bookSlug,
+        chapter: p.chapter,
+        title: p.title,
+        subtitle: p.subtitle,
+        first_read_at: p.firstReadAt,
+        last_read_at: p.lastReadAt,
+        read_count: p.readCount,
+        completed: p.completed,
+        completed_at: p.completedAt,
+      }));
+      const logRows = batch.logs.map((l) => ({
+        kind: l.kind,
+        item_key: l.itemKey,
+        book_slug: l.bookSlug,
+        chapter: l.chapter,
+        title: l.title,
+        subtitle: l.subtitle,
+        read_date: l.readDate,
+        read_at: l.readAt,
+      }));
+      await prisma.$transaction([
+        prisma.$queryRawTyped(syncProgress(userId, { rows: progressRows })),
+        prisma.$queryRawTyped(syncLogs(userId, { rows: logRows })),
+      ]);
       return fetchUserHistory(userId);
     },
     async deleteLog(userId, id) {
-      const res = await pool.query(
-        `DELETE FROM reading_logs WHERE id = $1::bigint AND user_id = $2`,
-        [id, userId],
-      );
-      return (res.rowCount ?? 0) > 0;
+      // Log ids are bigint serials; anything else names no log.
+      if (!/^\d{1,19}$/u.test(id)) return false;
+      const { count } = await prisma.readingLog.deleteMany({ where: { id: BigInt(id), userId } });
+      return count > 0;
     },
     async clearUserHistory(userId) {
-      const client = await pool.connect();
-      try {
-        await client.query("BEGIN");
-        await client.query(`DELETE FROM reading_logs WHERE user_id = $1`, [userId]);
-        await client.query(`DELETE FROM reading_progress WHERE user_id = $1`, [userId]);
-        await client.query(`DELETE FROM streak_marks WHERE user_id = $1`, [userId]);
-        await client.query("COMMIT");
-      } catch (err) {
-        await client.query("ROLLBACK").catch(() => {});
-        throw err;
-      } finally {
-        client.release();
-      }
+      await prisma.$transaction([
+        prisma.readingLog.deleteMany({ where: { userId } }),
+        prisma.readingProgress.deleteMany({ where: { userId } }),
+        prisma.streakMark.deleteMany({ where: { userId } }),
+      ]);
     },
     async fetchStreakMarks(userId) {
-      const { rows } = await pool.query<MarksRow>(`${SELECT_MARKS} WHERE user_id = $1`, [userId]);
-      return rows[0] ? toMarks(rows[0]) : null;
+      const row = await prisma.streakMark.findUnique({ where: { userId } });
+      return row ? toMarks(row) : null;
     },
     async mergeStreakMarks(userId, incoming) {
-      const client = await pool.connect();
-      try {
-        await client.query("BEGIN");
+      return prisma.$transaction(async (tx) => {
         // Create the row first so FOR UPDATE always has one to lock: two devices merging at once queue up.
-        await client.query(
-          `INSERT INTO streak_marks (user_id, remind_hour) VALUES ($1, $2) ON CONFLICT (user_id) DO NOTHING`,
-          [userId, incoming.remindHour],
+        await tx.streakMark.createMany({ data: { userId, remindHour: incoming.remindHour }, skipDuplicates: true });
+        const [locked] = await tx.$queryRawTyped(lockStreakMarks(userId));
+        const merged = mergeMarks(
+          toMarks({ restDays: locked.rest_days, restartedOn: locked.restarted_on, remindHour: locked.remind_hour }),
+          incoming,
         );
-        const { rows } = await client.query<MarksRow>(`${SELECT_MARKS} WHERE user_id = $1 FOR UPDATE`, [userId]);
-        const merged = mergeMarks(toMarks(rows[0]), incoming);
-        await client.query(
-          `UPDATE streak_marks SET rest_days = $2::date[], restarted_on = $3, remind_hour = $4, updated_at = now()
-           WHERE user_id = $1`,
-          [userId, merged.restDays, merged.restartedOn, merged.remindHour],
-        );
-        await client.query("COMMIT");
+        await tx.streakMark.update({
+          where: { userId },
+          data: {
+            restDays: merged.restDays.map(fromDateKey),
+            restartedOn: merged.restartedOn === null ? null : fromDateKey(merged.restartedOn),
+            remindHour: merged.remindHour,
+          },
+        });
         return merged;
-      } catch (err) {
-        await client.query("ROLLBACK").catch(() => {});
-        throw err;
-      } finally {
-        client.release();
-      }
+      });
     },
   };
 }
 
-type MarksRow = { rest_days: string[]; restarted_on: string | null; remind_hour: number };
-
-const SELECT_MARKS = `SELECT ARRAY(SELECT to_char(d, 'YYYY-MM-DD') FROM unnest(rest_days) AS d ORDER BY d) AS rest_days,
-  to_char(restarted_on, 'YYYY-MM-DD') AS restarted_on, remind_hour FROM streak_marks`;
-
-const toMarks = (r: MarksRow): StreakMarks => ({ restDays: r.rest_days, restartedOn: r.restarted_on, remindHour: r.remind_hour });
+const toMarks = (r: { restDays: Date[]; restartedOn: Date | null; remindHour: number }): StreakMarks => ({
+  restDays: r.restDays.map(toDateKey).sort(),
+  restartedOn: r.restartedOn === null ? null : toDateKey(r.restartedOn),
+  remindHour: r.remindHour,
+});

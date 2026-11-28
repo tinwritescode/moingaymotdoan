@@ -1,7 +1,9 @@
 import { attachDatabasePool } from "@neon/functions";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 import type { OriginPolicy } from "../../lib/history/ports";
 import { createHistoryApp } from "./app";
+import { PrismaClient } from "./generated/prisma/client";
 import { createJwksTokenVerifier, createWorkosTokenVerifier } from "./jwks-verifier";
 import { createPostgresHistoryRepository } from "./postgres-repository";
 import { createPostgresPushStore, createWebPushSender } from "./push-adapters";
@@ -54,19 +56,20 @@ const verifyToken =
 
 const pool = new Pool({ connectionString: databaseUrl, max: 5 });
 attachDatabasePool(pool);
+const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 
 const vapidPublicKey = process.env.VAPID_PUBLIC_KEY?.trim();
 const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY?.trim();
 const vapidSubject = process.env.VAPID_SUBJECT?.trim() || "https://moingaymotdoan.xyz";
 
 const app = createHistoryApp({
-  repository: createPostgresHistoryRepository(pool),
+  repository: createPostgresHistoryRepository(prisma),
   verifyToken,
   isOriginAllowed: createOriginPolicyFromEnv(process.env.ALLOWED_ORIGINS),
   push:
     vapidPublicKey && vapidPrivateKey
       ? {
-          store: createPostgresPushStore(pool),
+          store: createPostgresPushStore(prisma),
           send: createWebPushSender({ subject: vapidSubject, publicKey: vapidPublicKey, privateKey: vapidPrivateKey }),
         }
       : undefined,

@@ -2,18 +2,18 @@
 
 ## 1. Schema and baseline
 
-- [ ] 1.1 Add `prisma`, `@prisma/client` and `@prisma/adapter-pg` (7.x stable), `prisma.config.ts`, and a generator writing to a git-ignored folder; `postinstall` runs `prisma generate`; verify that `pnpm install` on a clean clone generates the client
-- [ ] 1.2 `prisma db pull` against a fresh local database built from `db/schema.sql`, then name the models and fields (design: "Schema mirrors the tables"); verify that `prisma migrate diff` from that database to the schema is empty
-- [ ] 1.3 `prisma/migrations/0_init/migration.sql` from `migrate diff --from-empty`, plus the CHECK constraints and descending indexes by hand; verify that a database built by `migrate deploy` and one built by the old `db/schema.sql` dump identically with `pg_dump --schema-only`
-- [ ] 1.4 Replace `db:migrate` with `prisma migrate deploy`; delete `db/schema.sql` and `scripts/db-migrate.mjs`; update the gated tests' setup comment; verify that a second `migrate deploy` is a no-op
+- [x] 1.1 Add `prisma`, `@prisma/client` and `@prisma/adapter-pg` (7.x stable), `prisma.config.ts`, and a generator writing to `functions/history/generated/prisma`, committed (design: "Generated client in git"); `pnpm db:generate` rebuilds it; verify that typecheck and tests pass in a worktree with no database URL
+- [x] 1.2 `prisma db pull` against a fresh local database built from `db/schema.sql`, then name the models and fields (design: "Schema mirrors the tables"); verify that `prisma migrate diff` from that database to the schema is empty
+- [x] 1.3 `prisma/migrations/0_init/migration.sql` from `migrate diff --from-empty`, plus the CHECK constraints and descending indexes by hand; verify that a database built by `migrate deploy` and one built by the old `db/schema.sql` dump identically with `pg_dump --schema-only`
+- [x] 1.4 Replace `db:migrate` with `prisma migrate deploy`; delete `db/schema.sql` and `scripts/db-migrate.mjs`; update the gated tests' setup comment; verify that a second `migrate deploy` is a no-op
 
 ## 2. Adapters
 
-- [ ] 2.1 `toDateKey` and `fromDateKey` helpers in `functions/history/`; verify with a unit test run under `TZ=America/Los_Angeles` and `TZ=Asia/Ho_Chi_Minh`
-- [ ] 2.2 TypedSQL files in `prisma/sql/`: `upsertVisit`, `syncProgress`, `syncLogs`, `setCompleted`, `lockMarks`, `listDuePushSubscriptions`; verify that `prisma generate --sql` types them against a migrated database
-- [ ] 2.3 `createPrismaPushStore`; point `push-adapters.test.ts` at it; verify against a fresh database: claim once, upsert keeps `lastSentDate`, paging, the read-today filter, and `remind_hour` 5 rejected
-- [ ] 2.4 `createPrismaHistoryRepository`; point `postgres-repository.test.ts` at it; verify the concurrent marks merge, the visit merge on sync, and `clearUserHistory`
-- [ ] 2.5 `index.ts` builds `PrismaClient` on the attached Pool; delete `postgres-repository.ts` and the store half of `push-adapters.ts`; verify that `pnpm typecheck`, `pnpm lint` and `pnpm test` pass, and that `app.test.ts` is untouched
+- [x] 2.1 `toDateKey` and `fromDateKey` helpers in `functions/history/`; verify with a unit test run under `TZ=America/Los_Angeles` and `TZ=Asia/Ho_Chi_Minh`
+- [x] 2.2 TypedSQL files in `prisma/sql/`: `upsertVisit`, `syncProgress`, `syncLogs`, `setCompleted`, `lockStreakMarks`, `listDuePushSubscriptions`; verify that `prisma generate --sql` types them against a migrated database
+- [x] 2.3 `createPostgresPushStore` on Prisma; point `push-adapters.test.ts` at it; verify against a fresh database: claim once, upsert keeps `lastSentDate`, paging, the read-today filter, and `remind_hour` 5 rejected
+- [x] 2.4 `createPostgresHistoryRepository` on Prisma; point `postgres-repository.test.ts` at it; verify the concurrent marks merge, the visit merge on sync, and `clearUserHistory`
+- [x] 2.5 `index.ts` builds `PrismaClient` on the attached Pool; the Prisma adapters replace the `pg` code in place, keeping the file and factory names; verify that `pnpm typecheck`, `pnpm lint` and `pnpm test` pass, and that `app.test.ts` is untouched
 
 ## 3. Rollout
 

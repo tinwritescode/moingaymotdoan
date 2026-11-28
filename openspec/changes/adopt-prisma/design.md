@@ -57,6 +57,7 @@ The ports use `YYYY-MM-DD` strings for local dates. Prisma returns `@db.Date` va
 
 - **Most write paths stay SQL.** Prisma pays off in the schema, the migrations and typed results, not in shorter queries. That cost is accepted: the gain is that a column change is now possible and checked.
 - **CHECK constraints are invisible to Prisma.** `migrate diff` will not notice one being dropped. The Postgres adapter tests insert an out-of-range `remind_hour` and expect a rejection.
+- **Generated client in git.** `prisma generate --sql` needs a migrated database, and a plain `prisma generate` empties the `sql/` folder, so the client is committed rather than built on `postinstall`. It can go stale: rerun `pnpm db:generate` against a migrated database after any change to `schema.prisma` or `prisma/sql/`, and commit the result.
 - **Bundling on Neon Functions.** The generated client must land in the function bundle. Deploy to a Neon preview branch first and probe `/health`, `/history/streak` and `/push/cron` before touching `main`.
 - **Baseline on production is a one-way door.** If `0_init` is resolved against a database that does not match it, later migrations build on a wrong picture. Run `migrate diff` against a fresh branch of `main` first and require an empty diff.
 - **TypedSQL preview status.** If TypedSQL is still a preview feature in the pinned version, enable it in the generator, and keep the `.sql` files simple enough to fall back to `$queryRaw` with a hand-written row type.
