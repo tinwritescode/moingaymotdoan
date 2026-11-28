@@ -44,6 +44,8 @@ export type Messages = {
     contactDescription: string;
     installTitle: string;
     installDescription: string;
+    settingsTitle: string;
+    settingsDescription: string;
     notFoundTitle: string;
     notFoundDescription: string;
   };
@@ -57,6 +59,7 @@ export type Messages = {
     chaptersOfBook: (book: string) => string;
     backToToc: string;
     searchByMood: string;
+    settingsLabel: string;
     accountLabel: (name: string) => string;
     signInLabel: string;
     switchLanguageLabel: string;
@@ -457,6 +460,23 @@ export type Messages = {
     description: string;
     backHome: string;
   };
+  settings: {
+    kicker: string;
+    heading: string;
+    intro: string;
+    displayHeading: string;
+    languageHeading: string;
+    languageHint: string;
+    reminderHeading: string;
+    reminderHint: string;
+    reminderUnsupported: string;
+    moreHeading: string;
+    installRowTitle: string;
+    installRowHint: string;
+    accountRowTitle: string;
+    accountRowHint: string;
+    moreLinkLabel: string;
+  };
   skeleton: {
     loading: string;
   };
@@ -501,6 +521,9 @@ const VI: Messages = {
     installTitle: "Cài ứng dụng | Mỗi Ngày Một Đoạn",
     installDescription:
       "Cài Mỗi Ngày Một Đoạn lên màn hình chính iPhone, Android hoặc máy tính để mở nhanh và đọc Kinh Thánh cả khi không có mạng.",
+    settingsTitle: "Tùy chỉnh đọc & ngôn ngữ | Mỗi Ngày Một Đoạn",
+    settingsDescription:
+      "Chọn chế độ sáng / tối, cỡ chữ, phông chữ đọc Kinh Thánh, ngôn ngữ và giờ nhắc đọc mỗi ngày.",
     notFoundTitle: "Không tìm thấy trang này | Mỗi Ngày Một Đoạn",
     notFoundDescription: "Đoạn Kinh Thánh hoặc đường dẫn bạn mở hiện không tồn tại.",
   },
@@ -514,6 +537,7 @@ const VI: Messages = {
     chaptersOfBook: (book) => `Các đoạn ${book}`,
     backToToc: "Mục lục",
     searchByMood: "Tìm theo cảm xúc",
+    settingsLabel: "Tùy chỉnh",
     accountLabel: (name) => `Tài khoản ${name}`,
     signInLabel: "Đăng nhập",
     switchLanguageLabel: "Switch to English",
@@ -1045,7 +1069,7 @@ const VI: Messages = {
       },
       display: {
         title: "Chữ to hơn, đọc ban đêm dễ hơn",
-        body: "Nút mặt trăng đổi sáng / tối, nút Aa chọn cỡ chữ và phông. Chọn cỡ chữ ngay đây cũng được:",
+        body: "Chạm Aa để đổi sáng / tối, chọn cỡ chữ và phông đọc. Chọn cỡ chữ ngay đây cũng được:",
       },
       next: {
         title: "Đọc xong thì sang đoạn kế",
@@ -1064,6 +1088,23 @@ const VI: Messages = {
     heading: "Không tìm thấy trang này",
     description: "Có thể đoạn này chưa có ghi chú, hoặc đường dẫn bị gõ sai.",
     backHome: "Về trang chủ",
+  },
+  settings: {
+    kicker: "Tùy chỉnh",
+    heading: "Đọc theo nhịp của bạn",
+    intro: "Chế độ sáng tối, cỡ chữ, phông đọc, ngôn ngữ và lời nhắc hằng ngày.",
+    displayHeading: "Hiển thị",
+    languageHeading: "Ngôn ngữ",
+    languageHint: "Chuyển giữa bản Tiếng Việt (Bản Truyền Thống 1926) và bản Tiếng Anh (BSB).",
+    reminderHeading: "Nhắc đọc mỗi ngày",
+    reminderHint: "Nhắc nhẹ vào buổi tối nếu hôm đó bạn chưa đọc đoạn nào.",
+    reminderUnsupported: "Trình duyệt này chưa hỗ trợ thông báo nhắc đọc.",
+    moreHeading: "Thêm",
+    installRowTitle: "Cài như ứng dụng",
+    installRowHint: "Đặt lên màn hình chính, mở nhanh và đọc offline",
+    accountRowTitle: "Tài khoản & đồng bộ",
+    accountRowHint: "Đồng bộ lịch sử đọc và chuỗi ngày giữa các máy",
+    moreLinkLabel: "Ngôn ngữ & tùy chỉnh khác →",
   },
   skeleton: {
     loading: "Đang tải…",
@@ -1111,6 +1152,9 @@ const EN: Messages = {
     installTitle: "Install the App | One Chapter a Day",
     installDescription:
       "Install One Chapter a Day on your iPhone, Android or computer home screen to open it in one tap and read the Bible even offline.",
+    settingsTitle: "Reading Settings & Language | One Chapter a Day",
+    settingsDescription:
+      "Customize light or dark mode, text size, reading font, language, and daily reading reminders.",
     notFoundTitle: "Page Not Found | One Chapter a Day",
     notFoundDescription: "The chapter or link you opened does not exist.",
   },
@@ -1124,6 +1168,7 @@ const EN: Messages = {
     chaptersOfBook: (book) => `Chapters of ${book}`,
     backToToc: "Contents",
     searchByMood: "Browse by mood",
+    settingsLabel: "Settings",
     accountLabel: (name) => `Account: ${name}`,
     signInLabel: "Sign in",
     switchLanguageLabel: "Chuyển sang Tiếng Việt",
@@ -1657,7 +1702,7 @@ const EN: Messages = {
       },
       display: {
         title: "Bigger text, easier night reading",
-        body: "The moon button switches light and dark; Aa picks text size and font. You can pick a size right here:",
+        body: "Tap Aa to switch light and dark, text size and font. You can pick a size right here:",
       },
       next: {
         title: "Done? On to the next chapter",
@@ -1676,6 +1721,23 @@ const EN: Messages = {
     heading: "Page not found",
     description: "This chapter may not be written yet, or the link may have a typo.",
     backHome: "Back to home",
+  },
+  settings: {
+    kicker: "Settings",
+    heading: "Read at your own pace",
+    intro: "Color mode, text size, reading font, language, and your daily reminder.",
+    displayHeading: "Display",
+    languageHeading: "Language",
+    languageHint: "Switch between Vietnamese (1926 Traditional) and English (BSB).",
+    reminderHeading: "Daily reminder",
+    reminderHint: "A quiet evening nudge if you have not read a chapter yet that day.",
+    reminderUnsupported: "Daily notifications are not supported in this browser.",
+    moreHeading: "More",
+    installRowTitle: "Install the app",
+    installRowHint: "Add to your home screen for one-tap and offline reading",
+    accountRowTitle: "Account & sync",
+    accountRowHint: "Sync your reading history and streak across devices",
+    moreLinkLabel: "Language & more settings →",
   },
   skeleton: {
     loading: "Loading…",

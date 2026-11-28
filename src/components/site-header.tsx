@@ -1,18 +1,16 @@
 import { Show, type ParentProps } from "solid-js";
-import { accountHref, homeHref, moodsHref } from "../router";
+import { accountHref, homeHref, moodsHref, settingsHref } from "../router";
 import { useAuth } from "./auth-context";
 import { BookPicker } from "./book-picker";
-import { DisplayMenu, ThemeToggle } from "./display-controls";
-import { LanguageToggle } from "./language-switcher";
 import { useLocale } from "./locale-context";
 import { useProfile } from "./profile-context";
 import { initialOf } from "../../lib/profile/profile";
 
-type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
+type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan" | "tuy-chinh";
 
 /**
  * Minimal quiet top bar: moss dot + site name on the left;
- * Books picker, theme toggle, display menu, mood search, and account on the right.
+ * Books picker, mood search (desktop), settings, and account on the right.
  */
 export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderSection }>) {
   const { locale, t } = useLocale();
@@ -32,9 +30,6 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
 
         <div class="flex items-center gap-1.5 sm:gap-2">
           <BookPicker current={props.book} />
-          <ThemeToggle />
-          <DisplayMenu />
-          <LanguageToggle />
 
           <a
             href={moodsHref(locale())}
@@ -58,6 +53,33 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
             >
               <circle cx="11" cy="11" r="6" />
               <path d="m20 20-4.5-4.5" />
+            </svg>
+          </a>
+
+          <a
+            href={settingsHref(locale())}
+            aria-label={t().header.settingsLabel}
+            title={t().header.settingsLabel}
+            aria-current={props.section === "tuy-chinh" ? "page" : undefined}
+            class={[
+              "inline-flex h-9 w-9 items-center justify-center rounded-full border transition-[color,border-color,transform] duration-150 ease-[var(--ease-quiet)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100 sm:h-10 sm:w-10",
+              props.section === "tuy-chinh"
+                ? "border-accent bg-side text-accent"
+                : "border-rule bg-card text-muted hover:border-accent hover:text-ink",
+            ]}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              class="h-[17px] w-[17px]"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
             </svg>
           </a>
 

@@ -6,8 +6,7 @@ import { BookPicker } from "../components/book-picker";
 import { ChapterKeys } from "../components/chapter-keys";
 import { ChapterReader } from "../components/chapter-reader";
 import { ChapterTour } from "../components/tour";
-import { DisplayMenu, ThemeToggle } from "../components/display-controls";
-import { LanguageToggle } from "../components/language-switcher";
+import { DisplayMenu } from "../components/display-controls";
 import { useLocale } from "../components/locale-context";
 import { NotFound } from "../components/not-found";
 import { usePreferences } from "../components/preferences-context";
@@ -59,9 +58,7 @@ export function ChapterPageView(props: { book: string; chapter: number }) {
               </div>
 
               <div class="kt-display-controls flex items-center gap-1.5">
-                <ThemeToggle compact />
                 <DisplayMenu compact />
-                <LanguageToggle />
               </div>
             </div>
           </header>

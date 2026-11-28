@@ -21,5 +21,6 @@ export {
   moodHref,
   moodsHref,
   privacyHref,
+  settingsHref,
   termsHref,
 } from "./routes";

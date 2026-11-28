@@ -15,6 +15,7 @@ export {
   moodHref,
   moodsHref,
   privacyHref,
+  settingsHref,
   termsHref,
 } from "../lib/i18n";
 

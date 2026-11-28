@@ -15,7 +15,7 @@ import { SiteHeader } from "../components/site-header";
 import { Bone, Skeleton } from "../components/skeleton";
 import { formatAuthError } from "../lib/auth-messages";
 import { tourHref } from "../lib/tour";
-import { accountHref, chapterHref, historyHref } from "../router";
+import { accountHref, chapterHref, historyHref, settingsHref } from "../router";
 
 /** Shared AuthKit sign-in & cloud sync profile page for Vietnamese (/tai-khoan) and English (/en/account). */
 export function AccountPageView() {
@@ -224,8 +224,28 @@ export function AccountPageView() {
         </Show>
 
         <a
-          href={tourHref(chapterHref({ slug: booksFor(locale())[0].slug, number: 1, locale: locale() }))}
+          href={settingsHref(locale())}
           class="mt-4 flex min-h-16 items-center gap-3.5 rounded-[20px] border border-rule bg-card px-[18px] font-sans text-ink transition-colors hover:border-accent"
+        >
+          <span
+            aria-hidden="true"
+            class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-side text-accent"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-[18px] w-[18px]">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+          </span>
+          <span class="flex flex-1 flex-col gap-0.5">
+            <span class="text-[15px] font-medium">{t().settings.kicker}</span>
+            <span class="text-xs text-muted">{t().settings.intro}</span>
+          </span>
+          <span aria-hidden="true" class="text-muted">›</span>
+        </a>
+
+        <a
+          href={tourHref(chapterHref({ slug: booksFor(locale())[0].slug, number: 1, locale: locale() }))}
+          class="mt-2.5 flex min-h-16 items-center gap-3.5 rounded-[20px] border border-rule bg-card px-[18px] font-sans text-ink transition-colors hover:border-accent"
         >
           <span
             aria-hidden="true"

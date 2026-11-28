@@ -10,6 +10,7 @@ import { ariaState } from "./aria";
 import { useLocale } from "./locale-context";
 import { Popover } from "./popover";
 import { usePreferences } from "./preferences-context";
+import { settingsHref } from "../router";
 
 const PREVIEW_SCALE_CLASS: Record<ReadingScale, string> = {
   sm: "text-[0.94rem] leading-[1.7]",
@@ -102,10 +103,107 @@ export function ThemeToggle(props: { compact?: boolean }) {
   );
 }
 
-/** Popover menu for color mode (light/dark/system), reading size, and reading font. */
-export function DisplayMenu(props: { compact?: boolean }) {
+/** Reusable color mode, reading size, reading font, and live preview controls (used in DisplayMenu and SettingsPage). */
+export function DisplayControls() {
   const { theme, font, scale, setTheme, setFont } = usePreferences();
   const { t } = useLocale();
+
+  return (
+    <div class="space-y-4">
+      <div class="space-y-1.5">
+        <p class="text-[11px] font-medium text-muted">{t().display.colorMode}</p>
+        <div
+          role="group"
+          aria-label={t().display.colorMode}
+          class="grid grid-cols-3 gap-1 rounded-full border border-rule bg-paper/70 p-1 text-xs"
+        >
+          <For each={THEME_OPTIONS}>
+            {(opt) => (
+              <button
+                type="button"
+                aria-pressed={ariaState(theme() === opt.id)}
+                onClick={() => setTheme(opt.id)}
+                class="inline-flex min-h-8 cursor-pointer items-center justify-center gap-1.5 rounded-full px-2.5 text-muted transition-colors hover:text-ink aria-pressed:bg-accent aria-pressed:font-medium aria-pressed:text-paper"
+              >
+                <Show
+                  when={opt.id === "dark"}
+                  fallback={
+                    <Show when={opt.id === "light"} fallback={<SystemIcon class="h-3.5 w-3.5" />}>
+                      <SunIcon class="h-3.5 w-3.5" />
+                    </Show>
+                  }
+                >
+                  <MoonIcon class="h-3.5 w-3.5" />
+                </Show>
+                <span>{t().display.themes[opt.id]}</span>
+              </button>
+            )}
+          </For>
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <p class="text-[11px] font-medium text-muted">{t().display.readingSize}</p>
+        <ScalePicker />
+      </div>
+
+      <div class="space-y-1.5">
+        <p class="text-[11px] font-medium text-muted">{t().display.readingFont}</p>
+        <div role="group" aria-label={t().display.readingFont} class="grid grid-cols-2 gap-1.5">
+          <For each={READING_FONTS}>
+            {(item) => {
+              const selected = () => font() === item.id;
+              const meta = () => t().display.fonts[item.id];
+              return (
+                <button
+                  type="button"
+                  aria-pressed={ariaState(selected())}
+                  onClick={() => setFont(item.id)}
+                  title={meta().description}
+                  class={[
+                    "flex min-h-14 cursor-pointer flex-col justify-between rounded-xl border px-3 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+                    selected()
+                      ? "border-accent bg-side text-ink"
+                      : "border-rule bg-paper/50 text-ink hover:border-accent/60 hover:bg-paper",
+                  ]}
+                >
+                  <span class="flex items-center justify-between gap-1.5">
+                    <span
+                      class="truncate text-[15px] leading-snug font-semibold"
+                      style={{ "font-family": item.cssFamily }}
+                    >
+                      {item.name}
+                    </span>
+                    <Show when={selected()}>
+                      <span aria-hidden="true" class="shrink-0 text-xs font-semibold text-accent">
+                        ✓
+                      </span>
+                    </Show>
+                  </span>
+                  <span class="mt-0.5 truncate text-[11px] text-muted">{meta().tag}</span>
+                </button>
+              );
+            }}
+          </For>
+        </div>
+      </div>
+
+      <p
+        aria-label={t().display.previewLabel}
+        class={[
+          "rounded-xl border border-rule bg-paper/70 px-3.5 py-2.5 font-serif text-ink",
+          PREVIEW_SCALE_CLASS[scale()],
+        ]}
+      >
+        {t().display.previewVerse}
+      </p>
+    </div>
+  );
+}
+
+/** Popover menu for color mode (light/dark/system), reading size, and reading font. */
+export function DisplayMenu(props: { compact?: boolean }) {
+  const { locale, t } = useLocale();
 
   return (
     <Popover
@@ -122,95 +220,16 @@ export function DisplayMenu(props: { compact?: boolean }) {
         if (open) preloadAllReadingFonts();
       }}
     >
-      {() => (
-        <div class="mt-3 space-y-4">
-          <div class="space-y-1.5">
-            <p class="text-[11px] font-medium text-muted">{t().display.colorMode}</p>
-            <div
-              role="group"
-              aria-label={t().display.colorMode}
-              class="grid grid-cols-3 gap-1 rounded-full border border-rule bg-paper/70 p-1 text-xs"
-            >
-              <For each={THEME_OPTIONS}>
-                {(opt) => (
-                  <button
-                    type="button"
-                    aria-pressed={ariaState(theme() === opt.id)}
-                    onClick={() => setTheme(opt.id)}
-                    class="inline-flex min-h-8 cursor-pointer items-center justify-center gap-1.5 rounded-full px-2.5 text-muted transition-colors hover:text-ink aria-pressed:bg-accent aria-pressed:font-medium aria-pressed:text-paper"
-                  >
-                    <Show
-                      when={opt.id === "dark"}
-                      fallback={
-                        <Show when={opt.id === "light"} fallback={<SystemIcon class="h-3.5 w-3.5" />}>
-                          <SunIcon class="h-3.5 w-3.5" />
-                        </Show>
-                      }
-                    >
-                      <MoonIcon class="h-3.5 w-3.5" />
-                    </Show>
-                    <span>{t().display.themes[opt.id]}</span>
-                  </button>
-                )}
-              </For>
-            </div>
-          </div>
-
-          <div class="space-y-1.5">
-            <p class="text-[11px] font-medium text-muted">{t().display.readingSize}</p>
-            <ScalePicker />
-          </div>
-
-          <div class="space-y-1.5">
-            <p class="text-[11px] font-medium text-muted">{t().display.readingFont}</p>
-            <div role="group" aria-label={t().display.readingFont} class="grid grid-cols-2 gap-1.5">
-              <For each={READING_FONTS}>
-                {(item) => {
-                  const selected = () => font() === item.id;
-                  const meta = () => t().display.fonts[item.id];
-                  return (
-                    <button
-                      type="button"
-                      aria-pressed={ariaState(selected())}
-                      onClick={() => setFont(item.id)}
-                      title={meta().description}
-                      class={[
-                        "flex min-h-14 cursor-pointer flex-col justify-between rounded-xl border px-3 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-                        selected()
-                          ? "border-accent bg-side text-ink"
-                          : "border-rule bg-paper/50 text-ink hover:border-accent/60 hover:bg-paper",
-                      ]}
-                    >
-                      <span class="flex items-center justify-between gap-1.5">
-                        <span
-                          class="truncate text-[15px] leading-snug font-semibold"
-                          style={{ "font-family": item.cssFamily }}
-                        >
-                          {item.name}
-                        </span>
-                        <Show when={selected()}>
-                          <span aria-hidden="true" class="shrink-0 text-xs font-semibold text-accent">
-                            ✓
-                          </span>
-                        </Show>
-                      </span>
-                      <span class="mt-0.5 truncate text-[11px] text-muted">{meta().tag}</span>
-                    </button>
-                  );
-                }}
-              </For>
-            </div>
-          </div>
-
-          <p
-            aria-label={t().display.previewLabel}
-            class={[
-              "rounded-xl border border-rule bg-paper/70 px-3.5 py-2.5 font-serif text-ink",
-              PREVIEW_SCALE_CLASS[scale()],
-            ]}
+      {(close) => (
+        <div class="mt-3 space-y-3">
+          <DisplayControls />
+          <a
+            href={settingsHref(locale())}
+            onClick={close}
+            class="block border-t border-rule pt-2.5 text-center text-xs font-medium text-accent transition-opacity hover:opacity-80"
           >
-            {t().display.previewVerse}
-          </p>
+            {t().settings.moreLinkLabel}
+          </a>
         </div>
       )}
     </Popover>

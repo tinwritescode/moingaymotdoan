@@ -207,6 +207,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/en/settings";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/settings"), Extract<"default", keyof typeof import("./src/routes/en/settings")>>>;
+      $$route?: undefined;
+    },
+    {
       path: "/en/terms";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/terms"), Extract<"default", keyof typeof import("./src/routes/en/terms")>>>;
@@ -240,6 +246,12 @@ declare module "virtual:file-routes" {
       path: "/tai-khoan";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/tai-khoan"), Extract<"default", keyof typeof import("./src/routes/tai-khoan")>>>;
+      $$route?: undefined;
+    },
+    {
+      path: "/tuy-chinh";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/tuy-chinh"), Extract<"default", keyof typeof import("./src/routes/tuy-chinh")>>>;
       $$route?: undefined;
     }
   ];
@@ -344,6 +356,14 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/tuy-chinh";
+      id: "/tuy-chinh";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/tuy-chinh"), Extract<"default", keyof typeof import("./src/routes/tuy-chinh")>>>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
       path: "/dieu-khoan";
       id: "/dieu-khoan";
       page: true;
@@ -388,6 +408,14 @@ declare module "virtual:file-routes" {
       id: "/en/privacy";
       page: true;
       $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/privacy"), Extract<"default", keyof typeof import("./src/routes/en/privacy")>>>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/en/settings";
+      id: "/en/settings";
+      page: true;
+      $component: FileRouteLazyRef<Pick<typeof import("./src/routes/en/settings"), Extract<"default", keyof typeof import("./src/routes/en/settings")>>>;
       $$route?: undefined;
       children?: undefined;
     },

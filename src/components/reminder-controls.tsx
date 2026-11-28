@@ -55,7 +55,7 @@ export function ReminderSync() {
 type Status = "idle" | "busy" | "blocked" | "failed";
 
 /** Opt-in to the daily reminder, its hour, and turning it off. */
-export function ReminderControls() {
+export function ReminderControls(props: { standalone?: boolean } = {}) {
   const streak = useStreak();
   const report = useReport();
   const { locale, t } = useLocale();
@@ -84,11 +84,18 @@ export function ReminderControls() {
 
   return (
     <Show when={mounted()}>
-      <div class="mt-4 border-t border-rule pt-4 text-sm">
+      <div class={props.standalone ? "text-sm" : "mt-4 border-t border-rule pt-4 text-sm"}>
         <Show
           when={pushSupported()}
           fallback={
-            <Show when={iosInBrowser()}>
+            <Show
+              when={iosInBrowser()}
+              fallback={
+                <Show when={props.standalone}>
+                  <p class="text-xs text-muted">{t().settings.reminderUnsupported}</p>
+                </Show>
+              }
+            >
               <a href={installHref(locale())} class="text-muted underline underline-offset-4 hover:text-ink">
                 {t().streak.remindInstall}
               </a>
