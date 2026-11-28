@@ -1,4 +1,4 @@
-import { createEffect, createSignal, flush, For, onCleanup, onSettled, Show } from "solid-js";
+import { createSignal, flush, For, onCleanup, onSettled, Show } from "solid-js";
 import { localDateKey } from "../../lib/history/types";
 import { cardVerse } from "../../lib/streak/card-verses";
 import { flameFor } from "../../lib/streak/flames";
@@ -20,7 +20,9 @@ import { useLocale } from "./locale-context";
 import { readStorage, writeStorage } from "./preferences-context";
 import { useProfile } from "./profile-context";
 import { Avatar, ProfileEditor } from "./profile-editor";
+import { SheetDialog } from "./sheet-dialog";
 import { useStreak } from "./streak-context";
+import { ToggleSwitch } from "./toggle-switch";
 
 type Preview = { size: ShareSize; template: ShareTemplate; blob: Blob; url: string };
 
@@ -39,7 +41,6 @@ export function ShareStreak(props: { days: number }) {
   const [failed, setFailed] = createSignal(false);
   const [preview, setPreview] = createSignal<Preview | null>(null);
   const filename = () => `moingaymotdoan-${props.days}-ngay.png`;
-  let dialog: HTMLDialogElement | undefined;
   let drawSeq = 0;
 
   onSettled(() => {
@@ -88,12 +89,12 @@ export function ShareStreak(props: { days: number }) {
     void draw(size, next);
   };
 
-  const send = async (p: Preview) => {
+  const send = async (p: Preview, close: () => void) => {
     try {
-      if ((await shareOrDownload(p.blob, filename())) !== "cancelled") dialog?.close();
+      if ((await shareOrDownload(p.blob, filename())) !== "cancelled") close();
     } catch {
       setFailed(true);
-      dialog?.close();
+      close();
     }
   };
 
@@ -105,13 +106,6 @@ export function ShareStreak(props: { days: number }) {
     setEditing(false);
   };
   onCleanup(forget);
-
-  createEffect(
-    () => preview() !== null,
-    (open) => {
-      if (open && dialog && !dialog.open) dialog.showModal();
-    },
-  );
 
   return (
     <div class="space-y-2">
@@ -133,136 +127,135 @@ export function ShareStreak(props: { days: number }) {
       <p aria-live="polite" class="text-xs text-thap">
         {failed() ? t().streak.shareFailed : ""}
       </p>
-      <dialog
-        ref={dialog}
-        aria-label={t().streak.sharePreview}
+      <SheetDialog
+        open={preview() !== null}
         onClose={forget}
-        class="m-auto mb-0 w-full max-w-md rounded-t-3xl border border-rule bg-card p-4 font-sans text-ink backdrop:bg-ink/40 sm:mb-auto sm:rounded-3xl"
+        ariaLabel={t().streak.sharePreview}
+        contentClass="p-4"
       >
-        <Show when={preview()}>
-          {(p) => (
-            <>
-              <img
-                src={p().url}
-                width={1080}
-                height={p().size === "post" ? 1350 : 1920}
-                alt={`${props.days} ${t().streak.cardTagline(props.days)}`}
-                class={[
-                  "mx-auto block h-auto w-auto max-w-full rounded-2xl border border-rule transition-opacity",
-                  editing() ? "max-h-[30dvh]" : "max-h-[50dvh]",
-                  busy() ? "opacity-70" : "opacity-100",
-                ]}
-              />
-              <div
-                role="radiogroup"
-                aria-label={t().streak.shareTemplateLabel}
-                class="mt-3 flex gap-1.5 overflow-x-auto pb-1"
-              >
-                <For each={SHARE_TEMPLATES}>
-                  {(item) => {
-                    const selected = () => template() === item.id;
-                    return (
-                      <button
-                        type="button"
-                        role="radio"
-                        aria-checked={ariaState(selected())}
-                        onClick={() => pickTemplate(p().size, item.id)}
-                        class={[
-                          "inline-flex min-h-9 flex-none cursor-pointer items-center gap-2 rounded-full border px-3 text-xs font-medium transition-colors",
-                          selected()
-                            ? "border-accent bg-side text-ink"
-                            : "border-rule bg-card text-muted hover:border-accent/60 hover:text-ink",
-                        ]}
-                      >
-                        <span
-                          aria-hidden="true"
-                          class="relative inline-flex h-4 w-4 items-center justify-center rounded-full border border-black/15"
-                          style={{ background: item.swatch[0] }}
-                        >
-                          <span class="h-1.5 w-1.5 rounded-full" style={{ background: item.swatch[1] }} />
-                        </span>
-                        <span>{t().streak.shareTemplates[item.id]}</span>
-                      </button>
-                    );
-                  }}
-                </For>
-              </div>
-              <div class="mt-2.5 rounded-2xl border border-rule p-3">
-                <Show
-                  when={!editing()}
-                  fallback={
-                    <ProfileEditor
-                      onClose={() => {
-                        setEditing(false);
-                        void draw(p().size);
-                      }}
-                    />
-                  }
+        {(close) => (
+          <Show when={preview()}>
+            {(p) => (
+              <>
+                <img
+                  src={p().url}
+                  width={1080}
+                  height={p().size === "post" ? 1350 : 1920}
+                  alt={`${props.days} ${t().streak.cardTagline(props.days)}`}
+                  class={[
+                    "mx-auto block h-auto w-auto max-w-full rounded-2xl border border-rule transition-opacity",
+                    editing() ? "max-h-[30dvh]" : "max-h-[50dvh]",
+                    busy() ? "opacity-70" : "opacity-100",
+                  ]}
+                />
+                <div
+                  role="radiogroup"
+                  aria-label={t().streak.shareTemplateLabel}
+                  class="mt-3 flex gap-1.5 overflow-x-auto pb-1"
                 >
-                  <Show
-                    when={me.profile()}
-                    fallback={
-                      <button
-                        type="button"
-                        onClick={() => setEditing(true)}
-                        class="inline-flex min-h-11 w-full cursor-pointer items-center justify-center rounded-full text-sm font-medium text-accent hover:bg-side"
-                      >
-                        {t().profile.add}
-                      </button>
-                    }
-                  >
-                    {(profile) => (
-                      <div class="flex items-center gap-2">
-                        <label class="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center gap-3">
-                          <Avatar profile={profile()} class="h-10 w-10 text-lg" />
-                          <span class="min-w-0 flex-1">
-                            <span class="block truncate text-sm font-medium text-ink">{t().profile.showOnCard}</span>
-                            <span class="block truncate text-xs text-muted">{profile().name}</span>
-                          </span>
-                          <input
-                            type="checkbox"
-                            role="switch"
-                            checked={me.onCard()}
-                            onChange={(e) => {
-                              me.setOnCard(e.currentTarget.checked);
-                              void draw(p().size);
-                            }}
-                            class="h-5.5 w-5.5 flex-none accent-accent"
-                          />
-                        </label>
+                  <For each={SHARE_TEMPLATES}>
+                    {(item) => {
+                      const selected = () => template() === item.id;
+                      return (
                         <button
                           type="button"
-                          aria-label={t().profile.editLong}
-                          onClick={() => setEditing(true)}
-                          class="inline-flex min-h-11 cursor-pointer items-center rounded-full px-3 text-sm font-medium text-accent hover:bg-side"
+                          role="radio"
+                          aria-checked={ariaState(selected())}
+                          onClick={() => pickTemplate(p().size, item.id)}
+                          class={[
+                            "inline-flex min-h-9 flex-none cursor-pointer items-center gap-2 rounded-full border px-3 text-xs font-medium transition-colors",
+                            selected()
+                              ? "border-accent bg-side text-ink"
+                              : "border-rule bg-card text-muted hover:border-accent/60 hover:text-ink",
+                          ]}
                         >
-                          {t().profile.edit}
+                          <span
+                            aria-hidden="true"
+                            class="relative inline-flex h-4 w-4 items-center justify-center rounded-full border border-black/15"
+                            style={{ background: item.swatch[0] }}
+                          >
+                            <span class="h-1.5 w-1.5 rounded-full" style={{ background: item.swatch[1] }} />
+                          </span>
+                          <span>{t().streak.shareTemplates[item.id]}</span>
                         </button>
-                      </div>
-                    )}
+                      );
+                    }}
+                  </For>
+                </div>
+                <div class="mt-2.5 rounded-2xl border border-rule p-3">
+                  <Show
+                    when={!editing()}
+                    fallback={
+                      <ProfileEditor
+                        onClose={() => {
+                          setEditing(false);
+                          void draw(p().size);
+                        }}
+                      />
+                    }
+                  >
+                    <Show
+                      when={me.profile()}
+                      fallback={
+                        <button
+                          type="button"
+                          onClick={() => setEditing(true)}
+                          class="inline-flex min-h-11 w-full cursor-pointer items-center justify-center rounded-full text-sm font-medium text-accent hover:bg-side"
+                        >
+                          {t().profile.add}
+                        </button>
+                      }
+                    >
+                      {(profile) => (
+                        <div class="flex items-center gap-2">
+                          <label class="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center gap-3">
+                            <Avatar profile={profile()} class="h-10 w-10 text-lg" />
+                            <span class="min-w-0 flex-1">
+                              <span class="block truncate text-sm font-medium text-ink">{t().profile.showOnCard}</span>
+                              <span class="block truncate text-xs text-muted">{profile().name}</span>
+                            </span>
+                            <ToggleSwitch
+                              checked={me.onCard()}
+                              onChange={(checked) => {
+                                me.setOnCard(checked);
+                                void draw(p().size);
+                              }}
+                            />
+                          </label>
+                          <button
+                            type="button"
+                            aria-label={t().profile.editLong}
+                            onClick={() => setEditing(true)}
+                            class="inline-flex min-h-11 cursor-pointer items-center rounded-full px-3 text-sm font-medium text-accent hover:bg-side"
+                          >
+                            {t().profile.edit}
+                          </button>
+                        </div>
+                      )}
+                    </Show>
                   </Show>
-                </Show>
-              </div>
-              <div class="mt-3.5 grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => dialog?.close()}
-                  class="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-rule px-4 text-sm font-medium text-ink hover:border-accent"
-                >
-                  {t().streak.shareClose}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => void send(p())}
-                  class="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full bg-accent px-4 text-sm font-medium text-paper hover:opacity-90"
-                >
-                  {canSharePng(p().blob, filename()) ? t().streak.shareSend : t().streak.shareSave}
-                </button>
-              </div>
-            </>
-          )}
-        </Show>
-      </dialog>
+                </div>
+                <div class="mt-3.5 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={close}
+                    class="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-rule px-4 text-sm font-medium text-ink hover:border-accent"
+                  >
+                    {t().streak.shareClose}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void send(p(), close)}
+                    class="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full bg-accent px-4 text-sm font-medium text-paper hover:opacity-90"
+                  >
+                    {canSharePng(p().blob, filename()) ? t().streak.shareSend : t().streak.shareSave}
+                  </button>
+                </div>
+              </>
+            )}
+          </Show>
+        )}
+      </SheetDialog>
     </div>
   );
 }

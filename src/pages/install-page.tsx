@@ -3,6 +3,7 @@ import type { InstallPlatformId } from "../../lib/i18n";
 import { FloatingDock } from "../components/floating-dock";
 import { cornerHidden, loadCornerHidden, setCornerHidden } from "../components/install-corner";
 import { useLocale } from "../components/locale-context";
+import { ToggleSwitch } from "../components/toggle-switch";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
 import { installPrompt, isStandalone, platformOf, promptInstall } from "../lib/install";
@@ -243,13 +244,7 @@ export function InstallPage() {
             <span class="font-medium text-ink">{t().install.cornerToggle}</span>
             <span class="text-xs text-muted">{t().install.cornerToggleHint}</span>
           </span>
-          <input
-            type="checkbox"
-            role="switch"
-            checked={!cornerHidden()}
-            onChange={(e) => setCornerHidden(!e.currentTarget.checked)}
-            class="h-5.5 w-5.5 flex-none accent-accent"
-          />
+          <ToggleSwitch checked={!cornerHidden()} onChange={(checked) => setCornerHidden(!checked)} />
         </label>
 
         <section aria-labelledby="install-faq" class="mt-8 space-y-3.5 font-sans">

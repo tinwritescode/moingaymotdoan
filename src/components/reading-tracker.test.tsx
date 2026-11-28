@@ -123,6 +123,19 @@ describe("done sheet", () => {
     expect(dialog.hasAttribute("open")).toBe(false);
   });
 
+  test("clicking outside on the backdrop closes the done sheet", async () => {
+    const view = renderStreakAt(`${TODAY}T10:00:00`, historyOf(TODAY, 6, 1), () => <ChapterProgressBar view={VIEW} />);
+    fireEvent.click(await view.findByRole("button", { name: "Đánh dấu xong" }));
+    flush();
+    const dialog = view.getByRole("dialog", { name: "Đọc xong hôm nay" });
+    expect(dialog.hasAttribute("open")).toBe(true);
+
+    fireEvent.pointerDown(dialog);
+    fireEvent.click(dialog);
+    flush();
+    expect(dialog.hasAttribute("open")).toBe(false);
+  });
+
   test("a later completion the same day opens nothing", async () => {
     const at = `${TODAY}T08:00:00.000Z`;
     const history = {

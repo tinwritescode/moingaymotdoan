@@ -77,6 +77,15 @@ describe("<ShareStreak />", () => {
     expect(shareOrDownload).not.toHaveBeenCalled();
   });
 
+  test("clicking outside on the backdrop closes the preview", async () => {
+    const view = await open("Story");
+    const dialog = view.getByRole("dialog", { name: "Xem trước ảnh chia sẻ" });
+    fireEvent.pointerDown(dialog);
+    fireEvent.click(dialog);
+    await waitFor(() => expect(view.queryByRole("dialog")).toBeNull());
+    expect(shareOrDownload).not.toHaveBeenCalled();
+  });
+
   const lastIdentity = () => vi.mocked(drawShareCard).mock.lastCall?.[0].identity;
 
   test("the card carries the reader's name and photo, and can leave them off", async () => {
