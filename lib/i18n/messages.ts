@@ -1,4 +1,5 @@
 import type { BookGroupId } from "../content/books";
+import type { ShareTemplate } from "../streak/share-templates";
 import type { ContactChannelId } from "./contact";
 import type { Locale } from "./locale";
 
@@ -230,6 +231,8 @@ export type Messages = {
     shareStory: string;
     shareFailed: string;
     sharePreview: string;
+    shareTemplateLabel: string;
+    shareTemplates: Record<ShareTemplate, string>;
     shareSend: string;
     shareSave: string;
     shareClose: string;
@@ -820,6 +823,20 @@ const VI: Messages = {
     shareStory: "Story",
     shareFailed: "Chưa tạo được ảnh. Thử lại nhé.",
     sharePreview: "Xem trước ảnh chia sẻ",
+    shareTemplateLabel: "Chọn mẫu thẻ",
+    shareTemplates: {
+      paper: "Giấy ấm",
+      night: "Đêm tĩnh",
+      moss: "Rêu thẫm",
+      manuscript: "Kinh bản",
+      dawn: "Bình minh",
+      editorial: "Tối giản",
+      postcard: "Bưu thiếp",
+      celestial: "Sao đêm",
+      terracotta: "Đất nung",
+      journal: "Sổ tay",
+      monochrome: "Mực đen",
+    },
     shareSend: "Chia sẻ ảnh",
     shareSave: "Tải ảnh",
     shareClose: "Đóng",
@@ -1452,6 +1469,20 @@ const EN: Messages = {
     shareStory: "Story",
     shareFailed: "Could not make the image. Please try again.",
     sharePreview: "Share card preview",
+    shareTemplateLabel: "Card style",
+    shareTemplates: {
+      paper: "Warm Paper",
+      night: "Night Vigil",
+      moss: "Deep Moss",
+      manuscript: "Folio",
+      dawn: "Morning Light",
+      editorial: "Editorial",
+      postcard: "Postcard",
+      celestial: "Starlit",
+      terracotta: "Terracotta",
+      journal: "Journal",
+      monochrome: "Ink Print",
+    },
     shareSend: "Share image",
     shareSave: "Download image",
     shareClose: "Close",

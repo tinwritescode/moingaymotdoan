@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { fitText, last30Days, shareOrDownload } from "./share-card";
+import { fitText, isShareTemplate, last30Days, SHARE_TEMPLATES, shareOrDownload } from "./share-card";
 
 describe("last30Days", () => {
   it("lists the last 30 days oldest first, ending today", () => {
@@ -58,5 +58,30 @@ describe("fitText", () => {
 
   it("cuts a long name and ends it with an ellipsis, within the width", () => {
     expect(fitText("Nguyễn Thị Minh Khai", 8, width)).toBe("Nguyễn…");
+  });
+});
+
+describe("SHARE_TEMPLATES", () => {
+  it("lists the original card plus ten additional templates", () => {
+    expect(SHARE_TEMPLATES.map((t) => t.id)).toEqual([
+      "paper",
+      "night",
+      "moss",
+      "manuscript",
+      "dawn",
+      "editorial",
+      "postcard",
+      "celestial",
+      "terracotta",
+      "journal",
+      "monochrome",
+    ]);
+  });
+
+  it("validates stored template identifiers", () => {
+    expect(isShareTemplate("night")).toBe(true);
+    expect(isShareTemplate("monochrome")).toBe(true);
+    expect(isShareTemplate("unknown")).toBe(false);
+    expect(isShareTemplate(null)).toBe(false);
   });
 });

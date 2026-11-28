@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { cardVerse } from "../../lib/streak/card-verses";
-import { drawShareCard, shareOrDownload } from "../lib/share-card";
+import { drawShareCard, SHARE_TEMPLATE_STORAGE_KEY, shareOrDownload } from "../lib/share-card";
 import { CARD_IDENTITY_STORAGE_KEY, PROFILE_STORAGE_KEY } from "./profile-context";
 import { ShareStreak } from "./share-streak";
 import { historyOf, renderStreakAt } from "./streak-fixtures";
@@ -99,5 +99,19 @@ describe("<ShareStreak />", () => {
     fireEvent.click(view.getByRole("button", { name: "Lưu" }));
     await waitFor(() => expect(lastIdentity()).toEqual({ name: "Bé Na", avatar: null }));
     view.getByRole("button", { name: "Sửa tên và ảnh" });
+  });
+
+  test("switching templates redraws the card and remembers the chosen template", async () => {
+    const view = await open("Story");
+    expect(vi.mocked(drawShareCard).mock.lastCall?.[0].template).toBe("paper");
+    fireEvent.click(view.getByRole("radio", { name: "Đêm tĩnh" }));
+    await waitFor(() => expect(vi.mocked(drawShareCard).mock.lastCall?.[0].template).toBe("night"));
+    expect(vi.mocked(drawShareCard).mock.lastCall?.[0].size).toBe("story");
+    expect(localStorage.getItem(SHARE_TEMPLATE_STORAGE_KEY)).toBe("night");
+
+    view.unmount();
+    const reopened = await open("Bài đăng");
+    expect(vi.mocked(drawShareCard).mock.lastCall?.[0].template).toBe("night");
+    expect(reopened.getByRole("radio", { name: "Đêm tĩnh" }).getAttribute("aria-checked")).toBe("true");
   });
 });
