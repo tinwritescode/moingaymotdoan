@@ -1,4 +1,5 @@
 import { flameDataUrl, type FlameKind } from "../../lib/streak/flames";
+import { initialOf } from "../../lib/profile/profile";
 import { addDays } from "../../lib/streak/streak";
 
 export type ShareSize = "post" | "story";
@@ -10,7 +11,7 @@ const SIZES: Record<ShareSize, { w: number; h: number; top: number; foot: number
   story: { w: 1080, h: 1920, top: 240, foot: 70 },
 };
 
-const C = { paper: "#f4f3ee", ink: "#2b2e2a", muted: "#636a62", accent: "#4d7059", rule: "#e2e1d9", mark: "#eee5c8" };
+const C = { paper: "#f4f3ee", ink: "#2b2e2a", muted: "#636a62", accent: "#4d7059", rule: "#e2e1d9", mark: "#eee5c8", side: "#e3ebe2" };
 const SANS = "Lexend, system-ui, sans-serif";
 const SERIF = '"Source Serif 4", Georgia, serif';
 
@@ -27,13 +28,17 @@ export type ShareCardInput = {
   /** As printed, e.g. 29.11.2026. */
   date: string;
   text: { site: string; tagline: string; verse: string; verseRef: string };
+  /** The reader's name and photo (an image URL) in place of the site name; none keeps the site name. */
+  identity?: { name: string; avatar: string | null } | null;
 };
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
+    // An account photo from another origin would taint the canvas without CORS; one that refuses fails to load.
+    img.crossOrigin = "anonymous";
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("flame image failed"));
+    img.onerror = () => reject(new Error("image failed"));
     img.src = src;
   });
 }
@@ -51,6 +56,51 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): st
   return line ? [...lines, line] : lines;
 }
 
+/** `text` cut to fit `maxWidth`, ending in an ellipsis when cut. */
+export function fitText(text: string, maxWidth: number, measure: (s: string) => number): string {
+  if (measure(text) <= maxWidth) return text;
+  const chars = [...text];
+  while (chars.length > 0 && measure(`${chars.join("").trimEnd()}…`) > maxWidth) chars.pop();
+  return `${chars.join("").trimEnd()}…`;
+}
+
+/** The reader's photo in a ringed circle (or their initial), then their name, centred as a pair on baseline `y`. */
+function drawIdentity(ctx: CanvasRenderingContext2D, identity: { name: string; avatar: HTMLImageElement | null }, w: number, y: number) {
+  const r = 38;
+  ctx.font = `500 36px ${SANS}`;
+  const name = fitText(identity.name, 760, (s) => ctx.measureText(s).width);
+  const left = (w - (2 * r + 22 + ctx.measureText(name).width)) / 2;
+  const cx = left + r;
+  const cy = y - 13;
+  const circle = (radius: number, color: string) => {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+  };
+  circle(r + 6, C.accent);
+  circle(r + 3, C.paper);
+  circle(r, C.side);
+  const img = identity.avatar;
+  if (img) {
+    const side = Math.min(img.naturalWidth, img.naturalHeight);
+    ctx.save();
+    ctx.clip();
+    ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, cx - r, cy - r, 2 * r, 2 * r);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = C.accent;
+    ctx.font = `600 40px ${SERIF}`;
+    ctx.textAlign = "center";
+    ctx.fillText(initialOf(identity.name), cx, cy + 14);
+  }
+  ctx.fillStyle = C.ink;
+  ctx.font = `500 36px ${SANS}`;
+  ctx.textAlign = "left";
+  ctx.fillText(name, cx + r + 22, y);
+  ctx.textAlign = "center";
+}
+
 /** Draws the streak share card (design: ShareCard / ShareStory boards) and returns it as a PNG. */
 export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
   const { w, h, top, foot } = SIZES[input.size];
@@ -64,15 +114,20 @@ export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
     [`italic 400 40px ${SERIF}`, `600 230px ${SERIF}`, `500 34px ${SANS}`, `400 46px ${SANS}`].map((f) => document.fonts?.load(f)),
   );
   const flame = await loadImage(flameDataUrl(input.flame, "lit"));
+  const { identity } = input;
+  const avatar = identity?.avatar ? await loadImage(identity.avatar).catch(() => null) : null;
 
   ctx.fillStyle = C.paper;
   ctx.fillRect(0, 0, w, h);
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  ctx.fillStyle = C.accent;
-  ctx.font = `500 34px ${SANS}`;
-  ctx.fillText(input.text.site, w / 2, top + 120);
+  if (identity) drawIdentity(ctx, { name: identity.name, avatar }, w, top + 120);
+  else {
+    ctx.fillStyle = C.accent;
+    ctx.font = `500 34px ${SANS}`;
+    ctx.fillText(input.text.site, w / 2, top + 120);
+  }
 
   ctx.fillStyle = C.mark;
   ctx.beginPath();

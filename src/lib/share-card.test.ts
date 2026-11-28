@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { last30Days, shareOrDownload } from "./share-card";
+import { fitText, last30Days, shareOrDownload } from "./share-card";
 
 describe("last30Days", () => {
   it("lists the last 30 days oldest first, ending today", () => {
@@ -45,5 +45,18 @@ describe("shareOrDownload", () => {
     expect(await shareOrDownload(png, "moingaymotdoan-24-ngay.png")).toBe("downloaded");
     expect(a.download).toBe("moingaymotdoan-24-ngay.png");
     expect(click).toHaveBeenCalledOnce();
+  });
+});
+
+describe("fitText", () => {
+  // One unit per code point, so "…" costs 1.
+  const width = (s: string) => [...s].length;
+
+  it("keeps a name that fits", () => {
+    expect(fitText("Tin Nguyễn", 10, width)).toBe("Tin Nguyễn");
+  });
+
+  it("cuts a long name and ends it with an ellipsis, within the width", () => {
+    expect(fitText("Nguyễn Thị Minh Khai", 8, width)).toBe("Nguyễn…");
   });
 });

@@ -244,6 +244,21 @@ export type Messages = {
     notifyStart: { title: string; body: string };
     notifyRescue: (days: number) => { title: string; body: string };
   };
+  /** The reader's name and photo on the share card. */
+  profile: {
+    nameLabel: string;
+    addPhoto: string;
+    changePhoto: string;
+    removePhoto: string;
+    save: string;
+    cancel: string;
+    edit: string;
+    editLong: string;
+    add: string;
+    showOnCard: string;
+    photoFailed: string;
+    saveFailed: string;
+  };
   continueReading: {
     heading: (dateTime: string) => string;
     readAgain: string;
@@ -803,6 +818,20 @@ const VI: Messages = {
       title: "Hôm qua đèn chưa được thắp",
       body: `Chuỗi ${days} ngày vẫn cứu được hôm nay: đọc 2 đoạn, hoặc dùng ngày Sa-bát.`,
     }),
+  },
+  profile: {
+    nameLabel: "Tên hiện trên thẻ",
+    addPhoto: "Thêm ảnh",
+    changePhoto: "Đổi ảnh",
+    removePhoto: "Bỏ ảnh",
+    save: "Lưu",
+    cancel: "Huỷ",
+    edit: "Sửa",
+    editLong: "Sửa tên và ảnh",
+    add: "Thêm tên và ảnh của bạn",
+    showOnCard: "Hiện tên và ảnh của tôi",
+    photoFailed: "Không đọc được ảnh này. Thử ảnh khác nhé.",
+    saveFailed: "Chưa lưu được. Thử lại nhé.",
   },
   continueReading: {
     heading: (dateTime) => `Xem tiếp · ${dateTime}`,
@@ -1400,6 +1429,20 @@ const EN: Messages = {
       title: "Yesterday's lamp was not lit",
       body: `Your ${days}-day streak can still be saved today: read 2 chapters, or use a Sabbath rest.`,
     }),
+  },
+  profile: {
+    nameLabel: "Name on the card",
+    addPhoto: "Add photo",
+    changePhoto: "Change photo",
+    removePhoto: "Remove photo",
+    save: "Save",
+    cancel: "Cancel",
+    edit: "Edit",
+    editLong: "Edit name and photo",
+    add: "Add your name and photo",
+    showOnCard: "Show my name and photo",
+    photoFailed: "Couldn't read that photo. Try another one.",
+    saveFailed: "Couldn't save. Try again.",
   },
   continueReading: {
     heading: (dateTime) => `Continue reading · ${dateTime}`,

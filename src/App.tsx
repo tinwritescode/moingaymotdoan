@@ -6,6 +6,7 @@ import { RouterLocaleProvider } from "./components/locale-context";
 import { PreferencesProvider } from "./components/preferences-context";
 import { ReminderSync } from "./components/reminder-controls";
 import { SiteFooter } from "./components/site-footer";
+import { ProfileProvider } from "./components/profile-context";
 import { StreakProvider } from "./components/streak-context";
 import { PageSkeleton } from "./components/skeleton";
 import { isStandalone } from "./lib/install";
@@ -44,18 +45,20 @@ export default function App() {
       <AuthProvider>
         <HistoryProvider>
           <StreakProvider>
-            <Router>
-              {(props) => (
-                <RouterLocaleProvider>
-                  <div class="flex flex-1 flex-col">
-                    <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
-                  </div>
-                  <SiteFooter />
-                  <InstallCorner />
-                  <ReminderSync />
-                </RouterLocaleProvider>
-              )}
-            </Router>
+            <ProfileProvider>
+              <Router>
+                {(props) => (
+                  <RouterLocaleProvider>
+                    <div class="flex flex-1 flex-col">
+                      <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
+                    </div>
+                    <SiteFooter />
+                    <InstallCorner />
+                    <ReminderSync />
+                  </RouterLocaleProvider>
+                )}
+              </Router>
+            </ProfileProvider>
           </StreakProvider>
         </HistoryProvider>
       </AuthProvider>

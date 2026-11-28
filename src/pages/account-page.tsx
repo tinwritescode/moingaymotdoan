@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from "@solidjs/router";
-import { createEffect, createMemo, Show } from "solid-js";
+import { createEffect, createMemo, createSignal, Show } from "solid-js";
 import { safeNextPath } from "../../lib/auth/types";
 import { booksFor } from "../../lib/content/books";
 import { useAuth } from "../components/auth-context";
 import { FloatingDock } from "../components/floating-dock";
 import { useHistory } from "../components/history-context";
 import { useLocale } from "../components/locale-context";
+import { useProfile } from "../components/profile-context";
+import { Avatar, ProfileEditor } from "../components/profile-editor";
 import { useStreak } from "../components/streak-context";
 import { WeeklyDots } from "../components/progress-ring";
 import { Seo } from "../components/seo";
@@ -34,6 +36,8 @@ export function AccountPageView() {
   } = useAuth();
   const { stats } = useHistory();
   const streak = useStreak();
+  const me = useProfile();
+  const [editingProfile, setEditingProfile] = createSignal(false);
   const authErrorMessage = createMemo(() => formatAuthError(authError(), locale()));
 
   const nextUrl = createMemo(() => {
@@ -152,33 +156,33 @@ export function AccountPageView() {
             {(signedIn) => (
               <section aria-labelledby="profile-heading" class="rounded-3xl border border-rule bg-card p-6 sm:p-8">
                 <div class="flex items-center gap-4">
-                  <Show
-                    when={signedIn().avatarUrl}
-                    fallback={
-                      <div
-                        aria-hidden="true"
-                        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-side font-display text-2xl font-medium text-accent"
-                      >
-                        {signedIn().name.slice(0, 1).toUpperCase()}
-                      </div>
-                    }
-                  >
-                    {(url) => (
-                      <img
-                        src={url()}
-                        alt={signedIn().name}
-                        class="h-14 w-14 shrink-0 rounded-full border border-rule object-cover"
-                      />
-                    )}
-                  </Show>
-                  <div class="min-w-0">
+                  <Avatar
+                    profile={me.profile() ?? { name: signedIn().name, avatar: signedIn().avatarUrl }}
+                    class="h-14 w-14 text-2xl"
+                  />
+                  <div class="min-w-0 flex-1">
                     <p class="font-sans text-xs font-medium text-accent">{t().account.syncingBadge}</p>
                     <h1 id="profile-heading" class="truncate font-display text-2xl font-normal text-ink">
-                      {signedIn().name}
+                      {me.profile()?.name ?? signedIn().name}
                     </h1>
                     <p class="truncate font-sans text-xs text-muted">{signedIn().email}</p>
                   </div>
+                  <Show when={!editingProfile()}>
+                    <button
+                      type="button"
+                      aria-label={t().profile.editLong}
+                      onClick={() => setEditingProfile(true)}
+                      class="inline-flex min-h-11 shrink-0 cursor-pointer items-center rounded-full px-3 font-sans text-sm font-medium text-accent hover:bg-side"
+                    >
+                      {t().profile.edit}
+                    </button>
+                  </Show>
                 </div>
+                <Show when={editingProfile()}>
+                  <div class="mt-4 rounded-2xl border border-rule p-4">
+                    <ProfileEditor onClose={() => setEditingProfile(false)} />
+                  </div>
+                </Show>
 
                 <div class="mt-6 grid grid-cols-3 gap-2 font-sans">
                   <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">

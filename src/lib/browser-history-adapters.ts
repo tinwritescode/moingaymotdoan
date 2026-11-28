@@ -1,4 +1,5 @@
-import type { LocalHistoryStore, RemoteHistoryAdapter, StreakMarksRemote } from "../../lib/history/ports";
+import type { LocalHistoryStore, ProfileRemote, RemoteHistoryAdapter, StreakMarksRemote } from "../../lib/history/ports";
+import { parseProfile } from "../../lib/profile/profile";
 import { parseMarks, type StreakMarks } from "../../lib/streak/marks";
 import {
   EMPTY_HISTORY,
@@ -143,6 +144,21 @@ export function createHttpStreakMarksRemote(options: HttpHistoryAdapterOptions):
       );
       if (!merged) throw new Error("Invalid streak marks from server");
       return merged;
+    },
+  };
+}
+
+/** HTTP implementation of the ProfileRemote seam; a malformed answer reads as no profile and fails a save. */
+export function createHttpProfileRemote(options: HttpHistoryAdapterOptions): ProfileRemote {
+  const request = createAuthorizedRequest(options);
+  return {
+    fetch: async () => parseProfile((await request<{ profile?: unknown }>("/history/profile")).profile),
+    async save(profile) {
+      const saved = parseProfile(
+        (await request<{ profile?: unknown }>("/history/profile", { method: "PUT", body: JSON.stringify(profile) })).profile,
+      );
+      if (!saved) throw new Error("Invalid profile from server");
+      return saved;
     },
   };
 }

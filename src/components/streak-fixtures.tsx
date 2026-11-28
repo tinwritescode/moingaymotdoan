@@ -3,6 +3,7 @@ import { flush } from "solid-js";
 import type { JSX } from "@solidjs/web";
 import { vi } from "vitest";
 import { createAuthSession } from "../../lib/auth/session";
+import type { AuthUser } from "../../lib/auth/types";
 import type { StreakMarksRemote } from "../../lib/history/ports";
 import { createHistoryEngine } from "../../lib/history/engine";
 import { createMemoryLocalHistoryStore } from "../../lib/history/memory-adapters";
@@ -10,6 +11,7 @@ import type { HistorySnapshot, ReadingLog } from "../../lib/history/types";
 import { addDays } from "../../lib/streak/streak";
 import { AuthProvider } from "./auth-context";
 import { HistoryProvider } from "./history-context";
+import { ProfileProvider } from "./profile-context";
 import { StreakProvider } from "./streak-context";
 
 // Test helpers shared by the streak component tests.
@@ -35,11 +37,11 @@ export function historyOf(today: string, count: number, endBack: number): Histor
 
 type SignedIn = { userId: string; remoteFor: (userId: string) => StreakMarksRemote | null };
 
-/** A session already signed in as `userId`. */
-function signedInSession(userId: string) {
+/** A session already signed in as `userId`, with the account's name and photo if given. */
+export function signedInSession(userId: string, account: Partial<Pick<AuthUser, "name" | "avatarUrl">> = {}) {
   return createAuthSession({
     configured: true,
-    init: async () => ({ id: userId, email: "", name: "", avatarUrl: null }),
+    init: async () => ({ id: userId, email: "", name: "", avatarUrl: null, ...account }),
     signIn: async () => {},
     signUp: async () => {},
     signOut: async () => {},
@@ -54,7 +56,9 @@ export function renderStreakAt(time: string, history: HistorySnapshot, ui: () =>
   const engine = createHistoryEngine({ local: createMemoryLocalHistoryStore(history) });
   const tree = () => (
     <HistoryProvider engine={engine}>
-      <StreakProvider remoteFor={signedIn?.remoteFor}>{ui()}</StreakProvider>
+      <StreakProvider remoteFor={signedIn?.remoteFor}>
+        <ProfileProvider remoteFor={() => null}>{ui()}</ProfileProvider>
+      </StreakProvider>
     </HistoryProvider>
   );
   const view = render(() =>

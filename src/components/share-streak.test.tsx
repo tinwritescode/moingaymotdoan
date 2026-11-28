@@ -3,6 +3,7 @@ import { flush } from "solid-js";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { cardVerse } from "../../lib/streak/card-verses";
 import { drawShareCard, shareOrDownload } from "../lib/share-card";
+import { CARD_IDENTITY_STORAGE_KEY, PROFILE_STORAGE_KEY } from "./profile-context";
 import { ShareStreak } from "./share-streak";
 import { historyOf, renderStreakAt } from "./streak-fixtures";
 
@@ -28,6 +29,7 @@ beforeEach(() => {
 afterEach(() => {
   vi.useRealTimers();
   vi.clearAllMocks();
+  localStorage.clear();
 });
 
 describe("<ShareStreak />", () => {
@@ -73,5 +75,29 @@ describe("<ShareStreak />", () => {
     fireEvent.click(view.getByRole("button", { name: "Đóng" }));
     await waitFor(() => expect(view.queryByRole("dialog")).toBeNull());
     expect(shareOrDownload).not.toHaveBeenCalled();
+  });
+
+  const lastIdentity = () => vi.mocked(drawShareCard).mock.lastCall?.[0].identity;
+
+  test("the card carries the reader's name and photo, and can leave them off", async () => {
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify({ name: "Bé Na", avatar: null }));
+    const view = await open("Story");
+    expect(lastIdentity()).toEqual({ name: "Bé Na", avatar: null });
+    fireEvent.click(view.getByRole("switch", { name: /Hiện tên và ảnh của tôi/ }));
+    await waitFor(() => expect(lastIdentity()).toBeNull());
+    expect(vi.mocked(drawShareCard).mock.lastCall?.[0].size).toBe("story");
+    expect(localStorage.getItem(CARD_IDENTITY_STORAGE_KEY)).toBe("off");
+  });
+
+  test("a guest adds a name from the preview and the card redraws with it", async () => {
+    const view = await open("Bài đăng");
+    expect(lastIdentity()).toBeNull();
+    fireEvent.click(view.getByRole("button", { name: "Thêm tên và ảnh của bạn" }));
+    flush();
+    fireEvent.input(view.getByLabelText("Tên hiện trên thẻ"), { target: { value: "Bé Na" } });
+    flush();
+    fireEvent.click(view.getByRole("button", { name: "Lưu" }));
+    await waitFor(() => expect(lastIdentity()).toEqual({ name: "Bé Na", avatar: null }));
+    view.getByRole("button", { name: "Sửa tên và ảnh" });
   });
 });

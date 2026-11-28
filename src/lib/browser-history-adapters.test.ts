@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { classifyAuthError } from "../../lib/auth/types";
 import { formatAuthError, formatSyncError } from "./auth-messages";
 import {
+  createHttpProfileRemote,
   createHttpStreakMarksRemote,
   createBrowserLocalHistoryStore,
   createHttpHistoryAdapter,
@@ -137,3 +138,29 @@ describe("createHttpStreakMarksRemote", () => {
   });
 });
 
+
+describe("createHttpProfileRemote", () => {
+  const profile = { name: "Tin", avatar: null };
+  const remoteAnswering = (body: unknown, calls: RequestInit[] = []) =>
+    createHttpProfileRemote({
+      baseUrl: "https://api.test/",
+      getAccessToken: async () => "token",
+      fetchImpl: async (_url, init) => {
+        calls.push(init ?? {});
+        return new Response(JSON.stringify(body), { status: 200 });
+      },
+    });
+
+  it("puts the profile and returns the server's copy", async () => {
+    const calls: RequestInit[] = [];
+    expect(await remoteAnswering({ profile }, calls).save(profile)).toEqual(profile);
+    expect(calls[0].method).toBe("PUT");
+    expect(calls[0].body).toBe(JSON.stringify(profile));
+    expect(await remoteAnswering({ profile: null }).fetch()).toBeNull();
+  });
+
+  it("never trusts a malformed profile from the server", async () => {
+    expect(await remoteAnswering({ profile: { name: "" } }).fetch()).toBeNull();
+    await expect(remoteAnswering({ profile: { name: "" } }).save(profile)).rejects.toThrow();
+  });
+});

@@ -5,6 +5,8 @@ import { BookPicker } from "./book-picker";
 import { DisplayMenu, ThemeToggle } from "./display-controls";
 import { LanguageToggle } from "./language-switcher";
 import { useLocale } from "./locale-context";
+import { useProfile } from "./profile-context";
+import { initialOf } from "../../lib/profile/profile";
 
 type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
 
@@ -15,6 +17,7 @@ type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan";
 export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderSection }>) {
   const { locale, t } = useLocale();
   const { user, initialized } = useAuth();
+  const { profile } = useProfile();
 
   return (
     <header class="kt-header sticky top-0 z-20 border-b border-rule/70 bg-paper/88 backdrop-blur-md">
@@ -88,11 +91,14 @@ export function SiteHeader(props: ParentProps<{ book?: string; section?: HeaderS
                 </svg>
               }
             >
-              {(u) => (
-                <Show when={u().avatarUrl} fallback={<span>{u().name.slice(0, 1).toUpperCase()}</span>}>
-                  {(url) => <img src={url()} alt={u().name} class="h-full w-full object-cover" />}
-                </Show>
-              )}
+              {(u) => {
+                const shown = () => profile() ?? { name: u().name, avatar: u().avatarUrl };
+                return (
+                  <Show when={shown().avatar} fallback={<span>{initialOf(shown().name)}</span>}>
+                    {(url) => <img src={url()} alt={shown().name} class="h-full w-full object-cover" />}
+                  </Show>
+                );
+              }}
             </Show>
           </a>
         </div>
