@@ -1,8 +1,9 @@
 import { createEffect, createMemo, createSignal, onSettled, Show } from "solid-js";
 import type { ChapterView } from "../../lib/content";
 import { canonicalBookSlug } from "../../lib/content/books";
-import { chapterItemKey, moodItemKey, type VisitInput } from "../../lib/history/types";
+import { chapterItemKey, localDateKey, moodItemKey, type VisitInput } from "../../lib/history/types";
 import { chapterHref } from "../router";
+import { DoneSheet } from "./done-sheet";
 import { useHistory } from "./history-context";
 import { useLocale } from "./locale-context";
 import { ProgressRing } from "./progress-ring";
@@ -65,9 +66,10 @@ export function MoodVisitRecorder(props: { slug: string; title: string; groupNam
  * prev/next arrows, live scroll progress ring, and "Mark complete" toggle.
  */
 export function ChapterProgressBar(props: { view: ChapterView }) {
-  const { hydrated, progressFor, toggleCompleted } = useHistory();
+  const { hydrated, progress, progressFor, toggleCompleted } = useHistory();
   const { locale, t } = useLocale();
   const [scrollPct, setScrollPct] = createSignal(0);
+  const [sheetOpen, setSheetOpen] = createSignal(false);
 
   onSettled(() => {
     const update = () => {
@@ -89,9 +91,16 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
   const entry = createMemo(() => progressFor("chapter", itemKey()));
   const completed = createMemo(() => entry()?.completed ?? false);
 
+  // The day's first completed đoạn opens the done sheet.
+  const firstCompletionToday = () => {
+    const today = localDateKey(new Date());
+    return !progress().some((p) => p.completed && p.completedAt !== null && localDateKey(new Date(p.completedAt)) === today);
+  };
+
   const handleToggle = () => {
     const v = props.view;
     const cSlug = canonicalSlug();
+    if (!completed() && firstCompletionToday()) setSheetOpen(true);
     void toggleCompleted({
       kind: "chapter",
       itemKey: chapterItemKey(cSlug, v.number),
@@ -175,6 +184,7 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
           )}
         </Show>
       </div>
+      <DoneSheet open={sheetOpen()} onClose={() => setSheetOpen(false)} />
     </Show>
   );
 }
