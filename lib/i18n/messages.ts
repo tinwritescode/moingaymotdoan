@@ -190,6 +190,57 @@ export type Messages = {
     chapterAriaLabel: (chapter: number, title: string) => string;
     seenBadge: string;
   };
+  streak: {
+    regionLabel: string;
+    daysLabel: string;
+    record: (days: number) => string;
+    /** Monday to Sunday. */
+    weekdays: readonly [string, string, string, string, string, string, string];
+    marks: Record<"read" | "rest" | "rekindled" | "missed" | "today" | "future", string>;
+    startTitle: string;
+    startBody: string;
+    todayTitle: string;
+    todayBody: (days: number) => string;
+    readNext: (label: string) => string;
+    atRiskTitle: (days: number) => string;
+    timeLeft: (hours: number, minutes: number) => string;
+    shortTitle: string;
+    shortBody: string;
+    shortMeta: (verses: number, minutes: number) => string;
+    rescueTitle: string;
+    rescueBody: (days: number) => string;
+    rekindleTitle: string;
+    rekindleBody: (needed: number, days: number) => string;
+    recommended: string;
+    restTitle: string;
+    restBody: (days: number) => string;
+    restartBtn: string;
+    recordKept: (record: number) => string;
+    doneTitle: string;
+    doneBody: (days: number) => string;
+    milestoneBadge: (flame: string) => string;
+    nextMilestone: (at: number, flame: string) => string;
+    daysLeft: (left: number) => string;
+    allFlames: string;
+    share: (days: number) => string;
+    sharePost: string;
+    shareStory: string;
+    shareFailed: string;
+    cardTagline: string;
+    cardVerse: string;
+    cardVerseRef: string;
+    sheetLabel: string;
+    sheetClose: string;
+    remindMe: (hour: number) => string;
+    remindHourLabel: string;
+    remindOff: string;
+    remindBlocked: string;
+    remindFailed: string;
+    remindInstall: string;
+    notifyAtRisk: (days: number) => { title: string; body: string };
+    notifyStart: { title: string; body: string };
+    notifyRescue: (days: number) => { title: string; body: string };
+  };
   continueReading: {
     heading: (dateTime: string) => string;
     readAgain: string;
@@ -687,6 +738,65 @@ const VI: Messages = {
       lastReadDate ? `Đoạn ${chapter}: ${title} (đã xem ${lastReadDate})` : `Đoạn ${chapter}: ${title}`,
     chapterAriaLabel: (chapter, title) => `Đoạn ${chapter}: ${title}`,
     seenBadge: "• đã xem",
+  },
+  streak: {
+    regionLabel: "Chuỗi ngày đọc",
+    daysLabel: "ngày liền",
+    record: (days) => `Kỷ lục ${days} ngày`,
+    weekdays: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+    marks: { read: "đã đọc", rest: "ngày Sa-bát", rekindled: "đã thắp lại", missed: "chưa đọc", today: "hôm nay", future: "sắp tới" },
+    startTitle: "Thắp ngọn nến hôm nay",
+    startBody: "Đọc một đoạn hôm nay để bắt đầu chuỗi ngày đọc.",
+    todayTitle: "Hôm nay: một đoạn để giữ lửa",
+    todayBody: (days) => `Đọc một đoạn trước nửa đêm, chuỗi lên ${days + 1} ngày.`,
+    readNext: (label) => `Đọc ${label}`,
+    atRiskTitle: (days) => `Đèn ${days} ngày sẽ tắt lúc nửa đêm`,
+    timeLeft: (hours, minutes) => `Còn ${hours} giờ ${minutes} phút`,
+    shortTitle: "Chỉ có ít phút?",
+    shortBody: "Một đoạn ngắn cũng giữ được chuỗi.",
+    shortMeta: (verses, minutes) => `${verses} câu · ${minutes} phút`,
+    rescueTitle: "Hôm qua đèn chưa được thắp",
+    rescueBody: (days) => `Chuỗi ${days} ngày vẫn cứu được, đến 23:59 hôm nay. Chọn một cách:`,
+    rekindleTitle: "Thắp lại",
+    rekindleBody: (needed, days) =>
+      needed === 2
+        ? `Đọc 2 đoạn hôm nay: một bù cho hôm qua, một cho hôm nay. Chuỗi nối lại thành ${days + 1} ngày.`
+        : `Đọc thêm 1 đoạn nữa hôm nay. Chuỗi nối lại thành ${days + 1} ngày.`,
+    recommended: "Nên chọn",
+    restTitle: "Dùng ngày Sa-bát",
+    restBody: (days) => `Hôm qua thành ngày nghỉ, chuỗi giữ nguyên ${days} ngày. Mỗi tuần được một ngày Sa-bát.`,
+    restartBtn: "Bắt đầu lại từ ngày 1",
+    recordKept: (record) => `Kỷ lục ${record} ngày vẫn được lưu dù bạn chọn gì.`,
+    doneTitle: "Hôm nay đèn đã được thắp",
+    doneBody: (days) => `${days} ngày liền đọc Lời Chúa. Mai đọc tiếp nhé.`,
+    milestoneBadge: (flame) => `Mốc mới: ${flame}`,
+    nextMilestone: (at, flame) => `Mốc ${at} ngày: ${flame}`,
+    daysLeft: (left) => `Còn ${left} ngày để thắp ngọn lửa mới.`,
+    allFlames: "Bạn đã thắp đủ sáu ngọn lửa. Trụ lửa cháy mãi khi bạn còn đọc mỗi ngày.",
+    share: (days) => `Chia sẻ thẻ ${days} ngày`,
+    sharePost: "Bài đăng",
+    shareStory: "Story",
+    shareFailed: "Chưa tạo được ảnh. Thử lại nhé.",
+    cardTagline: "ngày liền đọc Lời Chúa",
+    cardVerse: "“Lời Chúa là ngọn đèn cho chân tôi, ánh sáng cho đường lối tôi.”",
+    cardVerseRef: "Thi-thiên 119:105",
+    sheetLabel: "Đọc xong hôm nay",
+    sheetClose: "Đọc tiếp",
+    remindMe: (hour) => `Nhắc tôi lúc ${hour}:00`,
+    remindHourLabel: "Giờ nhắc",
+    remindOff: "Tắt nhắc",
+    remindBlocked: "Trình duyệt đang chặn thông báo của trang. Mở cài đặt trang để bật lại.",
+    remindFailed: "Chưa bật được lời nhắc. Thử lại sau nhé.",
+    remindInstall: "Cài app về màn hình chính để nhận lời nhắc trên iPhone",
+    notifyAtRisk: (days) => ({
+      title: `Đèn ${days} ngày sắp tắt`,
+      body: `Đèn ${days} ngày của bạn sẽ tắt lúc nửa đêm. Một đoạn ngắn là đủ giữ nó.`,
+    }),
+    notifyStart: { title: "Mỗi ngày một đoạn", body: "Hôm nay bạn chưa đọc đoạn nào. Vài phút thôi là đủ." },
+    notifyRescue: (days) => ({
+      title: "Hôm qua đèn chưa được thắp",
+      body: `Chuỗi ${days} ngày vẫn cứu được hôm nay: đọc 2 đoạn, hoặc dùng ngày Sa-bát.`,
+    }),
   },
   continueReading: {
     heading: (dateTime) => `Xem tiếp · ${dateTime}`,
@@ -1220,6 +1330,65 @@ const EN: Messages = {
       lastReadDate ? `Chapter ${chapter}: ${title} (read ${lastReadDate})` : `Chapter ${chapter}: ${title}`,
     chapterAriaLabel: (chapter, title) => `Chapter ${chapter}: ${title}`,
     seenBadge: "• visited",
+  },
+  streak: {
+    regionLabel: "Reading streak",
+    daysLabel: "days in a row",
+    record: (days) => `Best ${days} days`,
+    weekdays: ["M", "T", "W", "T", "F", "S", "S"],
+    marks: { read: "read", rest: "Sabbath rest", rekindled: "rekindled", missed: "missed", today: "today", future: "to come" },
+    startTitle: "Light your candle today",
+    startBody: "Read one chapter today to start your streak.",
+    todayTitle: "Today: one chapter keeps the flame",
+    todayBody: (days) => `Read a chapter before midnight and your streak grows to ${days + 1}.`,
+    readNext: (label) => `Read ${label}`,
+    atRiskTitle: (days) => `Your ${days}-day lamp goes out at midnight`,
+    timeLeft: (hours, minutes) => `${hours} h ${minutes} min left`,
+    shortTitle: "Only a few minutes?",
+    shortBody: "A short chapter keeps the streak too.",
+    shortMeta: (verses, minutes) => `${verses} verses · ${minutes} min`,
+    rescueTitle: "Yesterday's lamp was not lit",
+    rescueBody: (days) => `Your ${days}-day streak can still be saved until 23:59 today. Choose one:`,
+    rekindleTitle: "Rekindle",
+    rekindleBody: (needed, days) =>
+      needed === 2
+        ? `Read 2 chapters today: one for yesterday, one for today. Your streak joins up at ${days + 1} days.`
+        : `Read 1 more chapter today. Your streak joins up at ${days + 1} days.`,
+    recommended: "Best choice",
+    restTitle: "Use a Sabbath rest",
+    restBody: (days) => `Yesterday becomes a rest day and your streak stays at ${days}. One Sabbath a week.`,
+    restartBtn: "Start over from day 1",
+    recordKept: (record) => `Your best of ${record} days is kept whatever you choose.`,
+    doneTitle: "Today's lamp is lit",
+    doneBody: (days) => `${days} days in a row in God's Word. See you tomorrow.`,
+    milestoneBadge: (flame) => `New milestone: ${flame}`,
+    nextMilestone: (at, flame) => `${at} days: ${flame}`,
+    daysLeft: (left) => `${left} days to your next flame.`,
+    allFlames: "You have lit all six flames. The pillar of fire burns on as long as you read each day.",
+    share: (days) => `Share your ${days}-day card`,
+    sharePost: "Post",
+    shareStory: "Story",
+    shareFailed: "Could not make the image. Please try again.",
+    cardTagline: "days in a row in God's Word",
+    cardVerse: "“Your word is a lamp to my feet, and a light for my path.”",
+    cardVerseRef: "Psalm 119:105",
+    sheetLabel: "Today's reading done",
+    sheetClose: "Keep reading",
+    remindMe: (hour) => `Remind me at ${hour}:00`,
+    remindHourLabel: "Reminder time",
+    remindOff: "Turn off",
+    remindBlocked: "Your browser blocks this site's notifications. Allow them in the site settings.",
+    remindFailed: "Could not turn on reminders. Please try again later.",
+    remindInstall: "Add the app to your Home Screen to get reminders on iPhone",
+    notifyAtRisk: (days) => ({
+      title: `Your ${days}-day lamp is flickering`,
+      body: `Your ${days}-day lamp goes out at midnight. A short chapter is enough to keep it.`,
+    }),
+    notifyStart: { title: "One chapter a day", body: "You have not read a chapter today. A few minutes is enough." },
+    notifyRescue: (days) => ({
+      title: "Yesterday's lamp was not lit",
+      body: `Your ${days}-day streak can still be saved today: read 2 chapters, or use a Sabbath rest.`,
+    }),
   },
   continueReading: {
     heading: (dateTime) => `Continue reading · ${dateTime}`,
