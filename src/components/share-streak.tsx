@@ -1,7 +1,9 @@
 import { createEffect, createSignal, For, onCleanup, Show } from "solid-js";
 import { localDateKey } from "../../lib/history/types";
+import { cardVerse } from "../../lib/streak/card-verses";
 import { flameFor } from "../../lib/streak/flames";
 import { canSharePng, drawShareCard, last30Days, shareOrDownload, type ShareSize } from "../lib/share-card";
+import { useAuth } from "./auth-context";
 import { useLocale } from "./locale-context";
 import { useStreak } from "./streak-context";
 
@@ -13,7 +15,8 @@ type Preview = { size: ShareSize; blob: Blob; url: string };
  */
 export function ShareStreak(props: { days: number }) {
   const streak = useStreak();
-  const { t } = useLocale();
+  const auth = useAuth();
+  const { locale, t } = useLocale();
   const [busy, setBusy] = createSignal(false);
   const [failed, setFailed] = createSignal(false);
   const [preview, setPreview] = createSignal<Preview | null>(null);
@@ -25,6 +28,7 @@ export function ShareStreak(props: { days: number }) {
     setFailed(false);
     try {
       const today = localDateKey(streak.now());
+      const verse = cardVerse(locale(), auth.user()?.id ?? null, today);
       const blob = await drawShareCard({
         size,
         days: props.days,
@@ -34,8 +38,8 @@ export function ShareStreak(props: { days: number }) {
         text: {
           site: t().seo.siteName.split(" — ")[0],
           tagline: t().streak.cardTagline,
-          verse: t().streak.cardVerse,
-          verseRef: t().streak.cardVerseRef,
+          verse: `“${verse.text}”`,
+          verseRef: verse.ref,
         },
       });
       setPreview({ size, blob, url: URL.createObjectURL(blob) });

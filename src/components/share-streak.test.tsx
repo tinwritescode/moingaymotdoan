@@ -1,5 +1,7 @@
 import { fireEvent, waitFor } from "@solidjs/testing-library";
+import { flush } from "solid-js";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { cardVerse } from "../../lib/streak/card-verses";
 import { drawShareCard, shareOrDownload } from "../lib/share-card";
 import { ShareStreak } from "./share-streak";
 import { historyOf, renderStreakAt } from "./streak-fixtures";
@@ -30,8 +32,12 @@ afterEach(() => {
 
 describe("<ShareStreak />", () => {
   const today = "2026-11-28";
-  const open = async (size: "Bài đăng" | "Story") => {
-    const view = renderStreakAt(`${today}T12:00:00`, historyOf(today, 4, 0), () => <ShareStreak days={4} />);
+  const open = async (size: "Bài đăng" | "Story", userId?: string) => {
+    const signedIn = userId ? { userId, remoteFor: () => null } : undefined;
+    const view = renderStreakAt(`${today}T12:00:00`, historyOf(today, 4, 0), () => <ShareStreak days={4} />, signedIn);
+    // The session loads the signed-in reader asynchronously.
+    await new Promise((r) => setTimeout(r, 0));
+    flush();
     fireEvent.click(view.getByRole("button", { name: size }));
     await waitFor(() => view.getByRole("dialog", { name: "Xem trước ảnh chia sẻ" }));
     return view;
@@ -42,6 +48,16 @@ describe("<ShareStreak />", () => {
     expect(drawShareCard).toHaveBeenCalledWith(expect.objectContaining({ size: "story", days: 4 }));
     expect(view.getByRole("img").getAttribute("src")).toBe("blob:card");
     expect(shareOrDownload).not.toHaveBeenCalled();
+  });
+
+  test("the card carries the day's verse, picked for the reader", async () => {
+    const guest = cardVerse("vi", null, today);
+    const reader = cardVerse("vi", "user_share", today);
+    expect(reader.ref).not.toBe(guest.ref);
+    (await open("Bài đăng")).unmount();
+    expect(drawShareCard).toHaveBeenLastCalledWith(expect.objectContaining({ text: expect.objectContaining({ verse: `“${guest.text}”`, verseRef: guest.ref }) }));
+    await open("Bài đăng", "user_share");
+    expect(drawShareCard).toHaveBeenLastCalledWith(expect.objectContaining({ text: expect.objectContaining({ verse: `“${reader.text}”`, verseRef: reader.ref }) }));
   });
 
   test("the preview's button shares or downloads that same image, then closes", async () => {

@@ -231,8 +231,6 @@ export type Messages = {
     shareSave: string;
     shareClose: string;
     cardTagline: string;
-    cardVerse: string;
-    cardVerseRef: string;
     sheetLabel: string;
     sheetClose: string;
     remindMe: (hour: number) => string;
@@ -786,8 +784,6 @@ const VI: Messages = {
     shareSave: "Tải ảnh",
     shareClose: "Đóng",
     cardTagline: "ngày liền đọc Lời Chúa",
-    cardVerse: "“Lời Chúa là ngọn đèn cho chân tôi, ánh sáng cho đường lối tôi.”",
-    cardVerseRef: "Thi-thiên 119:105",
     sheetLabel: "Đọc xong hôm nay",
     sheetClose: "Đọc tiếp",
     remindMe: (hour) => `Nhắc tôi lúc ${hour}:00`,
@@ -1382,8 +1378,6 @@ const EN: Messages = {
     shareSave: "Download image",
     shareClose: "Close",
     cardTagline: "days in a row in God's Word",
-    cardVerse: "“Your word is a lamp to my feet, and a light for my path.”",
-    cardVerseRef: "Psalm 119:105",
     sheetLabel: "Today's reading done",
     sheetClose: "Keep reading",
     remindMe: (hour) => `Remind me at ${hour}:00`,

@@ -93,9 +93,14 @@ export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
   });
 
   ctx.fillStyle = C.ink;
-  ctx.font = `italic 400 40px ${SERIF}`;
   const verseTop = top + 1150 + (input.size === "story" ? 80 : 0);
-  const verse = wrap(ctx, input.text.verse, 860);
+  // Two lines fit above the post card's footer; a longer verse sets smaller rather than run into it.
+  let verse: string[] = [];
+  for (const px of [40, 36, 32]) {
+    ctx.font = `italic 400 ${px}px ${SERIF}`;
+    verse = wrap(ctx, input.text.verse, 860);
+    if (verse.length <= 2) break;
+  }
   verse.forEach((line, i) => ctx.fillText(line, w / 2, verseTop + i * 54));
   ctx.fillStyle = C.muted;
   ctx.font = `400 30px ${SANS}`;
