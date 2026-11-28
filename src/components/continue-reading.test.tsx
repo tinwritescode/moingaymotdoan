@@ -9,6 +9,9 @@ import { CONTINUE_HEIGHT_STORAGE_KEY } from "../lib/preferences";
 import { AuthProvider } from "./auth-context";
 import { ContinueReading } from "./continue-reading";
 import { HistoryProvider } from "./history-context";
+import { StreakProvider } from "./streak-context";
+
+vi.mock("lottie-web/build/player/lottie_light", () => ({ default: { loadAnimation: vi.fn() } }));
 
 const AT = "2026-11-25T09:00:00.000Z";
 const READ_GENESIS_1: HistorySnapshot = {
@@ -44,7 +47,9 @@ async function renderAsGuest(history: HistorySnapshot) {
   const view = render(() => (
     <AuthProvider session={session}>
       <HistoryProvider engine={engine}>
-        <ContinueReading toc={[]} />
+        <StreakProvider>
+          <ContinueReading toc={[]} />
+        </StreakProvider>
       </HistoryProvider>
     </AuthProvider>
   ));
@@ -70,6 +75,11 @@ describe("<ContinueReading /> remembers its height for the next load", () => {
     const { findByText } = await renderAsGuest(READ_GENESIS_1);
     await findByText("Sáng-thế Ký 1");
     expect(localStorage.getItem(CONTINUE_HEIGHT_STORAGE_KEY)).toBe("302");
+  });
+
+  test("the streak card leads the card", async () => {
+    const view = await renderAsGuest(READ_GENESIS_1);
+    await view.findByRole("region", { name: "Chuỗi ngày đọc" });
   });
 
   test("forgets it once the reader has nothing to continue", async () => {
