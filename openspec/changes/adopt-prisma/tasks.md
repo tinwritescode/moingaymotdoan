@@ -20,4 +20,4 @@
 - [x] 3.1 Create a Neon branch from `main`, run `migrate diff` from it to the schema, and require an empty diff; also require an identical `pg_dump --schema-only -n public` against a database built by `migrate deploy`, since Prisma does not see CHECK constraints
 - [x] 3.2 On that branch, `migrate resolve --applied 0_init`, then `neon deploy` without the VAPID keys (the branch holds a copy of production's subscriptions, so its push routes stay off and `POST /push/cron` answers 404); probe `/health` and `GET /history/streak` (401 without a token); run the gated adapter tests against the branch; check the function logs for no Prisma errors
 - [x] 3.3 Same on `main`: `migrate resolve --applied 0_init`, `migrate deploy` (no-op), `neon deploy`, the same probes, and one real cron run in the logs with `checked` ≥ 0
-- [ ] 3.4 Delete the test branch
+- [x] 3.4 Delete the test branch
