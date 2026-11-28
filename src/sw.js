@@ -72,3 +72,38 @@ async function staleWhileRevalidate(request, event) {
   event.waitUntil(update.catch(() => {}));
   return hit;
 }
+
+// Reading reminders, sent by the history function (functions/history/push-routes.ts).
+self.addEventListener("push", (event) => {
+  let data = null;
+  try {
+    data = event.data?.json();
+  } catch {
+    return;
+  }
+  if (typeof data?.title !== "string") return;
+  event.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: "/icon-192.png",
+      tag: data.tag,
+      data: { url: data.url },
+    }),
+  );
+});
+
+/** Opens the reminder's page in the site's open window, or a new one. */
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = new URL(event.notification.data?.url ?? "/", self.location.origin);
+  // Only ever open this site.
+  const target = url.origin === self.location.origin ? url.href : self.location.origin;
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(async (windows) => {
+      const win = windows.find((w) => new URL(w.url).origin === self.location.origin);
+      if (!win) return self.clients.openWindow(target);
+      await win.focus();
+      return win.navigate(target).catch(() => self.clients.openWindow(target));
+    }),
+  );
+});

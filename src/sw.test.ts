@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 const SOURCE = readFileSync(new URL("./sw.js", import.meta.url), "utf8");
 const ORIGIN = "https://moingaymotdoan.xyz";
@@ -9,6 +9,8 @@ type FakeRequest = { url: string; method: string; mode: string };
 type Listener = (event: FakeEvent) => void;
 type FakeEvent = {
   request?: FakeRequest;
+  data?: { json: () => unknown };
+  notification?: { data?: { url?: string }; close: () => void };
   respondWith: (p: Promise<Response>) => void;
   waitUntil: (p: Promise<unknown>) => void;
   responded?: Promise<Response>;
@@ -52,9 +54,15 @@ function boot(network: (url: string) => Promise<Response>) {
   const listeners = new Map<string, Listener>();
   const caches = fakeCaches();
   const fetched: string[] = [];
+  const windows: { url: string; focus: () => Promise<void>; navigate: (url: string) => Promise<unknown> }[] = [];
   const self = {
     location: { origin: ORIGIN },
-    clients: { claim: async () => {} },
+    clients: {
+      claim: async () => {},
+      matchAll: async () => windows,
+      openWindow: vi.fn(async (_url: string) => null),
+    },
+    registration: { showNotification: vi.fn(async (_title: string, _options: unknown) => {}) },
     addEventListener: (type: string, fn: Listener) => listeners.set(type, fn),
   };
   runInNewContext(`const VERSION = "v1"; const PRECACHE = ["/", "/offline.html"];\n${SOURCE}`, {
@@ -68,8 +76,9 @@ function boot(network: (url: string) => Promise<Response>) {
     Response,
     URL,
   });
-  const dispatch = async (type: string, request?: FakeRequest) => {
+  const dispatch = async (type: string, request?: FakeRequest, extra: Partial<FakeEvent> = {}) => {
     const event: FakeEvent = {
+      ...extra,
       request,
       pending: [],
       respondWith(p) {
@@ -84,7 +93,7 @@ function boot(network: (url: string) => Promise<Response>) {
     return event;
   };
   const get = (path: string, mode = "cors") => dispatch("fetch", { url: new URL(path, ORIGIN).href, method: "GET", mode });
-  return { caches, fetched, dispatch, get };
+  return { caches, fetched, dispatch, get, self, windows };
 }
 
 const html = (body: string) => new Response(body, { headers: { "content-type": "text/html" } });
@@ -170,5 +179,32 @@ describe("service worker", () => {
     expect((await sw.get("https://api.workos.com/user_management")).responded).toBeUndefined();
     const post = await sw.dispatch("fetch", { url: `${ORIGIN}/data/toc.json`, method: "POST", mode: "cors" });
     expect(post.responded).toBeUndefined();
+  });
+
+  it("shows a pushed reminder with the site icon", async () => {
+    const sw = boot(offline);
+    const payload = { title: "Đèn 23 ngày sắp tắt", body: "Một đoạn ngắn là đủ.", url: "/", tag: "streak" };
+    await sw.dispatch("push", undefined, { data: { json: () => payload } });
+    expect(sw.self.registration.showNotification).toHaveBeenCalledWith("Đèn 23 ngày sắp tắt", {
+      body: "Một đoạn ngắn là đủ.",
+      icon: "/icon-192.png",
+      tag: "streak",
+      data: { url: "/" },
+    });
+    await sw.dispatch("push", undefined, { data: { json: () => { throw new SyntaxError("not json"); } } });
+    expect(sw.self.registration.showNotification).toHaveBeenCalledOnce();
+  });
+
+  it("a tapped reminder opens its page in the open window, or a new one", async () => {
+    const sw = boot(offline);
+    const close = vi.fn();
+    await sw.dispatch("notificationclick", undefined, { notification: { data: { url: "/en" }, close } });
+    expect(close).toHaveBeenCalled();
+    expect(sw.self.clients.openWindow).toHaveBeenCalledWith(`${ORIGIN}/en`);
+
+    const navigate = vi.fn(async () => null);
+    sw.windows.push({ url: `${ORIGIN}/giang/3`, focus: async () => {}, navigate });
+    await sw.dispatch("notificationclick", undefined, { notification: { data: { url: "https://evil.test/" }, close } });
+    expect(navigate).toHaveBeenCalledWith(ORIGIN);
   });
 });
