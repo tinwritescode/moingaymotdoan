@@ -3,7 +3,7 @@ import { useLocale } from "./locale-context";
 
 /** One grey placeholder shape; its size and rounding come from `class`. */
 export function Bone(props: { class: string }) {
-  return <div class={["animate-pulse rounded-full bg-rule motion-reduce:animate-none", props.class]} />;
+  return <div class={["animate-calm-pulse rounded-full bg-rule motion-reduce:animate-none", props.class]} />;
 }
 
 /** Holds the placeholder shapes of a part still loading; screen readers hear only `label`. */

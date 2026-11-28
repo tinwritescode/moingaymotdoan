@@ -15,6 +15,11 @@
   --vua: #8b6f26;
   --thap: #a3443a;
   --reading-font: "Source Serif 4", Georgia, serif;
+  /* Quiet motion tokens — one unhurried deceleration curve shared across all surfaces. */
+  --ease-quiet: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-micro: 160ms;
+  --dur-surface: 240ms;
+  --dur-sheet: 340ms;
 }
 
 :root[data-theme="light"] {
@@ -89,11 +94,57 @@
   --font-sans: "Lexend", system-ui, sans-serif;
   --font-display: "Lexend", system-ui, sans-serif;
   /* Fades a page in. Pure CSS, so it needs no JS and shows the same with or without it. */
-  --animate-reveal: reveal 0.4s ease-out both;
+  --animate-reveal: reveal 0.38s var(--ease-quiet) both;
+  --animate-fade-in: kt-fade-in var(--dur-surface) var(--ease-quiet) both;
+  --animate-sheet-up: kt-sheet-up var(--dur-sheet) var(--ease-quiet) both;
+  --animate-inline-open: kt-inline-open var(--dur-surface) var(--ease-quiet) both;
+  --animate-bar-grow: kt-bar-grow 520ms var(--ease-quiet) 120ms both;
+  --animate-dock-up: kt-dock-up var(--dur-surface) var(--ease-quiet) both;
+  --animate-icon-in: kt-icon-in 200ms var(--ease-quiet) both;
+  --animate-calm-pulse: kt-calm-pulse 2.4s ease-in-out infinite;
   @keyframes reveal {
     from {
       opacity: 0;
       transform: translateY(6px);
+    }
+  }
+  @keyframes kt-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes kt-sheet-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  @keyframes kt-inline-open {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+  @keyframes kt-bar-grow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes kt-dock-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  @keyframes kt-icon-in {
+    from {
+      opacity: 0;
+      transform: rotate(-28deg) scale(0.84);
+    }
+  }
+  @keyframes kt-calm-pulse {
+    50% {
+      opacity: 0.45;
     }
   }
 }
@@ -123,8 +174,138 @@ body {
   margin: 6px 0;
   position-area: block-end span-inline-end;
   position-try-fallbacks: flip-block, flip-inline;
+  transform-origin: top center;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+  transition:
+    opacity var(--dur-micro) var(--ease-quiet),
+    transform var(--dur-micro) var(--ease-quiet),
+    overlay var(--dur-micro) allow-discrete,
+    display var(--dur-micro) allow-discrete;
 }
 
 .anchored:popover-open {
   display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@starting-style {
+  .anchored:popover-open {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+
+/* Native <dialog> sheet: quiet rise on mobile, subtle scale on desktop, paired with a fading backdrop. */
+.kt-sheet-dialog {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-sheet) var(--ease-quiet),
+    transform var(--dur-sheet) var(--ease-quiet),
+    overlay var(--dur-sheet) allow-discrete,
+    display var(--dur-sheet) allow-discrete;
+}
+
+.kt-sheet-dialog[open] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@starting-style {
+  .kt-sheet-dialog[open] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (min-width: 640px) {
+  .kt-sheet-dialog {
+    transform: translateY(8px) scale(0.975);
+  }
+
+  .kt-sheet-dialog[open] {
+    transform: translateY(0) scale(1);
+  }
+
+  @starting-style {
+    .kt-sheet-dialog[open] {
+      opacity: 0;
+      transform: translateY(8px) scale(0.975);
+    }
+  }
+}
+
+.kt-sheet-dialog::backdrop {
+  opacity: 0;
+  transition:
+    opacity var(--dur-surface) var(--ease-quiet),
+    overlay var(--dur-surface) allow-discrete,
+    display var(--dur-surface) allow-discrete;
+}
+
+.kt-sheet-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .kt-sheet-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Progressive enhancement for native <details> folds in the chapter reader. */
+@supports (interpolate-size: allow-keywords) {
+  .kt-note {
+    interpolate-size: allow-keywords;
+  }
+
+  .kt-note::details-content {
+    block-size: 0;
+    opacity: 0;
+    overflow: clip;
+    transition:
+      block-size var(--dur-surface) var(--ease-quiet),
+      opacity var(--dur-surface) var(--ease-quiet),
+      content-visibility var(--dur-surface) allow-discrete;
+  }
+
+  .kt-note[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+}
+
+/* Tour spotlight & card glide only while stepping between targets so manual scrolling stays locked. */
+.kt-tour-glide {
+  transition:
+    top var(--dur-sheet) var(--ease-quiet),
+    left var(--dur-sheet) var(--ease-quiet),
+    width var(--dur-sheet) var(--ease-quiet),
+    height var(--dur-sheet) var(--ease-quiet);
+}
+
+.kt-tour-card-glide {
+  transition:
+    top var(--dur-sheet) var(--ease-quiet),
+    bottom var(--dur-sheet) var(--ease-quiet);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-micro: 0ms;
+    --dur-surface: 0ms;
+    --dur-sheet: 0ms;
+  }
+
+  .anchored,
+  .kt-sheet-dialog,
+  .kt-sheet-dialog::backdrop,
+  .kt-note::details-content,
+  .kt-tour-glide,
+  .kt-tour-card-glide {
+    transition: none;
+    transform: none;
+  }
 }

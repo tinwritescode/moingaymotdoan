@@ -136,7 +136,7 @@ export function ContinueReading(props: { toc: TocBook[] }) {
   return (
     <Show when={hydrated() && latestChapter()} fallback={<Show when={!settled()}>{<ContinueSkeleton />}</Show>}>
       {(latest) => (
-        <div ref={card} class="space-y-2.5">
+        <div ref={card} class="animate-fade-in space-y-2.5 motion-reduce:animate-none">
           <StreakCard next={nextChapter()} />
           <section
             aria-labelledby="xem-tiep-heading"

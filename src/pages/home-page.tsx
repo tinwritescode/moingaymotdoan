@@ -240,7 +240,7 @@ function BookTile(props: {
         aria-expanded={ariaState(props.open)}
         aria-controls={`${slug()}-doan`}
         onClick={() => props.onToggle()}
-        class="kt-books-link flex min-h-[4.25rem] scroll-mt-20 cursor-pointer flex-col justify-between gap-2 rounded-2xl border border-rule bg-card px-3 py-2.5 text-left transition-colors hover:border-accent aria-expanded:border-accent aria-expanded:bg-side"
+        class="kt-books-link flex min-h-[4.25rem] scroll-mt-20 cursor-pointer flex-col justify-between gap-2 rounded-2xl border border-rule bg-card px-3 py-2.5 text-left transition-[color,background-color,border-color,transform] duration-150 ease-[var(--ease-quiet)] hover:border-accent active:scale-[0.98] aria-expanded:border-accent aria-expanded:bg-side motion-reduce:active:scale-100"
       >
         <span class="font-serif text-[15px] leading-snug text-ink">{props.entry.book.name}</span>
         <span class="flex items-center gap-2">
@@ -276,7 +276,10 @@ function ChapterPanel(props: {
       id={`${slug()}-doan`}
       hidden={props.hidden}
       aria-labelledby={`${slug()}-ten`}
-      class="kt-book col-span-full rounded-2xl border border-rule bg-card p-4"
+      class={[
+        "kt-book col-span-full rounded-2xl border border-rule bg-card p-4",
+        !props.hidden && "animate-inline-open motion-reduce:animate-none",
+      ]}
     >
       <div class="flex flex-wrap items-center justify-between gap-2">
         <h4 id={`${slug()}-ten`} class="kt-book-name font-display text-lg font-normal text-ink">

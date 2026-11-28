@@ -79,7 +79,7 @@ function StoryParagraph(props: { nodes: Inline[]; view: ChapterView; dropCap: bo
         <InlineText nodes={props.nodes} />
       </p>
       <Show when={verses().length > 0}>
-        <div class="kt-inline-verses mt-3 rounded-2xl border border-rule bg-card px-5 py-4 text-[1.06rem] leading-[1.8]">
+        <div class="kt-inline-verses mt-3 animate-inline-open rounded-2xl border border-rule bg-card px-5 py-4 text-[1.06rem] leading-[1.8] motion-reduce:animate-none">
           <p class="mb-1.5 font-sans text-xs font-medium text-accent">
             {t().chapter.inlineScriptureHeading(
               props.view.book.name,
@@ -207,7 +207,7 @@ export function ChapterReader(props: { view: ChapterView; scale?: ReadingScale }
                   <span>{f.label}</span>
                   <span
                     aria-hidden="true"
-                    class="h-2 w-2 shrink-0 rotate-45 border-r-[1.5px] border-b-[1.5px] border-muted transition-transform duration-200 group-open:-rotate-135"
+                    class="h-2 w-2 shrink-0 rotate-45 border-r-[1.5px] border-b-[1.5px] border-muted transition-transform duration-200 ease-[var(--ease-quiet)] group-open:-rotate-135 motion-reduce:transition-none"
                   />
                 </summary>
                 <div class="kt-note-body space-y-4 pb-5 text-[1.06rem] leading-[1.8]">{f.body()}</div>

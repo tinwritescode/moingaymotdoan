@@ -52,7 +52,7 @@ export function CopyVerseButton(props: { label: string; verses: Verse[] }) {
       onClick={() => void handleCopy()}
       aria-label={t().copyVerse.ariaLabel(props.label)}
       class={[
-        "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full px-3.5 font-sans text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full px-3.5 font-sans text-xs font-medium transition-[color,background-color,transform] duration-150 ease-[var(--ease-quiet)] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100",
         copied() ? "bg-accent text-paper" : "bg-side text-accent hover:bg-accent hover:text-paper",
       ]}
     >

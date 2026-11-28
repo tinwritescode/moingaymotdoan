@@ -1,6 +1,6 @@
 import { useLocation } from "@solidjs/router";
 import type { JSX } from "@solidjs/web";
-import { createSignal, For, onSettled, Show } from "solid-js";
+import { createSignal, For, onCleanup, onSettled, Show } from "solid-js";
 import { cardPlacement, TOUR_STEPS, TOUR_STORAGE_KEY, tourHref, type TourStepId } from "../lib/tour";
 import { ScalePicker } from "./display-controls";
 import { useHistory } from "./history-context";
@@ -50,11 +50,16 @@ export function WelcomeSheet(props: { startHref: string }) {
 
   return (
     <Show when={open()}>
-      <div aria-hidden="true" class="fixed inset-0 z-40" style={{ background: SCRIM }} onClick={dismiss} />
+      <div
+        aria-hidden="true"
+        class="fixed inset-0 z-40 animate-fade-in motion-reduce:animate-none"
+        style={{ background: SCRIM }}
+        onClick={dismiss}
+      />
       <section
         role="dialog"
         aria-labelledby="kt-welcome-title"
-        class="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-w-[34rem] animate-reveal flex-col gap-4 rounded-t-[28px] bg-card px-6 pt-3 pb-7 font-sans shadow-2xl motion-reduce:animate-none"
+        class="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-w-[34rem] animate-sheet-up flex-col gap-4 rounded-t-[28px] bg-card px-6 pt-3 pb-7 font-sans shadow-2xl motion-reduce:animate-none"
       >
         <span aria-hidden="true" class="h-1 w-10 self-center rounded-full bg-rule" />
         <div>
@@ -107,17 +112,37 @@ export function WelcomeSheet(props: { startHref: string }) {
 
 type Tour = { steps: { id: TourStepId; el: Element }[]; index: number };
 
+const GLIDE_MS = 340;
+
 /** On a chapter opened with `?tour`: lights up each part of the page in turn, with a card that explains it. */
 export function ChapterTour() {
   const { t } = useLocale();
   const [tour, setTour] = createSignal<Tour | null>(null);
   const [rect, setRect] = createSignal<DOMRect | null>(null);
+  const [gliding, setGliding] = createSignal(false);
   const location = useLocation();
   let card: HTMLElement | undefined;
+  let glideTimer: ReturnType<typeof setTimeout> | undefined;
 
-  const show = (next: Tour) => {
+  const stopGlide = () => {
+    if (glideTimer !== undefined) {
+      clearTimeout(glideTimer);
+      glideTimer = undefined;
+    }
+    setGliding(false);
+  };
+  onCleanup(stopGlide);
+
+  const show = (next: Tour, glide: boolean) => {
     const el = next.steps[next.index].el;
     const reduce = typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (glide && !reduce) {
+      if (glideTimer !== undefined) clearTimeout(glideTimer);
+      setGliding(true);
+      glideTimer = setTimeout(() => setGliding(false), GLIDE_MS);
+    } else {
+      stopGlide();
+    }
     el.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
     setTour(next);
     setRect(el.getBoundingClientRect());
@@ -126,10 +151,11 @@ export function ChapterTour() {
 
   const go = (delta: number) => {
     const tr = tour();
-    if (tr) show({ ...tr, index: tr.index + delta });
+    if (tr) show({ ...tr, index: tr.index + delta }, true);
   };
 
   const end = () => {
+    stopGlide();
     markTourSeen();
     setTour(null);
     // Drop ?tour so a reload does not start it again.
@@ -144,7 +170,7 @@ export function ChapterTour() {
       return el ? [{ id: s.id, el }] : [];
     });
     if (steps.length === 0) return;
-    show({ steps, index: 0 });
+    show({ steps, index: 0 }, false);
 
     const measure = () => {
       const tr = tour();
@@ -176,7 +202,10 @@ export function ChapterTour() {
             <>
               <div
                 aria-hidden="true"
-                class="pointer-events-none fixed z-40 rounded-2xl outline-2 outline-accent"
+                class={[
+                  "pointer-events-none fixed z-40 animate-fade-in rounded-2xl outline-2 outline-accent motion-reduce:animate-none",
+                  { "kt-tour-glide": gliding() },
+                ]}
                 style={{
                   top: `${r().top - 6}px`,
                   left: `${r().left - 6}px`,
@@ -190,7 +219,10 @@ export function ChapterTour() {
                 role="dialog"
                 aria-labelledby="kt-tour-title"
                 tabindex="-1"
-                class="fixed inset-x-4 z-50 mx-auto flex max-w-[26rem] flex-col gap-2.5 rounded-[20px] bg-card px-[18px] pt-[18px] pb-3.5 font-sans shadow-2xl outline-none"
+                class={[
+                  "fixed inset-x-4 z-50 mx-auto flex max-w-[26rem] animate-fade-in flex-col gap-2.5 rounded-[20px] bg-card px-[18px] pt-[18px] pb-3.5 font-sans shadow-2xl outline-none motion-reduce:animate-none",
+                  { "kt-tour-card-glide": gliding() },
+                ]}
                 style={cardStyle(r())}
               >
                 <p class="text-[11px] font-medium text-accent">
@@ -225,7 +257,7 @@ export function ChapterTour() {
                         {(_, i) => (
                           <i
                             class={[
-                              "h-1.5 rounded-full",
+                              "h-1.5 rounded-full transition-[width,background-color] duration-250 ease-[var(--ease-quiet)] motion-reduce:transition-none",
                               i() === tr().index ? "w-4 bg-accent" : "w-1.5",
                               i() < tr().index ? "bg-accent" : i() > tr().index ? "bg-rule" : "",
                             ]}

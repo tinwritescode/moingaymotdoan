@@ -1,4 +1,4 @@
-import { For, Show } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 import {
   preloadAllReadingFonts,
   READING_FONTS,
@@ -74,23 +74,29 @@ function SystemIcon(props: { class?: string }) {
 export function ThemeToggle(props: { compact?: boolean }) {
   const { ready, resolvedTheme, toggleTheme } = usePreferences();
   const { t } = useLocale();
+  const [toggled, setToggled] = createSignal(false);
   const isDark = () => ready() && resolvedTheme() === "dark";
   const label = () => (isDark() ? t().display.switchToLight : t().display.switchToDark);
+  const iconClass = () =>
+    toggled() ? "h-[17px] w-[17px] animate-icon-in motion-reduce:animate-none" : "h-[17px] w-[17px]";
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={() => {
+        setToggled(true);
+        toggleTheme();
+      }}
       title={label()}
       aria-label={label()}
       aria-pressed={ariaState(isDark())}
       class={[
-        "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-rule bg-card text-muted transition-colors hover:border-accent hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-rule bg-card text-muted transition-[color,border-color,transform] duration-150 ease-[var(--ease-quiet)] hover:border-accent hover:text-ink active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100",
         props.compact ? "h-9 w-9" : "h-9 w-9 sm:h-10 sm:w-10",
       ]}
     >
-      <Show when={isDark()} fallback={<MoonIcon />}>
-        <SunIcon />
+      <Show when={isDark()} fallback={<MoonIcon class={iconClass()} />}>
+        <SunIcon class={iconClass()} />
       </Show>
     </button>
   );

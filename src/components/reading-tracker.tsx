@@ -117,7 +117,7 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
       <div
         role="region"
         aria-label={t().chapter.progressRegionLabel}
-        class="fixed bottom-3.5 left-1/2 z-30 flex w-max max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-2 rounded-full border border-rule bg-card/90 p-1.5 shadow-lg backdrop-blur-md font-sans"
+        class="fixed bottom-3.5 left-1/2 z-30 flex w-max max-w-[calc(100vw-1.5rem)] -translate-x-1/2 animate-dock-up items-center gap-2 rounded-full border border-rule bg-card/90 p-1.5 shadow-lg backdrop-blur-md font-sans motion-reduce:animate-none"
       >
         <Show
           when={props.view.prev}
@@ -135,7 +135,7 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
               href={chapterHref({ slug: prev().book.slug, number: prev().number, locale: locale() })}
               aria-label={t().chapter.prevChapterAria(prev().book.name, prev().number)}
               title={`${prev().book.name} ${prev().number} — ${prev().title}`}
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted transition-colors hover:bg-side hover:text-accent"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted transition-[color,background-color,transform] duration-150 hover:bg-side hover:text-accent active:scale-95 motion-reduce:active:scale-100"
             >
               ←
             </a>
@@ -154,7 +154,7 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
           onClick={handleToggle}
           aria-pressed={completed() ? "true" : "false"}
           class={[
-            "inline-flex min-h-10 cursor-pointer items-center rounded-full px-4 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:text-[13px]",
+            "inline-flex min-h-10 cursor-pointer items-center rounded-full px-4 text-xs font-medium transition-[color,background-color,opacity,transform] duration-150 ease-[var(--ease-quiet)] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100 sm:text-[13px]",
             completed() ? "bg-side text-accent" : "bg-accent text-paper hover:opacity-90",
           ]}
         >
@@ -177,7 +177,7 @@ export function ChapterProgressBar(props: { view: ChapterView }) {
               href={chapterHref({ slug: next().book.slug, number: next().number, locale: locale() })}
               aria-label={t().chapter.nextChapterAria(next().book.name, next().number)}
               title={`${next().book.name} ${next().number} — ${next().title}`}
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted transition-colors hover:bg-side hover:text-accent"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted transition-[color,background-color,transform] duration-150 hover:bg-side hover:text-accent active:scale-95 motion-reduce:active:scale-100"
             >
               →
             </a>

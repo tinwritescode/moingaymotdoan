@@ -228,7 +228,10 @@ export function Done(props: { days: number }) {
                 <span class="text-muted">{`${props.days} / ${n().flame.at}`}</span>
               </p>
               <div class="h-2 overflow-hidden rounded-full bg-rule">
-                <div class="h-2 rounded-full bg-accent" style={{ width: `${Math.round((props.days / n().flame.at) * 100)}%` }} />
+                <div
+                  class="h-2 origin-left animate-bar-grow rounded-full bg-accent transition-[width] duration-500 ease-[var(--ease-quiet)] motion-reduce:animate-none motion-reduce:transition-none"
+                  style={{ width: `${Math.round((props.days / n().flame.at) * 100)}%` }}
+                />
               </div>
               <p class="text-xs text-muted">{t().streak.daysLeft(n().left)}</p>
             </div>
