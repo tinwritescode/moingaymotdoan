@@ -249,7 +249,8 @@ export function WorshipBrowser(props: WorshipBrowserProps) {
   };
 
   return (
-    <main class="mx-auto w-full max-w-[60rem] animate-reveal overflow-x-clip px-4 pt-5 pb-14 sm:px-5 motion-reduce:animate-none">
+    <>
+      <main class="mx-auto w-full max-w-[60rem] animate-reveal overflow-x-clip px-4 pt-5 pb-14 sm:px-5 motion-reduce:animate-none">
       <header>
         <p class="font-sans text-xs font-medium text-accent">{t().worship.kicker}</p>
         <h1 class="mt-1 font-display text-3xl leading-tight font-light tracking-tight text-ink sm:text-[2.15rem]">
@@ -439,14 +440,16 @@ export function WorshipBrowser(props: WorshipBrowserProps) {
         </Show>
       </div>
 
-      <p class="mt-10 rounded-2xl border border-rule bg-card/70 px-4 py-3 font-sans text-xs leading-relaxed text-muted">
-        {t().worship.sourceNote}
-      </p>
+        <p class="mt-10 rounded-2xl border border-rule bg-card/70 px-4 py-3 font-sans text-xs leading-relaxed text-muted">
+          {t().worship.sourceNote}
+        </p>
+      </main>
 
+      {/* Outside <main>: its reveal animation's transform would pin a fixed overlay to main, not the viewport. */}
       <Show when={slides()}>
         {(deck) => <SlidePresenter slides={deck()} onClose={() => setSlides(null)} />}
       </Show>
-    </main>
+    </>
   );
 }
 
@@ -1715,14 +1718,24 @@ function ProgramSection(props: {
 // ---------------------------------------------------------------------------
 // Fullscreen Presentation ("Chiếu") overlay
 // ---------------------------------------------------------------------------
+function slideBodyClass(body: string): string {
+  const lines = body.split("\n").length;
+  if (body.length > 320 || lines > 9) return "text-[17px] leading-[1.7] sm:text-2xl sm:leading-[1.6]";
+  if (body.length > 160 || lines > 5) return "text-xl leading-[1.6] sm:text-3xl sm:leading-[1.55]";
+  return "text-2xl leading-[1.55] sm:text-4xl sm:leading-[1.5]";
+}
+
 function SlidePresenter(props: { slides: WorshipSlide[]; onClose: () => void }) {
   const { t } = useLocale();
   const [index, setIndex] = createSignal(0);
+  let touchStartX = 0;
 
   const prev = () => setIndex((i) => Math.max(0, i - 1));
   const next = () => setIndex((i) => Math.min(props.slides.length - 1, i + 1));
 
   onSettled(() => {
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") props.onClose();
       else if (e.key === "ArrowRight" || e.key === " ") {
@@ -1734,52 +1747,75 @@ function SlidePresenter(props: { slides: WorshipSlide[]; onClose: () => void }) 
       }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
   });
 
   const current = () => props.slides[index()] ?? props.slides[0];
+
+  const onTouchStart = (e: TouchEvent) => {
+    touchStartX = e.changedTouches[0]?.clientX ?? 0;
+  };
+
+  const onTouchEnd = (e: TouchEvent) => {
+    const dx = (e.changedTouches[0]?.clientX ?? 0) - touchStartX;
+    if (Math.abs(dx) < 48) return;
+    if (dx < 0) next();
+    else prev();
+  };
 
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-label={t().worship.present}
-      class="fixed inset-0 z-50 flex flex-col justify-between bg-paper p-5 text-ink sm:p-10"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      class="fixed inset-0 z-50 flex h-dvh w-screen flex-col overflow-hidden bg-paper px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] text-ink sm:p-10"
     >
-      <div class="flex items-center justify-between gap-3 font-sans text-xs text-muted">
-        <span class="rounded-full bg-side px-3 py-1 font-medium text-accent">{current()?.badge}</span>
-        <div class="flex items-center gap-3">
-          <span>{t().worship.slideOf(index() + 1, props.slides.length)}</span>
+      <div class="flex shrink-0 items-center justify-between gap-2 font-sans text-xs text-muted">
+        <span class="min-w-0 truncate rounded-full bg-side px-3 py-1 font-medium text-accent">
+          {current()?.badge}
+        </span>
+        <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+          <span class="tabular-nums">{t().worship.slideOf(index() + 1, props.slides.length)}</span>
           <button
             type="button"
+            aria-label={t().worship.slideClose}
             onClick={() => props.onClose()}
-            class="min-h-9 cursor-pointer rounded-full border border-rule bg-card px-3.5 font-medium text-ink hover:border-accent"
+            class="inline-flex min-h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border border-rule bg-card px-3 font-medium text-ink hover:border-accent"
           >
-            {t().worship.slideClose}
+            <span aria-hidden="true" class="sm:hidden">✕</span>
+            <span class="hidden sm:inline">{t().worship.slideClose}</span>
           </button>
         </div>
       </div>
 
-      <div class="mx-auto flex max-w-[52rem] flex-1 flex-col items-center justify-center py-6 text-center">
-        <p
-          class={[
-            "whitespace-pre-line font-serif text-2xl leading-[1.6] text-ink sm:text-4xl sm:leading-[1.55]",
-            current()?.emphasis && "font-semibold text-accent",
-          ]}
-        >
-          {current()?.body}
-        </p>
-        <Show when={current()?.footer}>
-          {(footer) => <p class="mt-6 font-sans text-sm text-muted">{footer()}</p>}
-        </Show>
+      <div class="min-h-0 flex-1 overflow-y-auto py-4">
+        <div class="mx-auto flex min-h-full max-w-[52rem] flex-col items-center justify-center px-1 text-center">
+          <p
+            class={[
+              "w-full whitespace-pre-line break-words font-serif text-ink",
+              slideBodyClass(current()?.body ?? ""),
+              current()?.emphasis && "font-semibold text-accent",
+            ]}
+          >
+            {current()?.body}
+          </p>
+          <Show when={current()?.footer}>
+            {(footer) => <p class="mt-5 font-sans text-xs text-muted sm:mt-6 sm:text-sm">{footer()}</p>}
+          </Show>
+        </div>
       </div>
 
-      <div class="flex flex-wrap items-center justify-between gap-3 font-sans text-xs">
+      <div class="flex shrink-0 items-center justify-between gap-2.5 border-t border-rule/60 pt-3 font-sans text-xs">
         <button
           type="button"
           disabled={index() === 0}
           onClick={prev}
-          class="min-h-11 cursor-pointer rounded-full border border-rule bg-card px-5 font-medium text-ink hover:border-accent disabled:cursor-not-allowed disabled:opacity-40"
+          class="min-h-11 flex-1 cursor-pointer rounded-full border border-rule bg-card px-4 font-medium text-ink hover:border-accent disabled:cursor-not-allowed disabled:opacity-40 sm:flex-initial sm:px-5"
         >
           ← {t().worship.slidePrev}
         </button>
@@ -1788,7 +1824,7 @@ function SlidePresenter(props: { slides: WorshipSlide[]; onClose: () => void }) 
           type="button"
           disabled={index() >= props.slides.length - 1}
           onClick={next}
-          class="min-h-11 cursor-pointer rounded-full bg-accent px-5 font-medium text-paper hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          class="min-h-11 flex-1 cursor-pointer rounded-full bg-accent px-4 font-medium text-paper hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-initial sm:px-5"
         >
           {t().worship.slideNext} →
         </button>
