@@ -38,12 +38,14 @@ const ICONS = {
   share: "M12 3v12M8 7l4-4 4 4M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8",
   bookmarks: "M4 19.5V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2z",
   tabs: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+  menu: "M5 7h14M5 12h14M5 17h14",
+  reload: "M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5",
   addSquare: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM12 8v8M8 12h8",
   book: "M2 5c3-1 7-1 10 1v14c-3-2-7-2-10-1zM22 5c-3-1-7-1-10 1v14c3-2 7-2 10-1z",
   download: "M12 3v12M7 10l5 5 5-5M5 21h14",
 };
 
-/** The iPhone pictures under steps 2–4: Safari's bottom bar, its share menu, the icon on the home screen. */
+/** The iPhone pictures under steps 2–4: Safari's bottom bar (or newer Safari's ≡ page menu), its share menu, the icon on the home screen. */
 function IosFigure(props: { step: number }) {
   const { t } = useLocale();
   return (
@@ -57,6 +59,33 @@ function IosFigure(props: { step: number }) {
           </span>
           <Icon d={ICONS.bookmarks} />
           <Icon d={ICONS.tabs} />
+        </div>
+        <p class="mt-1 font-sans text-[13px] text-muted">{t().install.newSafari}</p>
+        {/* Newer Safari keeps the address bar at the bottom of the screen, so its ≡ menu opens upward. */}
+        <div aria-hidden="true" class="flex flex-col gap-2 rounded-xl bg-rule p-2.5">
+          <div class="flex w-4/5 flex-col rounded-xl border border-rule bg-card font-sans text-[15px]">
+            <span class="border-b border-rule px-3.5 py-3 text-muted">{t().install.pageMenu[0]}</span>
+            <span class="flex items-center justify-between bg-side px-3.5 py-3 font-medium text-ink">
+              {t().install.pageMenu[1]}
+              <Icon d={ICONS.share} />
+            </span>
+            <span class="px-3.5 py-3 text-muted">{t().install.pageMenu[2]}</span>
+          </div>
+          <div class="flex items-center gap-2 text-muted">
+            <span class="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-card">
+              <Icon d={ICONS.back} />
+            </span>
+            <span class="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-full bg-card pr-3 pl-1">
+              <span class="flex h-9 w-10 flex-none items-center justify-center rounded-full text-accent ring-2 ring-accent">
+                <Icon d={ICONS.menu} />
+              </span>
+              <span class="h-2 flex-1 rounded-full bg-rule" />
+              <Icon d={ICONS.reload} class="h-4 w-4" />
+            </span>
+            <span class="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-card">
+              <Icon d={ICONS.tabs} />
+            </span>
+          </div>
         </div>
       </Match>
       <Match when={props.step === 2}>

@@ -99,6 +99,8 @@ export type Messages = {
     guides: Record<InstallPlatformId, { heading: string; steps: readonly string[] }>;
     shareButton: string;
     shareMenu: readonly [string, string, string];
+    newSafari: string;
+    pageMenu: readonly [string, string, string];
     appName: string;
     iosChromeNote: string;
     installButton: string;
@@ -492,7 +494,7 @@ const VI: Messages = {
         heading: "iPhone và iPad",
         steps: [
           "Mở trang này bằng Safari.",
-          "Bấm nút Chia sẻ ở thanh dưới cùng.",
+          "Bấm nút Chia sẻ ở thanh dưới cùng. Không thấy? Bấm nút ≡ ở thanh địa chỉ cuối màn hình, rồi chọn “Chia sẻ”.",
           "Kéo xuống, chọn “Thêm vào MH chính”.",
           "Bấm “Thêm”. Biểu tượng Kinh Thánh sẽ nằm trên màn hình chính.",
         ],
@@ -519,6 +521,8 @@ const VI: Messages = {
     },
     shareButton: "Nút Chia sẻ",
     shareMenu: ["Thêm vào Mục ưa thích", "Thêm vào MH chính", "Tìm trên trang"],
+    newSafari: "Safari mới: nút ≡ ở thanh địa chỉ cuối màn hình",
+    pageMenu: ["Dịch", "Chia sẻ", "Thêm vào Dấu trang"],
     appName: "Kinh Thánh",
     iosChromeNote: "Đang dùng Chrome trên iPhone? Bấm nút Chia sẻ ở cuối thanh địa chỉ, rồi làm tiếp từ bước 3.",
     installButton: "Cài ứng dụng",
@@ -1022,7 +1026,7 @@ const EN: Messages = {
         heading: "iPhone and iPad",
         steps: [
           "Open this page in Safari.",
-          "Tap the Share button in the bottom bar.",
+          "Tap the Share button in the bottom bar. Not there? Tap the ≡ button in the address bar at the bottom of the screen, then choose “Share”.",
           "Scroll down and choose “Add to Home Screen”.",
           "Tap “Add”. The Bible icon appears on your home screen.",
         ],
@@ -1049,6 +1053,8 @@ const EN: Messages = {
     },
     shareButton: "Share button",
     shareMenu: ["Add to Favorites", "Add to Home Screen", "Find on Page"],
+    newSafari: "Newer Safari: the ≡ button in the address bar at the bottom",
+    pageMenu: ["Translate", "Share", "Add to Bookmarks"],
     appName: "Bible",
     iosChromeNote: "Using Chrome on iPhone? Tap the Share button at the end of the address bar, then continue from step 3.",
     installButton: "Install app",
