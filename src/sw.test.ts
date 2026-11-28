@@ -155,6 +155,15 @@ describe("service worker", () => {
     expect(await (await (await sw.get("/data/sang-the-ky/1.json")).responded!).text()).toBe("new");
   });
 
+  it("keeps the flame animations for offline across deploys", async () => {
+    let online = true;
+    const sw = boot(() => (online ? Promise.resolve(new Response("lottie")) : offline()));
+    await (await sw.get("/lottie/nen.json")).responded;
+    online = false;
+    expect(await (await (await sw.get("/lottie/nen.json")).responded!).text()).toBe("lottie");
+    expect([...sw.caches.stores.keys()]).toEqual(["kt-data"]);
+  });
+
   it("leaves other requests to the browser", async () => {
     const sw = boot(offline);
     expect((await sw.get("/k7q/e")).responded).toBeUndefined();

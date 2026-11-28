@@ -4,7 +4,7 @@
 
 // Pages live with the assets they reference, so a deploy drops both together.
 const SHELL = `kt-shell-${VERSION}`;
-// Chapter and mood data and fonts stay across deploys and refresh in the background.
+// Chapter and mood data, fonts and flame animations stay across deploys.
 const DATA = "kt-data";
 const OFFLINE = "/offline.html";
 
@@ -28,7 +28,9 @@ self.addEventListener("fetch", (event) => {
   if (request.mode === "navigate") return event.respondWith(page(request));
   if (url.origin === self.location.origin) {
     if (url.pathname.startsWith("/assets/")) return event.respondWith(cacheFirst(request, SHELL));
-    if (url.pathname.startsWith("/data/")) return event.respondWith(staleWhileRevalidate(request, event));
+    if (url.pathname.startsWith("/data/") || url.pathname.startsWith("/lottie/")) {
+      return event.respondWith(staleWhileRevalidate(request, event));
+    }
     return;
   }
   if (url.hostname === "fonts.googleapis.com") return event.respondWith(staleWhileRevalidate(request, event));

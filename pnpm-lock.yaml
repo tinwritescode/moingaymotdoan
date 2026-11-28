@@ -190,6 +190,9 @@ importers:
       jose:
         specifier: ^6.2.18
         version: 6.2.18
+      lottie-web:
+        specifier: 5.12.2
+        version: 5.12.2
       pg:
         specifier: ^8.23.1
         version: 8.23.1
@@ -230,6 +233,9 @@ importers:
       oxlint:
         specifier: 1.94.0
         version: 1.94.0
+      svgpath:
+        specifier: ^2.6.0
+        version: 2.6.0
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
@@ -1659,6 +1665,9 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  lottie-web@5.12.2:
+    resolution: {integrity: sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==}
+
   lru-cache@11.5.3:
     resolution: {integrity: sha512-U4N8FgzmWxc8k1VH8Kr6lQg18U7Fjvby6wXHVRX/ZZ7IwWbRMgrRbP0Wrb5q5NVinryp4SQampHKdvtecItxUg==}
     engines: {node: 20 || >=22}
@@ -1935,6 +1944,9 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
+
+  svgpath@2.6.0:
+    resolution: {integrity: sha512-OIWR6bKzXvdXYyO4DK/UWa1VA1JeKq8E+0ug2DG98Y/vOmMpfZNj+TIG988HjfYSqtcy/hFOtZq/n/j5GSESNg==}
 
   tailwindcss@4.3.3:
     resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
@@ -3431,6 +3443,8 @@ snapshots:
   lodash.merge@4.6.2:
     optional: true
 
+  lottie-web@5.12.2: {}
+
   lru-cache@11.5.3: {}
 
   lru-cache@5.1.1:
@@ -3735,6 +3749,8 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
     optional: true
+
+  svgpath@2.6.0: {}
 
   tailwindcss@4.3.3: {}
 
