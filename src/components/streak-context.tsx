@@ -25,12 +25,14 @@ const isHour = (v: unknown): v is number => Number.isInteger(v) && Number(v) >= 
 export function parseStreakMarks(raw: string | null): StreakMarks {
   try {
     const v: unknown = raw ? JSON.parse(raw) : null;
-    if (!v || typeof v !== "object") return EMPTY_MARKS;
-    const o = v as Record<string, unknown>;
+    if (typeof v !== "object" || v === null) return EMPTY_MARKS;
+    const restDays = "restDays" in v && Array.isArray(v.restDays) ? v.restDays.filter(isDate) : [];
+    const restartedOn = "restartedOn" in v && isDate(v.restartedOn) ? v.restartedOn : null;
+    const remindHour = "remindHour" in v && isHour(v.remindHour) ? v.remindHour : DEFAULT_REMIND_HOUR;
     return {
-      restDays: Array.isArray(o.restDays) ? o.restDays.filter(isDate) : [],
-      restartedOn: isDate(o.restartedOn) ? o.restartedOn : null,
-      remindHour: isHour(o.remindHour) ? o.remindHour : DEFAULT_REMIND_HOUR,
+      restDays,
+      restartedOn,
+      remindHour,
     };
   } catch {
     return EMPTY_MARKS;

@@ -1,31 +1,8 @@
-import { render } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { createHistoryEngine } from "../../lib/history/engine";
-import { createMemoryLocalHistoryStore } from "../../lib/history/memory-adapters";
-import type { HistorySnapshot, ReadingLog } from "../../lib/history/types";
-import { addDays } from "../../lib/streak/streak";
-import { HistoryProvider } from "./history-context";
-import { STREAK_STORAGE_KEY, StreakProvider, useStreak } from "./streak-context";
-
-function chapterLog(readDate: string, itemKey = "giang/3"): ReadingLog {
-  return {
-    id: `${readDate}:${itemKey}`,
-    kind: "chapter",
-    itemKey,
-    bookSlug: "giang",
-    chapter: 3,
-    title: "",
-    subtitle: "Giăng 3",
-    readDate,
-    readAt: `${readDate}T08:00:00.000Z`,
-  };
-}
-
-/** A history with one đoạn read on each of `count` days ending `endBack` days before `today`. */
-function historyOf(today: string, count: number, endBack: number): HistorySnapshot {
-  return { progress: [], logs: Array.from({ length: count }, (_, i) => chapterLog(addDays(today, -(endBack + i)))) };
-}
+import type { HistorySnapshot } from "../../lib/history/types";
+import { STREAK_STORAGE_KEY, useStreak } from "./streak-context";
+import { historyOf, renderStreakAt } from "./streak-fixtures";
 
 function Probe() {
   const s = useStreak();
@@ -37,20 +14,7 @@ function Probe() {
   );
 }
 
-async function renderAt(time: string, history: HistorySnapshot) {
-  vi.useFakeTimers({ toFake: ["Date"] });
-  vi.setSystemTime(new Date(time));
-  const engine = createHistoryEngine({ local: createMemoryLocalHistoryStore(history) });
-  const view = render(() => (
-    <HistoryProvider engine={engine}>
-      <StreakProvider>
-        <Probe />
-      </StreakProvider>
-    </HistoryProvider>
-  ));
-  flush();
-  return view;
-}
+const renderAt = (time: string, history: HistorySnapshot) => renderStreakAt(time, history, () => <Probe />);
 
 describe("<StreakProvider />", () => {
   afterEach(() => {

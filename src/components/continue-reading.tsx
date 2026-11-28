@@ -8,6 +8,7 @@ import { accountHref, chapterHref, historyHref, homeHref } from "../router";
 import { useAuth } from "./auth-context";
 import { useHistory } from "./history-context";
 import { useLocale } from "./locale-context";
+import { StreakCard } from "./streak-card";
 import { useStreak } from "./streak-context";
 import { writeStorage } from "./preferences-context";
 import { ProgressRing, WeeklyDots } from "./progress-ring";
@@ -121,6 +122,7 @@ export function ContinueReading(props: { toc: TocBook[] }) {
     <Show when={hydrated() && latestChapter()}>
       {(latest) => (
         <div ref={card} class="space-y-2.5">
+          <StreakCard next={nextChapter()} />
           <section
             aria-labelledby="xem-tiep-heading"
             class="grid grid-cols-[4.5rem_1fr] items-center gap-4 rounded-3xl border border-rule bg-card p-5"

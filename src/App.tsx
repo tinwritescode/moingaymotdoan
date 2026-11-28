@@ -4,6 +4,7 @@ import { HistoryProvider } from "./components/history-context";
 import { InstallCorner } from "./components/install-corner";
 import { RouterLocaleProvider } from "./components/locale-context";
 import { PreferencesProvider } from "./components/preferences-context";
+import { ReminderSync } from "./components/reminder-controls";
 import { SiteFooter } from "./components/site-footer";
 import { StreakProvider } from "./components/streak-context";
 import { PageSkeleton } from "./components/skeleton";
@@ -51,6 +52,7 @@ export default function App() {
                   </div>
                   <SiteFooter />
                   <InstallCorner />
+                  <ReminderSync />
                 </RouterLocaleProvider>
               )}
             </Router>
