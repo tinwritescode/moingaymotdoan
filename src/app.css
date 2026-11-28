@@ -110,6 +110,13 @@ body {
   overflow: hidden;
 }
 
+/* The book picker is wider than the room beside its button: hung from the button's edge (.anchored) it ran into the
+   right side of the screen, so it centres under the top bar instead (on a phone, a 1rem gutter each side). */
+.anchored.kt-picker {
+  position-area: block-end span-all;
+  justify-self: center;
+}
+
 /* A popover hangs under the button that opens it (anchor positioning); without that support it sits centred. */
 .anchored {
   inset: auto;
