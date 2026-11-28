@@ -346,6 +346,15 @@ export function createPostgresHistoryRepository(prisma: PrismaClient): HistoryRe
         return merged;
       });
     },
+    async fetchProfile(userId) {
+      const row = await prisma.readerProfile.findUnique({ where: { userId } });
+      return row ? { name: row.name, avatar: row.avatar } : null;
+    },
+    async saveProfile(userId, profile) {
+      const data = { name: profile.name, avatar: profile.avatar };
+      const row = await prisma.readerProfile.upsert({ where: { userId }, create: { userId, ...data }, update: data });
+      return { name: row.name, avatar: row.avatar };
+    },
   };
 }
 

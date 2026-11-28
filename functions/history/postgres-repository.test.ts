@@ -95,4 +95,13 @@ describe.skipIf(!url)("Postgres history repository", () => {
       expect(await repo.fetchStreakMarks(user)).toBeNull();
     });
   });
+
+  it("replaces a reader's profile on each save", async () => {
+    const avatar = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ==";
+    await prisma.readerProfile.deleteMany({ where: { userId: user } });
+    expect(await repo.fetchProfile(user)).toBeNull();
+    await repo.saveProfile(user, { name: "Tin", avatar });
+    expect(await repo.saveProfile(user, { name: "Tin Nguyễn", avatar: null })).toEqual({ name: "Tin Nguyễn", avatar: null });
+    expect(await repo.fetchProfile(user)).toEqual({ name: "Tin Nguyễn", avatar: null });
+  });
 });

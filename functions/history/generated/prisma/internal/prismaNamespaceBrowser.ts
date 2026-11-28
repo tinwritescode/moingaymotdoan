@@ -54,7 +54,8 @@ export const ModelName = {
   ReadingProgress: 'ReadingProgress',
   ReadingLog: 'ReadingLog',
   PushSubscription: 'PushSubscription',
-  StreakMark: 'StreakMark'
+  StreakMark: 'StreakMark',
+  ReaderProfile: 'ReaderProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -133,6 +134,16 @@ export const StreakMarkScalarFieldEnum = {
 } as const
 
 export type StreakMarkScalarFieldEnum = (typeof StreakMarkScalarFieldEnum)[keyof typeof StreakMarkScalarFieldEnum]
+
+
+export const ReaderProfileScalarFieldEnum = {
+  userId: 'userId',
+  name: 'name',
+  avatar: 'avatar',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReaderProfileScalarFieldEnum = (typeof ReaderProfileScalarFieldEnum)[keyof typeof ReaderProfileScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -400,7 +400,8 @@ export const ModelName = {
   ReadingProgress: 'ReadingProgress',
   ReadingLog: 'ReadingLog',
   PushSubscription: 'PushSubscription',
-  StreakMark: 'StreakMark'
+  StreakMark: 'StreakMark',
+  ReaderProfile: 'ReaderProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "readingProgress" | "readingLog" | "pushSubscription" | "streakMark"
+    modelProps: "readingProgress" | "readingLog" | "pushSubscription" | "streakMark" | "readerProfile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -716,6 +717,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReaderProfile: {
+      payload: Prisma.$ReaderProfilePayload<ExtArgs>
+      fields: Prisma.ReaderProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReaderProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReaderProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.ReaderProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReaderProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>
+        }
+        findMany: {
+          args: Prisma.ReaderProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>[]
+        }
+        create: {
+          args: Prisma.ReaderProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>
+        }
+        createMany: {
+          args: Prisma.ReaderProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReaderProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.ReaderProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>
+        }
+        update: {
+          args: Prisma.ReaderProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.ReaderProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReaderProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReaderProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.ReaderProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReaderProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.ReaderProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReaderProfile>
+        }
+        groupBy: {
+          args: Prisma.ReaderProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReaderProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReaderProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReaderProfileCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -819,6 +894,16 @@ export const StreakMarkScalarFieldEnum = {
 } as const
 
 export type StreakMarkScalarFieldEnum = (typeof StreakMarkScalarFieldEnum)[keyof typeof StreakMarkScalarFieldEnum]
+
+
+export const ReaderProfileScalarFieldEnum = {
+  userId: 'userId',
+  name: 'name',
+  avatar: 'avatar',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReaderProfileScalarFieldEnum = (typeof ReaderProfileScalarFieldEnum)[keyof typeof ReaderProfileScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1082,6 +1167,7 @@ export type GlobalOmitConfig = {
   readingLog?: Prisma.ReadingLogOmit
   pushSubscription?: Prisma.PushSubscriptionOmit
   streakMark?: Prisma.StreakMarkOmit
+  readerProfile?: Prisma.ReaderProfileOmit
 }
 
 /* Types for Logging */

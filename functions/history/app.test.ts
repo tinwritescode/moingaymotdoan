@@ -279,3 +279,33 @@ describe("streak marks", () => {
     expect(await (await app.request("/history/streak", { headers: authHeaders("token-alice") })).json()).toEqual({ marks: null });
   });
 });
+
+describe("reader profile", () => {
+  const JPEG = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ==";
+  const get = (app: ReturnType<typeof createTestServer>["app"], token: string) =>
+    app.request("/history/profile", { headers: authHeaders(token) });
+  const put = (app: ReturnType<typeof createTestServer>["app"], token: string, body: unknown) =>
+    app.request("/history/profile", { method: "PUT", headers: authHeaders(token), body: JSON.stringify(body) });
+
+  it("needs a signed-in user", async () => {
+    const { app } = createTestServer();
+    expect((await app.request("/history/profile")).status).toBe(401);
+  });
+
+  it("keeps one name and photo per user, replaced on each save", async () => {
+    const { app } = createTestServer();
+    expect(await (await get(app, "token-alice")).json()).toEqual({ profile: null });
+
+    await put(app, "token-alice", { name: "Alice", avatar: JPEG });
+    const res = await put(app, "token-alice", { name: " Alice N. ", avatar: null });
+    expect(await res.json()).toEqual({ profile: { name: "Alice N.", avatar: null } });
+    expect(await (await get(app, "token-alice")).json()).toEqual({ profile: { name: "Alice N.", avatar: null } });
+    expect(await (await get(app, "token-bob")).json()).toEqual({ profile: null });
+  });
+
+  it("refuses a malformed profile", async () => {
+    const { app } = createTestServer();
+    expect((await put(app, "token-alice", { name: "", avatar: null })).status).toBe(400);
+    expect((await put(app, "token-alice", { name: "Alice", avatar: "https://evil.test/x.jpg" })).status).toBe(400);
+  });
+});

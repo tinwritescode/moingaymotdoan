@@ -76,3 +76,14 @@ model StreakMark {
 
   @@map("streak_marks")
 }
+
+/// The name and photo a reader shows on their share card. name 1–40 characters, avatar a JPEG data URL
+/// of at most 100000 characters: CHECKs in the migration.
+model ReaderProfile {
+  userId    String   @id @map("user_id")
+  name      String
+  avatar    String?
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("reader_profiles")
+}

@@ -7,6 +7,7 @@ import {
   NUMERIC_ID_RE,
 } from "../../lib/history/contract";
 import type { HistoryRepository, OriginPolicy, TokenVerifier } from "../../lib/history/ports";
+import { parseProfile } from "../../lib/profile/profile";
 import { parseMarks } from "../../lib/streak/marks";
 import { createPushRoutes, type PushDeps } from "./push-routes";
 
@@ -105,6 +106,16 @@ export function createHistoryApp(deps: HistoryAppDeps) {
     const marks = parseMarks(await c.req.json().catch(() => null));
     if (!marks) return c.json({ error: "Invalid streak marks" }, 400);
     return c.json({ marks: await deps.repository.mergeStreakMarks(c.get("userId"), marks) });
+  });
+
+  app.get("/history/profile", async (c) => {
+    return c.json({ profile: await deps.repository.fetchProfile(c.get("userId")) });
+  });
+
+  app.put("/history/profile", async (c) => {
+    const profile = parseProfile(await c.req.json().catch(() => null));
+    if (!profile) return c.json({ error: "Invalid profile" }, 400);
+    return c.json({ profile: await deps.repository.saveProfile(c.get("userId"), profile) });
   });
 
   app.delete("/history/log/:id", async (c) => {

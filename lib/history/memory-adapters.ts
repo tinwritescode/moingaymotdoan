@@ -1,5 +1,6 @@
 import { MAX_LOGS, MAX_PROGRESS, normalizeCompletePayload } from "./contract";
-import type { HistoryRepository, LocalHistoryStore, RemoteHistoryAdapter, StreakMarksRemote } from "./ports";
+import type { ReaderProfile } from "../profile/profile";
+import type { HistoryRepository, LocalHistoryStore, ProfileRemote, RemoteHistoryAdapter, StreakMarksRemote } from "./ports";
 import {
   EMPTY_HISTORY,
   progressMapKey,
@@ -43,6 +44,7 @@ export function createMemoryHistoryRepository(
   let nextLogId = 1;
   const store = new Map<string, { progress: Map<string, ReadingProgress>; logs: ReadingLog[] }>();
   const marks = new Map<string, StreakMarks>();
+  const profiles = new Map<string, ReaderProfile>();
 
   const ensureUser = (userId: string) => {
     let bucket = store.get(userId);
@@ -201,6 +203,13 @@ export function createMemoryHistoryRepository(
       marks.set(userId, merged);
       return merged;
     },
+    async fetchProfile(userId) {
+      return profiles.get(userId) ?? null;
+    },
+    async saveProfile(userId, profile) {
+      profiles.set(userId, { ...profile });
+      return { ...profile };
+    },
   };
 }
 
@@ -239,5 +248,13 @@ export function createMemoryStreakMarksRemote(repository: HistoryRepository, use
   return {
     fetch: () => repository.fetchStreakMarks(userId),
     merge: (marks) => repository.mergeStreakMarks(userId, marks),
+  };
+}
+
+/** Bridges an in-memory HistoryRepository into the client's ProfileRemote for tests. */
+export function createMemoryProfileRemote(repository: HistoryRepository, userId: string): ProfileRemote {
+  return {
+    fetch: () => repository.fetchProfile(userId),
+    save: (profile) => repository.saveProfile(userId, profile),
   };
 }

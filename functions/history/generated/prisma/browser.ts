@@ -37,3 +37,9 @@ export type PushSubscription = Prisma.PushSubscriptionModel
  * Rest days, restart and reminder hour of one reader's streak. remind_hour 6–23: CHECK in the migration.
  */
 export type StreakMark = Prisma.StreakMarkModel
+/**
+ * Model ReaderProfile
+ * The name and photo a reader shows on their share card. name 1–40 characters, avatar a JPEG data URL
+ * of at most 100000 characters: CHECKs in the migration.
+ */
+export type ReaderProfile = Prisma.ReaderProfileModel
