@@ -21,6 +21,12 @@ export type ReminderPayload = { title: string; body: string; url: string; tag: "
 
 const RESCUE_FROM_MINUTES = 8 * 60;
 
+const payload = (locale: Locale, m: { title: string; body: string }): ReminderPayload => ({
+  ...m,
+  url: locale === "en" ? "/en" : "/",
+  tag: "streak",
+});
+
 /** Local calendar date and minutes past midnight at `now` in `tz`. */
 export function localClock(now: Date, tz: string): { date: string; minutes: number } {
   const parts = Object.fromEntries(
@@ -44,14 +50,20 @@ export function decideReminder(row: PushRow, now: Date): { date: string; payload
   const { date, minutes } = localClock(now, row.tz);
   if (row.lastSentDate === date || row.lastReadDate === date) return null;
   const t = messagesFor(row.locale).streak;
-  const url = row.locale === "en" ? "/en" : "/";
-  const send = (m: { title: string; body: string }) => ({ date, payload: { ...m, url, tag: "streak" as const } });
+  const send = (m: { title: string; body: string }) => ({ date, payload: payload(row.locale, m) });
 
   if (row.streak > 0 && row.lastReadDate === addDays(date, -2) && minutes >= RESCUE_FROM_MINUTES) {
     return send(t.notifyRescue(row.streak));
   }
   if (minutes < row.remindHour * 60) return null;
   return send(row.streak > 0 && row.lastReadDate === addDays(date, -1) ? t.notifyAtRisk(row.streak) : t.notifyStart);
+}
+
+/** The reminder this reader would get for their streak as it stands, shown on request as a sample. */
+export function sampleReminder(state: StreakState, locale: Locale): ReminderPayload {
+  const t = messagesFor(locale).streak;
+  if (state.kind === "rescue") return payload(locale, t.notifyRescue(state.days));
+  return payload(locale, state.days > 0 ? t.notifyAtRisk(state.days) : t.notifyStart);
 }
 
 /** What a device tells the server about its streak: the last day the streak covers and its length. */

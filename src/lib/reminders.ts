@@ -1,5 +1,6 @@
 import { createSignal } from "solid-js";
 import type { SubscriptionPayload } from "../../lib/streak/push-contract";
+import type { ReminderPayload } from "../../lib/streak/reminders";
 import { getHistoryApiUrl } from "./browser-history-adapters";
 
 /** Everything the server keeps about a device except its subscription. */
@@ -83,6 +84,20 @@ export async function subscribe(report: SubscriptionReport): Promise<SubscribeRe
       return "failed";
     }
     setSubscription(sub);
+    return "on";
+  } catch {
+    return "failed";
+  }
+}
+
+/** Shows `sample` on this device the way a pushed reminder appears (same options as the push handler in sw.js). */
+export async function showSample(sample: ReminderPayload): Promise<SubscribeResult> {
+  const permission = Notification.permission === "granted" ? "granted" : await Notification.requestPermission();
+  if (permission === "denied") return "blocked";
+  if (permission !== "granted") return "failed";
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    await reg.showNotification(sample.title, { body: sample.body, icon: "/icon-192.png", tag: sample.tag, data: { url: sample.url } });
     return "on";
   } catch {
     return "failed";

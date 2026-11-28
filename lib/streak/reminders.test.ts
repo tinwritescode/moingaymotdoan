@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { decideReminder, localClock, reportFor, type PushRow } from "./reminders";
+import { messagesFor } from "../i18n";
+import { decideReminder, localClock, reportFor, sampleReminder, type PushRow } from "./reminders";
 
 const row = (over: Partial<PushRow> = {}): PushRow => ({
   endpoint: "https://fcm.googleapis.com/fcm/send/abc",
@@ -71,5 +72,15 @@ describe("reportFor", () => {
     expect(
       reportFor({ kind: "rescue", days: 23, record: 30, needed: 2, missed: "2026-11-28", restAvailable: true }, "2026-11-29"),
     ).toEqual({ lastReadDate: "2026-11-27", streak: 23 });
+  });
+});
+
+describe("sampleReminder", () => {
+  it("is the reminder the reader's streak would get, in their language", () => {
+    const en = messagesFor("en").streak;
+    expect(sampleReminder({ kind: "today", days: 0, record: 0 }, "en")).toEqual({ ...en.notifyStart, url: "/en", tag: "streak" });
+    expect(sampleReminder({ kind: "done", days: 4, record: 4 }, "en")).toEqual({ ...en.notifyAtRisk(4), url: "/en", tag: "streak" });
+    const rescue = { kind: "rescue", days: 6, record: 6, needed: 2, missed: "2026-11-28", restAvailable: true } as const;
+    expect(sampleReminder(rescue, "vi")).toEqual({ ...messagesFor("vi").streak.notifyRescue(6), url: "/", tag: "streak" });
   });
 });

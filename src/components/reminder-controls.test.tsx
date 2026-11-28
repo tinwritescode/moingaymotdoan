@@ -1,6 +1,7 @@
 import { fireEvent } from "@solidjs/testing-library";
 import { flush } from "solid-js";
 import { afterEach, describe, expect, test, vi } from "vitest";
+import { messagesFor } from "../../lib/i18n";
 import { ReminderControls, ReminderSync } from "./reminder-controls";
 import { historyOf, renderStreakAt } from "./streak-fixtures";
 
@@ -60,5 +61,25 @@ describe("<ReminderControls />", () => {
     await view.findByRole("button", { name: "Nhắc tôi lúc 20:00" });
     expect(bodies().at(-1)).toEqual(["DELETE", { endpoint: json.endpoint }]);
     expect(sub.unsubscribe).toHaveBeenCalled();
+  });
+
+  test("the ? button shows a sample reminder on this device", async () => {
+    vi.stubEnv("VITE_HISTORY_API_URL", "https://api.test");
+    vi.stubEnv("VITE_VAPID_PUBLIC_KEY", "BNcRdreALRFXTkOOUHK1EtK2wtaz5Ry4YfYCA_0QTpQ");
+    vi.stubGlobal("PushManager", class {});
+    vi.stubGlobal("Notification", { permission: "default", requestPermission: async () => "granted" });
+    const showNotification = vi.fn(async (_title: string, _options: NotificationOptions) => {});
+    Object.defineProperty(navigator, "serviceWorker", {
+      configurable: true,
+      value: { getRegistration: async () => undefined, ready: Promise.resolve({ showNotification }) },
+    });
+
+    const view = renderStreakAt(`${TODAY}T10:00:00`, historyOf(TODAY, 3, 1), ui);
+    fireEvent.click(await view.findByRole("button", { name: "Xem thử thông báo" }));
+
+    const sample = messagesFor("vi").streak.notifyAtRisk(3);
+    await vi.waitFor(() =>
+      expect(showNotification).toHaveBeenCalledWith(sample.title, expect.objectContaining({ body: sample.body, tag: "streak" })),
+    );
   });
 });

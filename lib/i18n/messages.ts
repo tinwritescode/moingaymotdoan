@@ -236,6 +236,7 @@ export type Messages = {
     remindMe: (hour: number) => string;
     remindHourLabel: string;
     remindOff: string;
+    remindTry: string;
     remindBlocked: string;
     remindFailed: string;
     remindInstall: string;
@@ -789,6 +790,7 @@ const VI: Messages = {
     remindMe: (hour) => `Nhắc tôi lúc ${hour}:00`,
     remindHourLabel: "Giờ nhắc",
     remindOff: "Tắt nhắc",
+    remindTry: "Xem thử thông báo",
     remindBlocked: "Trình duyệt đang chặn thông báo của trang. Mở cài đặt trang để bật lại.",
     remindFailed: "Chưa bật được lời nhắc. Thử lại sau nhé.",
     remindInstall: "Cài app về màn hình chính để nhận lời nhắc trên iPhone",
@@ -1385,6 +1387,7 @@ const EN: Messages = {
     remindMe: (hour) => `Remind me at ${hour}:00`,
     remindHourLabel: "Reminder time",
     remindOff: "Turn off",
+    remindTry: "Preview a notification",
     remindBlocked: "Your browser blocks this site's notifications. Allow them in the site settings.",
     remindFailed: "Could not turn on reminders. Please try again later.",
     remindInstall: "Add the app to your Home Screen to get reminders on iPhone",
