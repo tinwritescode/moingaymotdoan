@@ -29,4 +29,16 @@ Wherever the share button appears, the reader SHALL be able to choose between th
 
 #### Scenario: Choose post
 - **WHEN** the reader picks "Bài đăng"
-- **THEN** the 1080×1350 card is shared
+- **THEN** a preview of the 1080×1350 card opens
+
+### Requirement: Preview before sharing
+Picking a size SHALL open a preview of that card's PNG. Nothing SHALL leave the device until the reader taps the preview's share button, labelled "Chia sẻ ảnh" when the browser can share files and "Tải ảnh" when it cannot. That button SHALL share or download the same PNG that was previewed, then close the preview. A cancelled share SHALL keep the preview open. Closing the preview SHALL share nothing.
+
+#### Scenario: Look, then share
+- **WHEN** the reader picks "Story"
+- **THEN** a preview of the story card opens and nothing is shared yet
+- **AND** tapping "Chia sẻ ảnh" opens the share sheet with that PNG
+
+#### Scenario: Close without sharing
+- **WHEN** the reader closes the preview
+- **THEN** nothing is shared or downloaded

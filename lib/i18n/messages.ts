@@ -226,6 +226,10 @@ export type Messages = {
     sharePost: string;
     shareStory: string;
     shareFailed: string;
+    sharePreview: string;
+    shareSend: string;
+    shareSave: string;
+    shareClose: string;
     cardTagline: string;
     cardVerse: string;
     cardVerseRef: string;
@@ -777,6 +781,10 @@ const VI: Messages = {
     sharePost: "Bài đăng",
     shareStory: "Story",
     shareFailed: "Chưa tạo được ảnh. Thử lại nhé.",
+    sharePreview: "Xem trước ảnh chia sẻ",
+    shareSend: "Chia sẻ ảnh",
+    shareSave: "Tải ảnh",
+    shareClose: "Đóng",
     cardTagline: "ngày liền đọc Lời Chúa",
     cardVerse: "“Lời Chúa là ngọn đèn cho chân tôi, ánh sáng cho đường lối tôi.”",
     cardVerseRef: "Thi-thiên 119:105",
@@ -1369,6 +1377,10 @@ const EN: Messages = {
     sharePost: "Post",
     shareStory: "Story",
     shareFailed: "Could not make the image. Please try again.",
+    sharePreview: "Share card preview",
+    shareSend: "Share image",
+    shareSave: "Download image",
+    shareClose: "Close",
     cardTagline: "days in a row in God's Word",
     cardVerse: "“Your word is a lamp to my feet, and a light for my path.”",
     cardVerseRef: "Psalm 119:105",

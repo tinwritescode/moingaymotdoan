@@ -113,9 +113,16 @@ export async function drawShareCard(input: ShareCardInput): Promise<Blob> {
   );
 }
 
+const pngFile = (blob: Blob, filename: string) => new File([blob], filename, { type: "image/png" });
+
+/** True when the system share sheet takes this PNG; otherwise `shareOrDownload` downloads it. */
+export function canSharePng(blob: Blob, filename: string): boolean {
+  return navigator.canShare?.({ files: [pngFile(blob, filename)] }) ?? false;
+}
+
 /** System share sheet with the PNG when the browser can share files; otherwise a download. */
 export async function shareOrDownload(blob: Blob, filename: string): Promise<"shared" | "downloaded" | "cancelled"> {
-  const file = new File([blob], filename, { type: "image/png" });
+  const file = pngFile(blob, filename);
   if (navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({ files: [file] });
