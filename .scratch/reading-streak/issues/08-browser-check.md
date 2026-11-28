@@ -4,9 +4,9 @@
 
 **Blocked by:** 02, 03, 05, 06
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Each card state seen in vi and en, light and dark
-- [ ] Done sheet opens, scrolls on a small phone, closes with the button and Escape
-- [ ] Post and story PNGs downloaded and checked: text fits, grid correct, fonts loaded
-- [ ] No layout jump on the home page between loads in each state
+- [x] Each card state seen in vi and en, light and dark
+- [x] Done sheet opens, scrolls on a small phone, closes with the button and Escape
+- [x] Post and story PNGs downloaded and checked: text fits, grid correct, fonts loaded
+- [x] No layout jump on the home page between loads in each state
