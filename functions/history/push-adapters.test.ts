@@ -26,13 +26,28 @@ describe.skipIf(!url)("Postgres push store", () => {
     expect(await store.claim(row.endpoint, "2026-11-29")).toBe(true);
     expect(await store.claim(row.endpoint, "2026-11-29")).toBe(false);
     await store.upsert({ ...row, streak: 24, lastReadDate: null });
-    expect((await store.list()).find((r) => r.endpoint === row.endpoint)).toEqual({
+    // 2026-11-29 21:05 in Ho Chi Minh City: already sent that day, so not due.
+    expect(await store.listDue(new Date("2026-11-29T14:05:00Z"), null, 1000)).not.toContainEqual(expect.objectContaining({ endpoint: row.endpoint }));
+    expect((await store.listDue(new Date("2026-11-30T14:05:00Z"), null, 1000)).find((r) => r.endpoint === row.endpoint)).toEqual({
       ...row,
       streak: 24,
       lastReadDate: null,
       lastSentDate: "2026-11-29",
     });
     await store.remove(row.endpoint);
-    expect((await store.list()).some((r) => r.endpoint === row.endpoint)).toBe(false);
+    expect((await store.listDue(new Date("2026-11-30T14:05:00Z"), null, 1000)).some((r) => r.endpoint === row.endpoint)).toBe(false);
+  });
+
+  it("lists due devices in pages after an endpoint, skipping a device read today", async () => {
+    const at = (n: number) => `${row.endpoint}-page-${n}`;
+    await pool.query("DELETE FROM push_subscriptions WHERE endpoint LIKE $1", [`${row.endpoint}-page-%`]);
+    for (const n of [1, 2, 3]) await store.upsert({ ...row, endpoint: at(n) });
+    await store.upsert({ ...row, endpoint: at(4), lastReadDate: "2026-11-29" });
+    const now = new Date("2026-11-29T14:05:00Z");
+    const mine = (rows: { endpoint: string }[]) => rows.map((r) => r.endpoint).filter((e) => e.startsWith(`${row.endpoint}-page-`));
+    const first = await store.listDue(now, at(0), 2);
+    expect(mine(first)).toEqual([at(1), at(2)]);
+    expect(mine(await store.listDue(now, at(2), 1000))).toEqual([at(3)]);
+    await pool.query("DELETE FROM push_subscriptions WHERE endpoint LIKE $1", [`${row.endpoint}-page-%`]);
   });
 });

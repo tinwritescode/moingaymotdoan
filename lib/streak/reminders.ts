@@ -75,7 +75,11 @@ export type PushStore = {
   /** Insert or update a device; keeps its last_sent_date. */
   upsert(row: Omit<PushRow, "lastSentDate">): Promise<void>;
   remove(endpoint: string): Promise<void>;
-  list(): Promise<PushRow[]>;
+  /**
+   * Up to `limit` devices with an endpoint after `after` (null: from the start), in endpoint order,
+   * leaving out those already sent or read on their local day at `now`.
+   */
+  listDue(now: Date, after: string | null, limit: number): Promise<PushRow[]>;
   /** Records `date` as sent unless it already is; false when another run got there first. */
   claim(endpoint: string, date: string): Promise<boolean>;
 };

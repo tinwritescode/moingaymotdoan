@@ -42,12 +42,18 @@ export function createPostgresPushStore(pool: Pool): PushStore {
     async remove(endpoint) {
       await pool.query("DELETE FROM push_subscriptions WHERE endpoint = $1", [endpoint]);
     },
-    async list() {
+    async listDue(now, after, limit) {
       const { rows } = await pool.query<PushDbRow>(
         `SELECT endpoint, p256dh, auth, tz, remind_hour, locale,
                 to_char(last_read_date, 'YYYY-MM-DD') AS last_read_date, streak,
                 to_char(last_sent_date, 'YYYY-MM-DD') AS last_sent_date
-         FROM push_subscriptions`,
+         FROM push_subscriptions
+         WHERE ($2::text IS NULL OR endpoint > $2)
+           AND last_sent_date IS DISTINCT FROM ($1::timestamptz AT TIME ZONE tz)::date
+           AND last_read_date IS DISTINCT FROM ($1::timestamptz AT TIME ZONE tz)::date
+         ORDER BY endpoint
+         LIMIT $3`,
+        [now.toISOString(), after, limit],
       );
       return rows.map(toRow);
     },

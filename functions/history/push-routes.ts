@@ -3,6 +3,8 @@ import { Hono } from "hono";
 import { isPushEndpoint, parseSubscriptionPayload } from "../../lib/streak/push-contract";
 import { decideReminder, type PushSender, type PushStore } from "../../lib/streak/reminders";
 
+const CRON_PAGE = 100;
+
 export type PushDeps = { store: PushStore; send: PushSender; now?: () => Date };
 
 /**
@@ -31,23 +33,29 @@ export function createPushRoutes(deps: PushDeps) {
   push.post("/cron", async (c) => {
     await parseTrigger(c);
     const now = deps.now?.() ?? new Date();
-    const rows = await deps.store.list();
+    let checked = 0;
     let sent = 0;
     let gone = 0;
-    // shortcut: every device every run, all at once; page through rows when there are tens of thousands.
-    await Promise.all(
-      rows.map(async (row) => {
-        const due = decideReminder(row, now);
-        if (!due || !(await deps.store.claim(row.endpoint, due.date))) return;
-        const result = await deps.send(row, due.payload);
-        if (result === "sent") sent++;
-        if (result === "gone") {
-          gone++;
-          await deps.store.remove(row.endpoint);
-        }
-      }),
-    );
-    return c.json({ checked: rows.length, sent, gone });
+    // One page at a time, so at most CRON_PAGE sends are in flight.
+    for (let after: string | null = null; ; ) {
+      const rows = await deps.store.listDue(now, after, CRON_PAGE);
+      checked += rows.length;
+      await Promise.all(
+        rows.map(async (row) => {
+          const due = decideReminder(row, now);
+          if (!due || !(await deps.store.claim(row.endpoint, due.date))) return;
+          const result = await deps.send(row, due.payload);
+          if (result === "sent") sent++;
+          if (result === "gone") {
+            gone++;
+            await deps.store.remove(row.endpoint);
+          }
+        }),
+      );
+      if (rows.length < CRON_PAGE) break;
+      after = rows[rows.length - 1].endpoint;
+    }
+    return c.json({ checked, sent, gone });
   });
 
   return push;

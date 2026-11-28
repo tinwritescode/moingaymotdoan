@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { PushRow, PushSender, PushStore } from "../../lib/streak/reminders";
+import { localClock, type PushRow, type PushSender, type PushStore } from "../../lib/streak/reminders";
 import { createMemoryHistoryRepository } from "../../lib/history/memory-adapters";
 import { createHistoryApp } from "./app";
 
@@ -26,8 +26,15 @@ function createMemoryPushStore(): PushStore & { rows: Map<string, PushRow> } {
     async remove(endpoint) {
       rows.delete(endpoint);
     },
-    async list() {
-      return [...rows.values()];
+    async listDue(now, after, limit) {
+      return [...rows.values()]
+        .filter((r) => after === null || r.endpoint > after)
+        .filter((r) => {
+          const today = localClock(now, r.tz).date;
+          return r.lastSentDate !== today && r.lastReadDate !== today;
+        })
+        .sort((a, b) => (a.endpoint < b.endpoint ? -1 : 1))
+        .slice(0, limit);
     },
     async claim(endpoint, date) {
       const row = rows.get(endpoint);
@@ -98,8 +105,28 @@ describe("push routes", () => {
       expect.objectContaining({ endpoint: ENDPOINT }),
       expect.objectContaining({ title: "Đèn 23 ngày sắp tắt", url: "/", tag: "streak" }),
     );
-    expect(await (await cron("inv_2")).json()).toEqual({ checked: 1, sent: 0, gone: 0 });
+    expect(await (await cron("inv_2")).json()).toEqual({ checked: 0, sent: 0, gone: 0 });
     expect(send).toHaveBeenCalledOnce();
+  });
+
+  it("the cron pages through many devices with a cap on sends in flight", async () => {
+    let inFlight = 0;
+    let most = 0;
+    const send: PushSender = async () => {
+      inFlight++;
+      most = Math.max(most, inFlight);
+      await new Promise((r) => setTimeout(r, 1));
+      inFlight--;
+      return "sent";
+    };
+    const { put, cron } = createTestServer(send);
+    for (let i = 0; i < 250; i++) {
+      await put({ ...SUBSCRIBE, subscription: { ...SUBSCRIBE.subscription, endpoint: `${ENDPOINT}${String(i).padStart(3, "0")}` } });
+    }
+    await put({ ...SUBSCRIBE, subscription: { ...SUBSCRIBE.subscription, endpoint: `${ENDPOINT}read` }, lastReadDate: "2026-11-29" });
+    expect(await (await cron()).json()).toEqual({ checked: 250, sent: 250, gone: 0 });
+    expect(most).toBeGreaterThan(1);
+    expect(most).toBeLessThanOrEqual(100);
   });
 
   it("the cron drops a subscription the push service no longer knows", async () => {

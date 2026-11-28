@@ -4,8 +4,8 @@
 
 **Blocked by:** 09
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Rows read in pages; already-sent and already-read rows filtered before decision
-- [ ] Concurrent sends capped
-- [ ] A run with many rows finishes well within the 15-minute interval
+- [x] Rows read in pages; already-sent and already-read rows filtered before decision
+- [x] Concurrent sends capped
+- [x] A run with many rows finishes well within the 15-minute interval (pages of 100 sent together; 10,000 due devices at ~0.3 s a page is under a minute)
