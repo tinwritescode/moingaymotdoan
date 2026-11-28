@@ -4,6 +4,7 @@ import { alternatePath } from "../../lib/i18n";
 import { DisplayControls } from "../components/display-controls";
 import { FloatingDock } from "../components/floating-dock";
 import { useLocale } from "../components/locale-context";
+import { NavRow } from "../components/nav-row";
 import { ReminderControls } from "../components/reminder-controls";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
@@ -20,9 +21,6 @@ export function SettingsPage() {
   onSettled(() => {
     preloadAllReadingFonts();
   });
-
-  const rowClass =
-    "flex min-h-16 items-center gap-3.5 rounded-[20px] border border-rule bg-card px-[18px] font-sans text-ink transition-colors hover:border-accent";
 
   return (
     <>
@@ -113,61 +111,43 @@ export function SettingsPage() {
               {t().settings.moreHeading}
             </h2>
 
-            <a
+            <NavRow
               href={tourHref(chapterHref({ slug: booksFor(locale())[0].slug, number: 1, locale: locale() }))}
-              class={rowClass}
-            >
-              <span
-                aria-hidden="true"
-                class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-side text-accent"
-              >
+              title={t().tour.replay}
+              description={t().tour.replayHint}
+              icon={
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" class="h-[18px] w-[18px]">
                   <circle cx="12" cy="12" r="9" />
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6" />
                   <path d="M12 17h.01" />
                 </svg>
-              </span>
-              <span class="flex flex-1 flex-col gap-0.5">
-                <span class="text-[15px] font-medium">{t().tour.replay}</span>
-                <span class="text-xs text-muted">{t().tour.replayHint}</span>
-              </span>
-              <span aria-hidden="true" class="text-muted">›</span>
-            </a>
+              }
+            />
 
-            <a href={installHref(locale())} class={rowClass}>
-              <span
-                aria-hidden="true"
-                class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-side text-accent"
-              >
+            <NavRow
+              href={installHref(locale())}
+              title={t().settings.installRowTitle}
+              description={t().settings.installRowHint}
+              icon={
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-[18px] w-[18px]">
                   <path d="M12 3v12" />
                   <path d="m7 10 5 5 5-5" />
                   <path d="M5 19h14" />
                 </svg>
-              </span>
-              <span class="flex flex-1 flex-col gap-0.5">
-                <span class="text-[15px] font-medium">{t().settings.installRowTitle}</span>
-                <span class="text-xs text-muted">{t().settings.installRowHint}</span>
-              </span>
-              <span aria-hidden="true" class="text-muted">›</span>
-            </a>
+              }
+            />
 
-            <a href={accountHref(locale())} class={rowClass}>
-              <span
-                aria-hidden="true"
-                class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-side text-accent"
-              >
+            <NavRow
+              href={accountHref(locale())}
+              title={t().settings.accountRowTitle}
+              description={t().settings.accountRowHint}
+              icon={
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" class="h-[18px] w-[18px]">
                   <circle cx="12" cy="9" r="3.5" />
                   <path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5" />
                 </svg>
-              </span>
-              <span class="flex flex-1 flex-col gap-0.5">
-                <span class="text-[15px] font-medium">{t().settings.accountRowTitle}</span>
-                <span class="text-xs text-muted">{t().settings.accountRowHint}</span>
-              </span>
-              <span aria-hidden="true" class="text-muted">›</span>
-            </a>
+              }
+            />
           </section>
         </div>
       </main>
