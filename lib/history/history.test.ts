@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import {
   chapterItemKey,
   computeReadingStats,
-  computeStreak,
   formatDateHeading,
   formatDateKeyDMY,
   groupLogsByDate,
@@ -33,31 +32,6 @@ describe("history helpers", () => {
     expect(formatDateHeading("2026-11-25", now)).toBe("Hôm nay · Thứ Tư, 25/11/2026");
     expect(formatDateHeading("2026-11-24", now)).toBe("Hôm qua · Thứ Ba, 24/11/2026");
     expect(formatDateHeading("2026-11-20", now)).toBe("Thứ Sáu, 20/11/2026");
-  });
-
-  it("computes consecutive reading streak including yesterday grace", () => {
-    const now = new Date(2026, 10, 25, 9, 30);
-    expect(computeStreak([], now)).toBe(0);
-    expect(
-      computeStreak(
-        [
-          makeLog("2026-11-25", "2026-11-25T02:00:00Z"),
-          makeLog("2026-11-24", "2026-11-24T02:00:00Z"),
-          makeLog("2026-11-23", "2026-11-23T02:00:00Z"),
-          makeLog("2026-11-20", "2026-11-20T02:00:00Z"),
-        ],
-        now,
-      ),
-    ).toBe(3);
-    // Yesterday active, today not yet read -> streak still preserved.
-    expect(
-      computeStreak(
-        [makeLog("2026-11-24", "2026-11-24T02:00:00Z"), makeLog("2026-11-23", "2026-11-23T02:00:00Z")],
-        now,
-      ),
-    ).toBe(2);
-    // Gap of 2 days -> streak resets.
-    expect(computeStreak([makeLog("2026-11-22", "2026-11-22T02:00:00Z")], now)).toBe(0);
   });
 
   it("groups logs by date newest first, canonicalizes chapter keys, and derives stats", () => {
@@ -97,7 +71,6 @@ describe("history helpers", () => {
         ],
         logs,
       },
-      now,
     );
     expect(stats).toEqual({
       chaptersRead: 1,
@@ -105,7 +78,6 @@ describe("history helpers", () => {
       booksOpened: 1,
       moodsRead: 0,
       readingDays: 2,
-      streak: 2,
     });
   });
 });

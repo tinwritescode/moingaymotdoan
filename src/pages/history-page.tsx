@@ -13,6 +13,7 @@ import { findNextChapter, resolveChapterDisplay } from "../components/continue-r
 import { FloatingDock } from "../components/floating-dock";
 import { useHistory } from "../components/history-context";
 import { useLocale } from "../components/locale-context";
+import { useStreak } from "../components/streak-context";
 import { ProgressRing, WeeklyDots } from "../components/progress-ring";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
@@ -47,6 +48,7 @@ export function HistoryPageView() {
     clearAllHistory,
     refreshHistory,
   } = useHistory();
+  const streak = useStreak();
   const syncErrorMessage = createMemo(() => formatSyncError(syncError(), locale()));
 
   const [tab, setTab] = createSignal<FilterTab>("tat-ca");
@@ -278,9 +280,9 @@ export function HistoryPageView() {
               <span class="mt-1 block text-[11.5px] text-muted">{t().history.ofTotalChapters}</span>
             </div>
             <div class="rounded-2xl border border-rule bg-card p-3.5">
-              <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
+              <strong class="block text-2xl leading-none font-light text-ink">{streak.state().days}</strong>
               <span class="mt-1 block text-[11.5px] text-muted">{t().history.dayStreak}</span>
-              <WeeklyDots logs={logs()} />
+              <WeeklyDots />
             </div>
             <div class="rounded-2xl border border-rule bg-card p-3.5">
               <strong class="block text-2xl leading-none font-light text-accent">{stats().chaptersCompleted}</strong>

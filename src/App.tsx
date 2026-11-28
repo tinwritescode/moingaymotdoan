@@ -5,6 +5,7 @@ import { InstallCorner } from "./components/install-corner";
 import { RouterLocaleProvider } from "./components/locale-context";
 import { PreferencesProvider } from "./components/preferences-context";
 import { SiteFooter } from "./components/site-footer";
+import { StreakProvider } from "./components/streak-context";
 import { PageSkeleton } from "./components/skeleton";
 import { isStandalone } from "./lib/install";
 import { Router } from "./router";
@@ -41,17 +42,19 @@ export default function App() {
     <PreferencesProvider>
       <AuthProvider>
         <HistoryProvider>
-          <Router>
-            {(props) => (
-              <RouterLocaleProvider>
-                <div class="flex flex-1 flex-col">
-                  <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
-                </div>
-                <SiteFooter />
-                <InstallCorner />
-              </RouterLocaleProvider>
-            )}
-          </Router>
+          <StreakProvider>
+            <Router>
+              {(props) => (
+                <RouterLocaleProvider>
+                  <div class="flex flex-1 flex-col">
+                    <Loading fallback={<PageSkeleton />}>{props.children}</Loading>
+                  </div>
+                  <SiteFooter />
+                  <InstallCorner />
+                </RouterLocaleProvider>
+              )}
+            </Router>
+          </StreakProvider>
         </HistoryProvider>
       </AuthProvider>
     </PreferencesProvider>

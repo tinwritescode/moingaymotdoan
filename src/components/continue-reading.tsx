@@ -8,6 +8,7 @@ import { accountHref, chapterHref, historyHref, homeHref } from "../router";
 import { useAuth } from "./auth-context";
 import { useHistory } from "./history-context";
 import { useLocale } from "./locale-context";
+import { useStreak } from "./streak-context";
 import { writeStorage } from "./preferences-context";
 import { ProgressRing, WeeklyDots } from "./progress-ring";
 
@@ -77,7 +78,8 @@ export function resolveChapterDisplay(
 /** "Continue reading" card + 3 quiet stats cards on the home page when history exists. */
 export function ContinueReading(props: { toc: TocBook[] }) {
   const { user, initialized } = useAuth();
-  const { hydrated, syncing, latestChapter, stats, logs, bookSummary } = useHistory();
+  const { hydrated, syncing, latestChapter, stats, bookSummary } = useHistory();
+  const streak = useStreak();
   const { locale, t } = useLocale();
 
   const latestDisplay = createMemo(() => {
@@ -174,9 +176,9 @@ export function ContinueReading(props: { toc: TocBook[] }) {
               href={historyHref(locale())}
               class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
             >
-              <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
+              <strong class="block text-2xl leading-none font-light text-ink">{streak.state().days}</strong>
               <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.dayStreak}</span>
-              <WeeklyDots logs={logs()} />
+              <WeeklyDots />
             </a>
 
             <a

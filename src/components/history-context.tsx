@@ -58,7 +58,6 @@ const EMPTY_STATS: ReadingStats = {
   booksOpened: 0,
   moodsRead: 0,
   readingDays: 0,
-  streak: 0,
 };
 
 const FALLBACK_HISTORY: HistoryContextValue = {

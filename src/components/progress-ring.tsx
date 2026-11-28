@@ -1,5 +1,5 @@
-import { createMemo, For } from "solid-js";
-import { localDateKey, type ReadingLog } from "../../lib/history/types";
+import { For } from "solid-js";
+import { useStreak } from "./streak-context";
 
 /** Vòng tròn tiến độ SVG mềm mại (dùng cho thẻ Xem tiếp và thanh tiến độ đọc). */
 export function ProgressRing(props: { radius: number; percent: number; strokeWidth?: number; class?: string }) {
@@ -30,24 +30,20 @@ export function ProgressRing(props: { radius: number; percent: number; strokeWid
   );
 }
 
-/** 7 chấm nhỏ biểu thị 7 ngày gần nhất (từ 6 ngày trước đến hôm nay). */
-export function WeeklyDots(props: { logs: ReadingLog[] }) {
-  const dots = createMemo(() => {
-    const readDays = new Set(props.logs.map((l) => l.readDate));
-    const today = new Date();
-    const out: { key: string; active: boolean }[] = [];
-    for (let i = 6; i >= 0; i -= 1) {
-      const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-      const key = localDateKey(d);
-      out.push({ key, active: readDays.has(key) });
-    }
-    return out;
-  });
-
+/** 7 chấm nhỏ cho tuần này, Thứ Hai đến Chủ Nhật: đậm khi đã đọc, nhạt khi nghỉ Sa-bát hay thắp lại. */
+export function WeeklyDots() {
+  const streak = useStreak();
   return (
     <span class="mt-2 flex gap-1" aria-hidden="true">
-      <For each={dots()}>
-        {(d) => <i class={["block h-[7px] w-[7px] rounded-full", d.active ? "bg-accent" : "bg-rule"]} />}
+      <For each={streak.week()}>
+        {(d) => (
+          <i
+            class={[
+              "block h-[7px] w-[7px] rounded-full",
+              d.mark === "read" ? "bg-accent" : d.mark === "rest" || d.mark === "rekindled" ? "bg-accent/45" : "bg-rule",
+            ]}
+          />
+        )}
       </For>
     </span>
   );

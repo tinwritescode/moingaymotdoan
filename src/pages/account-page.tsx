@@ -6,6 +6,7 @@ import { useAuth } from "../components/auth-context";
 import { FloatingDock } from "../components/floating-dock";
 import { useHistory } from "../components/history-context";
 import { useLocale } from "../components/locale-context";
+import { useStreak } from "../components/streak-context";
 import { WeeklyDots } from "../components/progress-ring";
 import { Seo } from "../components/seo";
 import { SiteHeader } from "../components/site-header";
@@ -31,7 +32,8 @@ export function AccountPageView() {
     signUp,
     signOut,
   } = useAuth();
-  const { stats, logs } = useHistory();
+  const { stats } = useHistory();
+  const streak = useStreak();
   const authErrorMessage = createMemo(() => formatAuthError(authError(), locale()));
 
   const nextUrl = createMemo(() => {
@@ -190,9 +192,9 @@ export function AccountPageView() {
                     <span class="mt-1 block text-[11px] text-muted">{t().account.chaptersCompleted}</span>
                   </div>
                   <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">
-                    <strong class="block text-2xl leading-none font-light text-ink">{stats().streak}</strong>
+                    <strong class="block text-2xl leading-none font-light text-ink">{streak.state().days}</strong>
                     <span class="mt-1 block text-[11px] text-muted">{t().account.dayStreak}</span>
-                    <WeeklyDots logs={logs()} />
+                    <WeeklyDots />
                   </div>
                 </div>
 

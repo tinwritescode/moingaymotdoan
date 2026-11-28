@@ -89,7 +89,6 @@ export type ReadingStats = {
   booksOpened: number;
   moodsRead: number;
   readingDays: number;
-  streak: number;
 };
 
 export type BookReadSummary = {
@@ -194,7 +193,7 @@ export function findLatestChapter(progress: ReadingProgress[]): ReadingProgress 
 }
 
 /** Computes aggregate reading statistics from a history snapshot. */
-export function computeReadingStats(snapshot: HistorySnapshot, now: Date = new Date()): ReadingStats {
+export function computeReadingStats(snapshot: HistorySnapshot): ReadingStats {
   const books = new Set<string>();
   let chaptersRead = 0;
   let chaptersCompleted = 0;
@@ -215,7 +214,6 @@ export function computeReadingStats(snapshot: HistorySnapshot, now: Date = new D
     booksOpened: books.size,
     moodsRead,
     readingDays,
-    streak: computeStreak(snapshot.logs, now),
   };
 }
 
@@ -325,23 +323,4 @@ export function groupLogsByDate(logs: ReadingLog[], now: Date = new Date(), loca
     label: formatDateHeading(dateKey, now, locale),
     items,
   }));
-}
-
-/** Computes consecutive reading days up to today (or yesterday if today not yet opened). */
-export function computeStreak(logs: ReadingLog[], now: Date = new Date()): number {
-  const days = new Set(logs.map((l) => l.readDate));
-  if (days.size === 0) return 0;
-
-  const cursor = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  if (!days.has(localDateKey(cursor))) {
-    cursor.setDate(cursor.getDate() - 1);
-    if (!days.has(localDateKey(cursor))) return 0;
-  }
-
-  let streak = 0;
-  while (days.has(localDateKey(cursor))) {
-    streak += 1;
-    cursor.setDate(cursor.getDate() - 1);
-  }
-  return streak;
 }
