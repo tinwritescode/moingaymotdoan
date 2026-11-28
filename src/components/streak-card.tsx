@@ -52,7 +52,7 @@ export function StreakCard(props: { next: NextChapter | null }) {
           <div class="min-w-0 flex-1">
             <p class="flex items-baseline gap-2">
               <strong class="font-display text-4xl leading-none font-semibold text-ink">{view().s.days}</strong>
-              <span class="text-sm text-muted">{t().streak.daysLabel}</span>
+              <span class="text-sm text-muted">{t().streak.daysLabel(view().s.days)}</span>
             </p>
             <Show when={view().s.record > 0}>
               <p class="mt-1 text-xs text-muted">{t().streak.record(view().s.record)}</p>

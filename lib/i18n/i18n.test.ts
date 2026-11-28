@@ -121,3 +121,44 @@ describe("i18n locale, books, and route mapping", () => {
     expect(en.footer.contributeLanguageUrl).toMatch(/^https:\/\/github\.com\//);
   });
 });
+
+describe("reading stat labels", () => {
+  it("say one day, not one days, in English", () => {
+    const { streak } = messagesFor("en");
+    expect([
+      streak.daysLabel(1),
+      streak.record(1),
+      streak.doneBody(1),
+      streak.daysLeft(1),
+      streak.recordKept(1),
+      streak.cardTagline(1),
+    ]).toEqual([
+      "day in a row",
+      "Best 1 day",
+      "1 day in a row in God's Word. See you tomorrow.",
+      "1 day to your next flame.",
+      "Your best of 1 day is kept whatever you choose.",
+      "day in a row in God's Word",
+    ]);
+    expect([streak.daysLabel(2), streak.record(5), streak.daysLeft(3), streak.cardTagline(7)]).toEqual([
+      "days in a row",
+      "Best 5 days",
+      "3 days to your next flame.",
+      "days in a row in God's Word",
+    ]);
+  });
+
+  it("count one chapter and one book in the singular in English", () => {
+    const { continueReading, account } = messagesFor("en");
+    expect([continueReading.chaptersRead(1), continueReading.booksOpened(1), account.chaptersSeen(1)]).toEqual([
+      "chapter read",
+      "book opened",
+      "chapter read",
+    ]);
+    expect([continueReading.chaptersRead(2), continueReading.booksOpened(0), account.chaptersSeen(5)]).toEqual([
+      "chapters read",
+      "books opened",
+      "chapters read",
+    ]);
+  });
+});

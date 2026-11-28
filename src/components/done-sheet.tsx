@@ -33,7 +33,7 @@ export function DoneSheet(props: { open: boolean; onClose: () => void }) {
           <Flame kind={flameFor(days()).kind} mode="ignite" class="h-24 w-24" />
           <p class="mt-2 flex items-baseline gap-2">
             <strong class="font-display text-5xl leading-none font-semibold">{days()}</strong>
-            <span class="text-sm text-muted">{t().streak.daysLabel}</span>
+            <span class="text-sm text-muted">{t().streak.daysLabel(days())}</span>
           </p>
           <p class="mt-2 text-sm text-muted">{t().streak.doneBody(days())}</p>
         </div>

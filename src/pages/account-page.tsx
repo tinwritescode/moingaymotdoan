@@ -183,7 +183,7 @@ export function AccountPageView() {
                 <div class="mt-6 grid grid-cols-3 gap-2 font-sans">
                   <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">
                     <strong class="block text-2xl leading-none font-light text-ink">{stats().chaptersRead}</strong>
-                    <span class="mt-1 block text-[11px] text-muted">{t().account.chaptersSeen}</span>
+                    <span class="mt-1 block text-[11px] text-muted">{t().account.chaptersSeen(stats().chaptersRead)}</span>
                   </div>
                   <div class="rounded-2xl border border-rule bg-paper/50 p-3.5">
                     <strong class="block text-2xl leading-none font-light text-accent">

@@ -37,7 +37,7 @@ export function ShareStreak(props: { days: number }) {
         date: today.split("-").reverse().join("."),
         text: {
           site: t().seo.siteName.split(" — ")[0],
-          tagline: t().streak.cardTagline,
+          tagline: t().streak.cardTagline(props.days),
           verse: `“${verse.text}”`,
           verseRef: verse.ref,
         },
@@ -106,7 +106,7 @@ export function ShareStreak(props: { days: number }) {
                 src={p().url}
                 width={1080}
                 height={p().size === "post" ? 1350 : 1920}
-                alt={`${props.days} ${t().streak.cardTagline}`}
+                alt={`${props.days} ${t().streak.cardTagline(props.days)}`}
                 class="mx-auto block h-auto max-h-[65dvh] w-auto max-w-full rounded-2xl border border-rule"
               />
               <div class="mt-4 grid grid-cols-2 gap-2">

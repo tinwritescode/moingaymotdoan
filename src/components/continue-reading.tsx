@@ -171,7 +171,7 @@ export function ContinueReading(props: { toc: TocBook[] }) {
               class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
             >
               <strong class="block text-2xl leading-none font-light text-ink">{stats().chaptersRead}</strong>
-              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.chaptersRead}</span>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.chaptersRead(stats().chaptersRead)}</span>
             </a>
 
             <a
@@ -188,7 +188,7 @@ export function ContinueReading(props: { toc: TocBook[] }) {
               class="rounded-2xl border border-rule bg-card p-3.5 transition-colors hover:border-accent"
             >
               <strong class="block text-2xl leading-none font-light text-ink">{stats().booksOpened}</strong>
-              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.booksOpened}</span>
+              <span class="mt-1 block text-[11.5px] text-muted">{t().continueReading.booksOpened(stats().booksOpened)}</span>
             </a>
           </section>
 

@@ -192,7 +192,7 @@ export type Messages = {
   };
   streak: {
     regionLabel: string;
-    daysLabel: string;
+    daysLabel: (days: number) => string;
     record: (days: number) => string;
     /** Monday to Sunday. */
     weekdays: readonly [string, string, string, string, string, string, string];
@@ -230,7 +230,7 @@ export type Messages = {
     shareSend: string;
     shareSave: string;
     shareClose: string;
-    cardTagline: string;
+    cardTagline: (days: number) => string;
     sheetLabel: string;
     sheetClose: string;
     remindMe: (hour: number) => string;
@@ -249,9 +249,9 @@ export type Messages = {
     continueBtn: string;
     nextChapter: (label: string) => string;
     statsAriaLabel: string;
-    chaptersRead: string;
+    chaptersRead: (n: number) => string;
     dayStreak: string;
-    booksOpened: string;
+    booksOpened: (n: number) => string;
     localOnlyPrefix: string;
     signInToSync: string;
   };
@@ -398,7 +398,7 @@ export type Messages = {
     signUpBtn: string;
     securityFootnote: string;
     syncingBadge: string;
-    chaptersSeen: string;
+    chaptersSeen: (n: number) => string;
     chaptersCompleted: string;
     dayStreak: string;
     openHistoryBtn: string;
@@ -743,7 +743,7 @@ const VI: Messages = {
   },
   streak: {
     regionLabel: "Chuỗi ngày đọc",
-    daysLabel: "ngày liền",
+    daysLabel: () => "ngày liền",
     record: (days) => `Kỷ lục ${days} ngày`,
     weekdays: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
     marks: { read: "đã đọc", rest: "ngày Sa-bát", rekindled: "đã thắp lại", missed: "chưa đọc", today: "hôm nay", future: "sắp tới" },
@@ -783,7 +783,7 @@ const VI: Messages = {
     shareSend: "Chia sẻ ảnh",
     shareSave: "Tải ảnh",
     shareClose: "Đóng",
-    cardTagline: "ngày liền đọc Lời Chúa",
+    cardTagline: () => "ngày liền đọc Lời Chúa",
     sheetLabel: "Đọc xong hôm nay",
     sheetClose: "Đọc tiếp",
     remindMe: (hour) => `Nhắc tôi lúc ${hour}:00`,
@@ -808,9 +808,9 @@ const VI: Messages = {
     continueBtn: "Tiếp tục đọc",
     nextChapter: (label) => `Đoạn kế: ${label} →`,
     statsAriaLabel: "Thống kê đọc",
-    chaptersRead: "đoạn đã xem",
+    chaptersRead: () => "đoạn đã xem",
     dayStreak: "ngày liên tiếp",
-    booksOpened: "sách đã mở",
+    booksOpened: () => "sách đã mở",
     localOnlyPrefix: "Lịch sử đang lưu trên máy này",
     signInToSync: "Đăng nhập để đồng bộ mọi thiết bị",
   },
@@ -970,7 +970,7 @@ const VI: Messages = {
     securityFootnote:
       "Xác thực an toàn qua WorkOS AuthKit. Lịch sử bạn đã đọc trên trình duyệt này sẽ tự động gộp vào tài khoản sau khi đăng nhập.",
     syncingBadge: "✓ Đang đồng bộ đám mây",
-    chaptersSeen: "đoạn đã xem",
+    chaptersSeen: () => "đoạn đã xem",
     chaptersCompleted: "đã đọc xong",
     dayStreak: "ngày liên tiếp",
     openHistoryBtn: "Mở lịch sử đọc →",
@@ -1038,6 +1038,8 @@ const VI: Messages = {
     loading: "Đang tải…",
   },
 };
+
+const dayWord = (n: number) => (n === 1 ? "day" : "days");
 
 const EN: Messages = {
   locale: "en",
@@ -1337,8 +1339,8 @@ const EN: Messages = {
   },
   streak: {
     regionLabel: "Reading streak",
-    daysLabel: "days in a row",
-    record: (days) => `Best ${days} days`,
+    daysLabel: (days) => `${dayWord(days)} in a row`,
+    record: (days) => `Best ${days} ${dayWord(days)}`,
     weekdays: ["M", "T", "W", "T", "F", "S", "S"],
     marks: { read: "read", rest: "Sabbath rest", rekindled: "rekindled", missed: "missed", today: "today", future: "to come" },
     startTitle: "Light your candle today",
@@ -1362,12 +1364,12 @@ const EN: Messages = {
     restTitle: "Use a Sabbath rest",
     restBody: (days) => `Yesterday becomes a rest day and your streak stays at ${days}. One Sabbath a week.`,
     restartBtn: "Start over from day 1",
-    recordKept: (record) => `Your best of ${record} days is kept whatever you choose.`,
+    recordKept: (record) => `Your best of ${record} ${dayWord(record)} is kept whatever you choose.`,
     doneTitle: "Today's lamp is lit",
-    doneBody: (days) => `${days} days in a row in God's Word. See you tomorrow.`,
+    doneBody: (days) => `${days} ${dayWord(days)} in a row in God's Word. See you tomorrow.`,
     milestoneBadge: (flame) => `New milestone: ${flame}`,
     nextMilestone: (at, flame) => `${at} days: ${flame}`,
-    daysLeft: (left) => `${left} days to your next flame.`,
+    daysLeft: (left) => `${left} ${dayWord(left)} to your next flame.`,
     allFlames: "You have lit all six flames. The pillar of fire burns on as long as you read each day.",
     share: (days) => `Share your ${days}-day card`,
     sharePost: "Post",
@@ -1377,7 +1379,7 @@ const EN: Messages = {
     shareSend: "Share image",
     shareSave: "Download image",
     shareClose: "Close",
-    cardTagline: "days in a row in God's Word",
+    cardTagline: (days) => `${dayWord(days)} in a row in God's Word`,
     sheetLabel: "Today's reading done",
     sheetClose: "Keep reading",
     remindMe: (hour) => `Remind me at ${hour}:00`,
@@ -1402,9 +1404,9 @@ const EN: Messages = {
     continueBtn: "Continue reading",
     nextChapter: (label) => `Next: ${label} →`,
     statsAriaLabel: "Reading statistics",
-    chaptersRead: "chapters read",
+    chaptersRead: (n) => (n === 1 ? "chapter read" : "chapters read"),
     dayStreak: "day streak",
-    booksOpened: "books opened",
+    booksOpened: (n) => (n === 1 ? "book opened" : "books opened"),
     localOnlyPrefix: "History is saved on this device",
     signInToSync: "Sign in to sync across devices",
   },
@@ -1565,7 +1567,7 @@ const EN: Messages = {
     securityFootnote:
       "Secured by WorkOS AuthKit. Reading history stored in this browser merges automatically into your account on sign-in.",
     syncingBadge: "✓ Cloud sync active",
-    chaptersSeen: "chapters read",
+    chaptersSeen: (n) => (n === 1 ? "chapter read" : "chapters read"),
     chaptersCompleted: "completed",
     dayStreak: "day streak",
     openHistoryBtn: "Open reading history →",
