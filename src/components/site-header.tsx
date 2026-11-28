@@ -6,7 +6,7 @@ import { useLocale } from "./locale-context";
 import { useProfile } from "./profile-context";
 import { initialOf } from "../../lib/profile/profile";
 
-type HeaderSection = "cam-xuc" | "lich-su" | "tai-khoan" | "tuy-chinh";
+type HeaderSection = "cam-xuc" | "lich-su" | "tho-phuong" | "tai-khoan" | "tuy-chinh";
 
 /**
  * Minimal quiet top bar: moss dot + site name on the left;

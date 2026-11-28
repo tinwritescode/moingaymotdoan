@@ -17,6 +17,7 @@ export {
   privacyHref,
   settingsHref,
   termsHref,
+  worshipHref,
 } from "../lib/i18n";
 
 // intentPreload: hovering or focusing a link fetches that chapter's data before the click.

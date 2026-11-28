@@ -23,4 +23,5 @@ export {
   privacyHref,
   settingsHref,
   termsHref,
+  worshipHref,
 } from "./routes";

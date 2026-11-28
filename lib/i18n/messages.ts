@@ -47,6 +47,8 @@ export type Messages = {
     installDescription: string;
     settingsTitle: string;
     settingsDescription: string;
+    worshipTitle: string;
+    worshipDescription: string;
     notFoundTitle: string;
     notFoundDescription: string;
   };
@@ -71,6 +73,7 @@ export type Messages = {
     read: string;
     moods: string;
     history: string;
+    worship: string;
     me: string;
   };
   footer: {
@@ -480,6 +483,65 @@ export type Messages = {
     accountRowHint: string;
     moreLinkLabel: string;
   };
+  worship: {
+    kicker: string;
+    heading: string;
+    subtitle: string;
+    vietnameseNote: string;
+    tabsLabel: string;
+    tabs: {
+      "thanh-ca": { label: string; short: string };
+      tvchh: { label: string; short: string };
+      "doi-dap": { label: string; short: string };
+      "tin-dieu": { label: string; short: string };
+      "chuong-trinh": { label: string; short: string };
+    };
+    allCategories: (count: number) => string;
+    searchHymnPlaceholder: string;
+    searchKtddPlaceholder: string;
+    searchLabel: string;
+    clearSearchAria: string;
+    showingCount: (shown: number, total: number) => string;
+    emptyList: string;
+    backToList: string;
+    songListHeading: string;
+    present: string;
+    pptx: string;
+    addToProgram: string;
+    inProgram: string;
+    copy: string;
+    copied: string;
+    listen: string;
+    karaoke: string;
+    beat: string;
+    sheetMusic: string;
+    fontSizeLabel: string;
+    scripturePrefix: string;
+    alsoInThanhCa: (num: number) => string;
+    leaderLabel: string;
+    congregationLabel: string;
+    prevItem: string;
+    nextItem: string;
+    creedFullHeading: string;
+    creedClausesHeading: (count: number) => string;
+    creedLiturgyHeading: string;
+    programHeading: string;
+    programIntro: string;
+    programEmpty: string;
+    programPresentAll: string;
+    programDownloadPptx: string;
+    programClear: string;
+    programMoveUp: string;
+    programMoveDown: string;
+    programRemove: string;
+    programOpen: string;
+    slideOf: (current: number, total: number) => string;
+    slidePrev: string;
+    slideNext: string;
+    slideClose: string;
+    slideHint: string;
+    sourceNote: string;
+  };
   skeleton: {
     loading: string;
   };
@@ -527,6 +589,9 @@ const VI: Messages = {
     settingsTitle: "Tùy chỉnh đọc & ngôn ngữ | Mỗi Ngày Một Đoạn",
     settingsDescription:
       "Chọn chế độ sáng / tối, cỡ chữ, phông chữ đọc Kinh Thánh, ngôn ngữ và giờ nhắc đọc mỗi ngày.",
+    worshipTitle: "Thờ phượng — Thánh ca, TVCHH, KT Đối đáp & Tín điều CSĐ | Mỗi Ngày Một Đoạn",
+    worshipDescription:
+      "Tra cứu và trình chiếu trọn bộ 903 bài Thánh Ca, 387 bài Biệt Thánh Ca (TVCHH), 100 bài Kinh Thánh Đối Đáp và Bài Tín Điều Các Sứ Đồ.",
     notFoundTitle: "Không tìm thấy trang này | Mỗi Ngày Một Đoạn",
     notFoundDescription: "Đoạn Kinh Thánh hoặc đường dẫn bạn mở hiện không tồn tại.",
   },
@@ -551,6 +616,7 @@ const VI: Messages = {
     read: "Đọc",
     moods: "Cảm xúc",
     history: "Lịch sử",
+    worship: "Thờ phượng",
     me: "Tôi",
   },
   footer: {
@@ -1123,6 +1189,65 @@ const VI: Messages = {
     accountRowHint: "Đồng bộ lịch sử đọc và chuỗi ngày giữa các máy",
     moreLinkLabel: "Ngôn ngữ & tùy chỉnh khác →",
   },
+  worship: {
+    kicker: "Thờ phượng & Giáo nghi",
+    heading: "Thánh ca & Đối đáp",
+    subtitle: "Trọn bộ 903 Thánh ca, 387 Biệt thánh ca (TVCHH), 100 bài Kinh Thánh đối đáp và Tín điều Các Sứ Đồ.",
+    vietnameseNote: "",
+    tabsLabel: "Mục thờ phượng",
+    tabs: {
+      "thanh-ca": { label: "Thánh ca", short: "Thánh ca" },
+      tvchh: { label: "Biệt thánh ca (TVCHH)", short: "TVCHH" },
+      "doi-dap": { label: "KT đối đáp", short: "KT đối đáp" },
+      "tin-dieu": { label: "Tín điều CSĐ", short: "Tín điều" },
+      "chuong-trinh": { label: "Chương trình", short: "Chương trình" },
+    },
+    allCategories: (count) => `Tất cả (${count})`,
+    searchHymnPlaceholder: "Tìm số bài, tên bài hoặc câu đầu…",
+    searchKtddPlaceholder: "Tìm số bài, tên bài hoặc chỗ dẫn…",
+    searchLabel: "Tìm kiếm trong mục thờ phượng",
+    clearSearchAria: "Xóa từ khóa tìm kiếm",
+    showingCount: (shown, total) => `Đang hiện ${shown} / ${total} bài`,
+    emptyList: "Không tìm thấy bài phù hợp. Thử đổi số bài hoặc từ khóa khác.",
+    backToList: "← Danh sách",
+    songListHeading: "Danh sách",
+    present: "Chiếu",
+    pptx: "PPTX",
+    addToProgram: "+ Chương trình",
+    inProgram: "✓ Chương trình",
+    copy: "Sao chép",
+    copied: "Đã chép ✓",
+    listen: "Nghe",
+    karaoke: "Karaoke",
+    beat: "Beat",
+    sheetMusic: "Bản nhạc",
+    fontSizeLabel: "Cỡ chữ lời bài hát",
+    scripturePrefix: "Kinh Thánh:",
+    alsoInThanhCa: (num) => `Xem Thánh ca #${num}`,
+    leaderLabel: "Hướng dẫn",
+    congregationLabel: "Hội chúng",
+    prevItem: "← Bài trước",
+    nextItem: "Bài kế →",
+    creedFullHeading: "Nguyên văn đọc chung",
+    creedClausesHeading: (count) => `${count} tín khoản & chỗ dẫn Kinh Thánh`,
+    creedLiturgyHeading: "Cầu nguyện chung & Chúc phước",
+    programHeading: "Chương trình thờ phượng",
+    programIntro: "Sắp xếp thứ tự các bài hát, Kinh Thánh đối đáp và Tín điều để trình chiếu liền mạch hoặc tải một bộ PPTX.",
+    programEmpty: "Chưa có tiết mục nào. Nhấn “+ Chương trình” ở bất kỳ bài Thánh ca, TVCHH, KT đối đáp hay Tín điều nào để thêm vào đây.",
+    programPresentAll: "Chiếu cả chương trình",
+    programDownloadPptx: "Tải PPTX chương trình",
+    programClear: "Xóa tất cả",
+    programMoveUp: "Lên",
+    programMoveDown: "Xuống",
+    programRemove: "Bỏ",
+    programOpen: "Mở",
+    slideOf: (current, total) => `${current} / ${total}`,
+    slidePrev: "Trang trước",
+    slideNext: "Trang sau",
+    slideClose: "Đóng trình chiếu",
+    slideHint: "Phím ← → chuyển trang · Esc thoát",
+    sourceNote: "Dữ liệu Thánh ca & Kinh Thánh đối đáp từ thanhca.httlvn.org, TVCHH & Tín điều từ cộng đồng Hội Thánh Tin Lành Việt Nam.",
+  },
   skeleton: {
     loading: "Đang tải…",
   },
@@ -1172,6 +1297,9 @@ const EN: Messages = {
     settingsTitle: "Reading Settings & Language | One Chapter a Day",
     settingsDescription:
       "Customize light or dark mode, text size, reading font, language, and daily reading reminders.",
+    worshipTitle: "Worship — Vietnamese Hymns, TVCHH, Responsive Readings & Apostles' Creed | One Chapter a Day",
+    worshipDescription:
+      "Browse and present 903 Vietnamese hymns (Thánh Ca), 387 TVCHH praise songs, 100 Responsive Readings, and the Apostles' Creed.",
     notFoundTitle: "Page Not Found | One Chapter a Day",
     notFoundDescription: "The chapter or link you opened does not exist.",
   },
@@ -1196,6 +1324,7 @@ const EN: Messages = {
     read: "Read",
     moods: "Moods",
     history: "History",
+    worship: "Worship",
     me: "Me",
   },
   footer: {
@@ -1769,6 +1898,65 @@ const EN: Messages = {
     accountRowTitle: "Account & sync",
     accountRowHint: "Sync your reading history and streak across devices",
     moreLinkLabel: "Language & more settings →",
+  },
+  worship: {
+    kicker: "Worship & Liturgy",
+    heading: "Hymns & Readings",
+    subtitle: "903 Vietnamese hymns (Thánh Ca), 387 TVCHH praise songs, 100 Responsive Readings, and the Apostles' Creed.",
+    vietnameseNote: "Hymn lyrics, responsive readings, and creed text are presented in Vietnamese (HTTLVN tradition).",
+    tabsLabel: "Worship sections",
+    tabs: {
+      "thanh-ca": { label: "Thánh ca", short: "Thánh ca" },
+      tvchh: { label: "Biệt thánh ca (TVCHH)", short: "TVCHH" },
+      "doi-dap": { label: "Responsive Readings", short: "KTĐĐ" },
+      "tin-dieu": { label: "Apostles' Creed", short: "Creed" },
+      "chuong-trinh": { label: "Program", short: "Program" },
+    },
+    allCategories: (count) => `All (${count})`,
+    searchHymnPlaceholder: "Search by number, title, or opening line…",
+    searchKtddPlaceholder: "Search by number, title, or citation…",
+    searchLabel: "Search worship library",
+    clearSearchAria: "Clear search",
+    showingCount: (shown, total) => `Showing ${shown} of ${total}`,
+    emptyList: "No matching items found. Try a different number or keyword.",
+    backToList: "← All items",
+    songListHeading: "Library",
+    present: "Present",
+    pptx: "PPTX",
+    addToProgram: "+ Program",
+    inProgram: "✓ In program",
+    copy: "Copy",
+    copied: "Copied ✓",
+    listen: "Listen",
+    karaoke: "Karaoke",
+    beat: "Beat",
+    sheetMusic: "Sheet",
+    fontSizeLabel: "Lyrics text size",
+    scripturePrefix: "Scripture:",
+    alsoInThanhCa: (num) => `Open Thánh ca #${num}`,
+    leaderLabel: "Leader",
+    congregationLabel: "Congregation",
+    prevItem: "← Previous",
+    nextItem: "Next →",
+    creedFullHeading: "Congregational recitation",
+    creedClausesHeading: (count) => `${count} clauses & Scripture citations`,
+    creedLiturgyHeading: "Lord's Prayer & Benediction",
+    programHeading: "Worship Program",
+    programIntro: "Arrange hymns, responsive readings, and the Creed in order to present seamlessly or export one PPTX deck.",
+    programEmpty: "No items queued yet. Tap “+ Program” on any hymn, TVCHH song, responsive reading, or the Creed to add it here.",
+    programPresentAll: "Present program",
+    programDownloadPptx: "Download program PPTX",
+    programClear: "Clear all",
+    programMoveUp: "Up",
+    programMoveDown: "Down",
+    programRemove: "Remove",
+    programOpen: "Open",
+    slideOf: (current, total) => `${current} / ${total}`,
+    slidePrev: "Previous slide",
+    slideNext: "Next slide",
+    slideClose: "Close presentation",
+    slideHint: "← → keys to navigate · Esc to exit",
+    sourceNote: "Hymns & responsive readings from thanhca.httlvn.org; TVCHH & Creed curated from Vietnamese Evangelical Church resources.",
   },
   skeleton: {
     loading: "Loading…",

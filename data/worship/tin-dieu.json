@@ -1,0 +1,295 @@
+{
+  "creed": {
+    "title": "Bài Tín Điều Các Sứ Đồ",
+    "citation": "Hiến chương (2001) Chương IX, Điều 76 (tr. 30); Nội quy Điều 76 (tr. 95)",
+    "liturgicalNote": "Hội chúng đồng đứng lên và đọc chung cách trang nghiêm tại tiết mục số 3 trong chương trình thờ phượng Chúa Nhật hàng tuần (Giáo nghi 2019, tr. 26).",
+    "verbatimText": "“Tôi tin Đức Chúa Trời toàn năng là Cha, là Đấng dựng nên trời đất.\nTôi tin Jesus Christ, là Con độc sanh của Đức Chúa Trời, và Chúa chúng ta. Ngài được thai dựng bởi Thánh Linh, sanh bởi nữ đồng trinh Ma-ri, chịu thương khó dưới tay Bôn-xơ Phi-lát, bị đóng đinh trên thập tự giá, chịu chết và chôn, Ngài xuống âm phủ, đến ngày thứ ba, Ngài từ kẻ chết sống lại, Ngài thăng thiên, ngồi bên hữu Đức Chúa Trời Toàn năng, là Cha.\nTừ đó, Ngài sẽ trở lại để xét đoán kẻ sống và kẻ chết.\nTôi tin Thánh Linh, tôi tin Hội thánh phổ thông, sự cảm thông của thánh đồ, sự tha tội, sự sống lại của thân thể, và sự sống đời đời. A-men”.",
+    "clauses": [
+      {
+        "id": "creed-01",
+        "order": 1,
+        "trinitySection": "Đức Chúa Cha",
+        "clause": "Tôi tin Đức Chúa Trời Toàn Năng là Cha, là Đấng dựng nên trời đất.",
+        "doctrineTitle": "Đức Chúa Trời Ba Ngôi & Đấng Sáng Tạo",
+        "explanation": "Xưng nhận Đức Chúa Trời hằng sống, vô hạn, Toàn năng, là Cha yêu thương của muôn loài và là Đấng Tạo Hóa dựng nên vũ trụ vạn vật từ không có gì.",
+        "scriptureRefs": [
+          "Sáng-thế Ký 1:1",
+          "I Cô-rinh-tô 8:6",
+          "Thi-thiên 90:2"
+        ],
+        "hienChuongRef": "Hiến chương Điều 56 & Điều 60"
+      },
+      {
+        "id": "creed-02",
+        "order": 2,
+        "trinitySection": "Đức Chúa Jêsus Christ",
+        "clause": "Tôi tin Jêsus Christ là Con độc sanh của Đức Chúa Trời và Chúa chúng ta.",
+        "doctrineTitle": "Thần tánh & Chủ quyền của Đức Chúa Jêsus Christ",
+        "explanation": "Đức Chúa Jêsus là Đấng Mê-si-a (Christ), Con Độc Sanh đồng bản tánh với Đức Chúa Cha, và là Cứu Chúa duy nhất cai trị đời sống người tin.",
+        "scriptureRefs": [
+          "Giăng 1:1",
+          "Giăng 3:16",
+          "Phi-líp 2:9-11"
+        ],
+        "hienChuongRef": "Hiến chương Điều 57"
+      },
+      {
+        "id": "creed-03",
+        "order": 3,
+        "trinitySection": "Đức Chúa Jêsus Christ",
+        "clause": "Ngài được thai dựng bởi Thánh Linh, sanh bởi nữ đồng trinh Ma-ri,",
+        "doctrineTitle": "Sự Nhập Thể & Giáng Sinh Siêu Nhiên",
+        "explanation": "Ngôi Hai Đức Chúa Trời lấy xác thịt làm người trọn vẹn nhưng vô tội qua phép lạ thai dựng bởi Đức Thánh Linh nơi trinh nữ Ma-ri.",
+        "scriptureRefs": [
+          "Ê-sai 7:14",
+          "Ma-thi-ơ 1:20-23",
+          "Lu-ca 1:35"
+        ],
+        "hienChuongRef": "Hiến chương Điều 57 & Điều 61"
+      },
+      {
+        "id": "creed-04",
+        "order": 4,
+        "trinitySection": "Đức Chúa Jêsus Christ",
+        "clause": "chịu thương khó dưới tay Bôn-xơ Phi-lát, bị đóng đinh trên thập tự giá, chịu chết và chôn, Ngài xuống âm phủ;",
+        "doctrineTitle": "Sự Thương Khó & Cứu Chuộc Thế Tội",
+        "explanation": "Chúa Jêsus thực sự chịu khổ hình trong lịch sử dưới thời tổng đốc Bôn-xơ Phi-lát, đổ huyết chịu chết thay cho tội lỗi nhân loại trên thập tự giá và chịu chôn thật sự.",
+        "scriptureRefs": [
+          "Ê-sai 53:5",
+          "I Cô-rinh-tô 15:3-4",
+          "I Phi-e-rơ 2:24"
+        ],
+        "hienChuongRef": "Hiến chương Điều 57 & Điều 61"
+      },
+      {
+        "id": "creed-05",
+        "order": 5,
+        "trinitySection": "Đức Chúa Jêsus Christ",
+        "clause": "đến ngày thứ ba, Ngài từ kẻ chết sống lại,",
+        "doctrineTitle": "Sự Phục Sinh Vinh Hiển",
+        "explanation": "Đức Chúa Jêsus đã sống lại bằng thân thể vinh hiển vào ngày thứ ba, chiến thắng sự chết và mở đường cho sự xưng công bình của tín đồ.",
+        "scriptureRefs": [
+          "Ma-thi-ơ 28:5-6",
+          "Rô-ma 4:25",
+          "I Cô-rinh-tô 15:20"
+        ],
+        "hienChuongRef": "Hiến chương Điều 57"
+      },
+      {
+        "id": "creed-06",
+        "order": 6,
+        "trinitySection": "Đức Chúa Jêsus Christ",
+        "clause": "Ngài thăng thiên, ngồi bên hữu Đức Chúa Trời Toàn Năng, là Cha.",
+        "doctrineTitle": "Sự Thăng Thiên & Chức Vụ Cầu Thay",
+        "explanation": "Chúa Jêsus về trời trong sự vinh hiển, ngự bên hữu Đức Chúa Cha ở vị trí quyền năng tối thượng để làm Thầy Tế Lễ Thượng Phẩm cầu thay cho Hội Thánh.",
+        "scriptureRefs": [
+          "Công-vụ các Sứ-đồ 1:9-11",
+          "Hê-bơ-rơ 7:25",
+          "Rô-ma 8:34"
+        ],
+        "hienChuongRef": "Hiến chương Điều 57"
+      },
+      {
+        "id": "creed-07",
+        "order": 7,
+        "trinitySection": "Đức Chúa Jêsus Christ",
+        "clause": "Từ đó, Ngài sẽ trở lại để xét đoán kẻ sống và kẻ chết.",
+        "doctrineTitle": "Sự Tái Lâm & Phán Xét Công Bình",
+        "explanation": "Đức Chúa Jêsus Christ sẽ tái lâm cách vinh hiển, hữu hình để tiếp rước Hội Thánh và đoán xét công bình cả người sống lẫn người chết.",
+        "scriptureRefs": [
+          "I Tê-sa-lô-ni-ca 4:16-17",
+          "Công-vụ các Sứ-đồ 10:42",
+          "Khải-huyền 22:12"
+        ],
+        "hienChuongRef": "Hiến chương Điều 74 & Điều 75"
+      },
+      {
+        "id": "creed-08",
+        "order": 8,
+        "trinitySection": "Đức Thánh Linh & Hội Thánh",
+        "clause": "Tôi tin Thánh Linh,",
+        "doctrineTitle": "Đức Thánh Linh — Ngôi Ba Đức Chúa Trời",
+        "explanation": "Đức Thánh Linh là Ngôi Ba trong Ba Ngôi Đức Chúa Trời, Đấng cáo trách tội lỗi, tái sanh, ngự trị, thánh hóa và ban ân tứ cho người tin.",
+        "scriptureRefs": [
+          "Giăng 14:16-17",
+          "Giăng 16:8",
+          "Công-vụ các Sứ-đồ 1:8"
+        ],
+        "hienChuongRef": "Hiến chương Điều 58 & Điều 59"
+      },
+      {
+        "id": "creed-09",
+        "order": 9,
+        "trinitySection": "Đức Thánh Linh & Hội Thánh",
+        "clause": "tôi tin Hội Thánh phổ thông, sự cảm thông của thánh đồ,",
+        "doctrineTitle": "Hội Thánh Phổ Thông & Sự Thông Công Thánh Đồ",
+        "explanation": "Hội Thánh phổ thông (vô hình) gồm mọi tín đồ thật được cứu chuộc bởi huyết Đấng Christ trên khắp thế giới và mọi thời đại, hiệp một và thông công trong tình yêu Chúa.",
+        "scriptureRefs": [
+          "Ê-phê-sô 4:4-6",
+          "I Cô-rinh-tô 12:12-13",
+          "Công-vụ các Sứ-đồ 2:42"
+        ],
+        "hienChuongRef": "Hiến chương Điều 63 & Điều 66"
+      },
+      {
+        "id": "creed-10",
+        "order": 10,
+        "trinitySection": "Đức Thánh Linh & Hội Thánh",
+        "clause": "sự tha tội,",
+        "doctrineTitle": "Ơn Tha Tội Bởi Ân Điển & Huyết Đấng Christ",
+        "explanation": "Nhờ sự hy sinh chuộc tội của Chúa Jêsus, mọi người ăn năn và tin nhận Ngài đều được Đức Chúa Trời tha thứ hoàn toàn tội lỗi và xưng công bình.",
+        "scriptureRefs": [
+          "Ê-phê-sô 1:7",
+          "I Giăng 1:9",
+          "Rô-ma 5:1"
+        ],
+        "hienChuongRef": "Hiến chương Điều 61"
+      },
+      {
+        "id": "creed-11",
+        "order": 11,
+        "trinitySection": "Đức Thánh Linh & Hội Thánh",
+        "clause": "sự sống lại của thân thể",
+        "doctrineTitle": "Sự Sống Lại Của Thân Thể",
+        "explanation": "Trong ngày cuối cùng, thân thể của những người tin Chúa sẽ được sống lại trong sự vinh hiển, không hay hư nát giống như thân thể phục sinh của Đấng Christ.",
+        "scriptureRefs": [
+          "I Cô-rinh-tô 15:42-44",
+          "Phi-líp 3:20-21",
+          "Giăng 5:28-29"
+        ],
+        "hienChuongRef": "Hiến chương Điều 75"
+      },
+      {
+        "id": "creed-12",
+        "order": 12,
+        "trinitySection": "Đức Thánh Linh & Hội Thánh",
+        "clause": "và sự sống đời đời. A-men.",
+        "doctrineTitle": "Sự Sống Đời Đời Trong Nước Chúa",
+        "explanation": "Sự sống vĩnh cửu phước hạnh trong sự hiện diện vinh hiển của Đức Chúa Trời Ba Ngôi dành cho mọi con dân Chúa từ nay cho đến đời đời.",
+        "scriptureRefs": [
+          "Giăng 17:3",
+          "Khải-huyền 21:3-4",
+          "I Giăng 5:11-12"
+        ],
+        "hienChuongRef": "Hiến chương Điều 61 & Điều 75"
+      }
+    ]
+  },
+  "liturgy": {
+    "lordsPrayer": {
+      "title": "Cầu Nguyện Chung",
+      "performer": "Hội Thánh",
+      "citation": "Giáo nghi 2019, Phần I, Mục III.6 (tr. 23–24) — Ma-thi-ơ 6:9-13",
+      "note": "Cả Hội Thánh cầu nguyện cách rập ràng, chậm rãi ở tiết mục số 17 (sau Cầu nguyện đáp ứng bài giảng).",
+      "verbatimText": "“Lạy Cha chúng con ở trên trời.\nDanh Cha được tôn thánh, Nước Cha được đến, Ý Cha được nên ở đất như trời!\nXin cho chúng con hôm nay đồ ăn đủ ngày;\nXin tha tội lỗi cho chúng con, như chúng con tha kẻ phạm tội nghịch cùng chúng con;\nXin chớ để chúng con bị cám dỗ, mà cứu chúng con khỏi điều ác!\nVì nước, quyền, vinh hiển đều thuộc về Cha đời đời, vô cùng. Amen.”"
+    },
+    "benediction": {
+      "title": "Cầu Nguyện Chúc Phước",
+      "performer": "Mục Sư",
+      "citation": "Giáo nghi 2019, Phần I, Mục IV.3 (tr. 26) — II Cô-rinh-tô 13:13",
+      "note": "Do Mục sư (hoặc MSNC được đặc cách tại nhiệm sở) cử hành cuối giờ thờ phượng; hai tay đưa lên, bàn tay sấp xuống hướng thẳng về hội chúng.",
+      "verbatimText": "“Nguyền xin Đức Chúa Trời Ba Ngôi, ban sự yêu thương của Đức Chúa Cha, ân điển của Đức Chúa Con, và sự thông công của Đức Thánh Linh ở cùng Hội Thánh từ nay cho đến ngày Đức Chúa Jêsus Christ tái lâm.”"
+    },
+    "sundayWorshipOrder": {
+      "title": "Chương Trình Thờ Phượng Chúa Nhật Chuẩn (19 Tiết Mục)",
+      "citation": "Giáo nghi 2019, Phần I, Mục V (tr. 26–27) — Thời lượng 1 giờ 30 phút",
+      "steps": [
+        {
+          "step": 1,
+          "item": "Bài đàn (hoặc đọc một phân đoạn Kinh Thánh mở đầu)",
+          "performer": "Ban Âm nhạc / Hướng dẫn"
+        },
+        {
+          "step": 2,
+          "item": "Hát Thánh Ca 26 — “Chúc Cho Đấng Ngồi Trên Ngôi”",
+          "performer": "Hội Thánh"
+        },
+        {
+          "step": 3,
+          "item": "Tín Điều Các Sứ Đồ",
+          "performer": "Hội Thánh"
+        },
+        {
+          "step": 4,
+          "item": "Cầu nguyện khai lễ",
+          "performer": "Quản nhiệm / Giáo phẩm / Chấp sự"
+        },
+        {
+          "step": 5,
+          "item": "Lời chào mừng (ngắn gọn)",
+          "performer": "Người hướng dẫn"
+        },
+        {
+          "step": 6,
+          "item": "Ban hát thờ phượng (nếu có, giới hạn ≤ 10 phút)",
+          "performer": "Ban Hát dẫn"
+        },
+        {
+          "step": 7,
+          "item": "Đọc Kinh Thánh Đối Đáp (Bài 001–100)",
+          "performer": "Người hướng dẫn & Hội Thánh"
+        },
+        {
+          "step": 8,
+          "item": "Hát Thánh Ca tôn vinh Chúa",
+          "performer": "Ban Hát lễ"
+        },
+        {
+          "step": 9,
+          "item": "Thông báo sinh hoạt Hội Thánh (đã được Quản nhiệm duyệt)",
+          "performer": "Thư ký HT / Chấp sự"
+        },
+        {
+          "step": 10,
+          "item": "Cầu thay cho nhu cầu Hội Thánh & tín hữu",
+          "performer": "Một tín hữu (báo trước)"
+        },
+        {
+          "step": 11,
+          "item": "Hát Thánh Ca chuẩn bị dâng hiến",
+          "performer": "Hội Thánh"
+        },
+        {
+          "step": 12,
+          "item": "Dâng hiến",
+          "performer": "Hội Thánh"
+        },
+        {
+          "step": 13,
+          "item": "Cầu nguyện dâng hiến",
+          "performer": "Người được mời"
+        },
+        {
+          "step": 14,
+          "item": "Đọc Kinh Thánh nền tảng (theo bài giảng)",
+          "performer": "Một người tuyên đọc"
+        },
+        {
+          "step": 15,
+          "item": "Giảng luận Lời Chúa (30–40 phút)",
+          "performer": "Quản nhiệm / Diễn giả"
+        },
+        {
+          "step": 16,
+          "item": "Cầu nguyện đáp ứng bài giảng",
+          "performer": "Một tín hữu"
+        },
+        {
+          "step": 17,
+          "item": "Cầu nguyện chung",
+          "performer": "Hội Thánh"
+        },
+        {
+          "step": 18,
+          "item": "Hát Thánh Ca 23 — “Tôn Vinh Chân Thần”",
+          "performer": "Hội Thánh"
+        },
+        {
+          "step": 19,
+          "item": "Cầu nguyện chúc phước",
+          "performer": "Mục Sư"
+        }
+      ]
+    }
+  }
+}

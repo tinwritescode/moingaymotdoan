@@ -65,6 +65,10 @@ const data = [
   "/data/en/moods.json",
   ...moodIndexEn.moods.map((m) => `/data/en/moods/${m.slug}.json`),
   ...tocEn.books.flatMap((b) => b.chapters.map((c) => `/data/en/${b.book.slug}/${c.number}.json`)),
+  "/data/worship/thanh-ca.json",
+  "/data/worship/tvchh.json",
+  "/data/worship/ktdd.json",
+  "/data/worship/tin-dieu.json",
 ];
 
 // The home page renders only the open book's chapters, so no page links every chapter: list them.

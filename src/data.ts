@@ -2,6 +2,7 @@ import { query } from "@solidjs/router";
 import type { ChapterView, TocBook } from "../lib/content";
 import type { Locale } from "../lib/i18n";
 import type { MoodIndex, MoodView } from "../lib/moods";
+import type { KtddDataset, ThanhCaDataset, TinDieuDataset, TvchhDataset } from "../lib/worship/types";
 
 /** What every page needs: the list of books and chapters it may link to. */
 export type Toc = { books: TocBook[] };
@@ -14,6 +15,7 @@ export const dataUrl = {
   moodIndex: (locale: Locale = "vi") => (locale === "en" ? "/data/en/moods.json" : "/data/cam-xuc.json"),
   mood: (slug: string, locale: Locale = "vi") =>
     locale === "en" ? `/data/en/moods/${slug}.json` : `/data/cam-xuc/${slug}.json`,
+  worship: (name: "thanh-ca" | "tvchh" | "ktdd" | "tin-dieu") => `/data/worship/${name}.json`,
 };
 
 /**
@@ -63,3 +65,31 @@ export const getMood = query(async (slug: string, locale: Locale = "vi"): Promis
   }
   return fetchJson<MoodView>(dataUrl.mood(slug, locale));
 }, "mood");
+
+export const getThanhCa = query(async (): Promise<ThanhCaDataset> => {
+  if (import.meta.env.SSR) return (await import("./content.server")).loadThanhCa();
+  const d = await fetchJson<ThanhCaDataset>(dataUrl.worship("thanh-ca"));
+  if (!d) throw new Error("Không tải được dữ liệu Thánh ca");
+  return d;
+}, "worship-thanh-ca");
+
+export const getTvchh = query(async (): Promise<TvchhDataset> => {
+  if (import.meta.env.SSR) return (await import("./content.server")).loadTvchh();
+  const d = await fetchJson<TvchhDataset>(dataUrl.worship("tvchh"));
+  if (!d) throw new Error("Không tải được dữ liệu Biệt thánh ca (TVCHH)");
+  return d;
+}, "worship-tvchh");
+
+export const getKtdd = query(async (): Promise<KtddDataset> => {
+  if (import.meta.env.SSR) return (await import("./content.server")).loadKtdd();
+  const d = await fetchJson<KtddDataset>(dataUrl.worship("ktdd"));
+  if (!d) throw new Error("Không tải được dữ liệu Kinh Thánh đối đáp");
+  return d;
+}, "worship-ktdd");
+
+export const getTinDieu = query(async (): Promise<TinDieuDataset> => {
+  if (import.meta.env.SSR) return (await import("./content.server")).loadTinDieu();
+  const d = await fetchJson<TinDieuDataset>(dataUrl.worship("tin-dieu"));
+  if (!d) throw new Error("Không tải được dữ liệu Tín điều Các Sứ Đồ");
+  return d;
+}, "worship-tin-dieu");

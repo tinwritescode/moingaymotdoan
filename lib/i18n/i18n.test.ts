@@ -81,6 +81,7 @@ describe("i18n locale, books, and route mapping", () => {
       ["/lien-he", "/en/contact"],
       ["/cai-dat", "/en/install"],
       ["/tuy-chinh", "/en/settings"],
+      ["/tho-phuong", "/en/worship"],
     ];
 
     for (const [vi, en] of pairs) {

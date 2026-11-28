@@ -31,6 +31,8 @@ export const installHref = (locale: Locale = "vi"): string => (locale === "en" ?
 
 export const settingsHref = (locale: Locale = "vi"): string => (locale === "en" ? "/en/settings" : "/tuy-chinh");
 
+export const worshipHref = (locale: Locale = "vi"): string => (locale === "en" ? "/en/worship" : "/tho-phuong");
+
 export const ebookFileHref = (file: string, locale: Locale = "vi"): string =>
   locale === "en" ? `/en/ebook/${file}` : `/ebook/${file}`;
 
@@ -53,6 +55,7 @@ export function alternatePath(pathname: string, targetLocale: Locale): string {
   if (rest === "/lien-he" || rest === "/contact") return contactHref(targetLocale);
   if (rest === "/cai-dat" || rest === "/install") return installHref(targetLocale);
   if (rest === "/tuy-chinh" || rest === "/settings") return settingsHref(targetLocale);
+  if (rest === "/tho-phuong" || rest === "/worship") return worshipHref(targetLocale);
 
   const moodMatch = /^\/(?:cam-xuc|moods)\/([a-z0-9-]+)$/u.exec(rest);
   if (moodMatch) {

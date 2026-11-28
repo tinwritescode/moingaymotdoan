@@ -1,9 +1,9 @@
 import { Show } from "solid-js";
-import { accountHref, historyHref, homeHref, moodsHref } from "../router";
+import { accountHref, historyHref, homeHref, moodsHref, worshipHref } from "../router";
 import { useHistory } from "./history-context";
 import { useLocale } from "./locale-context";
 
-export type DockSection = "home" | "cam-xuc" | "lich-su" | "tai-khoan";
+export type DockSection = "home" | "cam-xuc" | "lich-su" | "tho-phuong" | "tai-khoan";
 
 /** Floating bottom thumb navigation dock. */
 export function FloatingDock(props: { active?: DockSection }) {
@@ -11,7 +11,7 @@ export function FloatingDock(props: { active?: DockSection }) {
   const { locale, t } = useLocale();
 
   const itemClass = (key: DockSection) => [
-    "relative flex min-w-[4.25rem] flex-col items-center gap-0.5 rounded-full px-3 py-1.5 font-sans text-[11px] font-medium transition-[color,background-color,transform] duration-150 ease-[var(--ease-quiet)] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100",
+    "relative flex min-w-[3.75rem] flex-col items-center gap-0.5 rounded-full px-2 py-1.5 font-sans text-[11px] font-medium whitespace-nowrap transition-[color,background-color,transform] duration-150 ease-[var(--ease-quiet)] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:active:scale-100 sm:min-w-[4.25rem] sm:px-3",
     props.active === key ? "bg-side text-accent" : "text-muted hover:text-ink",
   ];
 
@@ -79,6 +79,28 @@ export function FloatingDock(props: { active?: DockSection }) {
             <span class="ml-0.5 text-[10px] opacity-80">·{stats().chaptersRead}</span>
           </Show>
         </span>
+      </a>
+
+      <a
+        href={worshipHref(locale())}
+        aria-current={props.active === "tho-phuong" ? "page" : undefined}
+        class={itemClass("tho-phuong")}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="h-[19px] w-[19px]"
+        >
+          <path d="M9 18V5l12-2v13" />
+          <circle cx="6" cy="18" r="3" />
+          <circle cx="18" cy="16" r="3" />
+        </svg>
+        <span>{t().dock.worship}</span>
       </a>
 
       <a
