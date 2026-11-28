@@ -1,6 +1,7 @@
 import type { Pool } from "pg";
 import { MAX_LOGS, MAX_PROGRESS } from "../../lib/history/contract";
 import type { HistoryRepository } from "../../lib/history/ports";
+import { mergeMarks, type StreakMarks } from "../../lib/streak/marks";
 import {
   progressMapKey,
   type HistoryKind,
@@ -384,7 +385,37 @@ export function createPostgresHistoryRepository(pool: Pool): HistoryRepository {
         await client.query("BEGIN");
         await client.query(`DELETE FROM reading_logs WHERE user_id = $1`, [userId]);
         await client.query(`DELETE FROM reading_progress WHERE user_id = $1`, [userId]);
+        await client.query(`DELETE FROM streak_marks WHERE user_id = $1`, [userId]);
         await client.query("COMMIT");
+      } catch (err) {
+        await client.query("ROLLBACK").catch(() => {});
+        throw err;
+      } finally {
+        client.release();
+      }
+    },
+    async fetchStreakMarks(userId) {
+      const { rows } = await pool.query<MarksRow>(`${SELECT_MARKS} WHERE user_id = $1`, [userId]);
+      return rows[0] ? toMarks(rows[0]) : null;
+    },
+    async mergeStreakMarks(userId, incoming) {
+      const client = await pool.connect();
+      try {
+        await client.query("BEGIN");
+        // Create the row first so FOR UPDATE always has one to lock: two devices merging at once queue up.
+        await client.query(
+          `INSERT INTO streak_marks (user_id, remind_hour) VALUES ($1, $2) ON CONFLICT (user_id) DO NOTHING`,
+          [userId, incoming.remindHour],
+        );
+        const { rows } = await client.query<MarksRow>(`${SELECT_MARKS} WHERE user_id = $1 FOR UPDATE`, [userId]);
+        const merged = mergeMarks(toMarks(rows[0]), incoming);
+        await client.query(
+          `UPDATE streak_marks SET rest_days = $2::date[], restarted_on = $3, remind_hour = $4, updated_at = now()
+           WHERE user_id = $1`,
+          [userId, merged.restDays, merged.restartedOn, merged.remindHour],
+        );
+        await client.query("COMMIT");
+        return merged;
       } catch (err) {
         await client.query("ROLLBACK").catch(() => {});
         throw err;
@@ -394,3 +425,10 @@ export function createPostgresHistoryRepository(pool: Pool): HistoryRepository {
     },
   };
 }
+
+type MarksRow = { rest_days: string[]; restarted_on: string | null; remind_hour: number };
+
+const SELECT_MARKS = `SELECT ARRAY(SELECT to_char(d, 'YYYY-MM-DD') FROM unnest(rest_days) AS d ORDER BY d) AS rest_days,
+  to_char(restarted_on, 'YYYY-MM-DD') AS restarted_on, remind_hour FROM streak_marks`;
+
+const toMarks = (r: MarksRow): StreakMarks => ({ restDays: r.rest_days, restartedOn: r.restarted_on, remindHour: r.remind_hour });

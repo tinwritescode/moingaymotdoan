@@ -29,7 +29,7 @@ export function addDays(date: string, n: number): string {
 }
 
 /** Monday of the week holding `date`. */
-function mondayOf(date: string): string {
+export function mondayOf(date: string): string {
   const day = new Date(`${date}T00:00:00Z`).getUTCDay(); // 0 = Sunday
   return addDays(date, -((day + 6) % 7));
 }

@@ -7,6 +7,7 @@ import {
   NUMERIC_ID_RE,
 } from "../../lib/history/contract";
 import type { HistoryRepository, OriginPolicy, TokenVerifier } from "../../lib/history/ports";
+import { parseMarks } from "../../lib/streak/marks";
 import { createPushRoutes, type PushDeps } from "./push-routes";
 
 export type HistoryAppDeps = {
@@ -94,6 +95,16 @@ export function createHistoryApp(deps: HistoryAppDeps) {
       return c.json(await deps.repository.fetchUserHistory(userId));
     }
     return c.json(await deps.repository.syncVisits(userId, parsed.items));
+  });
+
+  app.get("/history/streak", async (c) => {
+    return c.json({ marks: await deps.repository.fetchStreakMarks(c.get("userId")) });
+  });
+
+  app.put("/history/streak", async (c) => {
+    const marks = parseMarks(await c.req.json().catch(() => null));
+    if (!marks) return c.json({ error: "Invalid streak marks" }, 400);
+    return c.json({ marks: await deps.repository.mergeStreakMarks(c.get("userId"), marks) });
   });
 
   app.delete("/history/log/:id", async (c) => {

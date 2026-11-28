@@ -2,8 +2,8 @@ import { Pool } from "pg";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { createPostgresPushStore } from "./push-adapters";
 
-// Runs against a real Postgres with db/schema.sql applied: PUSH_TEST_DATABASE_URL=postgres://… pnpm test
-const url = process.env.PUSH_TEST_DATABASE_URL;
+// Runs against a real Postgres with db/schema.sql applied: TEST_DATABASE_URL=postgres://… pnpm test
+const url = process.env.TEST_DATABASE_URL;
 
 describe.skipIf(!url)("Postgres push store", () => {
   const pool = new Pool({ connectionString: url });

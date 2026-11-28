@@ -13,14 +13,13 @@
 - Reminders work for guests, with no account.
 
 **Non-Goals:**
-- Syncing rest days and restarts across devices (see Risks).
 - Leaderboards, friends, or streaks for mood guides.
 - Server-side computation of the streak from `reading_logs`.
 
 ## Decisions
 
 ### Derive the streak; store only what cannot be derived
-The streak, the rescue state, rekindled days and the record are all computed from the logs' read dates. Only two facts are stored, because the logs cannot hold them: the rest days and the date of the last "start over". Both are stored in `localStorage` under `kt:streak:v1`.
+The streak, the rescue state, rekindled days and the record are all computed from the logs' read dates. Only two facts are stored, because the logs cannot hold them: the rest days and the date of the last "start over". Both are stored in `localStorage` under `kt:streak:v1`, with the reminder hour. For a signed-in reader they also live in a `streak_marks` row per user (`GET` and `PUT /history/streak`, behind the same auth as the history). Copies merge, never overwrite: every rest day is kept (the first of a week when two devices rested apart), the later restart wins, and the reminder hour comes from the side being merged in. Signing in pulls the server copy first, so its hour wins there; each later local change is pushed. The server merges under a row lock, so two devices pushing at once both keep their rest days.
 - *Alternative*: store a streak counter and update it on each read. It drifts from the history when logs are deleted or synced, and needs repair code.
 - Rekindling needs no "I'm rekindling" flag: reading 2 đoạn the day after a miss is the rule itself. Running it twice gives the same answer.
 
@@ -53,7 +52,8 @@ The 24 JSON files go in `public/lottie/`, and their generator in `scripts/flame-
 
 ## Risks / Trade-offs
 
-- [Rest days and restarts live on one device] → A signed-in reader who rests on their phone sees the miss on their laptop. It is acceptable for now. Upgrade path: a `streak_marks` table in the history API.
+- [Guests keep marks on one device] → Only signed-in readers sync; a guest's marks join the account when they sign in. Another device sees a change on its next page load, not live.
+- [Two devices rest on different days of one offline week] → The merge keeps the first; the other day turns back into a miss. Rare, and the rule stays one rest day a week.
 - [Opening a đoạn counts as reading it, after 0.5 s] → It is the history's existing rule. The done sheet celebrates the explicit "mark complete" instead.
 - [The server trusts the device's streak] → It is only used for notification text. Lying only changes the reader's own notification.
 - [iOS push needs the installed app, iOS 16.4+] → The card says so and links to `/cai-dat`.

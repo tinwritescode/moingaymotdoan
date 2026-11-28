@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { classifyAuthError } from "../../lib/auth/types";
 import { formatAuthError, formatSyncError } from "./auth-messages";
 import {
+  createHttpStreakMarksRemote,
   createBrowserLocalHistoryStore,
   createHttpHistoryAdapter,
 } from "./browser-history-adapters";
@@ -109,3 +110,30 @@ describe("browser history & auth adapters", () => {
     expect(formatSyncError("delete_log_failed", "en")).toBeTruthy();
   });
 });
+
+describe("createHttpStreakMarksRemote", () => {
+  const marks = { restDays: ["2026-11-28"], restartedOn: null, remindHour: 21 };
+  const remoteAnswering = (body: unknown, calls: RequestInit[] = []) =>
+    createHttpStreakMarksRemote({
+      baseUrl: "https://api.test/",
+      getAccessToken: async () => "token",
+      fetchImpl: async (_url, init) => {
+        calls.push(init ?? {});
+        return new Response(JSON.stringify(body), { status: 200 });
+      },
+    });
+
+  it("sends the marks with the token and returns the server's merge", async () => {
+    const calls: RequestInit[] = [];
+    expect(await remoteAnswering({ marks }, calls).merge(marks)).toEqual(marks);
+    expect(calls[0].method).toBe("PUT");
+    expect(new Headers(calls[0].headers).get("Authorization")).toBe("Bearer token");
+    expect(await remoteAnswering({ marks: null }).fetch()).toBeNull();
+  });
+
+  it("never trusts malformed marks from the server", async () => {
+    expect(await remoteAnswering({ marks: { restDays: "all" } }).fetch()).toBeNull();
+    await expect(remoteAnswering({ marks: { restDays: "all" } }).merge(marks)).rejects.toThrow();
+  });
+});
+

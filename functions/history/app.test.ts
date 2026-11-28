@@ -245,3 +245,37 @@ describe("createHistoryApp HTTP interface", () => {
     expect(batch.logs).toHaveLength(2);
   });
 });
+
+describe("streak marks", () => {
+  const put = (app: ReturnType<typeof createTestServer>["app"], token: string, body: unknown) =>
+    app.request("/history/streak", { method: "PUT", headers: authHeaders(token), body: JSON.stringify(body) });
+
+  it("needs a signed-in user", async () => {
+    const { app } = createTestServer();
+    expect((await app.request("/history/streak")).status).toBe(401);
+  });
+
+  it("merges each device's marks into one copy per user", async () => {
+    const { app } = createTestServer();
+    expect(await (await app.request("/history/streak", { headers: authHeaders("token-alice") })).json()).toEqual({ marks: null });
+
+    await put(app, "token-alice", { restDays: ["2026-11-17"], restartedOn: null, remindHour: 21 });
+    const res = await put(app, "token-alice", { restDays: ["2026-11-24"], restartedOn: "2026-11-01", remindHour: 20 });
+    const merged = { restDays: ["2026-11-17", "2026-11-24"], restartedOn: "2026-11-01", remindHour: 20 };
+    expect(await res.json()).toEqual({ marks: merged });
+    expect(await (await app.request("/history/streak", { headers: authHeaders("token-alice") })).json()).toEqual({ marks: merged });
+    expect(await (await app.request("/history/streak", { headers: authHeaders("token-bob") })).json()).toEqual({ marks: null });
+  });
+
+  it("refuses malformed marks", async () => {
+    const { app } = createTestServer();
+    expect((await put(app, "token-alice", { restDays: ["soon"], restartedOn: null, remindHour: 21 })).status).toBe(400);
+  });
+
+  it("clearing the history forgets the marks", async () => {
+    const { app } = createTestServer();
+    await put(app, "token-alice", { restDays: ["2026-11-17"], restartedOn: null, remindHour: 21 });
+    await app.request("/history", { method: "DELETE", headers: authHeaders("token-alice") });
+    expect(await (await app.request("/history/streak", { headers: authHeaders("token-alice") })).json()).toEqual({ marks: null });
+  });
+});

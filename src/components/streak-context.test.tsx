@@ -1,5 +1,6 @@
 import { flush } from "solid-js";
 import { afterEach, describe, expect, test, vi } from "vitest";
+import { createMemoryHistoryRepository, createMemoryStreakMarksRemote } from "../../lib/history/memory-adapters";
 import type { HistorySnapshot } from "../../lib/history/types";
 import { STREAK_STORAGE_KEY, useStreak } from "./streak-context";
 import { historyOf, renderStreakAt } from "./streak-fixtures";
@@ -43,5 +44,38 @@ describe("<StreakProvider />", () => {
     flush();
     await view.findByText("today 23");
     expect(JSON.parse(localStorage.getItem(STREAK_STORAGE_KEY) ?? "{}").restDays).toEqual(["2026-11-28"]);
+  });
+
+  test("a rest taken on one device keeps the streak on the reader's other devices", async () => {
+    const server = createMemoryHistoryRepository();
+    const signedIn = { userId: "user_alice", remoteFor: (id: string) => createMemoryStreakMarksRemote(server, id) };
+    const history = historyOf("2026-11-29", 23, 2);
+
+    const phone = renderStreakAt("2026-11-29T08:00:00", history, () => <Probe />, signedIn);
+    (await phone.findByRole("button", { name: "rest" })).click();
+    flush();
+    await phone.findByText("today 23");
+    await vi.waitFor(async () => expect((await server.fetchStreakMarks("user_alice"))?.restDays).toEqual(["2026-11-28"]));
+    phone.unmount();
+
+    localStorage.clear(); // another device: nothing kept locally
+    const laptop = renderStreakAt("2026-11-29T08:00:00", history, () => <Probe />, signedIn);
+    await laptop.findByText("today 23");
+  });
+
+  test("a guest's rest day joins the account on sign-in", async () => {
+    const server = createMemoryHistoryRepository();
+    await server.mergeStreakMarks("user_alice", { restDays: ["2026-11-10"], restartedOn: null, remindHour: 20 });
+    localStorage.setItem(STREAK_STORAGE_KEY, JSON.stringify({ restDays: ["2026-11-28"], restartedOn: null, remindHour: 21 }));
+    const signedIn = { userId: "user_alice", remoteFor: (id: string) => createMemoryStreakMarksRemote(server, id) };
+    renderStreakAt("2026-11-29T08:00:00", historyOf("2026-11-29", 23, 2), () => <Probe />, signedIn);
+    await vi.waitFor(async () =>
+      expect(await server.fetchStreakMarks("user_alice")).toEqual({
+        restDays: ["2026-11-10", "2026-11-28"],
+        restartedOn: null,
+        remindHour: 20,
+      }),
+    );
+    expect(JSON.parse(localStorage.getItem(STREAK_STORAGE_KEY) ?? "{}").remindHour).toBe(20);
   });
 });

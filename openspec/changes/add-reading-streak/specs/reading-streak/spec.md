@@ -97,3 +97,15 @@ Each streak length SHALL earn the flame of the highest milestone it has reached:
 #### Scenario: Past the last milestone
 - **WHEN** the streak is 400
 - **THEN** the flame is Trụ lửa and there is no next milestone
+
+### Requirement: Marks follow a signed-in reader
+For a signed-in reader, rest days, the last restart and the reminder hour SHALL be kept with their account and merged with each device's copy, so every device shows the same streak. A merge SHALL never drop a rest day, except a second one in the same week; the later restart SHALL win. A guest's marks SHALL join the account on sign-in.
+
+#### Scenario: Rest on the phone, open the laptop
+- **WHEN** a signed-in reader rests a missed day on their phone and then opens the site on their laptop
+- **THEN** the laptop shows the streak kept, not the rescue state
+
+#### Scenario: A guest signs in
+- **WHEN** a guest with a rest day on 2026-11-28 signs in to an account that has a rest day on 2026-11-10 and reminder hour 20
+- **THEN** the account and the device both hold both rest days, and the device's reminder hour becomes 20
+

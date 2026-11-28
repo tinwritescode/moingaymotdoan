@@ -51,3 +51,12 @@ CREATE TABLE IF NOT EXISTS push_subscriptions (
   created_at     timestamptz NOT NULL DEFAULT now(),
   updated_at     timestamptz NOT NULL DEFAULT now()
 );
+
+-- Ngày Sa-bát, ngày bắt đầu lại và giờ nhắc của chuỗi ngày đọc, đồng bộ giữa các thiết bị của một người.
+CREATE TABLE IF NOT EXISTS streak_marks (
+  user_id      text        PRIMARY KEY,
+  rest_days    date[]      NOT NULL DEFAULT '{}',
+  restarted_on date,
+  remind_hour  integer     NOT NULL DEFAULT 21 CHECK (remind_hour BETWEEN 6 AND 23),
+  updated_at   timestamptz NOT NULL DEFAULT now()
+);

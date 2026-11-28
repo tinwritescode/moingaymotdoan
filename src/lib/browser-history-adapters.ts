@@ -1,4 +1,5 @@
-import type { LocalHistoryStore, RemoteHistoryAdapter } from "../../lib/history/ports";
+import type { LocalHistoryStore, RemoteHistoryAdapter, StreakMarksRemote } from "../../lib/history/ports";
+import { parseMarks, type StreakMarks } from "../../lib/streak/marks";
 import {
   EMPTY_HISTORY,
   type CompleteMutationResult,
@@ -66,8 +67,8 @@ export type HttpHistoryAdapterOptions = {
   fetchImpl?: typeof fetch;
 };
 
-/** HTTP implementation of the RemoteHistoryAdapter seam with automatic 401 token-refresh retry. */
-export function createHttpHistoryAdapter(options: HttpHistoryAdapterOptions): RemoteHistoryAdapter {
+/** Authorized JSON requests to the history API, retrying once with a fresh token on 401. */
+function createAuthorizedRequest(options: HttpHistoryAdapterOptions) {
   const base = options.baseUrl.trim().replace(/\/+$/u, "");
   const fetchFn = options.fetchImpl ?? ((...args: Parameters<typeof fetch>) => fetch(...args));
 
@@ -93,6 +94,12 @@ export function createHttpHistoryAdapter(options: HttpHistoryAdapterOptions): Re
     return (await res.json()) as T;
   }
 
+  return request;
+}
+
+/** HTTP implementation of the RemoteHistoryAdapter seam with automatic 401 token-refresh retry. */
+export function createHttpHistoryAdapter(options: HttpHistoryAdapterOptions): RemoteHistoryAdapter {
+  const request = createAuthorizedRequest(options);
   return {
     fetchHistory: () => request<HistorySnapshot>("/history"),
     recordVisit: (payload) =>
@@ -117,6 +124,25 @@ export function createHttpHistoryAdapter(options: HttpHistoryAdapterOptions): Re
     },
     async clearAll() {
       await request("/history", { method: "DELETE" });
+    },
+  };
+}
+
+function marksFromResponse(body: { marks?: unknown }): StreakMarks | null {
+  return body.marks === null ? null : parseMarks(body.marks);
+}
+
+/** HTTP implementation of the StreakMarksRemote seam; answers are parsed, never trusted. */
+export function createHttpStreakMarksRemote(options: HttpHistoryAdapterOptions): StreakMarksRemote {
+  const request = createAuthorizedRequest(options);
+  return {
+    fetch: async () => marksFromResponse(await request<{ marks?: unknown }>("/history/streak")),
+    async merge(marks) {
+      const merged = marksFromResponse(
+        await request<{ marks?: unknown }>("/history/streak", { method: "PUT", body: JSON.stringify(marks) }),
+      );
+      if (!merged) throw new Error("Invalid streak marks from server");
+      return merged;
     },
   };
 }

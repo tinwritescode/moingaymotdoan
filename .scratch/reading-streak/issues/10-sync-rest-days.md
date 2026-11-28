@@ -4,8 +4,8 @@
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Rest days, restart date and reminder hour saved per user on the server
-- [ ] Guest marks merged on sign-in without losing a rest day
-- [ ] Two devices show the same streak after a rest on one
+- [x] Rest days, restart date and reminder hour saved per user on the server
+- [x] Guest marks merged on sign-in without losing a rest day
+- [x] Two devices show the same streak after a rest on one

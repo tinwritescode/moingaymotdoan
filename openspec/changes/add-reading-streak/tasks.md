@@ -43,3 +43,10 @@
 
 - [x] 7.1 `pnpm typecheck`, `pnpm lint`, `pnpm test` and `pnpm build` all pass
 - [ ] 7.2 By hand in `pnpm dev`, see each card state (by setting the clock and history), the done sheet, the share PNG and a real push on localhost
+
+## 8. Marks across devices
+
+- [x] 8.1 `lib/streak/marks.ts`: `parseMarks` and `mergeMarks`; verify with `marks.test.ts`
+- [x] 8.2 `streak_marks` table, repository methods and `GET`/`PUT /history/streak`; verify with `app.test.ts` and `postgres-repository.test.ts` against a local Postgres (two concurrent merges)
+- [x] 8.3 `StreakProvider` pulls on sign-in and pushes each change; verify with `streak-context.test.tsx` (two devices, guest sign-in)
+

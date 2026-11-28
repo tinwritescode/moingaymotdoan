@@ -1,5 +1,5 @@
 import { MAX_LOGS, MAX_PROGRESS, normalizeCompletePayload } from "./contract";
-import type { HistoryRepository, LocalHistoryStore, RemoteHistoryAdapter } from "./ports";
+import type { HistoryRepository, LocalHistoryStore, RemoteHistoryAdapter, StreakMarksRemote } from "./ports";
 import {
   EMPTY_HISTORY,
   progressMapKey,
@@ -10,6 +10,7 @@ import {
   type VisitMutationResult,
   type VisitPayload,
 } from "./types";
+import { mergeMarks, EMPTY_MARKS, type StreakMarks } from "../streak/marks";
 
 function cloneSnapshot(snapshot: HistorySnapshot): HistorySnapshot {
   return {
@@ -41,6 +42,7 @@ export function createMemoryHistoryRepository(
 ): HistoryRepository {
   let nextLogId = 1;
   const store = new Map<string, { progress: Map<string, ReadingProgress>; logs: ReadingLog[] }>();
+  const marks = new Map<string, StreakMarks>();
 
   const ensureUser = (userId: string) => {
     let bucket = store.get(userId);
@@ -189,6 +191,15 @@ export function createMemoryHistoryRepository(
       const bucket = ensureUser(userId);
       bucket.progress.clear();
       bucket.logs = [];
+      marks.delete(userId);
+    },
+    async fetchStreakMarks(userId) {
+      return marks.get(userId) ?? null;
+    },
+    async mergeStreakMarks(userId, incoming) {
+      const merged = mergeMarks(marks.get(userId) ?? EMPTY_MARKS, incoming);
+      marks.set(userId, merged);
+      return merged;
     },
   };
 }
@@ -220,5 +231,13 @@ export function createMemoryRemoteHistoryAdapter(
       await repository.deleteLog(requireUserId(), id);
     },
     clearAll: () => repository.clearUserHistory(requireUserId()),
+  };
+}
+
+/** Bridges an in-memory HistoryRepository into the client's StreakMarksRemote for tests. */
+export function createMemoryStreakMarksRemote(repository: HistoryRepository, userId: string): StreakMarksRemote {
+  return {
+    fetch: () => repository.fetchStreakMarks(userId),
+    merge: (marks) => repository.mergeStreakMarks(userId, marks),
   };
 }

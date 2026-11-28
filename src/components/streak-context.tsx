@@ -1,5 +1,16 @@
-import { createContext, createMemo, createSignal, onSettled, useContext, type Accessor, type ParentProps } from "solid-js";
+import {
+  createContext,
+  createEffect,
+  createMemo,
+  createSignal,
+  onSettled,
+  useContext,
+  type Accessor,
+  type ParentProps,
+} from "solid-js";
+import type { StreakMarksRemote } from "../../lib/history/ports";
 import { localDateKey } from "../../lib/history/types";
+import { DEFAULT_REMIND_HOUR, EMPTY_MARKS, isDateKey, isRemindHour, mergeMarks, type StreakMarks } from "../../lib/streak/marks";
 import {
   computeStreak,
   readDaysFromLogs,
@@ -8,27 +19,20 @@ import {
   type StreakInput,
   type StreakState,
 } from "../../lib/streak/streak";
+import { createHttpStreakMarksRemote, getHistoryApiUrl } from "../lib/browser-history-adapters";
+import { useAuth } from "./auth-context";
 import { useHistory } from "./history-context";
 import { readStorage, writeStorage } from "./preferences-context";
 
 export const STREAK_STORAGE_KEY = "kt:streak:v1";
-export const DEFAULT_REMIND_HOUR = 21;
-
-/** What the reading logs cannot tell: kept on this device only (see the OpenSpec design, Risks). */
-type StreakMarks = { restDays: string[]; restartedOn: string | null; remindHour: number };
-
-const EMPTY_MARKS: StreakMarks = { restDays: [], restartedOn: null, remindHour: DEFAULT_REMIND_HOUR };
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/u;
-const isDate = (v: unknown): v is string => typeof v === "string" && DATE_RE.test(v);
-const isHour = (v: unknown): v is number => Number.isInteger(v) && Number(v) >= 6 && Number(v) <= 23;
-
+/** The device copy, field by field: one bad field does not cost the others. */
 export function parseStreakMarks(raw: string | null): StreakMarks {
   try {
     const v: unknown = raw ? JSON.parse(raw) : null;
     if (typeof v !== "object" || v === null) return EMPTY_MARKS;
-    const restDays = "restDays" in v && Array.isArray(v.restDays) ? v.restDays.filter(isDate) : [];
-    const restartedOn = "restartedOn" in v && isDate(v.restartedOn) ? v.restartedOn : null;
-    const remindHour = "remindHour" in v && isHour(v.remindHour) ? v.remindHour : DEFAULT_REMIND_HOUR;
+    const restDays = "restDays" in v && Array.isArray(v.restDays) ? v.restDays.filter(isDateKey) : [];
+    const restartedOn = "restartedOn" in v && isDateKey(v.restartedOn) ? v.restartedOn : null;
+    const remindHour = "remindHour" in v && isRemindHour(v.remindHour) ? v.remindHour : DEFAULT_REMIND_HOUR;
     return {
       restDays,
       restartedOn,
@@ -67,9 +71,16 @@ const StreakContext = createContext<StreakContextValue>({
   setRemindHour: () => {},
 });
 
-/** The streak, derived from the reading history and the marks kept on this device; re-evaluated each minute. */
-export function StreakProvider(props: ParentProps) {
+const sameMarks = (a: StreakMarks, b: StreakMarks) => JSON.stringify(a) === JSON.stringify(b);
+
+/**
+ * The streak, derived from the reading history and the marks; re-evaluated each minute.
+ * Marks live on the device and, for a signed-in reader, merge with the server copy so every device agrees.
+ * `remoteFor` replaces the history API in tests.
+ */
+export function StreakProvider(props: ParentProps<{ remoteFor?: (userId: string) => StreakMarksRemote | null }>) {
   const history = useHistory();
+  const auth = useAuth();
   const [marks, setMarks] = createSignal<StreakMarks>(EMPTY_MARKS);
   const [loaded, setLoaded] = createSignal(false);
   const [now, setNow] = createSignal(new Date());
@@ -100,6 +111,37 @@ export function StreakProvider(props: ParentProps) {
     setMarks(next);
     writeStorage(STREAK_STORAGE_KEY, JSON.stringify(next));
   };
+
+  const httpRemote = (): StreakMarksRemote | null => {
+    const baseUrl = getHistoryApiUrl();
+    return baseUrl ? createHttpStreakMarksRemote({ baseUrl, getAccessToken: (force) => auth.getAccessToken(force) }) : null;
+  };
+  const localMarks = createMemo(() => marks(), { equals: sameMarks });
+  // Sign-in pulls the server copy first (its reminder hour wins); after that each local change is pushed.
+  let pulledFor: string | null = null;
+  createEffect(
+    () => {
+      const userId = loaded() ? (auth.user()?.id ?? null) : null;
+      return userId ? { userId, local: localMarks() } : null;
+    },
+    (target) => {
+      const remote = target && (props.remoteFor ?? httpRemote)(target.userId);
+      if (!target || !remote) return;
+      const pull = pulledFor !== target.userId;
+      pulledFor = target.userId;
+      let stale = false;
+      void (async () => {
+        const server = pull ? await remote.fetch() : null;
+        const merged = await remote.merge(server ? mergeMarks(target.local, server) : target.local);
+        if (!stale) save(merged);
+      })().catch(() => {
+        // shortcut: a failed sync waits for the next change or page load; no retry timer.
+      });
+      return () => {
+        stale = true;
+      };
+    },
+  );
 
   const value: StreakContextValue = {
     ready: () => loaded() && history.hydrated(),
