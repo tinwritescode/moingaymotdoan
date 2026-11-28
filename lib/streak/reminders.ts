@@ -69,3 +69,18 @@ export function reportFor(state: StreakState, today: string): Pick<PushRow, "las
     }
   }
 }
+
+/** Server persistence seam for push subscriptions (Postgres in prod, memory in tests). */
+export type PushStore = {
+  /** Insert or update a device; keeps its last_sent_date. */
+  upsert(row: Omit<PushRow, "lastSentDate">): Promise<void>;
+  remove(endpoint: string): Promise<void>;
+  list(): Promise<PushRow[]>;
+  /** Records `date` as sent unless it already is; false when another run got there first. */
+  claim(endpoint: string, date: string): Promise<boolean>;
+};
+
+export type PushSendResult = "sent" | "gone" | "failed";
+
+/** Delivers one notification; "gone" when the push service says the subscription no longer exists. */
+export type PushSender = (row: Pick<PushRow, "endpoint" | "p256dh" | "auth">, payload: ReminderPayload) => Promise<PushSendResult>;

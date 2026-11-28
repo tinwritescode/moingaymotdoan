@@ -7,11 +7,14 @@ import {
   NUMERIC_ID_RE,
 } from "../../lib/history/contract";
 import type { HistoryRepository, OriginPolicy, TokenVerifier } from "../../lib/history/ports";
+import { createPushRoutes, type PushDeps } from "./push-routes";
 
 export type HistoryAppDeps = {
   repository: HistoryRepository;
   verifyToken: TokenVerifier;
   isOriginAllowed: OriginPolicy;
+  /** Reading reminders; absent when the VAPID keys are not configured. */
+  push?: PushDeps;
 };
 
 /**
@@ -26,13 +29,15 @@ export function createHistoryApp(deps: HistoryAppDeps) {
     "*",
     cors({
       origin: (origin) => (deps.isOriginAllowed(origin) ? origin : ""),
-      allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+      allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowHeaders: ["Authorization", "Content-Type"],
       maxAge: 600,
     }),
   );
 
   app.get("/health", (c) => c.json({ ok: true }));
+
+  if (deps.push) app.route("/push", createPushRoutes(deps.push));
 
   const requireAuth: MiddlewareHandler<{ Variables: { userId: string } }> = async (c, next) => {
     const auth = c.req.header("authorization");

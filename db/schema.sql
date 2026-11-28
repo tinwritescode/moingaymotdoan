@@ -36,3 +36,18 @@ CREATE TABLE IF NOT EXISTS reading_logs (
 
 CREATE INDEX IF NOT EXISTS reading_logs_user_date_idx
   ON reading_logs (user_id, read_date DESC, read_at DESC);
+
+-- Lời nhắc đọc (Web Push). Thiết bị được nhận diện bằng endpoint, không cần đăng nhập.
+CREATE TABLE IF NOT EXISTS push_subscriptions (
+  endpoint       text        PRIMARY KEY,
+  p256dh         text        NOT NULL,
+  auth           text        NOT NULL,
+  tz             text        NOT NULL,
+  remind_hour    integer     NOT NULL CHECK (remind_hour BETWEEN 6 AND 23),
+  locale         text        NOT NULL CHECK (locale IN ('vi', 'en')),
+  last_read_date date,
+  streak         integer     NOT NULL DEFAULT 0 CHECK (streak >= 0),
+  last_sent_date date,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  updated_at     timestamptz NOT NULL DEFAULT now()
+);
